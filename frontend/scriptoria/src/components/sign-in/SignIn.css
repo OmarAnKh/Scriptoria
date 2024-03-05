@@ -1,0 +1,94 @@
+@font-face {
+    font-family: 'Fibre Vintage';
+    src: url('../../fonts/LilitaOne-Regular.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+
+body {
+    font-family: Fibre Vintage;
+}
+
+
+
+#logo {
+    width: 35%;
+}
+
+.logoName {
+    font-size: xx-large !important;
+}
+
+.login {
+    position: relative;
+    margin: 6% 0% 0% 25%;
+}
+
+.left-side {
+    background-color: #D1C9E8;
+    border-radius: 10%;
+    padding: 0% 5% 10% 5%;
+    margin-top: 5%;
+}
+
+.right-side {
+
+    background-color: #FAE2E2;
+    border-radius: 10%;
+    padding: 10%;
+    margin-top: 5%;
+}
+
+.sign-in-btn-color {
+    background-color: #D2A7B2;
+    width: 50%;
+
+}
+
+.sign-in-btn-color:hover {
+    background-color: #e97894;
+
+}
+
+.sign-in-btn-color:focus,
+.sign-in-btn-color:active {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+.inputBox {
+    position: relative;
+
+}
+
+.inputBox input {
+    padding: 15px 20px;
+    outline: none;
+    background: transparent;
+    border-radius: 20px;
+    color: #212121;
+    border: 1px solid#212121;
+    font-size: 1em;
+    width: 100%;
+}
+
+.inputBox b {
+    position: absolute;
+    left: 0;
+    transform: translateX(14px) translateY(-25.5px);
+    padding: 0 12px 1px 10px;
+    border-radius: 2px;
+    background: #D1C9E8;
+    letter-spacing: 1px;
+    border: none;
+    color: #212121;
+    font-size: x-large;
+
+}
+
+.input-info {
+    margin-bottom: 7%;
+
+}
