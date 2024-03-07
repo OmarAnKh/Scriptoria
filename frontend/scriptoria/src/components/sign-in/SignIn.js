@@ -8,13 +8,18 @@ const SignIn = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [emailValid, setEmailValid] = useState("rgb(33,33,33)");
-    const [showPassword, setShowPassword] = useState(false);
+    const [passwordValid, setPasswordValid] = useState("rgb(33,33,33)");
     let user = {}
     const signInHandler = async () => {
         if (!validator.isEmail(email)) {
             setEmailValid("red");
             return;
         }
+        if (password === "") {
+            setPasswordValid("red");
+            return;
+        }
+        setPasswordValid("rgb(33,33,33)");
         setEmailValid("rgb(33,33,33)");
         user = {
             email,
@@ -50,20 +55,9 @@ const SignIn = () => {
                         <div>
                             <span className="box1-header">Scriptoria</span>
                             <form>
-
                                 <JoinInput title="Your Email" method={setEmail} color={emailValid} type="text" />
-                                <JoinInput title="Your Password" method={setPassword} type={showPassword ? "text" : "password"} />
-                                <label for="check">Show Password</label>
-                                <input
-                                    id="check"
-                                    type="checkbox"
-                                    value={showPassword}
-                                    onChange={() =>
-                                        setShowPassword((prev) => !prev)
-                                    }
-                                />
+                                <JoinInput title="Your Password" method={setPassword} type="password" color={passwordValid} />
                             </form>
-
                             <button className="btn login-button2" onClick={() => signInHandler()}>Sign In</button>
                             <p>you don’t have an account ?<a href="#" style={{ textDecoration: "none", color: "white" }} >sign up</a>  </p>
                         </div>
