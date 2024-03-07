@@ -4,6 +4,7 @@ import JoinInput from "../join-input/JoinInput";
 import validator from "validator";
 import "./SignUp.css"
 import { Link } from "react-router-dom";
+import { createAccount } from "../../api/accountApi.js"
 
 const SignUp = () => {
     const [name, setName] = useState("");
@@ -14,7 +15,7 @@ const SignUp = () => {
     const [emailError, setEmailError] = useState("rgb(33,33,33)")
     const [user, setUser] = useState({})
 
-    const signUpHandler = () => {
+    const signUpHandler = async () => {
         let validatorCounter = 0;
         if (validator.isEmail(email)) {
             validatorCounter++;
@@ -36,6 +37,15 @@ const SignUp = () => {
                 name, email, password
             }
             setUser(user)
+            await createAccount({
+                displayName: "amjad",
+                userName: "amjad awad",
+                email: "amjadawad129@gmail.com",
+                dateOfBirth: "10/6/20040",
+                type: "both",
+                gender: "m",
+                password: "123456789"
+            })
         }
     }
     return (
