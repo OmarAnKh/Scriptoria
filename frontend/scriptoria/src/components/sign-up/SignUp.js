@@ -5,7 +5,7 @@ import "./SignUp.css"
 const SignUp = () => {
     return (
         <>
-            <div className="container d-flex justify-content-center align-items-center vh-100">
+            <div className="container d-flex justify-content-center align-items-center my-3">
                 <div className="row">
                     <div className="col-lg-6 box-1 d-flex justify-content-center align-items-center text-center">
                         <div>
