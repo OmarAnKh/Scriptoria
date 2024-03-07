@@ -8,8 +8,9 @@ const SignIn = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [emailValid, setEmailValid] = useState("rgb(33,33,33)");
-    var user = {}
-    const signInHandler = () => {
+    const [showPassword, setShowPassword] = useState(false);
+    let user = {}
+    const signInHandler = async () => {
         if (!validator.isEmail(email)) {
             setEmailValid("red");
             return;
@@ -19,7 +20,25 @@ const SignIn = () => {
             email,
             password
         }
-        console.log("Email is valid:", user);
+        try {
+            const response = await fetch('http://localhost:5000/signIn', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+
+                },
+                body: JSON.stringify(user)
+            });
+
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+
+        console.log("Email is valid:");
     }
 
     return (
@@ -32,7 +51,16 @@ const SignIn = () => {
                             <span className="box1-header">Scriptoria</span>
                             <form>
                                 <JoinInput title="Your Email" method={setEmail} color={emailValid} type="text" />
-                                <JoinInput title="Your Password" method={setPassword} type="password" />
+                                <JoinInput title="Your Password" method={setPassword} type={showPassword ? "text" : "password"} />
+                                <label for="check">Show Password</label>
+                                <input
+                                    id="check"
+                                    type="checkbox"
+                                    value={showPassword}
+                                    onChange={() =>
+                                        setShowPassword((prev) => !prev)
+                                    }
+                                />
                             </form>
 
                             <button className="btn login-button2" onClick={() => signInHandler()}>Sign In</button>
