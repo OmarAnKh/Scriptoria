@@ -3,6 +3,7 @@ import ConnectButton from "../connect-button/ConnectButton";
 import JoinInput from "../join-input/JoinInput";
 import validator from "validator";
 import "./SignUp.css"
+import { Link } from "react-router-dom";
 
 const SignUp = () => {
     const [name, setName] = useState("");
@@ -10,12 +11,17 @@ const SignUp = () => {
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [error, setError] = useState("");
+    const [emailError, setEmailError] = useState("rgb(33,33,33)")
     const [user, setUser] = useState({})
 
     const signUpHandler = () => {
         let validatorCounter = 0;
         if (validator.isEmail(email)) {
             validatorCounter++;
+            setEmailError("rgb(33,33,33)")
+        }
+        else {
+            setEmailError("red")
         }
         if (password === confirmPassword) {
             validatorCounter++;
@@ -25,6 +31,7 @@ const SignUp = () => {
         }
         if (error !== "") {
             setError("")
+            setEmailError("")
             const user = {
                 name, email, password
             }
@@ -33,17 +40,15 @@ const SignUp = () => {
     }
     return (
         <>
-<<<<<<< HEAD
-            <div className="container-fluid d-flex justify-content-center align-items-center my-3">
-=======
             <div className="container d-flex justify-content-center align-items-center my-3">
->>>>>>> f84be6373d6e0069ff32097e0f94f78446679729
                 <div className="row">
                     <div className="col-12 col-lg-6 box-1 d-flex justify-content-center align-items-center text-center">
                         <div>
                             <span className="box1-header">Welcome Back!</span>
                             <p className="box1-text">sign in to continue your creativity with spectoria</p>
-                            <button className="btn login-button">Login</button>
+                            <Link to={`/SignIn`} className="card-text" target="">
+                                <button className="btn login-button">Login</button>
+                            </Link>
                         </div>
                         <div className="side-box1"></div>
                     </div>
@@ -53,13 +58,16 @@ const SignUp = () => {
                         </div>
                         <div>
                             <form>
-                                <JoinInput title="name" method={setName} />
-                                <JoinInput title="email" method={setEmail} />
-                                <JoinInput title="password" method={setPassword} />
-                                <JoinInput title="confirm password" method={setConfirmPassword} />
+                                <JoinInput title="name" method={setName} type="text" />
+                                <JoinInput title="email" method={setEmail} color={emailError} type="email" />
+                                <JoinInput title="password" method={setPassword} type="password" />
+                                <JoinInput title="confirm password" method={setConfirmPassword} type="password" />
                             </form>
                         </div>
-                        <button className="btn signup-btn" onClick={signUpHandler}>Sign Up</button>
+                        <Link to={`/SignUpInfo`} className="card-text" target="">
+                            <button className="btn signup-btn" onClick={signUpHandler}>Sign Up</button>
+                        </Link>
+
                         <p className="error-text">{error}</p>
                         <div className="hr-div">
                             <hr className="signup-hr" />
