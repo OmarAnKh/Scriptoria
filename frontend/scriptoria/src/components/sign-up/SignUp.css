@@ -123,3 +123,28 @@
     margin-left: 30px;
     box-shadow: 1px 3px 3px rgba(0, 0, 0, 0.479);
 }
+
+
+@media only screen and (max-width: 600px) {
+
+    .box-1,
+    .box-2 {
+        width: 400px;
+        height: 700px;
+        border-radius: 10%;
+    }
+
+    .hr-div span {
+        position: absolute;
+        left: 15px;
+        transform: translateX(14px) translateY(-25.5px);
+        padding: 0 12px 1px 10px;
+        border-radius: 2px;
+        background: #D1C9E8;
+        letter-spacing: 1px;
+        border: none;
+        color: #212121;
+        font-size: 14px;
+    }
+
+}

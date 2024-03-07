@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import validator from "validator";
 import bcrypt from "bcryptjs"
 import jwt from "jsonwebtoken"
+
 const accountSchema = new mongoose.Schema({
     displayName: {
         type: String,
@@ -69,8 +70,6 @@ const accountSchema = new mongoose.Schema({
     timestamps: true
 });
 
-const Account = mongoose.model('Account', accountSchema);
-
 accountSchema.statics.findByCredentials = async (email, password) => {
     const user = await Account.findOne({ email })
 
@@ -86,6 +85,14 @@ accountSchema.statics.findByCredentials = async (email, password) => {
 
     return user
 }
+
+accountSchema.pre("save", async function (next) {
+    const user = this;
+    if (user.isModified("password")) {
+        user.password = await bcrypt.hash(user.password, 8);
+    }
+    next()
+})
 
 
 accountSchema.methods.generateAuthToken = async function () {
@@ -105,5 +112,7 @@ accountSchema.methods.toJSON = function () {
 
     return userObject
 }
+
+const Account = mongoose.model('Account', accountSchema);
 
 export default Account

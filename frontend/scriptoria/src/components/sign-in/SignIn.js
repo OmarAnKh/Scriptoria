@@ -48,7 +48,7 @@ const SignIn = () => {
 
     return (
         <>
-            <div className="container d-flex justify-content-center align-items-center signInBook">
+            <div className="container d-flex justify-content-center align-items-center my-3 signInBook">
                 <div className="row">
                     <div className="col-lg-6 box-3 d-flex flex-column align-items-center text-center">
                         <img src={logo} alt="Scriptoria logo" id="logo" className="img-fluid" />
@@ -61,7 +61,6 @@ const SignIn = () => {
                             <button className="btn login-button2" onClick={() => signInHandler()}>Sign In</button>
                             <p>you don’t have an account ?<a href="#" style={{ textDecoration: "none", color: "white" }} >sign up</a>  </p>
                         </div>
-
                     </div>
                     <div className="col-lg-6 box-4 d-flex  align-items-center text-center">
                         <div className="side-box2"></div>
@@ -75,15 +74,11 @@ const SignIn = () => {
                             <Link to={`/SingUp `} className="card-text" target="" >
                                 <button className="btn login-button1">Sign Up</button>
                             </Link>
-
                         </div>
-
                     </div>
-
                 </div>
             </div>
         </>
-
     );
 };
 
