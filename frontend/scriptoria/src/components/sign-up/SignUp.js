@@ -33,7 +33,11 @@ const SignUp = () => {
     }
     return (
         <>
+<<<<<<< HEAD
             <div className="container-fluid d-flex justify-content-center align-items-center my-3">
+=======
+            <div className="container d-flex justify-content-center align-items-center my-3">
+>>>>>>> f84be6373d6e0069ff32097e0f94f78446679729
                 <div className="row">
                     <div className="col-12 col-lg-6 box-1 d-flex justify-content-center align-items-center text-center">
                         <div>
