@@ -4,41 +4,53 @@ import validator from "validator";
 import "./SignIn.css";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { account } from "../../api/accountApi"
 const SignIn = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [emailValid, setEmailValid] = useState("rgb(33,33,33)");
-    const [showPassword, setShowPassword] = useState(false);
+    const [passwordValid, setPasswordValid] = useState("rgb(33,33,33)");
+    const [credentialsValidation, setCredentialsValidation] = useState("")
     let user = {}
     const signInHandler = async () => {
-        if (!validator.isEmail(email)) {
+        if (!validator.isEmail(email) && password === "") {
+            setPasswordValid("red");
             setEmailValid("red");
+            setCredentialsValidation("Something went wrong")
             return;
         }
+        if (!validator.isEmail(email)) {
+            setEmailValid("red");
+            setPasswordValid("rgb(33,33,33)");
+
+            setCredentialsValidation("Something went wrong")
+            return;
+        }
+        if (password === "") {
+            setPasswordValid("red");
+            setEmailValid("rgb(33,33,33)");
+            setCredentialsValidation("Something went wrong")
+            return;
+        }
+        setPasswordValid("rgb(33,33,33)");
         setEmailValid("rgb(33,33,33)");
+        setCredentialsValidation("")
         user = {
             email,
             password
         }
-        try {
-            const response = await fetch('http://localhost:5000/signIn', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-
-                },
-                body: JSON.stringify(user)
-            });
-
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-
-        } catch (error) {
-            console.error('Error fetching data:', error);
+        const res = await account("signIn", user)
+        if (res.status === 400) {
+            setPasswordValid("red");
+            setEmailValid("red");
+            setCredentialsValidation("Something went wrong")
+            return;
         }
-
-        console.log("Email is valid:");
+        console.log(res)
+        const token = res.token
+        const userInfo = res.user
+        document.cookie = "token=" + token + ";"
+        document.cookie = "userInfo=" + userInfo + ";"
     }
 
     return (
@@ -50,21 +62,15 @@ const SignIn = () => {
                         <div>
                             <span className="box1-header">Scriptoria</span>
                             <form>
-                                <JoinInput title="Your Email" method={setEmail} color={emailValid} type="text" />
-                                <JoinInput title="Your Password" method={setPassword} type={showPassword ? "text" : "password"} />
-                                <label for="check">Show Password</label>
-                                <input
-                                    id="check"
-                                    type="checkbox"
-                                    value={showPassword}
-                                    onChange={() =>
-                                        setShowPassword((prev) => !prev)
-                                    }
-                                />
+                                <JoinInput title="Your Email" method={setEmail} color={emailValid} type="email" />
+                                <JoinInput title="Your Password" method={setPassword} type="password" color={passwordValid} />
+                                <p>{credentialsValidation} </p>
                             </form>
-
                             <button className="btn login-button2" onClick={() => signInHandler()}>Sign In</button>
-                            <p>you don’t have an account ?<a href="#" style={{ textDecoration: "none", color: "white" }} >sign up</a>  </p>
+                            <Link to={`/SingUp `} className="card-text" target="" style={{ textDecoration: "none", color: "rgb(33,33,33)" }}>
+                                <p>you don’t have an account?<p style={{ textDecoration: "none", color: "white", display: "inline-block", marginBottom: "0%" }}> sign up </p></p>
+                            </Link>
+                            <p>forget your password? <a href="#" style={{ textDecoration: "none", color: "white" }} >Reset password</a>  </p>
                         </div>
                     </div>
                     <div className="col-lg-6 box-4 d-flex  align-items-center text-center">
