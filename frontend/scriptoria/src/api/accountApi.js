@@ -1,7 +1,6 @@
 
 
 const createAccount = async (account) => {
-    console.log(account)
     try {
         const response = await fetch("http://localhost:5000/SignUp", {
             method: "POST",
