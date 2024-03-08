@@ -14,7 +14,9 @@ const SignUpInfo = (props) => {
     const [region, setRegion] = useState("");
     const [dateOfBirth, setDateOfBirth] = useState("");
     const [gender, setGender] = useState("");
-    const [joyType, setJoyType] = useState("reader")
+    const [joyType, setJoyType] = useState("reader");
+    const [routePath, setRoutePath] = useState(`/SingUp`)
+
     let user = { ...props.user }
 
     const signUpInfoHandler = async () => {
@@ -25,8 +27,11 @@ const SignUpInfo = (props) => {
         user.type = joyType;
         const response = await account("SignUp", user);
         if (response.status === 400) {
-            return console.log("error");
+            setRoutePath(`/SingUp`);
+            props.setGoToInfo(false);
+            return console.log(response);
         }
+        setRoutePath(`/`)
         document.cookie = "token=" + response.token + ";";
         document.cookie = "userInfo=" + response.user + ";"
     }
@@ -63,7 +68,7 @@ const SignUpInfo = (props) => {
                                 <JoyButton icon={signature} method={setJoyType} type="writer" />
                             </div>
                             <div>
-                                <Link className="card-text" target="" >
+                                <Link to={routePath} className="card-text" target="" >
                                     <button className="btn login-button1" style={{ background: "#d2a7b2" }} onClick={signUpInfoHandler}>******</button>
                                 </Link>
                             </div>
