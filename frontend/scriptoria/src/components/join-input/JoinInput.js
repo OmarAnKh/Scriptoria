@@ -40,5 +40,5 @@ const JoinInput = (props) => {
         )
 
     }
-
+}
 export default JoinInput

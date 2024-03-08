@@ -7,11 +7,11 @@ import signature from "../../img/signature.png"
 import "./SignUpInfo.css"
 import JoyButton from "../joy-button/JoyButton";
 import { useState } from "react";
-import { createAccount } from "../../api/accountApi.js"
+import { account } from "../../api/accountApi.js"
 
 const SignUpInfo = (props) => {
     const [displayName, setDisplayName] = useState("");
-    const [country, setCountry] = useState("");
+    const [region, setRegion] = useState("");
     const [dateOfBirth, setDateOfBirth] = useState("");
     const [gender, setGender] = useState("");
     const [joyType, setJoyType] = useState("reader")
@@ -19,11 +19,16 @@ const SignUpInfo = (props) => {
 
     const signUpInfoHandler = async () => {
         user.displayName = displayName;
-        user.content = country;
+        user.region = region;
         user.dateOfBirth = dateOfBirth;
         user.gender = gender;
         user.type = joyType;
-        await createAccount(user);
+        const response = await account("SignUp", user);
+        if (response.status === 400) {
+            return console.log("error");
+        }
+        document.cookie = "token=" + response.token + ";";
+        document.cookie = "userInfo=" + response.user + ";"
     }
     return (
         <>
@@ -47,7 +52,7 @@ const SignUpInfo = (props) => {
                         <div className="align-items-center text-center">
                             <form>
                                 <JoinInput title="Display Name" type="TEXT" backColor="#fae2e2" backgroundColor="#fae2e2" method={setDisplayName} />
-                                <JoinInput title="Your country" type="TEXT" backColor="#fae2e2" backgroundColor="#fae2e2" method={setCountry} />
+                                <JoinInput title="Your country" type="TEXT" backColor="#fae2e2" backgroundColor="#fae2e2" method={setRegion} />
                                 <JoinInput title="Your Birthday" type="date" backColor="#fae2e2" backgroundColor="#fae2e2" method={setDateOfBirth} />
                                 <JoinInput title="gender" type="text" backColor="#fae2e2" backgroundColor="#fae2e2" method={setGender} />
                             </form>
@@ -58,7 +63,7 @@ const SignUpInfo = (props) => {
                                 <JoyButton icon={signature} method={setJoyType} type="writer" />
                             </div>
                             <div>
-                                <Link to={`/`} className="card-text" target="" >
+                                <Link className="card-text" target="" >
                                     <button className="btn login-button1" style={{ background: "#d2a7b2" }} onClick={signUpInfoHandler}>******</button>
                                 </Link>
                             </div>
