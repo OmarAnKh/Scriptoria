@@ -1,3 +1,4 @@
+
 const account = async (point, account) => {
     try {
         const response = await fetch("http://localhost:5000/" + point, {
