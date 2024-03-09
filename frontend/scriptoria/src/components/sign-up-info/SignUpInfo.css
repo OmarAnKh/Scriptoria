@@ -19,3 +19,17 @@
     text-shadow: 0px 2px #00000081;
 }
 
+.box-3 {
+    background-color: #d1c9e8;
+}
+
+.box-4 {
+    background-color: #fae2e2;
+}
+
+.box-3,
+.box-4 {
+    width: 600px;
+    height: 900px;
+    border-radius: 10%;
+}
