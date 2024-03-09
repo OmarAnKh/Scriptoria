@@ -21,7 +21,6 @@ const storySchema = new Schema({
     publishStatus: {
         type: Boolean,
         default: 0 // 0 = private, 1 = public
-
     },
     price: {
         type: Number,
@@ -42,7 +41,14 @@ const storySchema = new Schema({
     MPAFilmRatings: {
         type: String,
         required: true
-    },
+    }, slide: [{
+        content: {
+            type: String
+        },
+        slideNumber: {
+            type: Number
+        }
+    }],
 });
 
 const Story = mongoose.model('Story', storySchema);

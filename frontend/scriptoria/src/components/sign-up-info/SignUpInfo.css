@@ -1,38 +1,4 @@
-.scriptoria-text-info {
-    font-weight: bold;
-    font-size: 35px;
-    margin-bottom: 50px;
-}
 
-.welcome-word-info {
-    color: #6874ad;
-}
-
-.info-text {
-    font-weight: bold;
-    font-size: 35px;
-}
-
-.joy-text {
-    color: #6874ad;
-    font-size: 25px;
-    text-shadow: 0px 2px #00000081;
-}
-
-.box-3-info {
-    background-color: #d1c9e8;
-}
-
-.box-4-info {
-    background-color: #fae2e2;
-}
-
-.box-3-info,
-.box-4-info {
-    width: 600px;
-    height: 900px;
-    border-radius: 10%;
-}
 
 .side-box2-info {
     position: relative;

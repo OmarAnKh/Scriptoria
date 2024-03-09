@@ -87,7 +87,7 @@
 
 .inputBox span {
     position: absolute;
-    left: 20px;
+    left: 10px;
     transform: translateX(14px) translateY(-15.5px);
     border-radius: 2px;
     background: #D1C9E8;

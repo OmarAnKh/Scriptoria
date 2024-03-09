@@ -12,6 +12,7 @@ function App() {
         <Route path="/SingUp" element={<SingUp />} />
         <Route path='/' element={<HomePage />} />
       </Routes>
+
     </div>
   )
 }
