@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import JoinInput from "../join-input/JoinInput";
 import logo from "../../img/scriptoria-logo.png";
 import content from "../../img/content.png";
@@ -15,7 +15,7 @@ const SignUpInfo = (props) => {
     const [dateOfBirth, setDateOfBirth] = useState("");
     const [gender, setGender] = useState("");
     const [joyType, setJoyType] = useState("reader");
-    const [routePath, setRoutePath] = useState(`/SingUp`)
+    const navigate = useNavigate();
 
     let user = { ...props.user }
 
@@ -27,19 +27,20 @@ const SignUpInfo = (props) => {
         user.type = joyType;
         const response = await account("SignUp", user);
         if (response.status === 400) {
-            setRoutePath(`/SingUp`);
             props.setGoToInfo(false);
+            props.setError("Email or user name already taken");
+            navigate(`/SingUp`);
             return console.log(response);
         }
-        setRoutePath(`/`)
         document.cookie = "token=" + response.token + ";";
-        document.cookie = "userInfo=" + response.user + ";"
+        document.cookie = "userInfo=" + response.user + ";";
+        navigate(`/`);
     }
     return (
         <>
-            <div className="container d-flex justify-content-center align-items-center my-3 signInBook">
+            <div className="container d-flex justify-content-center align-items-center my-3 signInBook-info">
                 <div className="row">
-                    <div className="col-lg-6 box-3 d-flex flex-column align-items-center text-center">
+                    <div className="col-lg-6 box-3-info d-flex flex-column align-items-center text-center">
                         <img src={logo} alt="Scriptoria logo" id="logo" className="img-fluid" />
                         <span className="scriptoria-text-info">Scriptoria</span>
                         <div className="box1-text">
@@ -52,8 +53,8 @@ const SignUpInfo = (props) => {
                             </p>
                         </div>
                     </div>
-                    <div className="col-lg-6 box-4 d-flex align-items-center text-center">
-                        <div className="side-box2"></div>
+                    <div className="col-lg-6 box-4-info d-flex align-items-center text-center">
+                        <div className="side-box2-info"></div>
                         <div className="align-items-center text-center">
                             <form>
                                 <JoinInput title="Display Name" type="TEXT" backColor="#fae2e2" backgroundColor="#fae2e2" method={setDisplayName} />
@@ -68,16 +69,13 @@ const SignUpInfo = (props) => {
                                 <JoyButton icon={signature} method={setJoyType} type="writer" />
                             </div>
                             <div>
-                                <Link to={routePath} className="card-text" target="" >
-                                    <button className="btn login-button1" style={{ background: "#d2a7b2" }} onClick={signUpInfoHandler}>******</button>
-                                </Link>
+                                <button className="btn login-button1" style={{ background: "#d2a7b2" }} onClick={signUpInfoHandler}>******</button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </>
-
     );
 }
 

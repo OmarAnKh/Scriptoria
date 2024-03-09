@@ -3,7 +3,7 @@ import JoinInput from "../join-input/JoinInput";
 import validator from "validator";
 import "./SignIn.css";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { account } from "../../api/accountApi"
 const SignIn = () => {
     const [email, setEmail] = useState('');
@@ -11,6 +11,7 @@ const SignIn = () => {
     const [emailValid, setEmailValid] = useState("rgb(33,33,33)");
     const [passwordValid, setPasswordValid] = useState("rgb(33,33,33)");
     const [credentialsValidation, setCredentialsValidation] = useState("")
+    const navigate = useNavigate()
     let user = {}
     const signInHandler = async () => {
         if (!validator.isEmail(email) && password === "") {
@@ -46,11 +47,11 @@ const SignIn = () => {
             setCredentialsValidation("Something went wrong")
             return;
         }
-        console.log(res)
         const token = res.token
         const userInfo = res.user
         document.cookie = "token=" + token + ";"
         document.cookie = "userInfo=" + userInfo + ";"
+        navigate("/")
     }
 
     return (

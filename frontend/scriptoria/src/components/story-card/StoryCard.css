@@ -1,5 +1,4 @@
-
-.card-img{
+.card-img {
     margin-top: -35px;
     box-shadow: 0px 1px 7px 2px #383838;
     border-bottom: 1px solid #4e4f4f;
@@ -7,21 +6,26 @@
     transition: 0.3s ease;
     margin-left: 20px;
 }
+
 .card-img:hover {
     transform: scale(1.04);
     cursor: pointer;
 }
-.card-title{
+
+.card-title {
     font-family: 'Righteous';
 }
-.author{
+
+.author {
     font-family: 'Lilita One';
 }
+
 .voters {
-  margin-left: 7px;
-  margin-top: 4px;
-  font-family: 'Lilita One';
+    margin-left: 7px;
+    margin-top: 4px;
+    font-family: 'Lilita One';
 }
+
 .card-text {
     overflow: hidden;
     display: -webkit-box;
