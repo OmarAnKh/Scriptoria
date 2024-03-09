@@ -61,7 +61,7 @@ const SignIn = () => {
                     <div className="col-lg-6 box-3 d-flex flex-column align-items-center text-center">
                         <img src={logo} alt="Scriptoria logo" id="logo" className="img-fluid" />
                         <div>
-                            <span className="box1-header">Scriptoria</span>
+                            <span className="box1-header Scriptoria" >Scriptoria</span>
                             <form>
                                 <JoinInput title="Your Email" method={setEmail} color={emailValid} type="email" />
                                 <JoinInput title="Your Password" method={setPassword} type="password" color={passwordValid} />
