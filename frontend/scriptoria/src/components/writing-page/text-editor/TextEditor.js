@@ -1,0 +1,48 @@
+import React from 'react'
+import 'froala-editor/css/froala_style.min.css';
+import 'froala-editor/css/froala_editor.pkgd.min.css';
+import FroalaEditor from 'react-froala-wysiwyg';
+import 'froala-editor/js/plugins/image.min.js'
+import 'froala-editor/js/plugins/edit_in_popup.min.js'
+import 'froala-editor/js/plugins/markdown.min.js'
+import 'froala-editor/js/plugins/save.min.js'
+import 'froala-editor/js/plugins/fullscreen.min.js'
+import 'froala-editor/js/plugins/emoticons.min.js'
+import 'froala-editor/js/plugins/font_size.min.js'
+import TEInstructions from './TEInstructions';
+
+
+const TextEditor = ({model, setModel}) => {
+
+  return (
+    <div className=' mb-5'>      <br></br>
+    <br></br>
+    <TEInstructions/>
+    <div className='TextEditorSize container justify-content-center align-items-center'>
+
+      <FroalaEditor
+        model={model}
+        onModelChange={(e) => setModel(e)}
+        config={{
+          placeholderText: "write something....",
+          saveInterval: 2000,
+          attribution: false,
+          toolbarButtons: ['bold', 'italic', 'underline', 'strikeThrough', 'insertImage', 'fontSize', 'insertHR', 'emoticons', 'fullscreen', 'undo', 'redo'],
+          events: {
+            'save.before': function (html) {
+              localStorage.setItem('savedHtml', html);
+            },
+          },
+
+        }}
+
+
+      />
+
+
+    </div>
+    <br></br></div>
+  )
+}
+
+export default TextEditor
