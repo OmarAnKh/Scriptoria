@@ -1,5 +1,3 @@
-import React, { useState } from "react";
-import './StarRating.css'
 
 const StarRating = ({ rating }) => {
 
@@ -11,13 +9,13 @@ const StarRating = ({ rating }) => {
 
             if (i < Math.floor(rating)) {
                 // full star
-                stars.push(<i className='bi bi-star-fill' style={{ color: '#ffc107' }} />)
+                stars.push(<i className='bi bi-star-fill' key={i} style={{ color: '#ffc107' }} />)
             } else if (i < rating && i === Math.floor(rating)) {
                 // half star
-                stars.push(<i className='bi bi-star-half' style={{ color: '#ffc107' }} />)
+                stars.push(<i className='bi bi-star-half' key={i} style={{ color: '#ffc107' }} />)
             } else {
                 // empty star
-                stars.push(<i className='bi bi-star-fill' style={{ color: '#e4e5e9' }} />)
+                stars.push(<i className='bi bi-star-fill' key={i} style={{ color: '#e4e5e9' }} />)
             }
         }
 

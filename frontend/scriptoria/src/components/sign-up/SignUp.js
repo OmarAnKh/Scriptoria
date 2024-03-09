@@ -84,7 +84,7 @@ const SignUp = () => {
                         </div>
                     </div>
                 </div>
-            </> : <SignUpInfo user={user} setGoToInfo={setGoToInfo} />
+            </> : <SignUpInfo user={user} setGoToInfo={setGoToInfo} setError={setError} />
     )
 }
 

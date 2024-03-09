@@ -26,9 +26,9 @@ const SignUpInfo = (props) => {
         user.gender = gender;
         user.type = joyType;
         const response = await account("SignUp", user);
-        console.log(response)
         if (response.status === 400) {
             props.setGoToInfo(false);
+            props.setError("Email or user name already taken");
             navigate(`/SingUp`);
             return console.log(response);
         }
@@ -38,9 +38,9 @@ const SignUpInfo = (props) => {
     }
     return (
         <>
-            <div className="container d-flex justify-content-center align-items-center my-3 signInBook">
+            <div className="container d-flex justify-content-center align-items-center my-3 signInBook-info">
                 <div className="row">
-                    <div className="col-lg-6 box-3 d-flex flex-column align-items-center text-center">
+                    <div className="col-lg-6 box-3-info d-flex flex-column align-items-center text-center">
                         <img src={logo} alt="Scriptoria logo" id="logo" className="img-fluid" />
                         <span className="scriptoria-text-info">Scriptoria</span>
                         <div className="box1-text">
@@ -53,8 +53,8 @@ const SignUpInfo = (props) => {
                             </p>
                         </div>
                     </div>
-                    <div className="col-lg-6 box-4 d-flex align-items-center text-center">
-                        <div className="side-box2"></div>
+                    <div className="col-lg-6 box-4-info d-flex align-items-center text-center">
+                        <div className="side-box2-info"></div>
                         <div className="align-items-center text-center">
                             <form>
                                 <JoinInput title="Display Name" type="TEXT" backColor="#fae2e2" backgroundColor="#fae2e2" method={setDisplayName} />
