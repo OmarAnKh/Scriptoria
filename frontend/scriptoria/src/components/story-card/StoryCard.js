@@ -14,7 +14,7 @@ const StoryCard = () => {
             image: 'https://i.pinimg.com/originals/b2/19/21/b2192115221557ec63aaefdcd1e64c4a.jpg',
             description: 'Superman: Chronicles the transformation of Clark Kent into the iconic superhero, highlighting his origin and unwavering commitment to justice.',
             voters: 850,
-            color:" bg-warning"
+            color: " bg-warning"
         },
         {
             id: 2,
@@ -23,7 +23,7 @@ const StoryCard = () => {
             image: 'https://imgix-media.wbdndc.net/ingest/book/preview/510d37e5-c2b6-4430-94c8-ea1aebd8fc2d/affa926f-7434-449d-ad14-0ab0a757b68a/0.jpg',
             description: 'Batman: Follow Bruce Wayne s evolution into the Dark Knight as he battles crime in Gotham.',
             voters: 850,
-            color :"bg-secondary "
+            color: "bg-secondary "
         },
         {
             id: 3,
@@ -32,7 +32,7 @@ const StoryCard = () => {
             image: 'https://images-na.ssl-images-amazon.com/images/I/31zw0daVfwL._SX331_BO1%2C204%2C203%2C200_.jpg',
             description: 'Solo Leveling" chronicles Jinwoo s growth as a hunter with a unique power in a monster-filled world, catering to fans of action.',
             voters: 850,
-            color :"bg-dark text-white"
+            color: "bg-dark text-white"
         },
         {
             id: 4,
@@ -41,7 +41,7 @@ const StoryCard = () => {
             image: 'https://m.media-amazon.com/images/I/51bmUW46V-L.jpg',
             description: 'Superman: Chronicles the transformation of Clark Kent into the iconic superhero, highlighting his origin and unwavering commitment to justice.',
             voters: 850,
-            color :"bg-info"
+            color: "bg-info"
         },
         {
             id: 5,
@@ -50,7 +50,7 @@ const StoryCard = () => {
             image: 'https://imgix-media.wbdndc.net/ingest/book/preview/510d37e5-c2b6-4430-94c8-ea1aebd8fc2d/affa926f-7434-449d-ad14-0ab0a757b68a/0.jpg',
             description: 'Batman: Follow Bruce Wayne s evolution into the Dark Knight as he battles crime in Gotham, revealing the essence of justice and resilience in the iconic superhero.',
             voters: 850,
-            color :"bg-secondary "
+            color: "bg-secondary "
         },
     ];
 
@@ -58,19 +58,12 @@ const StoryCard = () => {
         <div className="container">
             <div className="row">
                 {storyData.map((story, index) => (
-                        <div key={story.id} className={`col-md-4 mb-3 ${index >= visiblestory ? 'd-none' : ''}`}>
+                    <div key={story.id} className={`col-md-4 mb-3 ${index >= visiblestory ? 'd-none' : ''} my-5`}>
                         <div className={`card mb-3 ${story.color}`} >
                             <div className="row no-gutters">
                                 <div className="col-md-4">
                                     <img src={story.image} alt="" className="card-img" />
                                 </div>
-                                {/*
-                                <div className="col-md-4">
-                                    <Link to={/story/${book.id}}>
-                                    <img src={book.image} alt="" className="card-img" />
-                                    </Link>
-                                </div>
-                                */}
                                 <div className="col-md-8">
                                     <div className="card-body">
                                         <h5 className="card-title text-white  ">{story.title}</h5>

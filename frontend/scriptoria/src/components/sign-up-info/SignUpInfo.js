@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import JoinInput from "../join-input/JoinInput";
 import logo from "../../img/scriptoria-logo.png";
 import content from "../../img/content.png";
@@ -15,7 +15,7 @@ const SignUpInfo = (props) => {
     const [dateOfBirth, setDateOfBirth] = useState("");
     const [gender, setGender] = useState("");
     const [joyType, setJoyType] = useState("reader");
-    const [routePath, setRoutePath] = useState(`/SingUp`)
+    const navigate = useNavigate();
 
     let user = { ...props.user }
 
@@ -26,14 +26,15 @@ const SignUpInfo = (props) => {
         user.gender = gender;
         user.type = joyType;
         const response = await account("SignUp", user);
+        console.log(response)
         if (response.status === 400) {
-            setRoutePath(`/SingUp`);
             props.setGoToInfo(false);
+            navigate(`/SingUp`);
             return console.log(response);
         }
-        setRoutePath(`/`)
         document.cookie = "token=" + response.token + ";";
-        document.cookie = "userInfo=" + response.user + ";"
+        document.cookie = "userInfo=" + response.user + ";";
+        navigate(`/`);
     }
     return (
         <>
@@ -68,16 +69,13 @@ const SignUpInfo = (props) => {
                                 <JoyButton icon={signature} method={setJoyType} type="writer" />
                             </div>
                             <div>
-                                <Link to={routePath} className="card-text" target="" >
-                                    <button className="btn login-button1" style={{ background: "#d2a7b2" }} onClick={signUpInfoHandler}>******</button>
-                                </Link>
+                                <button className="btn login-button1" style={{ background: "#d2a7b2" }} onClick={signUpInfoHandler}>******</button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </>
-
     );
 }
 
