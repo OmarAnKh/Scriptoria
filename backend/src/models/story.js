@@ -21,7 +21,6 @@ const storySchema = new Schema({
     publishStatus: {
         type: Boolean,
         default: 0 // 0 = private, 1 = public
-
     },
     price: {
         type: Number,
