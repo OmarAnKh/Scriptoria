@@ -12,26 +12,31 @@ import 'froala-editor/js/plugins/font_size.min.js'
 import TEInstructions from './TEInstructions';
 
 
-const TextEditor = ({model, setModel}) => {
+const TextEditor = ({model, setModel, data, setData}) => {
+   
 
   return (
     <div className=' mb-5'>      <br></br>
     <br></br>
     <TEInstructions/>
-    <div className='TextEditorSize container justify-content-center align-items-center'>
-
-      <FroalaEditor
+    <div className='TextEditorSize container justify-content-center align-items-center' id="hello">
+        <FroalaEditor
         model={model}
         onModelChange={(e) => setModel(e)}
         config={{
           placeholderText: "write something....",
-          saveInterval: 2000,
+          saveInterval: 500,
           attribution: false,
           toolbarButtons: ['bold', 'italic', 'underline', 'strikeThrough', 'insertImage', 'fontSize', 'insertHR', 'emoticons', 'fullscreen', 'undo', 'redo'],
+          saveMethod : 'Post',
           events: {
             'save.before': function (html) {
-              localStorage.setItem('savedHtml', html);
+              localStorage.setItem('story', html);
             },
+            // contentChanged: function(){
+            //   const text = this.html.get();
+            //   setData(text)
+            // },
           },
 
         }}

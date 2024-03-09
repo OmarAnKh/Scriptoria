@@ -3,7 +3,7 @@ import JoinInput from "../join-input/JoinInput";
 import validator from "validator";
 import "./SignIn.css";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { account } from "../../api/accountApi"
 const SignIn = () => {
     const [email, setEmail] = useState('');
@@ -11,6 +11,7 @@ const SignIn = () => {
     const [emailValid, setEmailValid] = useState("rgb(33,33,33)");
     const [passwordValid, setPasswordValid] = useState("rgb(33,33,33)");
     const [credentialsValidation, setCredentialsValidation] = useState("")
+    const navigate = useNavigate()
     let user = {}
     const signInHandler = async () => {
         if (!validator.isEmail(email) && password === "") {
@@ -46,11 +47,11 @@ const SignIn = () => {
             setCredentialsValidation("Something went wrong")
             return;
         }
-        console.log(res)
         const token = res.token
         const userInfo = res.user
         document.cookie = "token=" + token + ";"
         document.cookie = "userInfo=" + userInfo + ";"
+        navigate("/")
     }
 
     return (
@@ -67,10 +68,12 @@ const SignIn = () => {
                                 <p>{credentialsValidation} </p>
                             </form>
                             <button className="btn login-button2" onClick={() => signInHandler()}>Sign In</button>
-                            <Link to={`/SingUp `} className="card-text" target="" style={{ textDecoration: "none", color: "rgb(33,33,33)" }}>
-                                <p>you don’t have an account?<p style={{ textDecoration: "none", color: "white", display: "inline-block", marginBottom: "0%" }}> sign up </p></p>
+                            <Link to={`/SignUp`} className="card-text" target="" style={{ textDecoration: "none", color: "rgb(33,33,33)" }}>
+                                <p>Don't have an account? <span style={{ textDecoration: "none", color: "white", display: "inline-block", marginBottom: "0%" }}>Sign up</span></p>
                             </Link>
-                            <p>forget your password? <a href="#" style={{ textDecoration: "none", color: "white" }} >Reset password</a>  </p>
+                            <Link to={`/`} className="card-text" target="" style={{ textDecoration: "none", color: "rgb(33,33,33)" }}>
+                                <p>Forgot your password? <span style={{ textDecoration: "none", color: "white", display: "inline-block", marginBottom: "0%" }}>Reset password</span></p>
+                            </Link>
                         </div>
                     </div>
                     <div className="col-lg-6 box-4 d-flex  align-items-center text-center">
