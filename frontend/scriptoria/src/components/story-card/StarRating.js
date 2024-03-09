@@ -1,35 +1,31 @@
-import React, { useState } from "react";
-import { FaStar } from 'react-icons/fa';
-import './StarRating.css'
+const StarRating = ({ rating }) => {
 
-const StarRating = () => {
-    const [rating, setRating] = useState(null);
-    const [hover, setHover] = useState(null);
+    const numOfStars = 5;
+    const stars = []
+
+    const createStars = () => {
+        for (let i = 0; i < numOfStars; i++) {
+
+            if (i < Math.floor(rating)) {
+                // full star
+                stars.push(<i className='bi bi-star-fill' style={{ color: '#ffc107' }} />)
+            } else if (i < rating && i === Math.floor(rating)) {
+                // half star
+                stars.push(<i className='bi bi-star-half' style={{ color: '#ffc107' }} />)
+            } else {
+                // empty star
+                stars.push(<i className='bi bi-star-fill' style={{ color: '#e4e5e9' }} />)
+            }
+        }
+
+        return stars;
+    }
 
     return (
         <div>
-            {[...Array(5)].map((star, i) => {
-                const ratingValue = i + 1;
-                return (
-                    <label >
-                        <input
-                            type="radio"
-                            name="rating"
-                            value={ratingValue}
-                            onClick={() => setRating(ratingValue)}
-                        />
-                        <FaStar
-                            className="star"
-                            color={ratingValue <= (hover || rating) ? "#ffc107" : "#e4e5e9"}
-                            size={15}
-                            onMouseEnter={() => setHover(ratingValue)}
-                            onMouseLeave={() => setHover(null)}
-                        />
-                    </label>
-                );
-            })}
-
+            {createStars()}
         </div>
     );
-};
+}
+
 export default StarRating;

@@ -1,0 +1,32 @@
+.cover-img {
+    margin-bottom: -35px;
+    box-shadow: 0px 1px 7px 2px #c7c9d3;
+    border-bottom: 1px solid #dcddde;
+    margin-top: 20px;
+    transition: 0.3s ease;
+    margin-left: 20px;
+    cursor: pointer;
+}
+
+.cover-img:hover {
+    transform: scale(1.1);
+}
+
+.read-btn:hover {
+    transform: scale(1.1);
+}
+
+.card-text {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+
+.card-text, .author-name{
+    font-family: 'Lilita One';
+}
+
+.card-title {
+    font-family: 'Righteous';
+}

@@ -1,8 +1,10 @@
 import StoryCard from "../story-card/StoryCard"
-
+import CarouselCards from "../carousel-cards/CarouselCards"
 const HomePage = () => {
     return (
-        <StoryCard />
+        <div>      <CarouselCards />
+            <StoryCard />
+        </div>
     )
 }
 
