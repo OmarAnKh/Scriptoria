@@ -73,7 +73,6 @@ const SignIn = () => {
                             <Link to={`/`} className="card-text" target="" style={{ textDecoration: "none", color: "rgb(33,33,33)" }}>
                                 <p>Forgot your password? <span style={{ textDecoration: "none", color: "white", display: "inline-block", marginBottom: "0%" }}>Reset password</span></p>
                             </Link>
-
                         </div>
                     </div>
                     <div className="col-lg-6 box-4 d-flex  align-items-center text-center">
