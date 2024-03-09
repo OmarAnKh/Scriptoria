@@ -1,4 +1,4 @@
-.App {
+/* .App {
   text-align: center;
 }
 
@@ -48,4 +48,12 @@
 
 body {
   font-family: Fibre Vintage;
+} */
+
+@font-face {
+  font-family: 'Fibre Vintage';
+  src: url('./fonts/LilitaOne-Regular.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
 }

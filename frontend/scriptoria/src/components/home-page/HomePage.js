@@ -1,11 +1,14 @@
-import StoryCard from "../story-card/StoryCard"
-import CarouselCards from "../carousel-cards/CarouselCards"
+import CarouselCards from "../carousel-cards/CarouselCards";
+import StoryCard from "../story-card/StoryCard";
+
+
 const HomePage = () => {
     return (
-        <div>      <CarouselCards />
+        <>
+            <CarouselCards />
             <StoryCard />
-        </div>
-    )
+        </>
+    );
 }
 
-export default HomePage
+export default HomePage;

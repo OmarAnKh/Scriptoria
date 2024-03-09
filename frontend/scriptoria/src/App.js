@@ -2,8 +2,7 @@ import './App.css';
 import SignIn from './components/sign-in/SignIn';
 import { Route, Routes } from 'react-router-dom';
 import SingUp from "./components/sign-up/SignUp";
-import SignUpInfo from './components/sign-up-info/SignUpInfo';
-
+import StoryCard from './components/story-card/StoryCard';
 import HomePage from './components/home-page/HomePage';
 function App() {
   return (
@@ -11,8 +10,7 @@ function App() {
       <Routes>
         <Route path="/SignIn" element={<SignIn />} />
         <Route path="/SingUp" element={<SingUp />} />
-        <Route path="/" element={<HomePage />} />
-        {/* <Route path="/SignUpInfo" element={<SignUpInfo />} /> */}
+        <Route path='/' element={<HomePage />} />
       </Routes>
 
     </div>
