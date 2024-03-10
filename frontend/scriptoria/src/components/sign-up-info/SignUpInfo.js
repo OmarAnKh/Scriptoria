@@ -8,6 +8,7 @@ import "./SignUpInfo.css"
 import JoyButton from "../joy-button/JoyButton";
 import { useState } from "react";
 import { account } from "../../api/accountApi.js"
+import SignUpInfoSelect from "./SignUpInfoSelect.js";
 
 const SignUpInfo = (props) => {
     const [displayName, setDisplayName] = useState("");
@@ -29,7 +30,7 @@ const SignUpInfo = (props) => {
         if (response.status === 400) {
             props.setGoToInfo(false);
             props.setError("Email or user name already taken");
-            navigate(`/SingUp`);
+            navigate(`/SignUp`);
             return console.log(response);
         }
         document.cookie = "token=" + response.token + ";";
@@ -58,9 +59,9 @@ const SignUpInfo = (props) => {
                         <div className="align-items-center text-center">
                             <form>
                                 <JoinInput title="Display Name" type="TEXT" backColor="#fae2e2" backgroundColor="#fae2e2" method={setDisplayName} />
-                                <JoinInput title="Your country" type="TEXT" backColor="#fae2e2" backgroundColor="#fae2e2" method={setRegion} />
+                                <SignUpInfoSelect title="countrys" method={setRegion} value={region} />
                                 <JoinInput title="Your Birthday" type="date" backColor="#fae2e2" backgroundColor="#fae2e2" method={setDateOfBirth} />
-                                <JoinInput title="gender" type="text" backColor="#fae2e2" backgroundColor="#fae2e2" method={setGender} />
+                                <SignUpInfoSelect title="gender" method={setGender} value={gender} />
                             </form>
                             <span className="joy-text">Do you find joy in</span>
                             <div className="my-2">

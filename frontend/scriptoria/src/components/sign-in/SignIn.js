@@ -85,7 +85,7 @@ const SignIn = () => {
                                 to unleash your creative potential<br></br>
                                 and<br></br>
                                 be part of our creative  community</p>
-                            <Link to={`/SingUp `} className="card-text" target="" >
+                            <Link to={`/SignUp `} className="card-text" target="" >
                                 <button className="btn login-button1">Sign Up</button>
                             </Link>
                         </div>
