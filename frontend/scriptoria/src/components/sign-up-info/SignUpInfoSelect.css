@@ -1,0 +1,33 @@
+.sign-up-info-select-div {
+    position: relative;
+    margin: 30px;
+    margin-bottom: 50px;
+}
+
+.sign-up-info-select-div select {
+    padding: 15px 20px;
+    outline: none;
+    background: transparent;
+    border-radius: 20px;
+    color: #212121;
+    border: 1px solid#212121;
+    font-size: 1em;
+    width: 300px;
+}
+
+.sign-up-info-select-div span {
+    position: absolute;
+    left: 20px;
+    transform: translateX(14px) translateY(-25.5px);
+    padding: 0 12px 1px 10px;
+    border-radius: 2px;
+    background: #fae2e2;
+    letter-spacing: 1px;
+    border: none;
+    color: #212121;
+    font-size: 27px;
+}
+
+.sign-up-info-select-div {
+    margin-bottom: 7%;
+}
