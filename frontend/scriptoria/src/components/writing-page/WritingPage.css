@@ -1,0 +1,23 @@
+@font-face {
+    font-family: 'Poppins';
+    src: url('../../fonts/Poppins-Light.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+.TextEditorSize {
+    width: 80%;
+    font-family: "Gill Sans", sans-serif;
+}
+.wp{
+    line-height: 0;
+}
+.WP{
+    text-align: center;
+}
+
+.wpi{
+    font-family : Poppins;
+    line-height: 0;
+}
