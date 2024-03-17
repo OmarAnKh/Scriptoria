@@ -1,0 +1,34 @@
+.search-navbar {
+    border-radius: 50px;
+    height: 40px;
+    margin-top: 8px;
+    border-color: black;
+  }
+  
+  .addstory {
+    background: #ffffff;
+    height: 40px;
+    width: fit-content;
+    margin-top: 8px;
+    display: flex;
+  }
+  
+  .right-side {
+    padding-left: 20px;
+    margin-left: auto;
+    display: flex;
+  }
+  
+  @media (min-width: 450px) {
+    .right-side {
+      padding-left: 40px;
+    }
+  }
+  .nav-home-link{
+    display: flex;
+    padding-left: 20px;
+    padding-top: 10px;
+    padding-right: 20px;
+    gap: 12px;
+    font-weight: bold;
+  }

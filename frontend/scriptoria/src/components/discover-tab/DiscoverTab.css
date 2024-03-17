@@ -1,0 +1,11 @@
+.tab-home {
+    margin-left: 60%;
+    background-color: #DEE2FF;
+}
+.tab-item{
+    font-weight: bold;
+    color: black;
+}
+.first-tab {
+    border-top-left-radius: 100px;
+}
