@@ -1,0 +1,124 @@
+.MainPage {
+    background: #edeffc;
+    background: -webkit-linear-gradient(68deg, #edeffc 0%, #dee1ff 50%, #d1d4ff 100%);
+    background: linear-gradient(68deg, #edeffc 0%, #dee1ff 50%, #d1d4ff 100%);
+    width: 100%;
+    margin: 0px;
+    height: 520px;
+}
+
+.Nda {
+    position: relative;
+    top: 10%;
+    left: 8%;
+    max-width: 520px;
+    min-width: auto;
+}
+
+.DescriptionArea {
+
+    filter: drop-shadow(0px 0px 0px #ffffff00) !important;
+}
+
+.DescriptionArea p {
+    font-family: PoppinsBold;
+    font-size: 11px;
+
+}
+
+.DisplayName {
+    line-height: normal;
+    font-family: Lilta One;
+    font-size: 48px;
+    filter: drop-shadow(2px 2px 2px #0000006b);
+}
+
+.AboutMe {
+    font-family: Lilta One;
+    font-size: 24px;
+    filter: drop-shadow(2px 2px 2px #0000006b);
+}
+
+.Username {
+    opacity: 50%;
+    font-size: 20px;
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    left: 15%;
+    width: 300px;
+}
+
+.buttonstyle {
+    font-family: Lilta One;
+    color: #000000;
+    background-color: #CAD0FF;
+}
+
+.buttonstyle .bi1 {
+    vertical-align: -0.26em !important;
+    margin-left: 15px;
+
+}
+
+
+.thebtn {
+    --bs-btn-padding-x: 0.5rem;
+    --bs-btn-padding-y: 0.375rem;
+    --bs-btn-font-size: 1rem;
+    --bs-btn-font-weight: 400;
+    --bs-btn-line-height: 1.5;
+    --bs-btn-border-width: 1px;
+    --bs-btn-border-color: transparent;
+    --bs-btn-border-radius: 0.375rem;
+    --bs-btn-hover-border-color: transparent;
+    --bs-btn-disabled-opacity: 0.65;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--bs-btn-padding-y) var(--bs-btn-padding-x);
+    font-family: Lilta One;
+    font-weight: var(--bs-btn-font-weight);
+    line-height: var(--bs-btn-line-height);
+    color: var(--bs-btn-color);
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    border: var(--bs-btn-border-width) solid var(--bs-btn-border-color);
+    border-radius: var(--bs-btn-border-radius);
+    background-color: #CAD0FF;
+    box-shadow: 2px 2px 2px #0000006b;
+    font-size: 1rem;
+}
+
+
+.threedots {
+    padding: 2px;
+    width: 30px;
+    justify-content: center;
+}
+
+@font-face {
+    font-family: 'Lilta One';
+    src: url('../../fonts/LilitaOne-Regular.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'PoppinsBold';
+    src: url('../../fonts/Poppins-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@media only screen and (max-width: 560px) {
+    .MainPage {
+        height: 550px;
+    }
+}
