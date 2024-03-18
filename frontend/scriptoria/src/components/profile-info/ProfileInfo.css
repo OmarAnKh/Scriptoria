@@ -1,5 +1,4 @@
 .MainPage {
-    background: #edeffc;
     background: -webkit-linear-gradient(68deg, #edeffc 0%, #dee1ff 50%, #d1d4ff 100%);
     background: linear-gradient(68deg, #edeffc 0%, #dee1ff 50%, #d1d4ff 100%);
     width: 100%;
@@ -16,8 +15,8 @@
 }
 
 .DescriptionArea {
-
     filter: drop-shadow(0px 0px 0px #ffffff00) !important;
+    overflow: hidden;
 }
 
 .DescriptionArea p {
@@ -100,6 +99,7 @@
     width: 30px;
     justify-content: center;
 }
+
 
 @font-face {
     font-family: 'Lilta One';

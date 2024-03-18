@@ -3,7 +3,7 @@ import './ProfileInfo.css'
 
 const Profile = () => {
     return (
-        <div className="MainPage">
+        <div className="MainPage container-fluid ">
             <div className="Nda">
                 <div className="DisplayName">
                     Hello, I'm<br></br>Ahmad iyrot
