@@ -1,54 +1,53 @@
-import "./footer.css"
-import logo from "C:/Users/CRC/Desktop/cap2022/2024 course/web 2/project/WEB2-project/frontend/scriptoria/src/img/scriptoria-logo.png"
+import React from "react";
+import { Link } from "react-router-dom";
+import logo from "../../img/scriptoria-logo.png";
+import "./footer.css";
+
+const FooterLink = ({ to, children }) => (
+  <li>
+    <Link className="footer-item"to={to}>{children}</Link>
+  </li>
+);
+
+
 const Footer = () => {
-    return (
-
-          <footer>
-          
-            <section class="top">
-             
-              <ul>
-                <li className="logo-footer">
-                <img src={logo} />
-              <div className="d-none d-md-block">
-            <span className="Scriptoria ourbtn fs-2 py-0 px-0">Scriptoria</span>
-          </div>
-          <section/>
-                </li>
-                <li>
-                  <h6><span className="Scriptoria ourbtn fs-2 py-0 px-0">Product</span></h6>
-                  <a>Features</a>
-                  <a>Copy Rights</a>
-                
-                </li>
-                <li>
-                <h6><span className="Scriptoria ourbtn fs-2 py-0 px-0">Resources</span></h6>
-                  <a>Blog</a>
-                  <a>User guides</a>
-                
-                </li>
-                <li>
-                <h6><span className="Scriptoria ourbtn fs-2 py-0 px-0">Community</span></h6>
-                  <a>Developers</a>
-                  <a>Users</a>
-                
-                </li>
-                <li>
-                <h6><span className="Scriptoria ourbtn fs-2 py-0 px-0">Company</span></h6>
-                  <a>About</a>
-                  <a>Join us</a>
-                 
-                </li>
-                <li>
-                <h6><span className="Scriptoria ourbtn fs-2 py-0 px-0">Support</span></h6>
-                  <a>Help center</a>
-                  <a>Chat support</a>
-                </li>
-
-              </ul>
-            </section>
-            {/* <div class="breaker"></div> */}
-
+  return (
+    <footer>
+      <section className="top">
+        <ul>
+          <li className="logo-footer">
+            <img src={logo} alt="Scriptoria Logo" />
+            <div className="d-none d-md-block">
+              <span className="Scriptoria ourbtn fs-2 py-0 px-0">Scriptoria</span>
+            </div>
+          </li>
+          <li>
+            <h6><span className="Scriptoria ourbtn fs-2 py-0 px-0">Product</span></h6>
+            <FooterLink to="/features">Features</FooterLink>
+            <FooterLink to="/copy-rights">Copy Rights</FooterLink>
+          </li>
+          <li>
+            <h6><span className="Scriptoria ourbtn fs-2 py-0 px-0">Resources</span></h6>
+            <FooterLink to="/blog">Blog</FooterLink>
+            <FooterLink to="/user-guides">User guides</FooterLink>
+          </li>
+          <li>
+            <h6><span className="Scriptoria ourbtn fs-2 py-0 px-0">Community</span></h6>
+            <FooterLink to="/developers">Developers</FooterLink>
+            <FooterLink to="/users">Users</FooterLink>
+          </li>
+          <li>
+            <h6><span className="Scriptoria ourbtn fs-2 py-0 px-0">Company</span></h6>
+            <FooterLink to="/about">About</FooterLink>
+            <FooterLink to="/join-us">Join us</FooterLink>
+          </li>
+          <li>
+            <h6><span className="Scriptoria ourbtn fs-2 py-0 px-0">Support</span></h6>
+            <FooterLink to="/help-center">Help center</FooterLink>
+            <FooterLink to="/chat-support">Chat support</FooterLink>
+          </li>
+        </ul>
+      </section>
             <section class="bottom"> 
 
       <div className="ico-button">

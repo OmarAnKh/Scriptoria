@@ -1,30 +1,40 @@
+import React, { useState } from 'react';
 
-import "./DiscoverTab.css"
+import { Link } from 'react-router-dom';
+import './DiscoverTab.css';
 
-
+const TabItem = ({ isActive, children }) => {
+  const activeClass = isActive ? 'active' : '';
+  return (
+    <li className="nav-item">
+      <Link className={`tab-item nav-link ${activeClass}`} to="#">{children}</Link>
+    </li>
+  );
+};
 
 const Tab = () => {
-    return (
-      <section className="tab-home">
-        <ul class="nav nav-tabs">
-              <li class="nav-item">
-          <a class="first-tab tab-item nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Genre</a>
-        </li>
-        <li class="nav-item">
-          <a class="tab-item nav-link active" aria-current="page" href="#">All Genre</a>
-        </li>
-        <li class="nav-item">
-          <a class="tab-item nav-link" href="#">Action</a>
-        </li>
-        <li class="nav-item">
-          <a class="tab-item nav-link" href="#">Horror</a>
-        </li>
-        <li class="nav-item">
-          <a class="tab-item nav-link" href="#">Romance</a>
-        </li>
-      
+  const [showTabs, setShowTabs] = useState(true);
+
+
+  const toggleTabs = () => {
+    setShowTabs(!showTabs);
+  };
+
+  return (
+    <section className="tab-home">
+      <ul className={`nav nav-tabs ${showTabs ? '' : 'hidden'}`}>
+        <div className="first-tab title-tabs">
+          <TabItem  onClick={toggleTabs} isActive={false}>Genre</TabItem>
+        </div>
+        <div className="tabs">
+          <TabItem isActive={true}>All Genre</TabItem>
+          <TabItem>Action</TabItem>
+          <TabItem>Horror</TabItem>
+          <TabItem>Romance</TabItem>
+        </div>
       </ul>
-      </section>
-    ); 
+    </section>
+  ); 
 };
-    export default Tab ;
+
+export default Tab;
