@@ -97,7 +97,7 @@ accountSchema.pre("save", async function (next) {
 
 accountSchema.methods.generateAuthToken = async function () {
     const user = this
-    const token = jwt.sign({ _id: user._id.toString() }, 'thisismytoken')
+    const token = jwt.sign({ _id: user._id.toString() }, process.env.JWTsecret)
     user.tokens = user.tokens.concat({ token })
     await user.save()
     return token

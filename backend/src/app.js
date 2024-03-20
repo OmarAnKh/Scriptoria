@@ -1,7 +1,6 @@
 import express from "express";
-import "./src/DB/mongoose.js";
-import userRouter from "./src/routers/account.js"
-
+import "./DB/mongoose.js";
+import userRouter from "./routers/account.js"
 import cors from "cors"
 const app = express()
 
