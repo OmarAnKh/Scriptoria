@@ -1,0 +1,58 @@
+.parg {
+   text-align: center;
+   padding-right: 100px;
+   background-color: #a9c8fc;
+
+}
+
+.languege {
+   margin-top: 24px;
+   /* margin-left: 245px; */
+}
+
+.story {
+   font-weight: bold;
+   border-radius: 10px;
+   background: #F6F9FE;
+   box-shadow: -26px 26px 52px #b1b1b1,
+      26px -26px 52px #ffffff;
+
+}
+
+.button1 {
+   background-color: rgb(85, 239, 85);
+   font-weight: bold;
+   color: black;
+   justify-content: center;
+   font-size: 16px;
+   border-radius: 20px;
+   margin-left: 200px;
+   margin-top: 80px;
+   margin-bottom: 100px;
+
+}
+
+.button2 {
+   background-color: rgba(0, 191, 255, 0.895);
+   margin-right: 30px;
+   border-radius: 10px;
+}
+
+.cancel-button {
+   background-color: #f4363686;
+   border-radius: 10px;
+}
+
+.back {
+   margin-top: 50px;
+   margin-left: 30px;
+
+}
+
+.Add-cover {
+   margin-top: 40px;
+   border-radius: 8px;
+   background: #fbf3f3;
+   box-shadow: 22px 22px 44px #ada8a8,
+      -22px -22px 44px #ffffff;
+}
