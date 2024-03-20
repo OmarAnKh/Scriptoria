@@ -19,6 +19,24 @@ const account = async (point, account) => {
     }
 }
 
+const getAccountViaEmail = async (point, email) => {
+    try {
+
+        const response = await fetch("http://localhost:5000/" + point + "/" + email, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        })
+        if (response.ok) {
+            return response.json();
+        }
+        return response;
+    } catch (error) {
+        console.log(error)
+    }
+}
 export {
-    account
+    account,
+    getAccountViaEmail
 }

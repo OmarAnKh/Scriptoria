@@ -23,5 +23,16 @@ router.post('/signIn', async (req, res) => {
     }
 })
 
+router.get('/user/find/:email', async (req, res) => {
+    try {
+        const user = await Account.findOne({ email: req.params.email })
+        if (!user) {
+            return res.status(404).send({ error: "Email not found" })
+        }
+        res.status(200).send(user)
+    } catch (error) {
+        res.status(500).send(error)
+    }
+})
 
 export default router

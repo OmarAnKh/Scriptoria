@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
 
-mongoose.connect(process.env.MongoDBconnection, {})
+mongoose.connect(process.env.MONGODB_CONNECTION, {})
 
 
 
