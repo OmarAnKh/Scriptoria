@@ -2,13 +2,31 @@ import React from 'react';
 import './ProfileInfo.css'
 import InfoButton from './Card.js'
 import ActionButton from './ButtonCard.js'
+import { getAccountViaUserName } from "../../api/accountApi";
+import Cookies from 'js-cookie'
+import { useState, useEffect } from 'react';
+
 const Profile = () => {
+    const [data, setData] = useState("");
+    useEffect(() => {
+        const handleResponse = async () => {
+            let user = Cookies.get('userInfo');
+            try {
+                const res = await getAccountViaUserName("find/userName", user);
+                setData(res);
+            } catch (err) {
+                console.log(err);
+            }
+        };
+
+        handleResponse();
+    }, []);
     return (
         <div className="MainPage row">
             <div className="Nda col">
                 <div className="DisplayName">
-                    Hello, I'm<br></br>Ahmad iyrot
-                    <div className="Username"> @Ahmadiyrot</div>
+                    Hello, I'm<br></br>{data.userName}
+                    <div className="Username"> @{data.displayName}</div>
                 </div>
                 <br />
                 <div className='container'>
@@ -16,19 +34,7 @@ const Profile = () => {
                         About Me
                         <div className="DescriptionArea ">
                             <p>
-                                I am a hard-working and driven individual who isn’t afraid to face a
-                                challenge. I’m passionate about my work and I know how to get the job
-                                done. I would describe myself as an open and honest person who doesn’t
-                                believe in misleading other people and tries to be fair in everything
-                                I do. Well, I’m very knowledgeable in my field. I worked in IT for
-                                over 2 years before transitioning into more managerial roles. Thanks
-                                to my years of experience, I’m very meticulous in my work. I also like
-                                to keep things very professional. I’m very direct in all of my
-                                communications, but I’m also careful not to hurt anyone’s feelings.
-                                I’ve worked as a systems analyst since I graduated from college. I am
-                                very particular about the details of my work, but I also like to stay
-                                open-minded to new ideas. I never want to close myself off to other
-                                people’s opinions.
+                                {data.description}
                             </p>
                         </div>
                     </div>

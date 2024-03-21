@@ -48,7 +48,7 @@ const SignIn = () => {
             return;
         }
         const token = res.token
-        const userInfo = res.user
+        const userInfo = res.user.userName
         document.cookie = "token=" + token + ";"
         document.cookie = "userInfo=" + userInfo + ";"
         navigate("/")
