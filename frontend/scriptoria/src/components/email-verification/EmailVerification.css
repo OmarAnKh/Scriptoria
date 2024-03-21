@@ -1,0 +1,26 @@
+.Scriptoria-title {
+    font-weight: bold;
+    text-align: center;
+    font-size: 30px;
+}
+
+.email-verification-body {
+    background-color: #dee2ff;
+    padding: 50px;
+}
+
+.input-form {
+    background-color: #cad0ff;
+    color: black;
+}
+
+.submit-button {
+    background-color: #cad0ff;
+    border: none;
+    color: black;
+    font-weight: bold;
+}
+
+.card-text {
+    text-align: left;
+}
