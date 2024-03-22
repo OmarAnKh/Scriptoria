@@ -85,7 +85,7 @@ const SignUp = () => {
                             </div>
                             <div>
                                 <form>
-                                    <JoinInput title="name" method={setUserName} type="text" />
+                                    <JoinInput title="User name" method={setUserName} type="text" />
                                     <JoinInput title="email" method={setEmail} color={emailError} type="email" />
                                     <JoinInput title="password" method={setPassword} type="password" />
                                     <JoinInput title="confirm password" method={setConfirmPassword} type="password" />
