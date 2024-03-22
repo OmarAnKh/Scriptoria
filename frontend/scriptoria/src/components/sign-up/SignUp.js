@@ -5,6 +5,7 @@ import validator from "validator";
 import "./SignUp.css"
 import { Link } from "react-router-dom";
 import SignUpInfo from "../sign-up-info/SignUpInfo";
+import { findAccount } from "../../api/accountApi";
 
 const SignUp = () => {
     const [userName, setUserName] = useState("");
@@ -25,12 +26,32 @@ const SignUp = () => {
         }
         else {
             setEmailError("red");
+            return;
+        }
+        let account = await findAccount({ email })
+        if (account.message) {
+            setError("Email already exists")
+            if (validatorCounter > 0) {
+                validatorCounter--;
+            }
+        }
+        account = await findAccount({ userName })
+        if (account.message) {
+            setError("user name already exists")
+            if (validatorCounter > 0) {
+                validatorCounter--;
+            }
         }
         if (password === confirmPassword) {
             validatorCounter++;
         }
+        else {
+            setError("The password and confirmed password do not match")
+            if (validatorCounter > 0) {
+                validatorCounter--;
+            }
+        }
         if (validatorCounter !== 2) {
-            setError("Invalid data");
             setGoToInfo(false)
         }
         else {

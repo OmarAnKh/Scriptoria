@@ -5,6 +5,7 @@ import SingUp from "./components/sign-up/SignUp";
 import HomePage from './components/home-page/HomePage';
 import WritingPage from './components/writing-page/WrtitingPage';
 import StoryDetails from './components/story-details/StoryDetails';
+import SignUpVerificationCode from './components/sign-up-info/SignUpVerificationCode';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path='/' element={<HomePage />} />
         <Route path='/WritingPage' element={<WritingPage />} />
         <Route path='/StoryDetails' element={<StoryDetails />} />
+        <Route path='/SignUpVerificationCode' element={<SignUpVerificationCode />} />
       </Routes>
 
     </div>

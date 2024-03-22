@@ -26,16 +26,16 @@ const SignUpInfo = (props) => {
         user.dateOfBirth = dateOfBirth;
         user.gender = gender;
         user.type = joyType;
-        const response = await account("SignUp", user);
-        if (response.status === 400) {
-            props.setGoToInfo(false);
-            props.setError("Email or user name already taken");
-            navigate(`/SignUp`);
-            return console.log(response);
-        }
-        document.cookie = "token=" + response.token + ";";
-        document.cookie = "userInfo=" + response.user + ";";
-        navigate(`/`);
+        // const response = await account("SignUp", user);
+        // if (response.status === 400) {
+        //     props.setGoToInfo(false);
+        //     props.setError("Email or user name already taken");
+        //     navigate(`/SignUp`);
+        //     return console.log(response);
+        // }
+        // document.cookie = "token=" + response.token + ";";
+        // document.cookie = "userInfo=" + response.user + ";";
+        navigate(`/SignUpVerificationCode`, { state: { user } });
     }
     return (
         <>

@@ -1,5 +1,7 @@
 import express from "express";
 import Account from "../models/account.js"
+import sendMail from "../emails/sendMail.js";
+
 const router = new express.Router()
 
 router.post("/SignUp", async (req, res) => {
@@ -20,6 +22,27 @@ router.post('/signIn', async (req, res) => {
         res.status(200).send({ user, token })
     } catch (error) {
         res.status(400).send()
+    }
+})
+
+router.post("/user/find", async (req, res) => {
+    try {
+        const user = await Account.findOne(req.body);
+        if (!user) {
+            return res.send({ message: false });
+        }
+        res.send({ message: true });
+    } catch (error) {
+        res.status(500).send({ error: "Server error" })
+    }
+})
+
+router.post('/account/recovery', async (req, res) => {
+    try {
+        sendMail(req.body.email, req.body.codeGenerated)
+        res.status(200).send({ status: true })
+    } catch (error) {
+        res.status(500).send({ status: false })
     }
 })
 
