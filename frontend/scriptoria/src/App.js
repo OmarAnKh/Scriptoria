@@ -6,6 +6,8 @@ import HomePage from './components/home-page/HomePage';
 import WritingPage from './components/writing-page/WrtitingPage';
 import StoryDetails from './components/story-details/StoryDetails';
 import GettingEmail from './components/password-reset/GettingEmail';
+import EmailVerifing from './components/password-reset/EmailVerifing';
+import ResetPassword from './components/password-reset/ResetPassword';
 
 function App() {
   return (
@@ -17,6 +19,8 @@ function App() {
         <Route path='/WritingPage' element={<WritingPage />} />
         <Route path='/StoryDetails' element={<StoryDetails />} />
         <Route path='/GetEmail' element={<GettingEmail />} />
+        <Route path='/EmailVerifing/:email' element={<EmailVerifing />} />
+        <Route path='/ResetPassword' element={<ResetPassword />} />
       </Routes>
 
     </div>

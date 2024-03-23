@@ -2,19 +2,29 @@ import EmailVerification from "../email-verification/EmailVerification"
 import { useState } from "react"
 import validator from "validator"
 import { getAccountViaEmail } from "../../api/accountApi"
+import { useNavigate } from "react-router-dom"
 
 
 const GettingEmail = () => {
     const [email, setEmail] = useState("")
+    const [inputColor, setInputColor] = useState("#cad0ff")
+    const [inputError, setInputError] = useState("")
+    const navigate = useNavigate()
     const clickHandler = async () => {
         if (!validator.isEmail(email)) {
+            setInputColor("red")
+            setInputError("Please enter a valid email")
             return
         }
-        const res = await getAccountViaEmail("user/find", email)
+        const res = await getAccountViaEmail("find/email", email)
         if (res.status === 404) {
-            console.log("email not found")
+            setInputColor("red")
+            setInputError("There is no account with this email on our website ")
+            return
         }
+        navigate(`/EmailVerifing/${email}`)
     }
+
     return (
         <EmailVerification
             cardType="Account recovery"
@@ -24,6 +34,8 @@ const GettingEmail = () => {
             methodOnChange={setEmail}
             buttonTitle="Get code"
             methodOnClick={clickHandler}
+            inputColor={inputColor}
+            inputError={inputError}
         />
 
     )

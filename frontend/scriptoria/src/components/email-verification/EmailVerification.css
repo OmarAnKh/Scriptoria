@@ -7,11 +7,13 @@
 .email-verification-body {
     background-color: #dee2ff;
     padding: 50px;
+    max-width: 25rem;
 }
 
 .input-form {
     background-color: #cad0ff;
     color: black;
+
 }
 
 .submit-button {
@@ -21,6 +23,6 @@
     font-weight: bold;
 }
 
-.card-text {
+.card-text-Verification-email {
     text-align: left;
 }
