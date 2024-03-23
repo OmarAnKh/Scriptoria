@@ -24,7 +24,6 @@ function App() {
         <Route path='/EmailVerifing/:email' element={<EmailVerifing />} />
         <Route path='/ResetPassword' element={<ResetPassword />} />
       </Routes>
-
     </div>
   )
 }

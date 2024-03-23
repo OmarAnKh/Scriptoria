@@ -1,0 +1,82 @@
+@font-face {
+    font-family: 'Righteous';
+    src: url('../../fonts/Righteous-Regular.ttf') format('truetype');
+    font-weight: normal; 
+    font-style: normal;
+    font-display: swap;
+}
+  
+.carousel-container {
+      width: 100%; 
+      max-width: 560px; 
+      margin: 0 auto; 
+      overflow: hidden; 
+}
+    
+.custom-carousel {
+      width: 100%; 
+}
+    
+.custom-slide {
+      flex: 0 0 auto; 
+}
+  
+.custom-slide-item {
+      width: 100%; 
+}
+  
+  
+.custom-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-size: 100px;
+    color: transparent; 
+}
+  
+.custom-left-arrow {
+    left: 10px; 
+}
+  
+.custom-right-arrow {
+    right: 10px; 
+}
+  
+.view-button {
+    border-color: #8D9BFF;
+    background-color: transparent; 
+    color: black !important;
+    font-family: 'Righteous';
+    font-weight: bold;
+    width: 120px; 
+    height: 30px; 
+    font-size: small;
+}
+  
+.view-button:hover,
+.view-button:focus,
+.view-button:active {
+    background-color: #8D9BFF !important
+}
+  
+.shelf-title {
+    font-family: 'Righteous';
+    font-weight: bold;
+}
+
+
+@media screen and (min-width: 768px) {
+    .shelf-img {
+        max-width: 660px; 
+    }
+}
+  
+  @media screen and (max-width: 767px) {
+    .shelf-img {
+        max-width: 400px; 
+    }
+}
