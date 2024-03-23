@@ -35,7 +35,7 @@ const JoinInput = (props) => {
                     </button>
 
                 </div>
-                <span style={{ color: props.color }}>{props.title}</span>
+                <span style={{ color: props.color, fontSize: "24px" }}>{props.title}</span>
             </div>
         )
 

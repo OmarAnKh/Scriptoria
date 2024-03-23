@@ -23,7 +23,8 @@
     -webkit-box-orient: vertical;
 }
 
-.card-text, .author-name{
+.card-text,
+.author-name {
     font-family: 'Lilita One';
 }
 
