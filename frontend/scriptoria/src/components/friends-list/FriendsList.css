@@ -1,0 +1,112 @@
+@font-face {
+    font-family: 'Poppins';
+    src: url('../../fonts/Poppins-Light.ttf') format('truetype');
+    font-weight: bold; 
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Lilita One';
+    src: url('../../fonts/Righteous-Regular.ttf') format('truetype');
+    font-weight: bold; 
+    font-style: normal;
+}
+.title-friends-list{
+    font-family: 'Poppins';
+    text-decoration: none;
+    font-weight:bold;
+}
+
+.scrollspy {
+    overflow-y: auto; 
+    max-height: 600px;
+}
+
+.card-big {
+    background-color: #CAD0FF; 
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.card {
+    background-color: #BFC7FF; 
+    border-radius: 10px; 
+    margin-bottom: 5px; 
+    width: 359px;
+    height: 100px;
+    border-radius: 10px;
+    border: none;
+}
+
+.iconimg{
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    margin-right: 10px;
+    background-color: #cad0ff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+    border: none;
+    flex-shrink: 0;
+}
+
+.imgprofile{
+    height: 70px;
+    width: 70px;
+    margin-Right: 7px;
+}
+
+.friends-name {
+    font-family: 'Poppins';
+    margin-top: -25px;
+    font-size: medium;
+    text-shadow: 0px 1px 1px #000000;
+    font-weight: bold;
+}
+
+.friends-username {
+    font-family: 'Lilita One';
+    margin-top: -10px;
+    font-size: small;
+}
+
+.button-container {
+    position: absolute;
+    bottom: 7px;
+    right: 8px;
+    display: flex;
+}
+
+.button-icon {
+    margin-right: 10px; 
+    width: 27px;
+    height: 27px;
+    background-color: #cad0ff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+    border: none;
+}
+
+.btn{
+    width: 20px;
+    height: 25px;
+    background-color: #cad0ff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+    border: none;
+}
+
+.show-more-btn {
+    background-color: #AAB5FF;
+    border-radius: 9px;
+    border: none;
+    font-family: 'Poppins';
+    text-align: center; 
+    display: block; 
+    margin: 0 auto; 
+    width: 154px;
+    height: 33px; 
+    font-size: 15px;
+    font-weight: bold;
+}
