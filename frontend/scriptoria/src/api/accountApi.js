@@ -1,4 +1,3 @@
-
 const account = async (point, account) => {
     try {
         const response = await fetch("http://localhost:5000/" + point, {
@@ -92,10 +91,27 @@ const editPassword = async (point, accountDetails) => {
         console.log(error)
     }
 }
+const getAccountViaUserName = async (point, userName) => {
+    try {
+        const response = await fetch("http://localhost:5000/" + point + "/" + userName, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        })
+        if (response.ok) {
+            return response.json();
+        }
+        return response;
+    } catch (error) {
+        console.log(error)
+    }
+}
 export {
     account,
     getAccountViaEmail,
     sendEmail,
     editPassword,
-    findAccount
+    findAccount,
+    getAccountViaUserName
 }
