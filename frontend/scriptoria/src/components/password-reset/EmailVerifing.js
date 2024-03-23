@@ -13,7 +13,7 @@ const EmailVerifing = () => {
     const [generatedCode, setGeneratedCode] = useState("")
 
     const [inputColor, setInputColor] = useState("#cad0ff")
-    const [error, setError] = useState("")
+    const [inputError, setInputError] = useState("")
     const navigate = useNavigate()
     useEffect(() => {
         async function checkEmailValidity() {
@@ -75,7 +75,7 @@ const EmailVerifing = () => {
             return
         }
         setInputColor("red")
-        setError("invalid code")
+        setInputError("invalid code")
     }
     if (validEmail !== undefined) {
         return (
@@ -88,7 +88,7 @@ const EmailVerifing = () => {
                 buttonTitle="Verify my code"
                 methodOnClick={compareHandler}
                 inputColor={inputColor}
-                error={error}
+                inputError={inputError}
             />
         );
     } else {
