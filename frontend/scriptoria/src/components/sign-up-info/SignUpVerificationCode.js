@@ -62,8 +62,6 @@ const SignUpVerificationCode = () => {
                 nputColor={inputColor}
                 inputError={inputError}
             />
-            {console.log(user)}
-            <img src={user.profilePicture} />
         </>
     );
 };
