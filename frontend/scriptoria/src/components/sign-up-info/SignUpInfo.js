@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import JoinInput from "../join-input/JoinInput";
 import logo from "../../img/scriptoria-logo.png";
 import content from "../../img/content.png";

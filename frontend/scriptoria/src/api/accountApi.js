@@ -19,6 +19,66 @@ const account = async (point, account) => {
     }
 }
 
+const getAccountViaEmail = async (point, email) => {
+    try {
+
+        const response = await fetch("http://localhost:5000/" + point + "/" + email, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        })
+        if (response.ok) {
+            return response.json();
+        }
+        return response;
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+const sendEmail = async (point, emailDetails) => {
+    try {
+        const response = await fetch("http://localhost:5000/" + point, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(emailDetails)
+        })
+
+        if (response.ok) {
+            return response.json();
+        }
+        return response;
+
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+
+const editPassword = async (point, accountDetails) => {
+    try {
+        const response = await fetch("http://localhost:5000/" + point, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(accountDetails)
+        })
+        if (response.ok) {
+            return response.json();
+        }
+        return response;
+
+    } catch (error) {
+        console.log(error)
+    }
+}
 export {
-    account
+    account,
+    getAccountViaEmail,
+    sendEmail,
+    editPassword
 }
