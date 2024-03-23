@@ -16,7 +16,13 @@ const EmailVerification = (props) => {
                                 {props.text}
                             </p>
                             <form>
-                                <EmailVerificationFormBody type={props.type} placeholder={props.inputPlaceholder} methodOnChange={props.methodOnChange} />
+                                <EmailVerificationFormBody
+                                    type={props.type}
+                                    placeholder={props.inputPlaceholder}
+                                    methodOnChange={props.methodOnChange}
+                                    inputColor={props.inputColor}
+                                    inputError={props.inputError}
+                                />
                                 <EmailVerificationButton title={props.buttonTitle} methodOnClick={props.methodOnClick} />
                             </form>
                         </div>

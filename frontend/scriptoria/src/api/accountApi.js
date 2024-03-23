@@ -19,6 +19,7 @@ const account = async (point, account) => {
     }
 }
 
+
 const findAccount = async (findCriteria) => {
     try {
         const response = await fetch("http://localhost:5000/user/find", {
@@ -27,6 +28,20 @@ const findAccount = async (findCriteria) => {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify(findCriteria)
+
+        })
+    } catch (error) {
+        console.log(error)
+    }
+}
+const getAccountViaEmail = async (point, email) => {
+    try {
+
+        const response = await fetch("http://localhost:5000/" + point + "/" + email, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
         })
         if (response.ok) {
             return response.json();
@@ -57,6 +72,28 @@ const sendEmail = async (point, emailDetails) => {
     }
 }
 
+const editPassword = async (point, accountDetails) => {
+    try {
+        const response = await fetch("http://localhost:5000/" + point, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(accountDetails)
+        })
+        if (response.ok) {
+            return response.json();
+        }
+        return response;
+
+    } catch (error) {
+        console.log(error)
+    }
+}
 export {
-    account, findAccount, sendEmail
+    account,
+    getAccountViaEmail,
+    sendEmail,
+    editPassword,
+    findAccount
 }
