@@ -17,6 +17,7 @@ const GettingEmail = () => {
             return
         }
         const res = await getAccountViaEmail("find/email", email)
+        console.log(res)
         if (res.status === 404) {
             setInputColor("red")
             setInputError("There is no account with this email on our website ")
