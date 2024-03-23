@@ -1,6 +1,6 @@
 import express from "express";
 import Account from "../models/account.js"
-import sendMail from "../emails/sendEmail.js"
+import sendMail from "../emails/sendMail.js"
 const router = new express.Router()
 
 router.post("/SignUp", async (req, res) => {
