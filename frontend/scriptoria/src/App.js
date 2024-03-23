@@ -5,7 +5,6 @@ import SingUp from "./components/sign-up/SignUp";
 import HomePage from './components/home-page/HomePage';
 import WritingPage from './components/writing-page/WrtitingPage';
 import StoryDetails from './components/story-details/StoryDetails';
-
 import Profile from './components/profile-info/ProfileInfo';
 
 function App() {

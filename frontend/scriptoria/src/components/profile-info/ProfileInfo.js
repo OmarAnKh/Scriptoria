@@ -3,6 +3,7 @@ import './ProfileInfo.css'
 import InfoButton from './Card.js'
 import ActionButton from './ButtonCard.js'
 import { getAccountViaUserName } from "../../api/accountApi";
+import { getAccountFollowers } from "../../api/accountApi.js"
 import Cookies from 'js-cookie'
 import { useState, useEffect } from 'react';
 
@@ -14,11 +15,11 @@ const Profile = () => {
             try {
                 const res = await getAccountViaUserName("find/userName", user);
                 setData(res);
+                console.log(res);
             } catch (err) {
                 console.log(err);
             }
         };
-
         handleResponse();
     }, []);
     return (
