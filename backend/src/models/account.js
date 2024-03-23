@@ -66,6 +66,9 @@ const accountSchema = new mongoose.Schema({
             require: true
         }
     }],
+    profilePicture: {
+        type: Buffer,
+    }
 }, {
     timestamps: true
 });

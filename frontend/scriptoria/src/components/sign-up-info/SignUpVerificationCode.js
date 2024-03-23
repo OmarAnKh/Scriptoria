@@ -6,6 +6,8 @@ import { account, sendEmail } from "../../api/accountApi";
 const SignUpVerificationCode = () => {
     const [code, setCode] = useState("");
     const [correctCode, setCorrectCode] = useState(null);
+    const [inputColor, setInputColor] = useState("#cad0ff")
+    const [inputError, setInputError] = useState("")
     const location = useLocation();
     const navigate = useNavigate();
     const { user } = location.state || {};
@@ -29,7 +31,9 @@ const SignUpVerificationCode = () => {
             email: user.email,
             codeGenerated: correctCode
         };
-        sendEmail("account/recovery", emailDetails)
+        if (correctCode) {
+            sendEmail("account/recovery", emailDetails)
+        }
     }, [correctCode]);
 
     const clickHandler = async () => {
@@ -40,21 +44,27 @@ const SignUpVerificationCode = () => {
                 return console.log(response);
             }
             document.cookie = "token=" + response.token + ";";
-            document.cookie = "userEmail" + user.email + ";";
+            document.cookie = "userEmail=" + user.email + ";";
             navigate(`/`);
         }
     };
 
     return (
-        <EmailVerification
-            cardType="Email Verification"
-            text={`An email with Verification code was just send to ${user.email}`}
-            type="text"
-            inputPlaceholder="Enter code"
-            buttonTitle="Next"
-            methodOnChange={setCode}
-            methodOnClick={clickHandler}
-        />
+        <>
+            <EmailVerification
+                cardType="Email Verification"
+                text={`An email with Verification code was just send to ${user.email}`}
+                type="text"
+                inputPlaceholder="Enter code"
+                buttonTitle="Next"
+                methodOnChange={setCode}
+                methodOnClick={clickHandler}
+                nputColor={inputColor}
+                inputError={inputError}
+            />
+            {console.log(user)}
+            <img src={user.profilePicture} />
+        </>
     );
 };
 

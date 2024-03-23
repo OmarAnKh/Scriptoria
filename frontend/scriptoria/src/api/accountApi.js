@@ -30,6 +30,9 @@ const findAccount = async (findCriteria) => {
             body: JSON.stringify(findCriteria)
 
         })
+        if (response.ok) {
+            return response.json();
+        }
     } catch (error) {
         console.log(error)
     }
@@ -61,7 +64,6 @@ const sendEmail = async (point, emailDetails) => {
             },
             body: JSON.stringify(emailDetails)
         })
-
         if (response.ok) {
             return response.json();
         }
