@@ -5,7 +5,7 @@ import Cookies from 'js-cookie';
 const HomePage = () => {
     return (
         <>
-            {console.log(Cookies.get("userInfo"))}
+            {console.log(Cookies.get("userEmail"))}
             <CarouselCards />
             <StoryCard />
         </>
