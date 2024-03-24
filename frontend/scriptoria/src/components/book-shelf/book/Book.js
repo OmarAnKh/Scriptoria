@@ -2,7 +2,7 @@ import './Book.css'
 
 const Book = ({data}) => {
     return(
-            <div class="book">
+            <div className="book">
                 <img src={data.img} alt="Book cover"/>
             </div>
     );

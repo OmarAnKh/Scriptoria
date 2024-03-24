@@ -2,6 +2,8 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import './BookShelf.css'
 import Book from "./book/Book.js";
+import Shelf from "./shelf/Shelf.js";
+import ShelfHeader from "./shelf-header/ShelfHeader.js";
 
 
 const works = [
@@ -52,7 +54,7 @@ const responsive = {
     },
     tablet: {
       breakpoint: { max: 1024, min: 464 },
-      items: 3,
+      items: 1,
       slidesToSlide: 1, // optional, default to 1.
     },
     mobile: {
@@ -77,13 +79,10 @@ const BookShelf =  (props) => {
     );
 
     return(
-        <div className="mx-5 my-5">
+        <div className="mx-5 my-5 book-shelf">
             <div className="carousel-container works-books my-5">
 
-                <div className="d-flex justify-content-between my-2">
-                    <h1 className="fw-bold d-inline-block shelf-title">Works</h1>
-                    <button type="button" class="btn btn-outline-primary view-button">See all works</button>
-                </div>
+                <ShelfHeader title="Works" btnTitle="See all works"/>
 
                 <Carousel  
                 responsive={responsive}
@@ -119,19 +118,13 @@ const BookShelf =  (props) => {
                 </Carousel>
 
             </div>
-            <div style={{ textAlign: 'center', marginTop: -55 }}>
-                <img src="https://dadpreneurbook.com/wp-content/themes/off-the-shelf/images/shelfs/shelf_metal.png" style={{ display: 'inline-block', width: 660}} className="shelf-img"/>
-            </div>
+            <Shelf/>
 
 
-
-            <div className="carousel-container reading-list-books my-5">
+            <div className="carousel-container reading-list-books my-5" style={{  }}>
                     
-                <div className="d-flex justify-content-between my-3">
-                    <h1 className="fw-bold d-inline-block shelf-title">Reading list</h1>
-                    <button type="button" class="btn btn-outline-primary view-button">All reading list</button>
-                </div>
-                      
+                <ShelfHeader title="Reading list" btnTitle="All reading list"/>
+
                 <Carousel  
                 responsive={responsive}
                 containerClass="custom-carousel"
@@ -167,9 +160,7 @@ const BookShelf =  (props) => {
 
             </div>
 
-            <div style={{ textAlign: 'center', marginTop: -55 }}>
-                <img src="https://dadpreneurbook.com/wp-content/themes/off-the-shelf/images/shelfs/shelf_metal.png" style={{ display: 'inline-block', width: 660 }} className="shelf-img"/>
-            </div>
+            <Shelf/>
 
         </div>
     );
