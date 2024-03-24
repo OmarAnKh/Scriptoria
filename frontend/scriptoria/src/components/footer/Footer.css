@@ -1,0 +1,136 @@
+* {
+    box-sizing: border-box;
+}
+
+footer {
+    left: 0;
+    bottom: 0;
+    right: 0;
+    padding-bottom: 20px;
+    background-color: #DEE2FF;
+    color: #000000;
+}
+
+.footer-link-item {
+    list-style: none;
+    /* Remove default list styling */
+}
+
+.footer-item {
+    display: block;
+    /* Display links on separate lines */
+    margin-bottom: 5px;
+    /* Add space between links */
+}
+
+.logo-footer {
+    padding-top: 30px;
+}
+
+footer section {
+    padding: 0 20px;
+    /* Adjusted padding for mobile views */
+}
+
+section.top {
+    padding-top: 30px;
+}
+
+section.top img {
+    display: block;
+    height: 50px;
+    padding-left: 20px;
+    /* Adjusted padding for mobile views */
+}
+
+section.top ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 10px;
+    /* Reduced gap for mobile views */
+    grid-template-columns: repeat(2, 1fr);
+}
+
+@media (min-width: 480px) {
+    footer article button {
+        width: 70%;
+    }
+
+    section.top ul {
+        padding-right: 10%;
+    }
+
+    .bottom {
+        padding-right: 800px;
+
+    }
+}
+
+@media (min-width: 600px) {
+    section.top ul {
+        grid-template-columns: repeat(6, 1fr);
+        padding-right: 0;
+    }
+
+    .ico-button {
+        padding-left: 80%;
+        text-align: justify;
+    }
+}
+
+.footer-item {
+    color: #000000;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+section.top ul li {
+    display: block;
+    margin-bottom: 10px;
+    color: rgba(0, 0, 0, 0.9);
+}
+
+section.top h6 {
+    color: black;
+    font-weight: 400;
+    text-transform: uppercase;
+    font-size: 50px;
+    letter-spacing: 1px;
+}
+
+section.bottom {
+    padding-top: 0px;
+    border-top: 2px solid rgb(255 255 255 / 10%);
+    color: rgba(0, 0, 0, 0.4);
+    font-size: 13px;
+
+}
+
+.ico-button {
+    text-align: center;
+    display: flex;
+    margin-left: 40px;
+}
+
+.footer-bottom {
+    padding-top: 10px;
+    border-top: 2px solid rgb(255 255 255 / 10%);
+    color: rgba(0, 0, 0, 0.4);
+    font-size: 15px;
+    text-align: center;
+    padding-left: 20px;
+}
+
+.facebook:hover {
+    color: blue;
+}
+
+.whatsapp :hover {
+    color: rgb(20, 195, 20);
+}
+
+.insta:hover {
+    color: mediumvioletred;
+}
