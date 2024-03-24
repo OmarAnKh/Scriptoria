@@ -24,7 +24,17 @@ router.post('/signIn', async (req, res) => {
         res.status(400).send()
     }
 })
-
+router.get('/find/userName/:userName', async (req, res) => {
+    try {
+        const user = await Account.findOne({ userName: req.params.userName })
+        if (!user) {
+            return res.status(404).send({ error: "Username not found" })
+        }
+        res.status(200).send(user)
+    } catch (error) {
+        res.status(500).send(error)
+    }
+})
 
 router.post("/user/find", async (req, res) => {
     try {

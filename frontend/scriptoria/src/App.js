@@ -5,15 +5,18 @@ import SingUp from "./components/sign-up/SignUp";
 import HomePage from './components/home-page/HomePage';
 import WritingPage from './components/writing-page/WrtitingPage';
 import StoryDetails from './components/story-details/StoryDetails';
+import Profile from './components/profile-info/ProfileInfo';
 import SignUpVerificationCode from './components/sign-up-info/SignUpVerificationCode';
 import GettingEmail from './components/password-reset/GettingEmail';
 import EmailVerifing from './components/password-reset/EmailVerifing';
 import ResetPassword from './components/password-reset/ResetPassword';
 
+
 function App() {
   return (
     <div className="App">
       <Routes>
+        <Route path="/profile" element={<Profile />}/>
         <Route path="/SignIn" element={<SignIn />} />
         <Route path="/SignUp" element={<SingUp />} />
         <Route path='/' element={<HomePage />} />
