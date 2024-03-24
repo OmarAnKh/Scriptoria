@@ -22,7 +22,7 @@ const FriendsList = () => {
     return (
         <div className="container">
             <h2 className="title-friends-list ">Friends List</h2>
-            <div className={`card-big ${showAll ? 'scrollspy' : ''}`} style={{ width: '400px', height: '100' }}>
+            <div className={`card-big friend-card-body ${showAll ? 'scrollspy' : ''}`} >
                 {friendsinfo.slice(0, showAll ? friendsinfo.length : 5).map((friend, index) => (
                     <div key={index} className="card friend-list-card mb-3" style={{ width: '100%' }}>
                         <div className="card-body d-flex align-items-center ">
@@ -35,7 +35,7 @@ const FriendsList = () => {
                                 <p className="card-text friends-username mb-2 text-muted  ">@{friend.username}</p>
                             </div>
                         </div>
-                        <FriendsListBtn/>
+                        <FriendsListBtn />
                     </div>
                 ))}
                 {!showAll && <button className="btn show-more-friend " onClick={toggleShowAll}>Show More</button>}
