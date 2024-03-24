@@ -1,3 +1,19 @@
+@font-face {
+    font-family: 'Poppins';
+    src: url('../../fonts/Poppins-Light.ttf') format('truetype');
+    font-weight: bold; 
+    font-style: normal;
+    font-display: swap;
+  }
+  
+  @font-face {
+    font-family: 'Righteous';
+    src: url('../../fonts/Righteous-Regular.ttf') format('truetype');
+    font-weight: bold; 
+    font-style: normal;
+    font-display: swap;
+  }
+
 .card-img {
     margin-top: -35px;
     box-shadow: 0px 1px 7px 2px #383838;
@@ -12,35 +28,44 @@
     cursor: pointer;
 }
 
-.card-title {
+.story-title {
     font-family: 'Righteous';
 }
 
-.author {
-    font-family: 'Lilita One';
+.story-author {
+    font-family: 'Righteous';
+    font-size: small;
 }
 
 .voters {
     margin-left: 7px;
     margin-top: 4px;
-    font-family: 'Lilita One';
+    font-family: 'Righteous';
+    font-size: small;
 }
 
-.card-text {
+.description-story {
     overflow: hidden;
     display: -webkit-box;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
-    font-family: 'Lilita One';
+    font-family: 'Poppins';
+    font-size: small;
 }
 
-.btn-show-more {
-    margin-Bottom: 5px;
+.loadMoreCards-btn {
     background-color: #F3C6C6;
     border: 1px solid #000000;
     box-Shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     margin-left: auto;
     margin-right: auto;
-    display: block;
-    font-family: 'Lilita One';
+    font-family: 'Righteous';
+    border-radius: 9px;
+    border: none;
+    width: 154px;
+    height: 33px; 
+}
+.loadMoreCards-btn:hover,
+.loadMoreCards-btn:active {
+    background-color: #F3C6C6 !important ;
 }
