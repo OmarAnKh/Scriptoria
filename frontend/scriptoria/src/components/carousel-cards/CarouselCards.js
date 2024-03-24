@@ -84,7 +84,7 @@ const comics = [
     },
     {
         id: 7,
-        title: 'Stherlock Holmes',
+        title: 'Sherlock Holmes',
         author: 'Arthur Conan Doyle',
         votes: 2003,
         rating: 1.7,
@@ -130,7 +130,7 @@ const CarouselCards = (props) => {
             keyBoardControl={true}
             customTransition="transform 1000ms ease-in-out"
             transitionDuration={800}
-            containerClass="carousel-container"
+            containerClass="carousel-container-cards"
             removeArrowOnDeviceType={["tablet", "mobile"]}
             deviceType={props.deviceType}
             dotListClass="custom-dot-list-style"
