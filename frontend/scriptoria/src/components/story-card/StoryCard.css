@@ -28,11 +28,11 @@
     cursor: pointer;
 }
 
-.card-title {
+.story-title {
     font-family: 'Righteous';
 }
 
-.author {
+.story-author {
     font-family: 'Righteous';
     font-size: small;
 }
@@ -44,7 +44,7 @@
     font-size: small;
 }
 
-.card-text {
+.description-story {
     overflow: hidden;
     display: -webkit-box;
     -webkit-line-clamp: 3;
@@ -53,17 +53,19 @@
     font-size: small;
 }
 
-.btn-show-more {
-    margin-Bottom: 5px;
+.loadMoreCards-btn {
     background-color: #F3C6C6;
     border: 1px solid #000000;
     box-Shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     margin-left: auto;
     margin-right: auto;
-    display: block;
     font-family: 'Righteous';
     border-radius: 9px;
     border: none;
     width: 154px;
     height: 33px; 
+}
+.loadMoreCards-btn:hover,
+.loadMoreCards-btn:active {
+    background-color: #F3C6C6 !important ;
 }

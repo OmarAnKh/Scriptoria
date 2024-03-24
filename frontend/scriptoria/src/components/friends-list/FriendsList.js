@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './FriendsList.css';
+import FriendsListBtn from './FriendsListBtn';
 
 const friendsinfo = [
     { name: 'Omar Khalili', username: 'Omarkhalili', imageUrl: 'https://assets.website-files.com/6214e7d4ee77846c19ee2dab/64789b44f257164ca2906859_Profile%20Placeholder.png', icon: 'https://d3k81ch9hvuctc.cloudfront.net/company/Wi8qPx/images/f12b4ab0-e38b-4baa-9f5f-1f61586750ad.png' },
@@ -23,25 +24,21 @@ const FriendsList = () => {
             <h2 className="title-friends-list ">Friends List</h2>
             <div className={`card-big ${showAll ? 'scrollspy' : ''}`} style={{ width: '400px', height: '100' }}>
                 {friendsinfo.slice(0, showAll ? friendsinfo.length : 5).map((friend, index) => (
-                    <div key={index} className="card mb-3" style={{ width: '100%' }}>
+                    <div key={index} className="card friend-list-card mb-3" style={{ width: '100%' }}>
                         <div className="card-body d-flex align-items-center ">
                             <button type="button" className="iconimg">
                                 <img src={friend.icon} alt="Friend" className="iconimg" />
                             </button>
                             <img src={friend.imageUrl} alt="Profile" className="rounded-circle  imgprofile img-fluid" />
                             <div>
-                                <h5 className="friends-name ">{friend.name}</h5>
-                                <h6 className="friends-username mb-2 text-muted  ">@{friend.username}</h6>
+                                <h5 className=" card-title friends-name ">{friend.name}</h5>
+                                <p className="card-text friends-username mb-2 text-muted  ">@{friend.username}</p>
                             </div>
                         </div>
-                        <div className="button-container">
-                            <button className="button-icon "><i className="bi bi-person-plus"></i></button>
-                            <button className="button-icon "><i className="bi bi-card-text"></i></button>
-                            <button className="button-icon"><i className="bi bi-three-dots-vertical"></i></button>
-                        </div>
+                        <FriendsListBtn/>
                     </div>
                 ))}
-                {!showAll && <button className='show-more-btn' onClick={toggleShowAll}>Show More</button>}
+                {!showAll && <button className="btn show-more-friend " onClick={toggleShowAll}>Show More</button>}
             </div>
         </div>
     );

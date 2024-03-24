@@ -14,7 +14,6 @@
 }
 .title-friends-list{
     font-family: 'Poppins';
-    text-decoration: none;
     font-weight:bold;
 }
 
@@ -29,7 +28,7 @@
     border-radius: 10px;
 }
 
-.card {
+.friend-list-card {
     background-color: #BFC7FF; 
     border-radius: 10px; 
     margin-bottom: 5px; 
@@ -88,16 +87,7 @@
     border: none;
 }
 
-.btn{
-    width: 20px;
-    height: 25px;
-    background-color: #cad0ff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-    border-radius: 5px;
-    border: none;
-}
-
-.show-more-btn {
+.show-more-friend {
     background-color: #AAB5FF;
     border-radius: 9px;
     border: none;
@@ -109,4 +99,9 @@
     height: 33px; 
     font-size: 15px;
     font-weight: bold;
+}
+
+.show-more-friend:hover,
+.show-more-friend:active {
+    background-color: #AAB5FF !important ;
 }

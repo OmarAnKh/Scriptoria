@@ -63,20 +63,20 @@ const StoryCard = () => {
         <div className=" d-flex flex-wrap" >
             {storyData.map((story, index) => (
                 <div key={story.id} className={`col-md-4 mb-3  ${index >= visiblestory ? 'd-none' : ''} my-5`} >
-                    <div className={`card mb-1 ${story.color}`} style={{ width: '95%', height: '100%', margin: '0 10px' }}>
+                    <div className={`card friend-list-card mb-1 ${story.color}`} style={{ width: '95%', height: '100%', margin: '0 10px' }}>
                         <div className="row no-gutters">
                             <div className="col-md-4">
                                 <img src={story.image} alt="story-img" className="card-img" style={{ width: '100%', height: 'auto' }} />
                             </div>
                             <div className="col-md-8">
                                 <div className="card-body">
-                                    <h5 className="card-title text-white">{story.title}</h5>
+                                    <h5 className="card-title story-title text-white">{story.title}</h5>
                                     <h6 className="author text-white">{story.author}</h6>
                                     <div className="d-flex ">
                                         <StarRating rating={story.rating} />
                                         <div className='voters text-white'>{story.voters}votes</div>
                                     </div>
-                                    <p className="card-text text-white">{story.description}</p>
+                                    <p className="card-text description-story text-white">{story.description}</p>
                                 </div>
                             </div>
                         </div>
@@ -84,8 +84,8 @@ const StoryCard = () => {
                 </div>
             ))}
             {visiblestory < storyData.length && (
-                <button type="button" className=" btn-show-more " onClick={loadMoreCards}>Show more </button>
-            )}
+                <button type="button" className=" btn loadMoreCards-btn " onClick={loadMoreCards}> Show more </button>
+                )}
         </div>
     );
 
