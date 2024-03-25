@@ -4,7 +4,7 @@ import EmailVerificationFormBody from "./EmailVerificationFormBody";
 
 const EmailVerification = (props) => {
     return (
-        <div className="container d-flex justify-content-center align-items-center ">
+        <div className="container d-flex justify-content-center align-items-center " style={{ minHeight: "90vh" }}>
             <div className="row justify-content-center mt-5  text-center">
                 <div className="col">
                     <div className="card email-verification-body">
