@@ -32,13 +32,13 @@ margin-top: 24px;
 
 }
 
-.button2 {
+#button2 {
    background-color:rgba(0, 191, 255, 0.895); 
 margin-right: 30px;
 border-radius: 10px;
 }
 
- .cancel-button {
+ #cancel-button {
    background-color: #f4363686;
    border-radius: 10px;
  }
@@ -51,7 +51,36 @@ border-radius: 10px;
  .Add-cover{
    margin-top: 40px;
    border-radius: 8px;
-background: #fbf3f3;
-box-shadow:  22px 22px 44px #ada8a8,
+   background: #eeeeeec8;
+   box-shadow:  22px 22px 44px #ada8a8,
              -22px -22px 44px #ffffff;
+         
  }
+ .displayDiv {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 3px solid black;
+  margin-bottom: 5px;
+  margin-top: 5px;
+  width: 150px;
+  border-radius: 5px;
+  border-color:#96949498;
+}
+
+.pInBorder {
+  margin: 0;
+}
+
+.buttonInCategory {
+  background-color: green;
+  color: white;
+  border: 1px solid black;
+  cursor: pointer;
+  border-radius: 3px;
+}
+.uploaded-cover {
+  max-width: 100%;
+  max-height: 100%;
+}
+
