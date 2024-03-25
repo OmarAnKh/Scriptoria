@@ -1,15 +1,15 @@
 import CarouselCards from "../carousel-cards/CarouselCards";
-import FriendsList from "../friends-list/FriendsList";
+import Footer from "../footer/Footer";
+import Navbar from "../navbar/Navbar";
 import StoryCard from "../story-card/StoryCard";
-import Cookies from 'js-cookie';
 
 const HomePage = () => {
     return (
         <>
-            {console.log(Cookies.get("userEmail"))}
+            <Navbar />
             <CarouselCards />
             <StoryCard />
-            <FriendsList/>
+            <Footer />
         </>
     );
 }

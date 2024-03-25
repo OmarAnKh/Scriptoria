@@ -1,15 +1,15 @@
 @font-face {
     font-family: 'Righteous';
     src: url('../../fonts/Righteous-Regular.ttf') format('truetype');
-    font-weight: normal; 
+    font-weight: normal;
     font-style: normal;
     font-display: swap;
 }
-  
-  @font-face {
+
+@font-face {
     font-family: 'Lilita One';
     src: url('../../fonts/Righteous-Regular.ttf') format('truetype');
-    font-weight: normal; 
+    font-weight: normal;
     font-style: normal;
     font-display: swap;
 }
@@ -26,7 +26,7 @@
 }
 
 .cover-img:hover {
-    transform: scale(1.1);
+    transform: scale(1.05);
 }
 
 .read-btn:hover {
@@ -40,7 +40,9 @@
     -webkit-box-orient: vertical;
 }
 
-.card-text, .author-name, .read-btn{
+.card-text,
+.author-name,
+.read-btn {
     font-family: 'Lilita One';
 }
 
@@ -62,7 +64,7 @@
 
 @media (max-width: 767px) {
     .card {
-        background: none !important; 
+        background: none !important;
         border-style: none;
     }
 }
