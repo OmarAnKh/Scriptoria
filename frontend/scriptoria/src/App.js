@@ -10,6 +10,7 @@ import SignUpVerificationCode from './components/sign-up-info/SignUpVerification
 import GettingEmail from './components/password-reset/GettingEmail';
 import EmailVerifing from './components/password-reset/EmailVerifing';
 import ResetPassword from './components/password-reset/ResetPassword';
+import ErrorPage from './components/Error-page/ErorrPage.js';
 
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
         <Route path='/GetEmail' element={<GettingEmail />} />
         <Route path='/EmailVerifing/:email' element={<EmailVerifing />} />
         <Route path='/ResetPassword' element={<ResetPassword />} />
+        <Route path='*' element={<ErrorPage />} />
       </Routes>
     </div>
   )
