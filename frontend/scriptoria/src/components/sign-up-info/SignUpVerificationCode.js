@@ -44,7 +44,7 @@ const SignUpVerificationCode = () => {
                 return console.log(response);
             }
             document.cookie = "token=" + response.token + ";";
-            document.cookie = "userEmail=" + user.email + ";";
+            document.cookie = "userInfo=" + user.userName + ";";
             navigate(`/`);
         }
     };

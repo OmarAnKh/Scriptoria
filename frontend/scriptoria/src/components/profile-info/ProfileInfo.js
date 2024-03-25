@@ -14,8 +14,11 @@ const Profile = () => {
             let user = Cookies.get('userInfo');
             try {
                 const res = await getAccountViaUserName("find/userName", user);
+                if (!res) {
+                    setData({});
+                    return;
+                }
                 setData(res);
-                console.log(res);
             } catch (err) {
                 console.log(err);
             }
