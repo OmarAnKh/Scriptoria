@@ -5,6 +5,7 @@ import "./SignIn.css";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { account } from "../../api/accountApi"
+
 const SignIn = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -56,8 +57,8 @@ const SignIn = () => {
 
     return (
         <>
-            <div className="container d-flex justify-content-center align-items-center my-3 signInBook">
-                <div className="row">
+            <div className="container d-flex justify-content-center align-items-center my-3 signInBook" style={{ minHeight: "90vh" }}>
+                <div className="row ">
                     <div className="col-lg-6 box-3 d-flex flex-column align-items-center text-center">
                         <img src={logo} alt="Scriptoria logo" id="logo" className="img-fluid" />
                         <div>
@@ -93,6 +94,7 @@ const SignIn = () => {
                 </div>
             </div>
         </>
+
     );
 };
 
