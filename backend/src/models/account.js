@@ -67,7 +67,7 @@ const accountSchema = new mongoose.Schema({
         }
     }],
     profilePicture: {
-        type: Buffer,
+        type: Buffer
     }
 }, {
     timestamps: true

@@ -1,7 +1,7 @@
 @font-face {
     font-family: 'Poppins';
     src: url('../../fonts/Poppins-Light.ttf') format('truetype');
-    font-weight: bold; 
+    font-weight: bold;
     font-style: normal;
     font-display: swap;
 }
@@ -9,36 +9,37 @@
 @font-face {
     font-family: 'Lilita One';
     src: url('../../fonts/Righteous-Regular.ttf') format('truetype');
-    font-weight: bold; 
+    font-weight: bold;
     font-style: normal;
 }
-.title-friends-list{
+
+.title-friends-list {
     font-family: 'Poppins';
-    font-weight:bold;
+    font-weight: bold;
 }
 
 .scrollspy {
-    overflow-y: auto; 
+    overflow-y: auto;
     max-height: 600px;
 }
 
 .card-big {
-    background-color: #CAD0FF; 
+    background-color: #CAD0FF;
     padding: 20px;
     border-radius: 10px;
 }
 
 .friend-list-card {
-    background-color: #BFC7FF; 
-    border-radius: 10px; 
-    margin-bottom: 5px; 
+    background-color: #BFC7FF;
+    border-radius: 10px;
+    margin-bottom: 5px;
     width: 359px;
     height: 100px;
     border-radius: 10px;
     border: none;
 }
 
-.iconimg{
+.iconimg {
     width: 30px;
     height: 30px;
     padding: 0;
@@ -50,7 +51,7 @@
     flex-shrink: 0;
 }
 
-.imgprofile{
+.imgprofile {
     height: 70px;
     width: 70px;
     margin-Right: 7px;
@@ -78,7 +79,7 @@
 }
 
 .button-icon {
-    margin-right: 10px; 
+    margin-right: 10px;
     width: 27px;
     height: 27px;
     background-color: #cad0ff;
@@ -92,16 +93,26 @@
     border-radius: 9px;
     border: none;
     font-family: 'Poppins';
-    text-align: center; 
-    display: block; 
-    margin: 0 auto; 
+    text-align: center;
+    display: block;
+    margin: 0 auto;
     width: 154px;
-    height: 33px; 
+    height: 33px;
     font-size: 15px;
     font-weight: bold;
 }
 
 .show-more-friend:hover,
 .show-more-friend:active {
-    background-color: #AAB5FF !important ;
+    background-color: #AAB5FF !important;
+}
+
+.friend-card-body {
+    width: 400px;
+}
+
+@media (max-width: 767px) {
+    .friend-card-body {
+        width: 350px;
+    }
 }

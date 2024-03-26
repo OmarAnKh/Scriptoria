@@ -1,6 +1,7 @@
 import express from "express";
 import Account from "../models/account.js"
 import sendMail from "../emails/sendMail.js"
+import authentication from "../middleware/authentication.js";
 
 const router = new express.Router()
 
@@ -96,4 +97,14 @@ router.patch('/reset/password', async (req, res) => {
         res.status(500).send({ status: false })
     }
 })
+router.post("/account/logout", authentication, async (req, res) => {
+    try {
+        req.user.tokens = req.user.tokens.filter((token) => token.token !== req.token);
+        await req.user.save();
+        res.send({ status: true });
+    } catch (error) {
+        res.status(500).send(error)
+    }
+})
+
 export default router

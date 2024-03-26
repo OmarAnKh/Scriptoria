@@ -107,11 +107,33 @@ const getAccountViaUserName = async (point, userName) => {
         console.log(error)
     }
 }
+
+const logoutAccount = async (token) => {
+    try {
+        const response = await fetch("http://localhost:5000/account/logout", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                'Authorization': 'Bearer ' + token,
+            }
+        })
+        if (response.ok) {
+            return response.json();
+        }
+        return response;
+
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 export {
     account,
     getAccountViaEmail,
     sendEmail,
     editPassword,
     findAccount,
-    getAccountViaUserName
+    getAccountViaUserName,
+    logoutAccount
 }
+

@@ -1,22 +1,22 @@
 .view-button {
     border-color: #8D9BFF;
-    background-color: transparent; 
+    background-color: transparent;
     color: black !important;
     font-family: 'Righteous';
     font-weight: bold;
-    width: 120px; 
-    height: 30px; 
+    width: 120px;
+    height: 30px;
     font-size: small;
 }
-  
+
 .view-button:hover,
 .view-button:focus,
 .view-button:active {
     background-color: #8D9BFF !important
 }
-  
+
 .shelf-title {
     font-family: 'Righteous';
     font-weight: bold;
+    font-size: 24px;
 }
-  
