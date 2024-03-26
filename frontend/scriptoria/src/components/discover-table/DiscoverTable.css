@@ -1,0 +1,50 @@
+.tab-home {
+    margin: 1% 1% 1% 60%;
+    background-color: #DEE2FF;
+    width: 35%;
+}
+
+.tab-item {
+    color: black;
+}
+
+.first-tab {
+    padding-right: 100px;
+    padding-left: 10px;
+    font-size: x-large;
+    font-weight: bolder;
+}
+
+.tabs {
+    display: flex;
+    margin-top: 12px;
+    font-weight: bold;
+}
+
+.title-tabs :hover {
+    color: black;
+}
+
+.dropdown-btn {
+    display: none;
+    background-color: #DEE2FF;
+    color: black;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .tabs {
+        display: block;
+    }
+
+    .dropdown-btn {
+        display: block;
+    }
+}
+
+.hidden {
+    display: none;
+}
