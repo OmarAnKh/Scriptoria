@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import "./WritingPage.css";
 import WpNavBar from "./nav-bar/WpNavBar";
 import TextEditor from "./text-editor/TextEditor";

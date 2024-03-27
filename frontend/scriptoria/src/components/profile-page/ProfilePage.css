@@ -1,0 +1,8 @@
+.profile-page-body {
+    background: -webkit-linear-gradient(68deg, #edeffc 0%, #dee1ff 50%, #d1d4ff 100%);
+    background: linear-gradient(68deg, #edeffc 0%, #dee1ff 50%, #d1d4ff 100%);
+    min-width: 100%;
+    margin: 0px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}

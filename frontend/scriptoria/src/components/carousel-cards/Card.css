@@ -1,15 +1,32 @@
+@font-face {
+    font-family: 'Righteous';
+    src: url('../../fonts/Righteous-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Lilita One';
+    src: url('../../fonts/Righteous-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+
 .cover-img {
     margin-bottom: -35px;
     box-shadow: 0px 1px 7px 2px #c7c9d3;
     border-bottom: 1px solid #dcddde;
-    margin-top: 20px;
+    margin-top: 15px;
     transition: 0.3s ease;
-    margin-left: 20px;
+    margin-left: 30px;
     cursor: pointer;
 }
 
 .cover-img:hover {
-    transform: scale(1.1);
+    transform: scale(1.05);
 }
 
 .read-btn:hover {
@@ -23,10 +40,31 @@
     -webkit-box-orient: vertical;
 }
 
-.card-text, .author-name{
+.card-text,
+.author-name,
+.read-btn {
     font-family: 'Lilita One';
 }
 
 .card-title {
     font-family: 'Righteous';
+}
+
+
+@media (max-width: 991px) {
+    .card {
+        width: 100%;
+    }
+
+    .cover-img {
+        max-width: 100%;
+        max-height: 100%;
+    }
+}
+
+@media (max-width: 767px) {
+    .card {
+        background: none !important;
+        border-style: none;
+    }
 }

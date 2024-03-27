@@ -1,0 +1,224 @@
+/* .MainPage {
+    background: -webkit-linear-gradient(68deg, #edeffc 0%, #dee1ff 50%, #d1d4ff 100%);
+    background: linear-gradient(68deg, #edeffc 0%, #dee1ff 50%, #d1d4ff 100%);
+    min-width: 100%;
+    margin: 0px;
+    overflow-x: hidden;
+    overflow-y: auto;
+} */
+
+.Nda {
+    position: relative;
+    top: 10%;
+    left: 8%;
+    max-width: 520px;
+    min-width: auto;
+}
+
+.DescriptionArea {
+    filter: drop-shadow(0px 0px 0px #ffffff00) !important;
+
+}
+
+.DescriptionArea p {
+    font-family: PoppinsBold;
+    font-size: 11px;
+
+
+
+}
+
+.DisplayName {
+    line-height: normal;
+    font-family: Lilta One;
+    font-size: 48px;
+    filter: drop-shadow(2px 2px 2px #0000006b);
+}
+
+.AboutMe {
+    --bs-gutter-x: 1.5rem;
+    font-family: Lilta One;
+    font-size: 24px;
+    filter: drop-shadow(2px 2px 2px #0000006b);
+    padding-right: calc(var(--bs-gutter-x) * .5);
+}
+
+.Username {
+    opacity: 50%;
+    font-size: 20px;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    left: 15%;
+    max-width: 300px;
+    gap: 20px;
+}
+
+.buttons1 {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    left: 1em;
+    max-width: 300px;
+    gap: 15px;
+}
+
+.buttonstyle {
+    font-family: Lilta One;
+    color: #000000;
+    background-color: #CAD0FF;
+    font-size: 0.7rem;
+}
+
+.buttonstyle .bi1 {
+    vertical-align: -0.26em !important;
+    margin-left: 15px;
+
+}
+
+
+.thebtn {
+    --bs-btn-padding-x: 0.5rem;
+    --bs-btn-padding-y: 0.375rem;
+    --bs-btn-font-size: 1rem;
+    --bs-btn-font-weight: 400;
+    --bs-btn-line-height: 1.5;
+    --bs-btn-border-width: 1px;
+    --bs-btn-border-color: transparent;
+    --bs-btn-border-radius: 0.375rem;
+    --bs-btn-hover-border-color: transparent;
+    --bs-btn-disabled-opacity: 0.65;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--bs-btn-padding-y) var(--bs-btn-padding-x);
+    font-family: Lilta One;
+    font-weight: var(--bs-btn-font-weight);
+    line-height: var(--bs-btn-line-height);
+    color: var(--bs-btn-color);
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    border: var(--bs-btn-border-width) solid var(--bs-btn-border-color);
+    border-radius: var(--bs-btn-border-radius);
+    background-color: #CAD0FF;
+    box-shadow: 2px 2px 2px #0000006b;
+    font-size: 1em;
+}
+
+.thebtn1 {
+    --bs-btn-padding-x: 0.5rem;
+    --bs-btn-padding-y: 0.375rem;
+    --bs-btn-font-size: 1rem;
+    --bs-btn-font-weight: 400;
+    --bs-btn-line-height: 1.5;
+    --bs-btn-border-width: 1px;
+    --bs-btn-border-color: transparent;
+    --bs-btn-border-radius: 0.375rem;
+    --bs-btn-hover-border-color: transparent;
+    --bs-btn-disabled-opacity: 0.65;
+    align-items: center;
+    justify-content: center;
+    padding: var(--bs-btn-padding-y) var(--bs-btn-padding-x);
+    font-family: Lilta One;
+    font-weight: var(--bs-btn-font-weight);
+    line-height: var(--bs-btn-line-height);
+    color: var(--bs-btn-color);
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    border: var(--bs-btn-border-width) solid var(--bs-btn-border-color);
+    border-radius: var(--bs-btn-border-radius);
+    background-color: #CAD0FF;
+    box-shadow: 2px 2px 2px #0000006b;
+    font-size: 1em;
+}
+
+
+.threedots {
+    padding: 2px;
+    width: 30px;
+    justify-content: center;
+}
+
+.Divider {
+    position: relative;
+    width: 90%;
+    padding-block: 1px;
+    height: 2px;
+    left: 5%;
+}
+
+.ImageFrame {
+    background-color: #bfc6ff;
+    height: 400px;
+    width: 300px;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+    border-radius: 10px;
+    padding-left: 25px;
+    padding-right: 25px;
+    padding-top: 21px;
+    padding-bottom: 21px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+    position: relative;
+}
+
+.profileImage {
+    height: 100%;
+    width: 100%;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.profileframe {
+    margin-right: 15%;
+    justify-content: end;
+}
+
+@font-face {
+    font-family: 'Lilta One';
+    src: url('../../fonts/LilitaOne-Regular.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'PoppinsBold';
+    src: url('../../fonts/Poppins-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+
+@media only screen and (max-width: 560px) {
+    .buttons {
+        left: 10%;
+        gap: 10px;
+    }
+}
+
+@media only screen and (max-width: 1200px) {
+    .profileframe {
+        margin-right: 10%;
+    }
+}
+
+@media only screen and (max-width: 850px) {
+    .profileframe {
+        margin-right: 7%;
+    }
+}
+
+@media only screen and (max-width: 560px) {
+    .profileframe {
+        margin-right: 10%;
+    }
+}

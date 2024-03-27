@@ -3,8 +3,8 @@ import React from 'react'
 function Category() {
   return (
     <div className="col-md-6 Category">
-    <label className="form-label">Category</label>
-    <select id="inputState" className="form-select">
+      <label className="form-label">Category</label>
+      <select id="inputState" className="form-select">
         <option selected>select one/more</option>
         <option value="14">Action</option>
         <option value="11">Adventure</option>
@@ -27,8 +27,8 @@ function Category() {
         <option value="1">Teen Fiction</option>
         <option value="18">Vampire</option>
         <option value="22">Werewolf</option>
-    </select>
-</div>
+      </select>
+    </div>
   )
 }
 
