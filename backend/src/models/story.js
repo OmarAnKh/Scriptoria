@@ -48,6 +48,10 @@ const storySchema = new Schema({
         slideNumber: {
             type: Number
         }
+    }], slide: [{
+        content: {
+            type: String
+        }
     }],
 });
 

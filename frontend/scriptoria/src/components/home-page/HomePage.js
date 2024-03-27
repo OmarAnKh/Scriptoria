@@ -3,7 +3,6 @@ import DiscoverTable from "../discover-table/DiscoverTable";
 import StoryCard from "../story-card/StoryCard";
 import Footer from "../footer/Footer";
 import Navbar from "../navbar/Navbar";
-import StoryCard from "../story-card/StoryCard";
 
 
 const HomePage = () => {
