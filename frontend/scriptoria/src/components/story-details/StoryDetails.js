@@ -1,6 +1,6 @@
 import "./StoryDetails.css";
 
-import React, { useState } from 'react'
+
 import Languege from "./Languege";
 import TargetAudience from "./TargetAudience";
 import Category from "./Category";
