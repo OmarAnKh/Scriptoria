@@ -1,5 +1,5 @@
 
-const story = async (point, account, token) => {
+const story = async (point, story, token) => {
     try {
         const response = await fetch("http://localhost:5000/" + point, {
             method: "POST",
@@ -7,7 +7,7 @@ const story = async (point, account, token) => {
                 "Content-Type": "application/json",
                 "Authorization": `Bearer ${token}`
             },
-            body: JSON.stringify(account)
+            body: JSON.stringify(story)
         })
         if (response.ok) {
             return response.json();

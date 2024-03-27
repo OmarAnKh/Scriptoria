@@ -26,19 +26,23 @@ const StoryDetails = () => {
   const [MainCharacters, setMainCharacters] = useState("");
   const [language, setLanguage] = useState("");
   const [TargetAudiences, setTargetAudiences] = useState("");
+  const [background, setBackground] = useState("");
   const [uploadedImageUrl, setUploadedImageUrl] = useState(null);
   const [Categorys, setCategorys] = useState([]);
 
   const startWritingHandler = async (e) => {
+    e.preventDefault();
     const storyData = {
       title: title,
       description: description,
       language: language,
-      MPAFilmRatings: "18+",
+      MPAFilmRatings: TargetAudiences,
       genres: Categorys,
-      backgroundColor: "black"
+      backgroundColor: background,
+      coverPhoto: uploadedImageUrl
     };
     const res = await story("story", storyData, Cookies.get("token"));
+
   };
 
   const handleChange = (event) => {
@@ -69,7 +73,7 @@ const StoryDetails = () => {
       <div className="container">
         <p className="parg">story Details</p>
         <div className="container story">
-          <form 
+          <form
             className="row g-3"
             onKeyDown={e => {
               if (e.key === 'Enter') {
@@ -98,14 +102,14 @@ const StoryDetails = () => {
             <Category handleChange={handleChange} displayCategorys={displayCategorys} method={setCategorys} />
 
             <div className="col-md-3">
-              <LabelOfStory htmlFor={htmlForStory[4]} type={typeofStory[2]} name={nameOfDetails[4]} method={setTitle} />
+              <LabelOfStory htmlFor={htmlForStory[4]} type={typeofStory[2]} name={nameOfDetails[4]} method={setBackground} />
             </div>
 
             <div className="col-md-6 Add-cover">
               {uploadedImageUrl ? (
                 <img src={uploadedImageUrl} alt="Uploaded Cover" className="uploaded-cover" />
               ) : (
-                <UploadButton 
+                <UploadButton
                   uploader={uploader}
                   options={options}
                   onComplete={files => {
@@ -122,16 +126,16 @@ const StoryDetails = () => {
               )}
             </div>
             <div>
-              <button id="button2" className="btn btn-primary btn-lg" onClick={startWritingHandler}>Start Writing</button>
+              <button id="button2" className="btn btn-primary btn-lg" onClick={(event) => { startWritingHandler(event) }}>Start Writing</button>
               <button id="cancel-button" className="btn btn-secondary btn-lg">Cancel</button>
             </div>
-           
+
           </form>
-          
+
         </div>
       </div>
     </div>
-    
+
   );
 };
 
