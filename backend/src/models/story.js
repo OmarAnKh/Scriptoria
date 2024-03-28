@@ -15,8 +15,7 @@ const storySchema = new Schema({
         required: true
     },
     coverPhoto: {
-        type: String,
-        required: true
+        type: Buffer
     },
     publishStatus: {
         type: Boolean,
