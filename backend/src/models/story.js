@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 
-const storySchema = new Schema({
+const storySchema = new mongoose.Schema({
     language: {
         type: String,
         required: true,

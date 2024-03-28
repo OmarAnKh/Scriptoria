@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { Schema } from "mongoose";
 
 const writersSchema = new mongoose.Schema({
     AccountId: {
@@ -14,6 +14,6 @@ const writersSchema = new mongoose.Schema({
 
 writersSchema.index({ AccountId: 1, StoryId: 1 }, { unique: true });
 
-const writers = mongoose.model('Write', writersSchema);
+const Writers = mongoose.model('Writers', writersSchema);
 
-export default writers
+export default Writers;
