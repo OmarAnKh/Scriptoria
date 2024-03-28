@@ -1,0 +1,88 @@
+/* .settings-page-top-body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #d2d7fd;
+} */
+
+.settings-page-body {
+    background: #ffffff;
+    /* border: 1px solid black; */
+    box-shadow: #ffffff;
+    /* border-radius: 10px; */
+    /* min-width: 80%; */
+    /* border: 1px solid; */
+    padding: 10px;
+    /* box-shadow: 5px 5px 5px 5px #888888; */
+}
+
+.settings-page-header {
+    background: #f8f9fb;
+    height: 150px;
+    display: flex;
+    align-items: center;
+    border-radius: 10px;
+}
+
+.edit-profile-text {
+    font-weight: bold;
+    font-size: 30px;
+}
+
+.link-settings-button {
+    font-size: 15px;
+}
+
+.nav-link-settings {
+    background-color: white;
+}
+
+.settings-info-body {
+    text-align: start;
+}
+
+.image-card-body {
+    position: relative;
+
+}
+
+.image-icon {
+    position: absolute;
+    top: 30px;
+    left: 145px;
+}
+
+.image-img {
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.image-img:hover {
+    filter: blur(3px);
+}
+
+.user-name-text {
+    color: #a3a3a3;
+}
+
+.card-body-settings {
+    border-radius: 10px;
+}
+
+.sttings-edit-button {
+    background: transparent;
+    border-radius: 5px;
+    border: none;
+    color: #a3a3a3;
+    border-color: #a3a3a3;
+    margin: 5px;
+}
+
+/* .settings-card-input {
+    border: none;
+} */
+
+.description-top-text {
+    font-weight: bold;
+    font-size: 30px;
+}

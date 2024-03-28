@@ -11,6 +11,7 @@ import EmailVerifing from './components/password-reset/EmailVerifing';
 import ResetPassword from './components/password-reset/ResetPassword';
 import ProfilePage from './components/profile-page/ProfilePage';
 import ErrorPage from './components/Error-page/ErorrPage.js';
+import Settings from './components/settings/Settings.js';
 
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
         <Route path='/GetEmail' element={<GettingEmail />} />
         <Route path='/EmailVerifing/:email' element={<EmailVerifing />} />
         <Route path='/ResetPassword' element={<ResetPassword />} />
+        <Route path='/settings' element={<Settings />} />
         <Route path='*' element={<ErrorPage />} />
       </Routes>
     </div>
