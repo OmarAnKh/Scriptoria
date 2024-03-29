@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 
-const storySchema = new Schema({
+const storySchema = new mongoose.Schema({
     language: {
         type: String,
         required: true,
@@ -15,8 +15,7 @@ const storySchema = new Schema({
         required: true
     },
     coverPhoto: {
-        type: String,
-        required: true
+        type: Buffer
     },
     publishStatus: {
         type: Boolean,
@@ -38,17 +37,17 @@ const storySchema = new Schema({
         type: String,
         required: true
     }],
+    mainCharacters: [{
+        type: String,
+    }],
     MPAFilmRatings: {
         type: String,
         required: true
-    }, slide: [{
+    }, slide: {
         content: {
             type: String
-        },
-        slideNumber: {
-            type: Number
         }
-    }],
+    }
 });
 
 const Story = mongoose.model('Story', storySchema);

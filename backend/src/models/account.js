@@ -45,7 +45,7 @@ const accountSchema = new mongoose.Schema({
     },
     password: {
         type: String,
-        require: true,
+        required: true,
         trim: true,
         minLength: 7,
         validate(value) {
@@ -63,7 +63,7 @@ const accountSchema = new mongoose.Schema({
     tokens: [{
         token: {
             type: String,
-            require: true
+            required: true
         }
     }],
     profilePicture: {
