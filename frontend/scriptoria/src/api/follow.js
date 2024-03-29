@@ -8,8 +8,6 @@ const follows = async (point, user, follow) => {
             },
         })
         if (response.ok) {
-
-            console.log(response)
             return response.json();
         }
         return response;
@@ -18,18 +16,14 @@ const follows = async (point, user, follow) => {
     }
 }
 
-const unfollow = async (point, user, follow) => {
-    const unfollowing = {
-        user,
-        follow
-    }
+const unfollow = async (point, obj) => {
     try {
         const response = await fetch("http://localhost:5000/" + point, {
             method: "delete",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify(unfollowing)
+            body: JSON.stringify(obj)
         })
         if (response.ok) {
             return response.json();
