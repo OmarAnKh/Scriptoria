@@ -3,6 +3,10 @@
     display: flex;
 }
 
+.navbar-me {
+    padding: 0 !important;
+}
+
 @media (min-width: 450px) {
     .right-side {
         padding-left: 40px;
