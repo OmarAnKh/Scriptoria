@@ -42,7 +42,7 @@ const actionButtonsData = [
 const Footer = () => {
     return (
         <footer>
-            <section className="top">
+            <section className="top mt-3">
                 <ul>
                     <li className="logo-footer">
                         <img src={logo} alt="Scriptoria Logo" />
