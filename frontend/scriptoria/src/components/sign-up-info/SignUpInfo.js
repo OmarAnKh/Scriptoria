@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import JoinInput from "../join-input/JoinInput";
 import logo from "../../img/scriptoria-logo.png";
 import content from "../../img/content.png";
@@ -26,16 +26,16 @@ const SignUpInfo = (props) => {
         user.dateOfBirth = dateOfBirth;
         user.gender = gender;
         user.type = joyType;
-        const response = await account("SignUp", user);
-        if (response.status === 400) {
-            props.setGoToInfo(false);
-            props.setError("Email or user name already taken");
-            navigate(`/SignUp`);
-            return console.log(response);
-        }
-        document.cookie = "token=" + response.token + ";";
-        document.cookie = "userInfo=" + response.user + ";";
-        navigate(`/`);
+        // const response = await account("SignUp", user);
+        // if (response.status === 400) {
+        //     props.setGoToInfo(false);
+        //     props.setError("Email or user name already taken");
+        //     navigate(`/SignUp`);
+        //     return console.log(response);
+        // }
+        // document.cookie = "token=" + response.token + ";";
+        // document.cookie = "userInfo=" + response.user + ";";
+        navigate(`/SignUpVerificationCode`, { state: { user } });
     }
     return (
         <>

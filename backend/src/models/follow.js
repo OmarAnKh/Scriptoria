@@ -1,17 +1,19 @@
-import mongoose from "mongoose";
+import mongoose, { Schema } from "mongoose";
 
 const followSchema = new mongoose.Schema({
     account: {
         type: Schema.Types.ObjectId,
         ref: 'Account',
+        required: true
     },
-    follow_id: {
+    follow: {
         type: Schema.Types.ObjectId,
         ref: 'Account',
+        required: true
     },
 });
 
-followSchema.index({ account: 1, follow_id: 1 }, { unique: true });
+followSchema.index({ account: 1, follow: 1 }, { unique: true });
 
 const follow = mongoose.model('Follow', followSchema);
 

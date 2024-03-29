@@ -15,8 +15,7 @@ const storySchema = new mongoose.Schema({
         required: true
     },
     coverPhoto: {
-        type: String,
-        required: true
+        type: Buffer
     },
     publishStatus: {
         type: Boolean,
@@ -38,17 +37,17 @@ const storySchema = new mongoose.Schema({
         type: String,
         required: true
     }],
+    mainCharacters: [{
+        type: String,
+    }],
     MPAFilmRatings: {
         type: String,
         required: true
-    }, slide: [{
+    }, slide: {
         content: {
             type: String
-        },
-        slideNumber: {
-            type: Number
         }
-    }],
+    }
 });
 
 const Story = mongoose.model('Story', storySchema);
