@@ -12,7 +12,7 @@ function TargetAudience(props) {
     
     }
     return (
-        <div className="col-md-6 Target">
+        <div className="col-md-3 Target">
             <label className="form-label">Target Audience</label>
             <select id="inputState" className="form-select" onChange={changeHandler}>
                 <option selected disabled>select one</option>
