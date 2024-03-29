@@ -28,7 +28,7 @@ function App() {
         <Route path='/GetEmail' element={<GettingEmail />} />
         <Route path='/EmailVerifing/:email' element={<EmailVerifing />} />
         <Route path='/ResetPassword' element={<ResetPassword />} />
-        <Route path='/settings' element={<Settings />} />
+        <Route path='/settings/:id' element={<Settings />} />
         <Route path='*' element={<ErrorPage />} />
       </Routes>
     </div>

@@ -1,8 +1,22 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import "./Settings.css";
 import SettingsButton from "./SettingsButton";
 import SettingsInfo from "./SettingsInfo";
 import logo from "../../img/content.png";
+import SettingsSelect from './SettingsSelect';
+import { findAccount, updateAccount } from '../../api/accountApi';
+import { useParams } from 'react-router-dom';
+import { Uploader } from "uploader";
+import { UploadButton } from "react-uploader";
+import Navbar from '../navbar/Navbar';
+
+
+
+const uploader = Uploader({
+    apiKey: "free"
+});
+
+const options = { multi: true };
 
 const settingsButtonObject = [
     {
@@ -87,7 +101,10 @@ const CardInput = (props) => {
         <div className={props.className + " row"}>
             <div className="col">
                 <label>{props.title}</label>
-                <input className="form-control settings-card-input" value={props.value} disabled={props.disabled} />
+                <input className="form-control settings-card-input" value={props.value} disabled={props.disabled} onChange={(event) => {
+                    props.method(event.target.value);
+                }} />
+                <p className='settings-error'>{props.error}</p>
             </div>
         </div>
     )
@@ -114,17 +131,116 @@ const CardInputEditBody = (props) => {
 const Settings = () => {
     const [inputDisabled, setInputDisabled] = useState(true);
     const [textareaDisabled, setTextareaDisabled] = useState(true);
+    const [inputEventType, setInputEventType] = useState("Edit");
+    const [textAreaEventType, setTextAreaEventType] = useState("Edit");
+    const [account, setAccount] = useState({})
+    const { id } = useParams();
 
-    const handelInputDisabled = () => {
+    const [userName, setUserName] = useState("");
+    const [gender, setGender] = useState("");
+    const [displayName, setDisplayName] = useState("");
+    const [region, setRegion] = useState("");
+    const [description, setDescription] = useState("");
+    const [imgURL, setImgURL] = useState(logo)
+
+    const [error, setError] = useState("");
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const fetchedAccount = await findAccount({ _id: id });
+                setAccount(fetchedAccount);
+                setUserName(fetchedAccount.user.userName || "");
+                setGender(fetchedAccount.user.gender || "");
+                setDisplayName(fetchedAccount.user.displayName || "");
+                setRegion(fetchedAccount.user.region || "");
+                setDescription(fetchedAccount.user.description || "");
+                if (!fetchedAccount.user.profilePicture) {
+                    return setImgURL(logo)
+                }
+                setImgURL(`data:image/png;base64,${fetchedAccount.user.profilePicture}`)
+            } catch (error) {
+                console.error("Error fetching account data:", error);
+            }
+        };
+
+        fetchData();
+
+        return () => { };
+    }, [id]);
+
+    const handalClickEditAndSaveInput = async () => {
+        if (inputEventType === "Edit") {
+            setInputDisabled(!inputDisabled);
+            setInputEventType("Save");
+            return;
+        }
+        const updateUser = { _id: id }
+        if (account.user.userName !== userName) {
+            let isFindAccount = await findAccount({ userName })
+            if (isFindAccount.message) {
+                return setError("user name already exists");
+            }
+            updateUser.userName = userName;
+        }
+        if (account.user.gender !== gender) {
+            updateUser.gender = gender;
+        }
+        if (account.user.displayName !== displayName) {
+            updateUser.displayName = displayName;
+        }
+        if (account.user.region !== region) {
+            updateUser.region = region;
+        }
+        if (updateUser.userName || updateUser.gender || updateUser.displayName || (updateUser.region !== "")) {
+            try {
+                if (updateUser.region === "") {
+                    delete updateUser.region;
+                }
+                setError("")
+                const response = await updateAccount(updateUser);
+            } catch (error) {
+                console.log("error", error)
+            }
+
+        }
+
         setInputDisabled(!inputDisabled);
+        setInputEventType("Edit");
     }
 
-    const handelTextareaDisabled = () => {
+    const handalClickEditAndSaveTextArea = async () => {
+        if (textAreaEventType === "Edit") {
+            setTextareaDisabled(!textareaDisabled);
+            setTextAreaEventType("Save");
+            return;
+        }
+        const updateUser = { _id: id }
+        if (account.user.description !== description) {
+            updateUser.description = description;
+        }
+        if (updateUser.description) {
+            try {
+                const response = await updateAccount(updateUser);
+            } catch (error) {
+                console.log("error", error)
+            }
+        }
         setTextareaDisabled(!textareaDisabled);
+        setTextAreaEventType("Edit");
+    }
+
+    const handalClickProfilePicture = async () => {
+        try {
+            const response = await updateAccount({ profilePicture: imgURL, _id: id });
+        } catch (error) {
+            console.log("error", error)
+        }
     }
 
     return (
         <div className="settings-page-top-body">
+            <Navbar />
             <div className="container-fluid my-5">
                 <div className="row">
                     <div className="col-md-8 mx-auto">
@@ -162,32 +278,45 @@ const Settings = () => {
                                     <SettingsInfo className="tab-pane fade show active settings-info-body" id="v-pills-userInfo" role="tabpanel" ariaLabelledby="v-pills-userInfo-tab" tabIndex={0} >
                                         <CardSettingsInfo cardBodyClassName="d-flex align-items-end">
                                             <div className="d-flex align-items-start">
-                                                <img src={logo} className="rounded-circle image-img" style={{ width: "150px" }} alt="Profile Logo" />
-                                                <i className="bi bi-camera image-icon"></i>
+                                                <UploadButton uploader={uploader}
+                                                    options={options}
+                                                    onComplete={files => setImgURL(files.map(x => x.fileUrl).join("\n"))}>
+                                                    {({ onClick }) =>
+                                                        <button onClick={onClick} className="upload-button">
+                                                            <img src={imgURL} className="rounded-circle image-img" style={{ width: "150px" }} alt="Profile Logo" />
+                                                            <i className="bi bi-camera image-icon"></i>
+                                                        </button>
+                                                    }
+                                                </UploadButton>
                                                 <div className="ms-3 my-3">
                                                     <h5>Amjad awad</h5>
                                                     <p className='user-name-text'>@AmjadAwad</p>
+                                                    <SettingsButton className="sttings-edit-button" title={"Save"} classNameIcon="bi bi-pencil" method={handalClickProfilePicture} />
                                                 </div>
                                             </div>
                                         </CardSettingsInfo>
 
                                         <CardSettingsInfo className="mt-3">
-                                            <CardInputEditBody title="User Information" element={<SettingsButton className="sttings-edit-button" title="Edit" classNameIcon="bi bi-pencil" method={handelInputDisabled} />}>
-                                                <CardInput className="col" title="User Name" value="amjad" disabled={inputDisabled} />
-                                                <CardInput className="col" title="Disblay Name" value="amjad awad" disabled={inputDisabled} />
+                                            <CardInputEditBody title="User Information" element={<SettingsButton className="sttings-edit-button" title={inputEventType} classNameIcon="bi bi-pencil" method={handalClickEditAndSaveInput} />}>
+                                                <CardInput className="col" title="User Name" value={userName} disabled={inputDisabled} method={setUserName} error={error} />
+                                                <CardInput className="col" title="Disblay Name" value={displayName} disabled={inputDisabled} method={setDisplayName} />
                                                 <div className="w-100 my-3" />
-                                                <CardInput className="col" title="Gender" value="male" disabled={inputDisabled} />
-                                                <CardInput className="col" title="Region" value="palestine" disabled={inputDisabled} />
+                                                <SettingsSelect title="gender" value={gender} disabled={inputDisabled} method={setGender} />
+                                                <SettingsSelect title="countrys" value={region} disabled={inputDisabled} method={setRegion} />
                                             </CardInputEditBody>
                                         </CardSettingsInfo>
 
                                         <CardSettingsInfo className="mt-3">
-                                            <CardInputEditBody title="Description" element={<SettingsButton className="sttings-edit-button" title="Edit" classNameIcon="bi bi-pencil" method={handelTextareaDisabled} />}>
+                                            <CardInputEditBody title="Description" element={<SettingsButton className="sttings-edit-button" title={textAreaEventType} classNameIcon="bi bi-pencil" method={handalClickEditAndSaveTextArea} />}>
                                                 <textarea
                                                     rows={20}
                                                     cols={70}
                                                     placeholder="Enter your description here..."
+                                                    value={description}
                                                     disabled={textareaDisabled}
+                                                    onChange={(event) => {
+                                                        setDescription(event.target.value)
+                                                    }}
                                                 />
                                             </CardInputEditBody>
                                         </CardSettingsInfo>
@@ -215,7 +344,12 @@ const Settings = () => {
                                     </SettingsInfo>
 
                                     <SettingsInfo className="tab-pane fade settings-info-body" id="v-pills-support" role="tabpanel" aria-labelledby="v-pills-support-tab" tabIndex={0}>
-                                        Support content
+                                        <div className='text-center'>
+                                            <h2>Need Help?</h2>
+                                            If you have any questions or issues, please don't hesitate to contact us.
+                                            <br />
+                                            <a href='mailto:scriptoria.work@gmail.com'>Send Email</a>
+                                        </div>
                                     </SettingsInfo>
                                 </div>
                             </div>

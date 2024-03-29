@@ -86,3 +86,17 @@
     font-weight: bold;
     font-size: 30px;
 }
+
+.nav-link-settings {
+    color: black;
+}
+
+.settings-error {
+    color: red;
+    font-weight: bold;
+}
+
+.upload-button {
+    border: none;
+    background: transparent;
+}

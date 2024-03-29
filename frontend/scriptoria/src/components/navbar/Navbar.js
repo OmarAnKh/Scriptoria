@@ -1,11 +1,11 @@
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Logo from "../../img/scriptoria-logo.png"
 import "./Navbar.css";
 import NavHomeButton from "./NavbarButton";
 import Cookies from 'js-cookie'
-import { logoutAccount } from "../../api/accountApi";
+import { findAccount, logoutAccount } from "../../api/accountApi";
 
 const NavHomeLink = ({ to, children }) => (
     <Link className="nav-link" to={to}>{children}</Link>
@@ -15,6 +15,23 @@ const NavHomeLink = ({ to, children }) => (
 
 const Navbar = () => {
     const [hasAccount, setHasAccount] = useState(Cookies.get('userInfo'))
+    const [accountId, setAccountId] = useState("*")
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const userName = Cookies.get("userInfo");
+            const account = await findAccount({ userName });
+            if (!account.message) {
+                setAccountId("*");
+            } else {
+                setAccountId(`/settings/${account._id}`);
+            }
+        };
+
+        fetchData();
+
+        return () => { };
+    }, []);
 
     const noHandel = () => { }
 
@@ -43,7 +60,7 @@ const Navbar = () => {
         },
         {
             title: "settings",
-            to: "/",
+            to: accountId,
             method: noHandel
         },
         {
