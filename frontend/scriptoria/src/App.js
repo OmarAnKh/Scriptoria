@@ -11,7 +11,7 @@ import EmailVerifing from './components/password-reset/EmailVerifing';
 import ResetPassword from './components/password-reset/ResetPassword';
 import ProfilePage from './components/profile-page/ProfilePage';
 import ErrorPage from './components/Error-page/ErorrPage.js';
-
+import SearchResultsPage from './components/search-results/SearchResults.js'
 
 function App() {
   return (
@@ -28,6 +28,7 @@ function App() {
         <Route path='/EmailVerifing/:email' element={<EmailVerifing />} />
         <Route path='/ResetPassword' element={<ResetPassword />} />
         <Route path='*' element={<ErrorPage />} />
+        <Route path='/Search' element={<SearchResultsPage />} />
       </Routes>
     </div>
   )
