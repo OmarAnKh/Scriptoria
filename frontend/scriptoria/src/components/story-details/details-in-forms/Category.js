@@ -28,7 +28,7 @@ function Category(props) {
     
     }
     return (
-        <div className="col-md-6 Category">
+        <div className="col-md-3 Category">
             <label className="form-label">Category</label>
             <select id="inputState" className="form-select" onChange={props.handleChange} >
                 <option selected>select one/more</option>

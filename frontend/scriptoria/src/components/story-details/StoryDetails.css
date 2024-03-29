@@ -5,10 +5,10 @@
 
 }
 
-.languege {
-   margin-top: 24px;
-   /* margin-left: 245px; */
-}
+ .languege{
+margin-top: 24px;
+ }
+
 
 .story {
    font-weight: bold;
@@ -19,29 +19,28 @@
 
 }
 
-.button1 {
-   background-color: rgb(85, 239, 85);
-   font-weight: bold;
-   color: black;
-   justify-content: center;
-   font-size: 16px;
-   border-radius: 20px;
-   margin-left: 200px;
-   margin-top: 80px;
-   margin-bottom: 100px;
 
+.button1{
+   background-color:rgb(85, 239, 85);
+    font-weight: bold;
+    color:black;
+    justify-content: center;
+    font-size: 16px;
+    border-radius: 20px;
+    margin-top: 170px; 
 }
 
 #button2 {
    background-color:rgba(0, 191, 255, 0.895); 
-margin-right: 30px;
 border-radius: 10px;
+margin-right: 20px;
 }
 
  #cancel-button {
    background-color: #f4363686;
    border-radius: 10px;
 }
+
 
 .back {
    margin-top: 50px;
@@ -57,20 +56,23 @@ border-radius: 10px;
              -22px -22px 44px #ffffff;
          
  }
- .displayDiv {
+ .displayDivInCategory{
+
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border: 3px solid black;
-  margin-bottom: 5px;
-  margin-top: 5px;
+  border: 3px solid #96949498;
+  margin-bottom: 15px;
+  margin-top: 15px;
   width: 150px;
   border-radius: 5px;
-  border-color:#96949498;
 }
 
-.pInBorder {
+.pInBorderInCategory {
   margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .buttonInCategory {
@@ -81,7 +83,86 @@ border-radius: 10px;
   border-radius: 3px;
 }
 .uploaded-cover {
-  max-width: 100%;
-  max-height: 100%;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
+
+
+.title{
+  margin-top: 23px;
+  margin-bottom: 20px;
+}
+.Target{
+margin-right: 160px;
+margin-top: 20px;
+}
+
+.Category{
+margin-top: 20px;
+}
+
+.back{
+  margin-top: 20px;
+  margin-right: 20px;
+}
+
+.card{
+  margin-top: 40px;
+margin-right: 175px;
+}
+
+.buttons-container {
+  display: flex;
+  justify-content: end;
+  margin-top: 20px; 
+  margin-right: 145px;
+}
+
+
+.textarea-full-width {
+  width: 82%;
+}
+
+.mainAndBack{
+  margin-top: 25px;
+}
+
+.imageAndButton{
+  margin-left: 16px;
+}
+
+.Plus{
+  margin-top: 29px;
+  margin-right: 160px;
+}
+
+.displayDiv {
+  display: block;
+  
+}
+
+.pInBorder {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin: 0;
+  max-width: 80%; 
+}
+
+.buttonInCategory {
+  margin-left: 10px;
+}
+
+.borderContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 3px solid #96949498;
+  width: 150px;
+  border-radius: 5px;
+  
+}
+
+
 
