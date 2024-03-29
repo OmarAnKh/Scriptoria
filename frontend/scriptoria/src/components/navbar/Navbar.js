@@ -24,6 +24,7 @@ const Navbar = () => {
         const clearAllCookies = () => {
             let cookies = document.cookie.split(";");
             for (let i = 0; i < cookies.length; i++) {
+
                 let cookie = cookies[i];
                 let eqPos = cookie.indexOf("=");
                 let name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;

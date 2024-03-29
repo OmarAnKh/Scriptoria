@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { Schema } from "mongoose";
 
 const storyPartSchema = new mongoose.Schema({
     storyName: {

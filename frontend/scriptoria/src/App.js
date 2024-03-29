@@ -9,15 +9,16 @@ import SignUpVerificationCode from './components/sign-up-info/SignUpVerification
 import GettingEmail from './components/password-reset/GettingEmail';
 import EmailVerifing from './components/password-reset/EmailVerifing';
 import ResetPassword from './components/password-reset/ResetPassword';
-import ProfilePage from './components/profile-page/ProfilePage';
+
 import ErrorPage from './components/Error-page/ErorrPage.js';
+import Profile from './components/profile-page/Profile.js';
 
 
 function App() {
   return (
     <div className="App">
       <Routes>
-        <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/profile/:username" element={<Profile />} />
         <Route path="/SignIn" element={<SignIn />} />
         <Route path="/SignUp" element={<SingUp />} />
         <Route path='/' element={<HomePage />} />

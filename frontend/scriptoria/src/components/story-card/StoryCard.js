@@ -84,8 +84,8 @@ const StoryCard = () => {
                 </div>
             ))}
             {visiblestory < storyData.length && (
-                <button type="button" className=" btn loadMoreCards-btn " onClick={loadMoreCards}> Show more </button>
-                )}
+                <button type="button" className=" btn loadMoreCards-btn " onClick={loadMoreCards} style={{ marginBottom: "3%", marginTop: "3%" }}> Show more </button>
+            )}
         </div>
     );
 
