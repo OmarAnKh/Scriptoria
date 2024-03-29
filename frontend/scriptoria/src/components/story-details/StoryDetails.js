@@ -8,6 +8,8 @@ import { Uploader } from "uploader";
 import { UploadButton } from "react-uploader";
 import { story } from "../../api/storyAPI";
 import Cookies from "js-cookie";
+import Navbar from "../navbar/Navbar";
+import Footer from "../footer/Footer";
 
 const uploader = Uploader({
   apiKey: "free"
@@ -31,7 +33,8 @@ const StoryDetails = () => {
   const [Categorys, setCategorys] = useState([]);
   const [mainCharactersList, setMainCharactersList] = useState([]);
 
-  const startWritingHandler = async (e) => {
+  const startWritingHandler = async (event) => {
+    event.preventDefault();
     const storyData = {
       title: title,
       description: description,
@@ -40,7 +43,7 @@ const StoryDetails = () => {
       genres: Categorys,
       backgroundColor: background,
       coverPhoto: uploadedImageUrl,
-      mainCharacters:MainCharacters
+      mainCharacters: MainCharacters
     };
     const res = await story("story", storyData, Cookies.get("token"));
   };
@@ -68,7 +71,8 @@ const StoryDetails = () => {
     ));
   };
 
-  const handleDeleteMainCharacter = (indexToRemove) => {
+  const handleDeleteMainCharacter = (indexToRemove, event) => {
+    event.preventDefault();
     setMainCharactersList((prevCharacters) => {
       let newCharacters = [...prevCharacters];
       newCharacters.splice(indexToRemove, 1);
@@ -76,25 +80,27 @@ const StoryDetails = () => {
     });
   };
 
-  const addMainCharacter = () => {
+  const addMainCharacter = (event) => {
+    event.preventDefault();
     if (MainCharacters.trim() !== "") {
       setMainCharactersList([...mainCharactersList, MainCharacters]);
       setMainCharacters("");
     }
   };
 
-const displayMainCharacters = () => {
-  return mainCharactersList.map((character, index) => (
-    <div className="displayDiv" key={index}>
-      <div className="borderContainer">
-        <p className="pInBorder">{character}</p>
-        <button onClick={() => handleDeleteMainCharacter(index)} className="buttonInCategory">X</button>
+  const displayMainCharacters = () => {
+    return mainCharactersList.map((character, index) => (
+      <div className="displayDiv" key={index}>
+        <div className="borderContainer">
+          <p className="pInBorder">{character}</p>
+          <button onClick={(event) => handleDeleteMainCharacter(index, event)} className="buttonInCategory">X</button>
+        </div>
       </div>
-    </div>
-  ));
-};
+    ));
+  };
   return (
     <div>
+      <Navbar />
       <div className="container ">
         <p className="parg">story Details</p>
         <div className="container  story">
@@ -122,7 +128,7 @@ const displayMainCharacters = () => {
                 <LabelOfStory htmlFor={htmlForStory[3]} type={typeofStory[0]} name={nameOfDetails[3]} placeholder={placeholderOfForm[3]} method={setMainCharacters} />
               </div>
               <div className="col d-flex align-items-center Plus">
-                <button onClick={addMainCharacter}>+</button>
+                <button onClick={(event) => addMainCharacter(event)}>+</button>
               </div>
               <div className="col-4 justify-content-end back">
                 <LabelOfStory htmlFor={htmlForStory[4]} type={typeofStory[2]} name={nameOfDetails[4]} method={setBackground} />
@@ -164,6 +170,7 @@ const displayMainCharacters = () => {
           </form>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };
