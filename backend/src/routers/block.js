@@ -1,9 +1,9 @@
 import express from "express";
-import Follow from "../models/follow.js";
+import Block from "../models/block.js";
 const router = express.Router();
 
-router.post("/follow", async (req, res) => {
-    const newFollow = new Follow(req.body);
+router.post("/block", async (req, res) => {
+    const newFollow = new Block(req.body);
 
     try {
         await newFollow.save();
@@ -13,10 +13,10 @@ router.post("/follow", async (req, res) => {
     }
 })
 
-router.get("/following/:user/:follow", async (req, res) => {
+router.get("/blocking/:user/:block", async (req, res) => {
 
     try {
-        const user = await Follow.findOne({ account: req.params.user, follow: req.params.follow })
+        const user = await Block.findOne({ account: req.params.user, follow: req.params.follow })
         if (user) {
             return res.status(200).send({ status: true })
         }
@@ -26,10 +26,10 @@ router.get("/following/:user/:follow", async (req, res) => {
     }
 })
 
-router.delete("/unfollow", async (req, res) => {
+router.delete("/unblock", async (req, res) => {
 
     try {
-        const user = await Follow.findOneAndDelete({ account: req.body.account, follow: req.body.follow })
+        const user = await Block.findOneAndDelete({ account: req.body.account, block: req.body.block })
 
         if (user) {
             return res.status(200).send({ status: true })

@@ -8,6 +8,7 @@ import ProfileInfo from "../profile-info/ProfileInfo"
 import BookShelf from "../book-shelf/BookShelf"
 import FriendsList from "../friends-list/FriendsList";
 import Navbar from "../navbar/Navbar";
+import { follows } from '../../api/follow';
 
 const ProfileBooks = (props) => {
     return (
@@ -26,15 +27,15 @@ const ProfileBooks = (props) => {
 
 const Profile = () => {
     const [data, setData] = useState("");
+    const [user, setUser] = useState("")
+    const [block, setBlock] = useState(false)
     const { username } = useParams()
     const navigate = useNavigate()
 
     useEffect(() => {
         const handleResponse = async () => {
-            let user = username
             try {
-                const res = await getAccountViaUserName("find/userName", user);
-
+                const res = await getAccountViaUserName("find/userName", username);
                 if (!res.userName) {
                     setData({ status: false });
                     return;
@@ -47,26 +48,65 @@ const Profile = () => {
         handleResponse();
     }, []);
 
-    
+    useEffect(() => {
+        if (Cookies.get("userInfo")) {
+            const handleUser = async () => {
+                try {
+                    const res = await getAccountViaUserName("find/userName", Cookies.get("userInfo"));
+                    if (!res.userName) {
+                        setUser({ status: false });
+                        return;
+                    }
+                    setUser(res);
+                } catch (err) {
+                    console.log(err);
+                }
+            };
+            handleUser();
+        }
+    }, []);
+    const handleBlocked = async () => {
+        try {
+            const res = await follows("blocking", user._id, data._id);
+            setBlock(res.status)
+            return
+        } catch (err) {
+            console.log(err);
+        }
+
+
+    }
 
     if (username === Cookies.get("userInfo") && data.userName) {
         return (
             <>
                 <div className="container-fluid profile-page-body">
                     <Navbar />
-                    <ProfileInfo user={data} userStatus={false} />
+                    <ProfileInfo user={data} userStatus={false} ifblocked={false} />
                     <ProfileBooks username={username} />
                 </div>
             </>
         );
     } else if (username !== Cookies.get("userInfo") && data.userName) {
-        return (
-            <div className="container-fluid profile-page-body">
-                <Navbar />
-                <ProfileInfo visit={Cookies.get("userInfo")} user={data} userStatus={true} />
-                <ProfileBooks username={username} />
-            </div>
-        );
+        handleBlocked()
+        if (!block || !Cookies.get("userInfo")) {
+            return (
+                <div className="container-fluid profile-page-body">
+                    {console.log(block)}
+                    <Navbar />
+                    <ProfileInfo visit={user} user={data} userStatus={true} ifblocked={false} />
+                    <ProfileBooks username={username} />
+                </div>
+            );
+        } else {
+            return (
+                < div className="container-fluid profile-page-body" >
+                    {console.log(block)}
+                    <Navbar />
+                    <ProfileInfo visit={user} user={data} userStatus={true} ifblocked={true} />
+                </ div>
+            )
+        }
     } else {
         navigate('*')
         return null;
