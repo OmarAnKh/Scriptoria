@@ -5,6 +5,7 @@
     background-color: #00000047;
     padding-left: 20px;
     padding-right: 20px;
+    flex-direction: column;
 }
 
 
