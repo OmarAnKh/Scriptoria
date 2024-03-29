@@ -6,11 +6,14 @@ import { account } from '../../api/accountApi.js';
 import { follows, unfollow } from "../../api/follow.js"
 import { useNavigate } from "react-router-dom"
 import Cookies from 'js-cookie';
+import logo from "../../img/content.png";
+
 const ProfileInfo = (props) => {
     const data = props.user;
     const [following, setFollowing] = useState(false)
     const [user, setUser] = useState({})
     const [follow_id, setFollow_id] = useState({})
+    const [imgURL, setImgURL] = useState(logo)
     const navigate = useNavigate()
 
     const followHandler = async () => {
@@ -65,6 +68,7 @@ const ProfileInfo = (props) => {
                 const res = await follows("following", account._id, followId._id)
                 setFollowing(res.status)
             }
+            setImgURL(`data:image/png;base64,${data.profilePicture}`)
         };
         fetchData();
 
@@ -216,7 +220,7 @@ const ProfileInfo = (props) => {
                     <div>
                         <div className="col-12 mb-3">
                             <div className="ImageFrame">
-                                <img className="profileImage" src="https://media.discordapp.net/attachments/1123724326110253117/1219376530988466227/me1.png?ex=660b13e3&is=65f89ee3&hm=4d9766a586b35349996ef90f9602077be843e63df9d7aad1d3f2b9bfec04b3ce&=&format=webp&quality=lossless" />
+                                <img className="profileImage img-thumbnail" src={imgURL} />
                             </div>
                         </div>
                         <div className="">
@@ -262,7 +266,7 @@ const ProfileInfo = (props) => {
                     <div>
                         <div className="col-12 mb-3">
                             <div className="ImageFrame">
-                                <img className="profileImage" src="https://media.discordapp.net/attachments/1123724326110253117/1219376530988466227/me1.png?ex=660b13e3&is=65f89ee3&hm=4d9766a586b35349996ef90f9602077be843e63df9d7aad1d3f2b9bfec04b3ce&=&format=webp&quality=lossless" />
+                                <img className="profileImage img-thumbnail" src={imgURL} />
                             </div>
                         </div>
                     </div>
