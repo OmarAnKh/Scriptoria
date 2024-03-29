@@ -1,0 +1,33 @@
+.tab-home-bar {
+    background-color: #DEE2FF;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+    width: 25%;
+    margin-left: 5%;
+    margin-top: 1%;
+    margin-bottom: 1%;
+}
+
+.nav-tabs-bar {
+    border-bottom: none;
+}
+
+.nav-link-bar {
+    color: #495057;
+    background-color: transparent;
+    border: none;
+    margin-right: 15px;
+    padding: 10px 15px;
+    font-size: 16px;
+    line-height: 1.5;
+    border-radius: 5px;
+}
+
+.nav-link-bar:hover {
+    background-color: #e9ecef;
+}
+
+.nav-link-bar.active {
+    color: #fff;
+    background-color: #007bff;
+}

@@ -1,9 +1,8 @@
 import { useState, useEffect } from "react";
 import validator from "validator";
 import { getAccountViaEmail, sendEmail } from "../../api/accountApi";
-import { useParams } from "react-router-dom";
 import EmailVerification from "../email-verification/EmailVerification";
-import { useNavigate } from "react-router-dom"
+import { useNavigate,useParams } from "react-router-dom"
 
 
 const EmailVerifing = () => {
