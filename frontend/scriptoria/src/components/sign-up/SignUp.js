@@ -29,6 +29,7 @@ const SignUp = () => {
             return;
         }
         let account = await findAccount({ email })
+        console.log(account)
         if (account.message) {
             setError("Email already exists")
             if (validatorCounter > 0) {
