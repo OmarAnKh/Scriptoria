@@ -12,6 +12,7 @@ import ResetPassword from './components/password-reset/ResetPassword';
 import ErrorPage from './components/Error-page/ErorrPage.js';
 import SearchResultsPage from './components/search-results/SearchResults.js'
 import Profile from './components/profile-page/Profile.js';
+import StoryPage from './components/story-page/StoryPage.js';
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
         <Route path='/ResetPassword' element={<ResetPassword />} />
         <Route path='*' element={<ErrorPage />} />
         <Route path='/Search' element={<SearchResultsPage />} />
+        <Route path='/StoryPage' element={<StoryPage />} />
       </Routes>
     </div>
   )

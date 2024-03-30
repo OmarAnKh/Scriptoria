@@ -3,7 +3,7 @@ import './ProfileInfo.css'
 import InfoButton from './Card.js'
 import ActionButton from './ButtonCard.js'
 import { account, getAccountViaUserName } from '../../api/accountApi.js';
-import { follows, unfollow } from "../../api/follow.js"
+import { follows, unfollow, followers, followingCount } from "../../api/follow.js"
 import { useNavigate } from "react-router-dom"
 import Cookies from 'js-cookie';
 const ProfileInfo = (props) => {
@@ -12,6 +12,7 @@ const ProfileInfo = (props) => {
     const [user, setUser] = useState({})
     const [follow_id, setFollow_id] = useState({})
     const navigate = useNavigate()
+    const [followerCount, setFollowerCount] = useState(0);
 
     const followHandler = async () => {
         const following = {
@@ -42,10 +43,16 @@ const ProfileInfo = (props) => {
             const res = await follows("following", account._id, followId._id)
             setFollowing(res.status)
             console.log(res.status)
+            try {
+                const followerCount = await followers("/followers", props.user._id);
+                setFollowerCount(followerCount.followerCount);
+                console.log(followerCount)
+            } catch (error) {
+                console.error("Error fetching followers:", error);
+            }
         };
         fetchData();
     }, []);
-
     return (
         <div className="MainPage row">
             <div className="Nda col">
@@ -195,9 +202,9 @@ const ProfileInfo = (props) => {
                     </div>
                     <div className="">
                         <div className="buttons1">
-                            <InfoButton text="Followers" value="356K" />
+                            <InfoButton text="Followers" value={followerCount} />
                             <InfoButton text="Works" value="21" />
-                            <InfoButton text="Following" value="356" />
+                            <InfoButton text="Following" value="1" />
                         </div>
                     </div>
                 </div>

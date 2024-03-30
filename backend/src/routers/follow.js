@@ -39,4 +39,25 @@ router.delete("/unfollow", async (req, res) => {
         return res.status(500).send({ status: error })
     }
 })
+
+router.get("/followers/:user", async (req, res) => {
+    try {
+        const user = await Follow.countDocuments({ follow: req.params.user });
+
+        res.status(200).send({ followerCount: user });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Internal Server Error");
+    }
+});
+router.get("/following/:user", async (req, res) => {
+    try {
+        const user = await Follow.countDocuments({ account: req.params.user });
+        res.status(200).send({ followerCount: user });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Internal Server Error");
+    }
+});
+
 export default router;
