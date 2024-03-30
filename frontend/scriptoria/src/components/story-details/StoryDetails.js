@@ -10,6 +10,7 @@ import { story } from "../../api/storyAPI";
 import Cookies from "js-cookie";
 import Navbar from "../navbar/Navbar";
 import Footer from "../footer/Footer";
+import { useNavigate } from "react-router-dom";
 
 const uploader = Uploader({
   apiKey: "free"
@@ -31,6 +32,7 @@ const StoryDetails = () => {
   const [uploadedImageUrl, setUploadedImageUrl] = useState(null);
   const [Categorys, setCategorys] = useState([]);
   const [mainCharactersList, setMainCharactersList] = useState([]);
+  const navigate = useNavigate();
 
   const startWritingHandler = async (event) => {
     event.preventDefault();
@@ -44,8 +46,8 @@ const StoryDetails = () => {
       coverPhoto: uploadedImageUrl,
       mainCharacters: mainCharactersList
     };
-    console.log(storyData)
     const res = await story("story", storyData, Cookies.get("token"));
+    navigate(`/WritingPage`)
   };
 
   const handleChange = (event) => {
