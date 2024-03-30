@@ -29,7 +29,7 @@ router.get("/following/:user/:follow", async (req, res) => {
 router.delete("/unfollow", async (req, res) => {
 
     try {
-        const user = await Follow.findOneAndDelete({ account: req.body.user, follow: req.body.follow })
+        const user = await Follow.findOneAndDelete({ account: req.body.account, follow: req.body.follow })
 
         if (user) {
             return res.status(200).send({ status: true })

@@ -1,7 +1,8 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import EmailVerification from "../email-verification/EmailVerification";
 import { useState } from "react";
-import { account, editPassword } from "../../api/accountApi";
+import { editPassword } from "../../api/accountApi";
+import { saveDocument } from "../../api/API's";
 
 const ResetPassword = () => {
     const navigate = useNavigate()
@@ -30,7 +31,7 @@ const ResetPassword = () => {
                     password
                 }
                 await editPassword("reset/password", user)
-                const res = await account("signIn", user)
+                const res = await saveDocument("signIn", user)
                 if (res.status === 400) {
                     return;
                 }

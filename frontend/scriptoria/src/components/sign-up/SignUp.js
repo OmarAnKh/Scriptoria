@@ -28,14 +28,14 @@ const SignUp = () => {
             setEmailError("red");
             return;
         }
-        let account = await findAccount({ email })
+        let account = await findAccount({ email }) | {}
         if (account.message) {
             setError("Email already exists")
             if (validatorCounter > 0) {
                 validatorCounter--;
             }
         }
-        account = await findAccount({ userName })
+        account = await findAccount({ userName }) | {}
         if (account.message) {
             setError("user name already exists")
             if (validatorCounter > 0) {

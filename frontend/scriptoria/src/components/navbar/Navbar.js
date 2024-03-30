@@ -1,12 +1,10 @@
-
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Logo from "../../img/scriptoria-logo.png"
 import "./Navbar.css";
 import NavHomeButton from "./NavbarButton";
 import Cookies from 'js-cookie'
-import { logoutAccount } from "../../api/accountApi";
-
+import { findAccount, logoutAccount } from "../../api/accountApi";
 const NavHomeLink = ({ to, children }) => (
     <Link className="nav-link" to={to}>{children}</Link>
 );
@@ -15,6 +13,25 @@ const NavHomeLink = ({ to, children }) => (
 
 const Navbar = () => {
     const [hasAccount, setHasAccount] = useState(Cookies.get('userInfo'))
+    const [accountId, setAccountId] = useState("*");
+    const [accountUserName, setAccountUserName] = useState("*")
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const userName = Cookies.get("userInfo");
+            setAccountUserName(`/profile/${userName}`)
+            const account = await findAccount({ userName });
+            if (!account.message) {
+                setAccountId("*");
+            } else {
+                setAccountId(`/settings/${account._id}`);
+            }
+        };
+
+        fetchData();
+
+        return () => { };
+    }, []);
 
     const noHandel = () => { }
 
@@ -39,12 +56,12 @@ const Navbar = () => {
     const accountDropDown = [
         {
             title: "profile",
-            to: "/profile",
+            to: accountUserName,
             method: noHandel
         },
         {
             title: "settings",
-            to: "/",
+            to: accountId,
             method: noHandel
         },
         {
@@ -57,7 +74,7 @@ const Navbar = () => {
 
     return (
         <nav className="navbar navbar-expand-lg bg-body-tertiary">
-            <div className="container-fluid">
+            <div className="container-fluid ">
                 <Link to="/" className="card-text d-flex align-items-center">
                     <img className="logo-size" src={Logo} alt="Scriptoria Logo" />
                     <div className="d-none d-md-block">

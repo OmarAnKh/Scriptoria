@@ -1,7 +1,7 @@
 import EmailVerification from "../email-verification/EmailVerification"
 import { useState } from "react"
 import validator from "validator"
-import { getAccountViaEmail } from "../../api/accountApi"
+import { findAccount } from "../../api/accountApi"
 import { useNavigate } from "react-router-dom"
 
 
@@ -16,7 +16,7 @@ const GettingEmail = () => {
             setInputError("Please enter a valid email")
             return
         }
-        const res = await getAccountViaEmail("find/email", email)
+        const res = await findAccount( {email})
         console.log(res)
         if (res.status === 404) {
             setInputColor("red")

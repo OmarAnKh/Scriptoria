@@ -169,12 +169,12 @@
     position: relative;
 }
 
-.profileImage {
+/* .profileImage {
     height: 100%;
     width: 100%;
     border-radius: 5px;
     overflow: hidden;
-}
+} */
 
 .profileframe {
     margin-right: 15%;
