@@ -1,5 +1,5 @@
-import mongoose from "mongoose";
-import Story from "./story";
+import mongoose, { Schema } from "mongoose";
+
 
 
 const slideSchema = new mongoose.Schema({

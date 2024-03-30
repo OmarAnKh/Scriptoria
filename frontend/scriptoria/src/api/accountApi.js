@@ -1,3 +1,5 @@
+import { json } from "react-router-dom";
+
 const account = async (point, account) => {
     try {
         const response = await fetch("http://localhost:5000/" + point, {
@@ -127,6 +129,26 @@ const logoutAccount = async (token) => {
     }
 }
 
+const updateAccount = async (updateUser) => {
+    try {
+        const response = await fetch("http://localhost:5000/account/update", {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+                // 'Authorization': 'Bearer ' + token,
+            },
+            body: JSON.stringify(updateUser)
+        })
+        if (response.ok) {
+            return response.json();
+        }
+        return response;
+
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 export {
     account,
     getAccountViaEmail,
@@ -134,6 +156,7 @@ export {
     editPassword,
     findAccount,
     getAccountViaUserName,
-    logoutAccount
+    logoutAccount,
+    updateAccount
 }
 

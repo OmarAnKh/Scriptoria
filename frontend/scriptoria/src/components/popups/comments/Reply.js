@@ -10,11 +10,11 @@ const Reply = ({ username, comment, time, likes, username2 }) => {
   return (
     <div className="d-flex flex-row bg-light px-0 py-1 rounded">
           <div className="bd-highlight">
-              <img className='rounded-circle' src="https://i.pinimg.com/564x/60/5e/46/605e461ca634e868085d1a3d9d02b1ea.jpg" alt="Profile" width="25" />
+              <img className='rounded-circle' src="https://i.pinimg.com/280x280_RS/a4/9d/59/a49d596492909a0f96da8d900461378b.jpg" alt="Profile" width="25" />
           </div>
           <div className="px-2 text bd-highlight">
               <div className='fw-bold h6 small'>
-                <Link to={`/profile/${username}`} className="profile-link" >{username}</Link> <i class="bi bi-caret-right-fill text-secondary"></i> <Link to={`/profile/${username}`} className="profile-link" >{username2}</Link></div>
+                <Link to={`/profile/${username}`} className="profile-link" >{username}</Link> <i className="bi bi-caret-right-fill text-secondary"></i> <Link to={`/profile/${username}`} className="profile-link" >{username2}</Link></div>
               <div className='fw-normal small h6  comment-text'>{comment}</div>
               <div className="row small justify-content-between">
     <div className="col-8 col-sm-4 row"> 

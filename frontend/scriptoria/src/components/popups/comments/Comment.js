@@ -39,13 +39,13 @@ const Comment = ({ username, comment, time, likes }) => {
             ></a>
           </div>
         </div>
-        {/* <Reply
+        <Reply
               username="ahmad" 
               username2="abood"
               comment="from what yr is gen z ? Containers center and horizontally pad your content. Use .container for a responsive pixel width, .container-fluid for width: 100% across all viewports and devices, or a responsive container (e.g., .container-md) for a combination of fluid and pixel widths." 
               time="5h" 
               likes="1"
-              /> */}
+              />
       </div>
     </div>
   );

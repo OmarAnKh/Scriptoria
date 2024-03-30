@@ -1,6 +1,6 @@
 import mongoose, { Schema } from "mongoose";
 
-const ratingSchema = new mongoose.Schema({
+const likesSchema = new mongoose.Schema({
     AccountId: {
         type: Schema.Types.ObjectId,
         ref: 'Account'
@@ -9,11 +9,11 @@ const ratingSchema = new mongoose.Schema({
         type: Schema.Types.ObjectId,
         ref: 'Story'
     },
-    rating: { type: Number },
+    publishDate: { type: Date },
 });
 
-ratingSchema.index({ AccountId: 1, StoryId: 1 }, { unique: true })
-const Rating = mongoose.model('Rating', ratingSchema);
+likesSchema.index({ AccountId: 1, StoryId: 1 }, { unique: true });
 
-export default Rating
+const Like = mongoose.model('Like', likesSchema);
 
+export default Like;
