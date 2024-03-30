@@ -1,6 +1,6 @@
 import React from 'react';
 import '../profile-info/ProfileInfo.css'
-import { getAccountViaUserName } from "../../api/accountApi";
+import { findAccount } from "../../api/accountApi";
 import Cookies from 'js-cookie'
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from "react-router-dom";
@@ -35,12 +35,12 @@ const Profile = () => {
     useEffect(() => {
         const handleResponse = async () => {
             try {
-                const res = await getAccountViaUserName("find/userName", username);
-                if (!res.userName) {
+                const res = await findAccount({ userName: username });
+                if (!res.message) {
                     setData({ status: false });
                     return;
                 }
-                setData(res);
+                setData(res.user);
             } catch (err) {
                 console.log(err);
             }
@@ -52,12 +52,13 @@ const Profile = () => {
         if (Cookies.get("userInfo")) {
             const handleUser = async () => {
                 try {
-                    const res = await getAccountViaUserName("find/userName", Cookies.get("userInfo"));
-                    if (!res.userName) {
+                    const res = await findAccount({ userName: Cookies.get("userInfo") });
+
+                    if (!res.message) {
                         setUser({ status: false });
                         return;
                     }
-                    setUser(res);
+                    setUser(res.user);
                 } catch (err) {
                     console.log(err);
                 }
@@ -68,6 +69,7 @@ const Profile = () => {
     const handleBlocked = async () => {
         try {
             const res = await follows("blocking", user._id, data._id);
+
             setBlock(res.status)
             return
         } catch (err) {
@@ -92,22 +94,22 @@ const Profile = () => {
         if (!block || !Cookies.get("userInfo")) {
             return (
                 <div className="container-fluid profile-page-body">
-                    {console.log(block)}
                     <Navbar />
                     <ProfileInfo visit={user} user={data} userStatus={true} ifblocked={false} />
                     <ProfileBooks username={username} />
                 </div>
             );
         } else {
+            console.log(user)
             return (
                 < div className="container-fluid profile-page-body" >
-                    {console.log(block)}
                     <Navbar />
                     <ProfileInfo visit={user} user={data} userStatus={true} ifblocked={true} />
                 </ div>
             )
         }
     } else {
+
         navigate('*')
         return null;
     }

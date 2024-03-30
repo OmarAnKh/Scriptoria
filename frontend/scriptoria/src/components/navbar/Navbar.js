@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Logo from "../../img/scriptoria-logo.png"
@@ -6,7 +5,6 @@ import "./Navbar.css";
 import NavHomeButton from "./NavbarButton";
 import Cookies from 'js-cookie'
 import { findAccount, logoutAccount } from "../../api/accountApi";
-
 const NavHomeLink = ({ to, children }) => (
     <Link className="nav-link" to={to}>{children}</Link>
 );

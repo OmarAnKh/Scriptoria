@@ -4,11 +4,12 @@ import SettingsButton from "./SettingsButton";
 import SettingsInfo from "./SettingsInfo";
 import logo from "../../img/content.png";
 import SettingsSelect from './SettingsSelect';
-import { findAccount, updateAccount } from '../../api/accountApi';
+import { findAccount } from '../../api/accountApi';
 import { useParams } from 'react-router-dom';
 import { Uploader } from "uploader";
 import { UploadButton } from "react-uploader";
 import Navbar from '../navbar/Navbar';
+import { updateDocument } from '../../api/API\'s';
 
 
 
@@ -198,7 +199,7 @@ const Settings = () => {
                     delete updateUser.region;
                 }
                 setError("")
-                const response = await updateAccount(updateUser);
+                const response = await updateDocument("account", updateUser);
             } catch (error) {
                 console.log("error", error)
             }
@@ -221,7 +222,7 @@ const Settings = () => {
         }
         if (updateUser.description) {
             try {
-                const response = await updateAccount(updateUser);
+                const response = await updateDocument("account", updateUser);
             } catch (error) {
                 console.log("error", error)
             }
@@ -232,7 +233,7 @@ const Settings = () => {
 
     const handalClickProfilePicture = async () => {
         try {
-            const response = await updateAccount({ profilePicture: imgURL, _id: id });
+            const response = await updateDocument("account", { profilePicture: imgURL, _id: id });
         } catch (error) {
             console.log("error", error)
         }

@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import validator from "validator";
-import { getAccountViaEmail, sendEmail } from "../../api/accountApi";
+import { findAccount } from "../../api/accountApi";
 import EmailVerification from "../email-verification/EmailVerification";
-import { useNavigate,useParams } from "react-router-dom"
-
+import { useNavigate, useParams } from "react-router-dom"
+import { sendEmail } from "../../api/API's";
 
 const EmailVerifing = () => {
     const { email } = useParams();
@@ -22,7 +22,7 @@ const EmailVerifing = () => {
             }
 
             try {
-                const res = await getAccountViaEmail("find/email", email);
+                const res = await findAccount({ email });
                 if (res.status === 404) {
                     setValidEmail(undefined);
                 } else {
