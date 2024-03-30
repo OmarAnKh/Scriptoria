@@ -5,7 +5,7 @@ import SettingsInfo from "./SettingsInfo";
 import logo from "../../img/content.png";
 import SettingsSelect from './SettingsSelect';
 import { findAccount, updateAccount } from '../../api/accountApi';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Uploader } from "uploader";
 import { UploadButton } from "react-uploader";
 import Navbar from '../navbar/Navbar';
@@ -135,12 +135,14 @@ const Settings = () => {
     const [textAreaEventType, setTextAreaEventType] = useState("Edit");
     const [account, setAccount] = useState({})
     const { id } = useParams();
+    const navigate = useNavigate();
 
     const [userName, setUserName] = useState("");
     const [gender, setGender] = useState("");
     const [displayName, setDisplayName] = useState("");
     const [region, setRegion] = useState("");
     const [description, setDescription] = useState("");
+    const [email, setEmail] = useState("");
     const [imgURL, setImgURL] = useState(logo)
 
     const [error, setError] = useState("");
@@ -155,6 +157,7 @@ const Settings = () => {
                 setDisplayName(fetchedAccount.user.displayName || "");
                 setRegion(fetchedAccount.user.region || "");
                 setDescription(fetchedAccount.user.description || "");
+                setEmail(fetchedAccount.user.email);
                 if (!fetchedAccount.user.profilePicture) {
                     return setImgURL(logo)
                 }
@@ -236,6 +239,10 @@ const Settings = () => {
         } catch (error) {
             console.log("error", error)
         }
+    }
+
+    const handalEditPassword = () => {
+        navigate(`/ResetPassword`, { state: { email } });
     }
 
     return (
@@ -323,20 +330,21 @@ const Settings = () => {
                                     </SettingsInfo>
 
                                     <SettingsInfo className="tab-pane fade settings-info-body" id="v-pills-privacy" role="tabpanel" aria-labelledby="v-pills-privacy-tab" tabIndex={0}>
-                                        <div className="card">
-                                            <div className="card-body">
-                                                <img src={logo} className="rounded-circle" style={{ width: "150px" }} alt="Profile Logo" />
-                                            </div>
-                                        </div>
-                                        <div className="card mt-3">
-                                            <div className="card-body">
-                                                This is some text within a card body.
-                                            </div>
-                                        </div>
+                                        privacy
                                     </SettingsInfo>
 
                                     <SettingsInfo className="tab-pane fade settings-info-body" id="v-pills-security" role="tabpanel" aria-labelledby="v-pills-security-tab" tabIndex={0}>
-                                        Security content
+                                        <CardSettingsInfo className="mt-3">
+                                            <CardInputEditBody >
+                                                <CardInput className="col" title="Email" value={email} disabled={true} />
+                                            </CardInputEditBody>
+                                        </CardSettingsInfo>
+
+                                        <CardSettingsInfo className="mt-3">
+                                            <CardInputEditBody element={<SettingsButton className="sttings-edit-button" title={"Edit"} classNameIcon="bi bi-pencil" method={handalEditPassword} />}>
+                                                <CardInput className="col" title="Password" value={"*********"} disabled={true} />
+                                            </CardInputEditBody>
+                                        </CardSettingsInfo>
                                     </SettingsInfo>
 
                                     <SettingsInfo className="tab-pane fade settings-info-body" id="v-pills-termsOfUse" role="tabpanel" aria-labelledby="v-pills-termsOfUse-tab" tabIndex={0}>

@@ -46,6 +46,7 @@ const StoryDetails = () => {
       mainCharacters: MainCharacters
     };
     const res = await story("story", storyData, Cookies.get("token"));
+    console.log(res)
   };
 
   const handleChange = (event) => {
