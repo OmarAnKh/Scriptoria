@@ -2,12 +2,11 @@ import React, { useEffect, useState } from 'react';
 import './ProfileInfo.css'
 import InfoButton from './Card.js'
 import ActionButton from './ButtonCard.js'
-import { account } from '../../api/accountApi.js';
 import { follows, unfollow } from "../../api/follow.js"
 import { useNavigate } from "react-router-dom"
 import Cookies from 'js-cookie';
 import logo from "../../img/content.png";
-
+import { saveDocument } from '../../api/API\'s.js';
 const ProfileInfo = (props) => {
     const data = props.user;
     const [following, setFollowing] = useState(false)
@@ -21,7 +20,7 @@ const ProfileInfo = (props) => {
             account: user._id,
             follow: follow_id._id
         }
-        const res = await account("follow", following)
+        const res = await saveDocument("follow", following)
         setFollowing(true)
     }
 
@@ -35,7 +34,7 @@ const ProfileInfo = (props) => {
             account: user._id,
             block: follow_id._id
         }
-        const res = await account("block", following)
+        const res = await saveDocument("block", following)
         window.location.reload();
     }
     const unblockHandler = async () => {
