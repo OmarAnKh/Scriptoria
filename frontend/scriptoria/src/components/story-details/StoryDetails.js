@@ -23,12 +23,11 @@ const placeholderOfForm = ["Untitled", "1", "", "name"];
 
 const StoryDetails = () => {
   const [title, setTitle] = useState("");
-  const [numberOfSlides, setNumberOfSlides] = useState("");
   const [description, setdescription] = useState("");
   const [MainCharacters, setMainCharacters] = useState([]);
   const [language, setLanguage] = useState("");
   const [TargetAudiences, setTargetAudiences] = useState("");
-  const [background, setBackground] = useState("");
+  const [background, setBackground] = useState("#000000");
   const [uploadedImageUrl, setUploadedImageUrl] = useState(null);
   const [Categorys, setCategorys] = useState([]);
   const [mainCharactersList, setMainCharactersList] = useState([]);
@@ -43,8 +42,9 @@ const StoryDetails = () => {
       genres: Categorys,
       backgroundColor: background,
       coverPhoto: uploadedImageUrl,
-      mainCharacters: MainCharacters
+      mainCharacters: mainCharactersList
     };
+    console.log(storyData)
     const res = await story("story", storyData, Cookies.get("token"));
     console.log(res)
   };
@@ -102,8 +102,7 @@ const StoryDetails = () => {
   return (
     <div>
       <Navbar />
-      <div className="container ">
-        <p className="parg">story Details</p>
+      <div className="container " style={{ marginTop: "3%", marginBottom: "3%" }}>
         <div className="container  story">
           <form
             className="row g-3"
@@ -162,9 +161,9 @@ const StoryDetails = () => {
                     </UploadButton>
                   )}
                 </div>
-                <div className="buttons-container">
-                  <button id="button2" className="btn btn-primary btn-lg" onClick={(event) => { startWritingHandler(event) }}>Start Writing</button>
-                  <button id="cancel-button" className="btn btn-secondary btn-lg">Cancel</button>
+                <div className="buttons-container mb-5">
+                  <button id="button2" className="btn  btn-lg" onClick={(event) => { startWritingHandler(event) }}>Start Writing</button>
+                  <button id="cancel-button" className="btn btn-lg">Cancel</button>
                 </div>
               </div>
             </div>
