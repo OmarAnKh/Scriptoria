@@ -289,8 +289,8 @@ const Settings = () => {
                                                     }
                                                 </UploadButton>
                                                 <div className="ms-3 my-3">
-                                                    <h5>Amjad awad</h5>
-                                                    <p className='user-name-text'>@AmjadAwad</p>
+                                                    <h5>{displayName}</h5>
+                                                    <p className='user-name-text'>@{userName}</p>
                                                     <SettingsButton className="sttings-edit-button" title={"Save"} classNameIcon="bi bi-pencil" method={handalClickProfilePicture} />
                                                 </div>
                                             </div>

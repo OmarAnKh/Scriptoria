@@ -15,11 +15,13 @@ const NavHomeLink = ({ to, children }) => (
 
 const Navbar = () => {
     const [hasAccount, setHasAccount] = useState(Cookies.get('userInfo'))
-    const [accountId, setAccountId] = useState("*")
+    const [accountId, setAccountId] = useState("*");
+    const [accountUserName, setAccountUserName] = useState("*")
 
     useEffect(() => {
         const fetchData = async () => {
             const userName = Cookies.get("userInfo");
+            setAccountUserName(`/profile/${userName}`)
             const account = await findAccount({ userName });
             if (!account.message) {
                 setAccountId("*");
@@ -56,7 +58,7 @@ const Navbar = () => {
     const accountDropDown = [
         {
             title: "profile",
-            to: "/profile",
+            to: accountUserName,
             method: noHandel
         },
         {
@@ -74,7 +76,7 @@ const Navbar = () => {
 
     return (
         <nav className="navbar navbar-expand-lg bg-body-tertiary">
-            <div className="container-fluid">
+            <div className="container-fluid ">
                 <Link to="/" className="card-text d-flex align-items-center">
                     <img className="logo-size" src={Logo} alt="Scriptoria Logo" />
                     <div className="d-none d-md-block">
