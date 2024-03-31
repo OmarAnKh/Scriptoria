@@ -1,8 +1,8 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import EmailVerification from "../email-verification/EmailVerification";
 import { useEffect, useState } from "react";
-import { account, sendEmail } from "../../api/accountApi";
-
+import { sendEmail } from "../../api/API's";
+import { saveDocument } from "../../api/API's";
 const SignUpVerificationCode = () => {
     const [code, setCode] = useState("");
     const [correctCode, setCorrectCode] = useState(null);
@@ -38,7 +38,7 @@ const SignUpVerificationCode = () => {
 
     const clickHandler = async () => {
         if (correctCode === code) {
-            const response = await account("SignUp", user);
+            const response = await saveDocument("SignUp", user);
             if (response.status === 400) {
                 navigate(`/SignUp`);
                 return console.log(response);

@@ -1,16 +1,18 @@
-const findAccount = async (findCriteria) => {
+const saveDocument = async (point, document) => {
     try {
-        const response = await fetch("http://localhost:5000/user/find", {
+        const response = await fetch("http://localhost:5000/" + point, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify(findCriteria)
-
+            body: JSON.stringify(document)
         })
         if (response.ok) {
             return response.json();
         }
+        return response;
+
+
     } catch (error) {
         console.log(error)
     }
@@ -35,14 +37,14 @@ const sendEmail = async (point, emailDetails) => {
     }
 }
 
-const editPassword = async (point, accountDetails) => {
+const updateDocument = async (point, document) => {
     try {
-        const response = await fetch("http://localhost:5000/" + point, {
+        const response = await fetch(`http://localhost:5000/${point}/update`, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify(accountDetails)
+            body: JSON.stringify(document)
         })
         if (response.ok) {
             return response.json();
@@ -54,31 +56,10 @@ const editPassword = async (point, accountDetails) => {
     }
 }
 
-
-const logoutAccount = async (token) => {
-    try {
-        const response = await fetch("http://localhost:5000/account/logout", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                'Authorization': 'Bearer ' + token,
-            }
-        })
-        if (response.ok) {
-            return response.json();
-        }
-        return response;
-
-    } catch (error) {
-        console.log(error)
-    }
-}
 
 
 export {
+    saveDocument,
     sendEmail,
-    editPassword,
-    findAccount,
-    logoutAccount
+    updateDocument
 }
-

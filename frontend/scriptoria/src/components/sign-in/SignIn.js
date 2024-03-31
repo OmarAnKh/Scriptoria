@@ -4,8 +4,7 @@ import validator from "validator";
 import "./SignIn.css";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { account } from "../../api/accountApi"
-
+import { saveDocument } from "../../api/API's";
 const SignIn = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -41,7 +40,7 @@ const SignIn = () => {
             email,
             password
         }
-        const res = await account("signIn", user)
+        const res = await saveDocument("signIn", user)
         if (res.status === 400) {
             setPasswordValid("red");
             setEmailValid("red");

@@ -7,7 +7,6 @@ import signature from "../../img/signature.png"
 import "./SignUpInfo.css"
 import JoyButton from "../joy-button/JoyButton";
 import { useState } from "react";
-import { account } from "../../api/accountApi.js"
 import SignUpInfoSelect from "./SignUpInfoSelect.js";
 
 const SignUpInfo = (props) => {
