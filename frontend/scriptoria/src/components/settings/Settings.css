@@ -18,15 +18,16 @@
 
 .settings-page-header {
     background: #f8f9fb;
-    height: 150px;
     display: flex;
     align-items: center;
     border-radius: 10px;
+    
 }
 
 .edit-profile-text {
     font-weight: bold;
     font-size: 30px;
+    
 }
 
 .link-settings-button {
