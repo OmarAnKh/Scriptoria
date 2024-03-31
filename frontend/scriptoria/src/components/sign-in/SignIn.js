@@ -4,7 +4,7 @@ import validator from "validator";
 import "./SignIn.css";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { account } from "../../api/accountApi"
+import { saveDocument } from "../../api/API's";
 const SignIn = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -40,7 +40,7 @@ const SignIn = () => {
             email,
             password
         }
-        const res = await account("signIn", user)
+        const res = await saveDocument("signIn", user)
         if (res.status === 400) {
             setPasswordValid("red");
             setEmailValid("red");
@@ -48,7 +48,7 @@ const SignIn = () => {
             return;
         }
         const token = res.token
-        const userInfo = res.user
+        const userInfo = res.user.userName
         document.cookie = "token=" + token + ";"
         document.cookie = "userInfo=" + userInfo + ";"
         navigate("/")
@@ -56,12 +56,12 @@ const SignIn = () => {
 
     return (
         <>
-            <div className="container d-flex justify-content-center align-items-center my-3 signInBook">
-                <div className="row">
+            <div className="container d-flex justify-content-center align-items-center my-3 signInBook" style={{ minHeight: "90vh" }}>
+                <div className="row ">
                     <div className="col-lg-6 box-3 d-flex flex-column align-items-center text-center">
                         <img src={logo} alt="Scriptoria logo" id="logo" className="img-fluid" />
                         <div>
-                            <span className="box1-header">Scriptoria</span>
+                            <span className="box1-header Scriptoria" >Scriptoria</span>
                             <form>
                                 <JoinInput title="Your Email" method={setEmail} color={emailValid} type="email" />
                                 <JoinInput title="Your Password" method={setPassword} type="password" color={passwordValid} />
@@ -71,7 +71,7 @@ const SignIn = () => {
                             <Link to={`/SignUp`} className="card-text" target="" style={{ textDecoration: "none", color: "rgb(33,33,33)" }}>
                                 <p>Don't have an account? <span style={{ textDecoration: "none", color: "white", display: "inline-block", marginBottom: "0%" }}>Sign up</span></p>
                             </Link>
-                            <Link to={`/`} className="card-text" target="" style={{ textDecoration: "none", color: "rgb(33,33,33)" }}>
+                            <Link to={`/GetEmail`} className="card-text" target="" style={{ textDecoration: "none", color: "rgb(33,33,33)" }}>
                                 <p>Forgot your password? <span style={{ textDecoration: "none", color: "white", display: "inline-block", marginBottom: "0%" }}>Reset password</span></p>
                             </Link>
                         </div>
@@ -93,6 +93,7 @@ const SignIn = () => {
                 </div>
             </div>
         </>
+
     );
 };
 

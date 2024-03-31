@@ -8,6 +8,9 @@ import { Uploader } from "uploader";
 import { UploadButton } from "react-uploader";
 import { story } from "../../api/storyAPI";
 import Cookies from "js-cookie";
+import Navbar from "../navbar/Navbar";
+import Footer from "../footer/Footer";
+import { useNavigate } from "react-router-dom";
 
 const uploader = Uploader({
   apiKey: "free"
@@ -21,19 +24,20 @@ const placeholderOfForm = ["Untitled", "1", "", "name"];
 
 const StoryDetails = () => {
   const [title, setTitle] = useState("");
-  const [numberOfSlides, setNumberOfSlides] = useState("");
   const [description, setdescription] = useState("");
   const [MainCharacters, setMainCharacters] = useState([]);
   const [language, setLanguage] = useState("");
   const [TargetAudiences, setTargetAudiences] = useState("");
-  const [background, setBackground] = useState("");
-  const [uploadedImageUrl, setUploadedImageUrl] = useState("");
+  const [background, setBackground] = useState("#000000");
+  const [uploadedImageUrl, setUploadedImageUrl] = useState(null);
   const [Categorys, setCategorys] = useState([]);
   const [mainCharactersList, setMainCharactersList] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
 
-  const startWritingHandler = async (e) => {
-    e.preventDefault()
+  const navigate = useNavigate();
+
+  const startWritingHandler = async (event) => {
+    event.preventDefault();
     if (!uploadedImageUrl) {
       setErrorMessage('Please upload a cover image.');
       return;
@@ -43,8 +47,6 @@ const StoryDetails = () => {
       setErrorMessage('Please enter a background color.');
       return;
     }
-
-    
     const storyData = {
       title: title,
       description: description,
@@ -53,10 +55,11 @@ const StoryDetails = () => {
       genres: Categorys,
       backgroundColor: background,
       coverPhoto: uploadedImageUrl,
-      mainCharacters: MainCharacters
+      mainCharacters: mainCharactersList
     };
 
     const res = await story("story", storyData, Cookies.get("token"));
+    navigate(`/WritingPage`)
   };
 
   const handleChange = (event) => {
@@ -82,7 +85,8 @@ const StoryDetails = () => {
     ));
   };
 
-  const handleDeleteMainCharacter = (indexToRemove) => {
+  const handleDeleteMainCharacter = (indexToRemove, event) => {
+    event.preventDefault();
     setMainCharactersList((prevCharacters) => {
       let newCharacters = [...prevCharacters];
       newCharacters.splice(indexToRemove, 1);
@@ -90,7 +94,8 @@ const StoryDetails = () => {
     });
   };
 
-  const addMainCharacter = () => {
+  const addMainCharacter = (event) => {
+    event.preventDefault();
     if (MainCharacters.trim() !== "") {
       setMainCharactersList([...mainCharactersList, MainCharacters]);
       setMainCharacters("");
@@ -102,16 +107,15 @@ const StoryDetails = () => {
       <div className="displayDiv" key={index}>
         <div className="borderContainer">
           <p className="pInBorder">{character}</p>
-          <button onClick={() => handleDeleteMainCharacter(index)} className="buttonInCategory">X</button>
+          <button onClick={(event) => handleDeleteMainCharacter(index, event)} className="buttonInCategory">X</button>
         </div>
       </div>
     ));
   };
-
   return (
     <div>
-      <div className="container ">
-        <p className="parg">story Details</p>
+      <Navbar />
+      <div className="container " style={{ marginTop: "3%", marginBottom: "3%" }}>
         <div className="container  story">
           <form
             className="row g-3"
@@ -138,7 +142,7 @@ const StoryDetails = () => {
                 <LabelOfStory htmlFor={htmlForStory[3]} type={typeofStory[0]} name={nameOfDetails[3]} placeholder={placeholderOfForm[3]} method={setMainCharacters} />
               </div>
               <div className="col d-flex align-items-center Plus">
-                <button onClick={addMainCharacter}>+</button>
+                <button onClick={(event) => addMainCharacter(event)}>+</button>
               </div>
               <div className="col-4 justify-content-end back">
                 <LabelOfStory htmlFor={htmlForStory[4]} type={typeofStory[2]} name={nameOfDetails[4]} method={setBackground} />
@@ -172,16 +176,18 @@ const StoryDetails = () => {
                     </UploadButton>
                   )}
                 </div>
-                <div className="buttons-container">
-                  {errorMessage && <p className="error-message">{errorMessage}</p>}
-                  <button id="button2" className="btn btn-primary btn-lg" type="submit">Start Writing</button>
-                  <button id="cancel-button" className="btn btn-secondary btn-lg">Cancel</button>
+
+                <div className="buttons-container mb-5">
+                {errorMessage && <p className="error-message">{errorMessage}</p>}
+                  <button id="button2" className="btn  btn-lg" onClick={(event) => { startWritingHandler(event) }}>Start Writing</button>
+                  <button id="cancel-button" className="btn btn-lg">Cancel</button>
                 </div>
               </div>
             </div>
           </form>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

@@ -1,0 +1,36 @@
+.book {
+    width: 130px; 
+    padding: 3px;
+    border-radius: 5px;
+    transform: rotate(-5deg); 
+    transition: transform 0.3s ease; 
+    overflow: hidden; 
+    margin-left: 20px;
+}
+
+.book img {
+    width: 100%;
+    height: auto;
+    border-radius: 3px;
+    transition: transform 0.3s ease; 
+    cursor: pointer;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5);
+    border: none;
+}
+
+
+.book:hover  {
+    transform: scale(1.1); 
+}
+
+@media screen and (min-width: 768px) {
+    .book {
+        margin-left: 10px;
+    }
+}
+  
+  @media screen and (max-width: 767px) {
+    .book {
+        margin-left: 10px;
+    }
+}

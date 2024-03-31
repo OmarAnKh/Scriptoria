@@ -1,45 +1,65 @@
-.parg{
-   text-align: center;
-   padding-right: 100px;
-   background-color:#a9c8fc;
-   
+.parg {
+  text-align: center;
+  padding-right: 100px;
+  background-color: #a9c8fc;
+
 }
 
- .languege{
-margin-top: 24px;
- }
-
-.story{
-   font-weight: bold;
-   border-radius: 10px;
-   background:  #F6F9FE;
-   box-shadow:  -26px 26px 52px #b1b1b1,
-                26px -26px 52px #ffffff;
-                
+.languege {
+  margin-top: 24px;
 }
 
-.button1{
-   background-color:rgb(85, 239, 85);
-    font-weight: bold;
-    color:black;
-    justify-content: center;
-    font-size: 16px;
-    border-radius: 20px;
-    margin-top: 170px; 
+
+.story {
+  font-weight: bold;
+  border-radius: 10px;
+  background: #e0e0e0;
+  box-shadow: -5px 5px 0px #bebebe,
+    5px -5px 0px #ffffff;
+
+
+}
+
+
+.button1 {
+  background-color: rgb(85, 239, 85);
+  font-weight: bold;
+  color: black;
+  justify-content: center;
+  font-size: 16px;
+  border-radius: 20px;
+  margin-top: 170px;
 }
 
 #button2 {
-   background-color:rgba(0, 191, 255, 0.895); 
-border-radius: 10px;
-margin-right: 20px;
+  background-color: rgba(0, 191, 255, 0.895);
+  border-radius: 10px;
+  margin-right: 20px;
 }
 
- #cancel-button {
-   background-color: #f4363686;
-   border-radius: 10px;
- }
+#cancel-button {
+  background-color: #f4363686;
+  border-radius: 10px;
+}
 
- .displayDivInCategory {
+
+.back {
+  margin-top: 50px;
+  margin-left: 30px;
+
+}
+
+.Add-cover {
+  margin-top: 40px;
+  border-radius: 10px;
+  background: #e0e0e0;
+  box-shadow: -5px 5px 0px #bebebe,
+    5px -5px 0px #ffffff;
+
+}
+
+.displayDivInCategory {
+
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -64,6 +84,7 @@ margin-right: 20px;
   cursor: pointer;
   border-radius: 3px;
 }
+
 .uploaded-cover {
   width: 100%;
   height: 100%;
@@ -71,34 +92,32 @@ margin-right: 20px;
 }
 
 
-.title{
+.title {
   margin-top: 23px;
   margin-bottom: 20px;
 }
-.Target{
-margin-right: 160px;
-margin-top: 20px;
+
+.Target {
+  margin-right: 160px;
+  margin-top: 20px;
 }
 
-.Category{
-margin-top: 20px;
+.Category {
+  margin-top: 20px;
 }
 
-.back{
+.back {
   margin-top: 20px;
   margin-right: 20px;
 }
 
-.card{
+.card {
   margin-top: 40px;
-margin-right: 175px;
+  margin-right: 175px;
 }
 
 .buttons-container {
-  display: flex;
-  justify-content: end;
-  margin-top: 20px; 
-  margin-right: 145px;
+  float: left;
 }
 
 
@@ -106,27 +125,31 @@ margin-right: 175px;
   width: 82%;
 }
 
-.mainAndBack{
+.mainAndBack {
   margin-top: 25px;
 }
 
-.imageAndButton{
+.imageAndButton {
   margin-left: 16px;
 }
 
-.Plus{
+.Plus {
   margin-top: 29px;
   margin-right: 160px;
 }
 
 
+.displayDiv {
+  display: block;
+
+}
 
 .pInBorder {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   margin: 0;
-  max-width: 80%; 
+  max-width: 80%;
 }
 
 .buttonInCategory {
@@ -140,8 +163,5 @@ margin-right: 175px;
   border: 3px solid #96949498;
   width: 150px;
   border-radius: 5px;
-  
+
 }
-
-
-

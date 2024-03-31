@@ -10,14 +10,20 @@
     width: 80%;
     font-family: "Gill Sans", sans-serif;
 }
-.wp{
+
+.TextEditorSize a {
+    display: none !important;
+}
+
+.wp {
     line-height: 0;
 }
-.WP{
+
+.WP {
     text-align: center;
 }
 
-.wpi{
-    font-family : Poppins;
+.wpi {
+    font-family: Poppins;
     line-height: 0;
 }

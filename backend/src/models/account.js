@@ -45,7 +45,7 @@ const accountSchema = new mongoose.Schema({
     },
     password: {
         type: String,
-        require: true,
+        required: true,
         trim: true,
         minLength: 7,
         validate(value) {
@@ -63,9 +63,12 @@ const accountSchema = new mongoose.Schema({
     tokens: [{
         token: {
             type: String,
-            require: true
+            required: true
         }
     }],
+    profilePicture: {
+        type: Buffer
+    }
 }, {
     timestamps: true
 });
@@ -97,7 +100,7 @@ accountSchema.pre("save", async function (next) {
 
 accountSchema.methods.generateAuthToken = async function () {
     const user = this
-    const token = jwt.sign({ _id: user._id.toString() }, 'thisismytoken')
+    const token = jwt.sign({ _id: user._id.toString() }, process.env.JWT_SECRET)
     user.tokens = user.tokens.concat({ token })
     await user.save()
     return token
