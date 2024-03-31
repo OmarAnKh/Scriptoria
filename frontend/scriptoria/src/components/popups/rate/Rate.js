@@ -1,22 +1,54 @@
-import React,  { useState } from 'react'
+import React,  { useState, useEffect } from 'react'
 import Rating from '@mui/material/Rating';
 import StarIcon from '@mui/icons-material/Star';
-import {sendRate} from'../../../api/rateApi'
+import {sendRate, updateRate, getRate} from'../../../api/rateApi'
+import Cookies from 'js-cookie'
+
 
 const Rate = () => {
     const [value, setValue] = useState(0);
-    const [hover, setHover] = useState(-1);
-    const [message, setMessage] = useState(false)
+    const [isRated, setIsRated] = useState(false);
+    const [isSignedIn, setisSignedIn] = useState(false);
+    const [button, setButton] = useState("save")
 
-    const saveRating = async ()=>{
-        const rate = {
-            AccountId : 15,
-            StoryId : 15,
-            rating : value
-        }
-        console.log(rate)
-        await sendRate(rate)
+    useEffect(() => {
+        const fetchData = async () => {
+            const user = Cookies.get("userInfo");
+            if(user){
+                setisSignedIn(true)
+                const token = Cookies.get("token");
+                const rating = await getRate('6607173031b513eec68df29d','65fb60a9334d75840746ae29', token );
+                if (rating !== undefined) {
+                    setValue(rating);
+                    setButton("update")
+                    setIsRated(true); 
+                }
+            }
+        };
+        fetchData();
+    }, []);
+    
+    
+
+    const handleRating = async ()=>{
+        if(isSignedIn){
+            const userInfo = Cookies.get("userInfo")
+            console.log(userInfo)
+            const token = Cookies.get("token")
+            const rate = {
+                StoryId : '65fb60a9334d75840746ae29',
+                AccountId : '6607173031b513eec68df29d',
+                rating : value
+            }
+            if(!isRated){
+                await sendRate(rate, token)
+                setIsRated(true)
+            } else {
+                await updateRate(rate.AccountId, rate, token)
+            }     
+        }   
     }
+
 
 
     return (
@@ -41,9 +73,6 @@ const Rate = () => {
                                         onChange={(event, newValue) => {
                                             setValue(newValue);
                                         }}
-                                        onChangeActive={(event, newHover) => {
-                                            setHover(newHover);
-                                        }}
                                         emptyIcon={<StarIcon style={{ opacity: 0.55 }} className='fs-1' />}
                                     />
 
@@ -54,9 +83,7 @@ const Rate = () => {
                             </div>
 
                             <div className="container gap-2 btn-group mb-2">
-                                <button type="button" className="btn btn-primary rounded" onClick={()=>{setMessage(!message) 
-                                saveRating()
-                                }} >save</button>
+                                <button type="button" className="btn btn-primary rounded" onClick={handleRating} >{button}</button>
                                 <button type="button" className="btn btn-secondary rounded" data-bs-dismiss="modal">
                                     cancel
                                 </button>
