@@ -27,11 +27,24 @@ const StoryDetails = () => {
   const [language, setLanguage] = useState("");
   const [TargetAudiences, setTargetAudiences] = useState("");
   const [background, setBackground] = useState("");
-  const [uploadedImageUrl, setUploadedImageUrl] = useState(null);
+  const [uploadedImageUrl, setUploadedImageUrl] = useState("");
   const [Categorys, setCategorys] = useState([]);
   const [mainCharactersList, setMainCharactersList] = useState([]);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const startWritingHandler = async (e) => {
+    e.preventDefault()
+    if (!uploadedImageUrl) {
+      setErrorMessage('Please upload a cover image.');
+      return;
+    }
+
+    if (!background) {
+      setErrorMessage('Please enter a background color.');
+      return;
+    }
+
+    
     const storyData = {
       title: title,
       description: description,
@@ -40,8 +53,9 @@ const StoryDetails = () => {
       genres: Categorys,
       backgroundColor: background,
       coverPhoto: uploadedImageUrl,
-      mainCharacters:MainCharacters
+      mainCharacters: MainCharacters
     };
+
     const res = await story("story", storyData, Cookies.get("token"));
   };
 
@@ -83,16 +97,17 @@ const StoryDetails = () => {
     }
   };
 
-const displayMainCharacters = () => {
-  return mainCharactersList.map((character, index) => (
-    <div className="displayDiv" key={index}>
-      <div className="borderContainer">
-        <p className="pInBorder">{character}</p>
-        <button onClick={() => handleDeleteMainCharacter(index)} className="buttonInCategory">X</button>
+  const displayMainCharacters = () => {
+    return mainCharactersList.map((character, index) => (
+      <div className="displayDiv" key={index}>
+        <div className="borderContainer">
+          <p className="pInBorder">{character}</p>
+          <button onClick={() => handleDeleteMainCharacter(index)} className="buttonInCategory">X</button>
+        </div>
       </div>
-    </div>
-  ));
-};
+    ));
+  };
+
   return (
     <div>
       <div className="container ">
@@ -105,6 +120,7 @@ const displayMainCharacters = () => {
                 e.preventDefault();
               }
             }}
+            onSubmit={startWritingHandler}
           >
             <div className="row justify-content-start">
               <div className="col-md-6 title">
@@ -144,6 +160,7 @@ const displayMainCharacters = () => {
                       options={options}
                       onComplete={files => {
                         setUploadedImageUrl(files[0].fileUrl);
+                        setErrorMessage('');
                         alert(files.map(x => x.fileUrl).join("\n"));
                       }}
                     >
@@ -156,7 +173,8 @@ const displayMainCharacters = () => {
                   )}
                 </div>
                 <div className="buttons-container">
-                  <button id="button2" className="btn btn-primary btn-lg" onClick={(event) => { startWritingHandler(event) }}>Start Writing</button>
+                  {errorMessage && <p className="error-message">{errorMessage}</p>}
+                  <button id="button2" className="btn btn-primary btn-lg" type="submit">Start Writing</button>
                   <button id="cancel-button" className="btn btn-secondary btn-lg">Cancel</button>
                 </div>
               </div>
