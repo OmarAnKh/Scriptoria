@@ -52,9 +52,7 @@ const ProfileInfo = (props) => {
             account: user._id,
             follow: follow_id._id
         }
-        console.log(unfollowObj)
         const res = await unfollow("unfollow", unfollowObj)
-        console.log(res)
         setFollowing(false)
     }
     useEffect(() => {
