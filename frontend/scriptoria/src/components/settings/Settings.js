@@ -10,6 +10,7 @@ import { Uploader } from "uploader";
 import { UploadButton } from "react-uploader";
 import Navbar from '../navbar/Navbar';
 import { updateDocument } from '../../api/API\'s';
+import AlertWithTime from '../alert/AlertWithTime';
 
 
 
@@ -147,6 +148,7 @@ const Settings = () => {
     const [imgURL, setImgURL] = useState(logo)
 
     const [error, setError] = useState("");
+    const [alertMsg, setAlertMsg] = useState(false)
 
     useEffect(() => {
         const fetchData = async () => {
@@ -237,6 +239,10 @@ const Settings = () => {
     const handalClickProfilePicture = async () => {
         try {
             const response = await updateDocument("account", { profilePicture: imgURL, _id: id });
+            setAlertMsg(true);
+            setTimeout(() => {
+                setAlertMsg(false);
+            }, 3000)
         } catch (error) {
             console.log("error", error)
         }
@@ -250,10 +256,11 @@ const Settings = () => {
         <div className="settings-page-top-body">
             <Navbar />
             <div className="container-fluid my-5">
+                {alertMsg ? <AlertWithTime msg="Image saved successfully!" severity="success" /> : <></>}
                 <div className="row">
                     <div className="col-md-8 mx-auto">
                         <div className="settings-page-header py-4">
-                            <span className="edit-profile-text">Edit profile</span>
+                            <span className="edit-profile-text">Settings</span>
                         </div>
                         <div className="row">
                             <div className="col-md-2">
