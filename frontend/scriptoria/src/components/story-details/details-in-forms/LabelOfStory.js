@@ -8,7 +8,7 @@ function LabelOfStory(props) {
   if(props.type==="text"){
     return (
       <div>
-           <label htmlFor={props.htmlFor} className="form-label" >{props.name}</label>
+      <label htmlFor={props.htmlFor} className="form-label" >{props.name}</label>
     <input type={props.type} className="form-control" onChange={changeHandler} placeholder={props.placeholder} required />
       </div>
       
