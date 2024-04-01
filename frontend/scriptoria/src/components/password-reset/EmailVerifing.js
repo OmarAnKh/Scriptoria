@@ -76,6 +76,9 @@ const EmailVerifing = () => {
         setInputColor("red")
         setInputError("invalid code")
     }
+    const codeResendHandler = () => {
+        sendVerificationCode()
+    }
     if (validEmail !== undefined) {
         return (
             <EmailVerification
@@ -85,7 +88,9 @@ const EmailVerifing = () => {
                 inputPlaceholder="Verification code"
                 methodOnChange={setUserCode}
                 buttonTitle="Verify my code"
+                buttonTitle2="resend a code"
                 methodOnClick={compareHandler}
+                methodOnClick2={codeResendHandler}
                 inputColor={inputColor}
                 inputError={inputError}
             />
