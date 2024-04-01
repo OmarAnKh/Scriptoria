@@ -14,8 +14,8 @@ function TargetAudience(props) {
     return (
         <div className="col-md-3 Target">
             <label className="form-label">Target Audience</label>
-            <select id="inputState" className="form-select" onChange={changeHandler}>
-                <option selected disabled>select one</option>
+            <select id="inputState" className="form-select" onChange={changeHandler} required>
+                <option value="" selected disabled>select one</option>
                 {options.map((option, index) => (
                     <option key={index}>{option.label}</option>
                 ))}

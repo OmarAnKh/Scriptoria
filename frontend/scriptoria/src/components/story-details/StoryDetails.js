@@ -32,10 +32,17 @@ const StoryDetails = () => {
   const [uploadedImageUrl, setUploadedImageUrl] = useState(null);
   const [Categorys, setCategorys] = useState([]);
   const [mainCharactersList, setMainCharactersList] = useState([]);
+  const [errorMessage, setErrorMessage] = useState("");
+
   const navigate = useNavigate();
 
   const startWritingHandler = async (event) => {
     event.preventDefault();
+    if (!uploadedImageUrl) {
+      setErrorMessage('Please upload a cover image.');
+      return;
+    }
+
     const storyData = {
       title: title,
       description: description,
@@ -46,8 +53,9 @@ const StoryDetails = () => {
       coverPhoto: uploadedImageUrl,
       mainCharacters: mainCharactersList
     };
+
     const res = await story("story", storyData, Cookies.get("token"));
-    navigate(`/WritingPage`)
+    navigate(`/WritingPage`);
   };
 
   const handleChange = (event) => {
@@ -100,6 +108,14 @@ const StoryDetails = () => {
       </div>
     ));
   };
+  const handleCancel = () => {
+    const isConfirmed = window.confirm('Are you sure you want to cancel? You will be returned to the homepage without saving data.');
+    
+    if (isConfirmed) {
+      navigate(`/`);
+    }
+  };
+
   return (
     <div>
       <Navbar />
@@ -112,6 +128,7 @@ const StoryDetails = () => {
                 e.preventDefault();
               }
             }}
+            onSubmit={startWritingHandler}
           >
             <div className="row justify-content-start">
               <div className="col-md-6 title">
@@ -151,7 +168,7 @@ const StoryDetails = () => {
                       options={options}
                       onComplete={files => {
                         setUploadedImageUrl(files[0].fileUrl);
-                        alert(files.map(x => x.fileUrl).join("\n"));
+                        setErrorMessage('');
                       }}
                     >
                       {({ onClick }) => (
@@ -162,9 +179,11 @@ const StoryDetails = () => {
                     </UploadButton>
                   )}
                 </div>
+
                 <div className="buttons-container mb-5">
-                  <button id="button2" className="btn  btn-lg" onClick={(event) => { startWritingHandler(event) }}>Start Writing</button>
-                  <button id="cancel-button" className="btn btn-lg">Cancel</button>
+                {errorMessage && <p className="error-message">{errorMessage}</p>}
+                  <button id="button2" className="btn btn-primary btn-lg" type="submit">Start Writing</button>
+                  <button id="cancel-button" className="btn btn-secondary btn-lg" onClick={handleCancel}>Cancel</button>
                 </div>
               </div>
             </div>
