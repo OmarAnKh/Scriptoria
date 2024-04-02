@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './ProfileInfo.css'
 import InfoButton from './Card.js'
 import ActionButton from './ButtonCard.js'
-import { follows, unfollow } from "../../api/follow.js"
+import { follows, unfollow, followers, followingCount } from "../../api/follow.js"
 import { useNavigate } from "react-router-dom"
 import Cookies from 'js-cookie';
 import logo from "../../img/content.png";
@@ -60,10 +60,18 @@ const ProfileInfo = (props) => {
     }
     useEffect(() => {
         const fetchData = async () => {
+            try {
+                const followerCount = await followers("/followers", props.user._id);
+                setFollowerCount(followerCount);
+                console.log(followerCount)
+            } catch (error) {
+                console.error("Error fetching followers:", error);
+            }
             const account = props.visit;
             const followId = props.user;
             setUser(account);
             setFollow_id(followId);
+
             if (account) {
                 const res = await follows("following", account._id, followId._id)
                 setFollowing(res.status)
@@ -225,7 +233,7 @@ const ProfileInfo = (props) => {
                         </div>
                         <div className="">
                             <div className="buttons1">
-                                <InfoButton text="Followers" value="356K" />
+                                <InfoButton text="Followers" value={followerCount.followerCount} />
                                 <InfoButton text="Works" value="21" />
                                 <InfoButton text="Following" value="356" />
                             </div>

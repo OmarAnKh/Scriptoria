@@ -1,139 +1,87 @@
-/* FlipBook.css */
-
-/* Styles for the book container */
-.book-container {
-    perspective: 250vw;
+.demoPage {
+    width: 100%;
+    height: 100%;
+    background-color: #e6e2e2;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
 }
 
-/* Styles for the pages container */
-.book-pages {
-    width: 60vw;
-    height: 44vw;
-    position: relative;
-    transform-style: preserve-3d;
-    backface-visibility: hidden;
+.demoPage h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.demoPage p {
+    font-size: 16px;
+    margin-bottom: 15px;
+    color: #666;
+}
+
+.HTMLFlipBook {
+    width: 300px;
+    height: 500px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.flipbook-controls {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+
+.flipbook-controls button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
     border-radius: 4px;
-}
-
-/* Styles for each individual page */
-.book-page {
-    float: none;
-    clear: none;
-    margin: 0;
-    position: absolute;
-    top: 0;
-    width: 30vw;
-    height: 44vw;
-    transform-origin: 0 0;
-    transition: transform 1.4s;
-    backface-visibility: hidden;
-    transform-style: preserve-3d;
+    padding: 10px 20px;
     cursor: pointer;
-    user-select: none;
-    background-color: #f0f0f0;
+    transition: background-color 0.3s ease;
 }
 
-.book-page:before {
-    content: '';
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: rgba(0, 0, 0, 0);
-    transition: background 0.7s;
-    z-index: 2;
+.flipbook-controls button:hover {
+    background-color: #0056b3;
 }
 
-.book-page:nth-child(odd) {
-    pointer-events: all;
-    transform: rotateY(0deg);
-    right: 0;
-    border-radius: 0 4px 4px 0;
-    background-image: linear-gradient(to right, rgba(0, 0, 0, .15) 0%, rgba(0, 0, 0, 0) 10%);
+.StoryPage {
+    overflow: hidden;
 }
 
-.book-page:nth-child(odd):hover {
-    transform: rotateY(-15deg);
-}
-
-.book-page:nth-child(odd):hover:before {
-    background: rgba(0, 0, 0, 0.03);
-}
-
-.book-page:nth-child(odd):before {
-    background: rgba(0, 0, 0, 0);
-}
-
-.book-page:nth-child(even) {
-    pointer-events: none;
-    transform: rotateY(180deg);
-    transform-origin: 100% 0;
-    left: 0;
-    border-radius: 4px 0 0 4px;
-    border-color: black;
-    background-image: linear-gradient(to left, rgba(0, 0, 0, .12) 0%, rgba(0, 0, 0, 0) 10%);
-}
-
-.book-page:nth-child(even):before {
-    background: rgba(0, 0, 0, 0.2);
-}
-
-.book-page.grabbing {
-    transition: none;
-}
-
-.book-page.flipped:nth-child(odd) {
-    pointer-events: none;
-    transform: rotateY(-180deg);
-}
-
-.book-page.flipped:nth-child(odd):before {
-    background: rgba(0, 0, 0, 0.2);
-}
-
-.book-page.flipped:nth-child(even) {
-    pointer-events: all;
-    transform: rotateY(0deg);
-}
-
-.book-page.flipped:nth-child(even):hover {
-    transform: rotateY(15deg);
-}
-
-.book-page.flipped:nth-child(even):hover:before {
-    background: rgba(0, 0, 0, 0.03);
-}
-
-.book-page.flipped:nth-child(even):before {
-    background: rgba(0, 0, 0, 0);
-}
-
-/* Styles for odd-numbered pages */
-.page:nth-child(odd) {
-    background-position: right top;
-}
-
-/* Additional styles specific to the page */
-.page {
-    width: 30vw;
-    height: 44vw;
-    background-color: #111111;
-    float: left;
-    margin-bottom: 0.5em;
-    background: left top no-repeat;
-    background-size: cover;
-}
-
-/* Clearing floats for even-numbered pages */
-.page:nth-child(even) {
-    clear: both;
-}
-
-/* Custom styles for the p element */
-.book-page p {
-    margin-top: 8vw;
-    text-align: center;
-    font-size: 5vw;
+.btn-style {
+    background-color: #5fabfc5e;
     color: #000000;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 10px;
+    cursor: pointer;
+    margin: 10px;
+    width: 10rem;
+    font-size: 1em;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.btn-style i {
+    vertical-align: middle;
+    margin-left: 5px;
+}
+
+.btn-style:hover {
+    background-color: #5fabfc8a;
+}
+
+.PageNumber {
+    position: absolute;
+    left: 95%;
+    top: 95%;
+    width: auto;
 }
