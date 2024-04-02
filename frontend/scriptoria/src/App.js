@@ -10,9 +10,10 @@ import GettingEmail from './components/password-reset/GettingEmail';
 import EmailVerifing from './components/password-reset/EmailVerifing';
 import ResetPassword from './components/password-reset/ResetPassword';
 import ErrorPage from './components/Error-page/ErorrPage.js';
+import SearchResultsPage from './components/search-results/SearchResults.js'
 import Settings from './components/settings/Settings.js';
 import Profile from './components/profile-page/Profile.js';
-
+import StoryPage from './components/story-page/StoryPage.js';
 
 
 function App() {
@@ -31,6 +32,8 @@ function App() {
         <Route path='/ResetPassword' element={<ResetPassword />} />
         <Route path='/settings/:id' element={<Settings />} />
         <Route path='*' element={<ErrorPage />} />
+        <Route path='/Search' element={<SearchResultsPage />} />
+        <Route path='/StoryPage' element={<StoryPage />} />
       </Routes>
     </div>
   )

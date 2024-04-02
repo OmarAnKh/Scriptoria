@@ -3,7 +3,7 @@ import '../profile-info/ProfileInfo.css'
 import { findAccount } from "../../api/accountApi";
 import Cookies from 'js-cookie'
 import { useState, useEffect } from 'react';
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate} from "react-router-dom";
 import ProfileInfo from "../profile-info/ProfileInfo"
 import BookShelf from "../book-shelf/BookShelf"
 import FriendsList from "../friends-list/FriendsList";
@@ -44,7 +44,9 @@ const Profile = () => {
             } catch (err) {
                 console.log(err);
             }
+            
         };
+        
         handleResponse();
     }, []);
 

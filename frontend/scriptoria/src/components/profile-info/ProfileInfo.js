@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './ProfileInfo.css'
 import InfoButton from './Card.js'
 import ActionButton from './ButtonCard.js'
-import { follows, unfollow } from "../../api/follow.js"
+import { follows, unfollow, followers, followingCount } from "../../api/follow.js"
 import { useNavigate } from "react-router-dom"
 import Cookies from 'js-cookie';
 import logo from "../../img/content.png";
@@ -14,6 +14,7 @@ const ProfileInfo = (props) => {
     const [follow_id, setFollow_id] = useState({})
     const [imgURL, setImgURL] = useState(logo)
     const navigate = useNavigate()
+    const [followerCount, setFollowerCount] = useState(0);
 
     const followHandler = async () => {
         const following = {
@@ -57,10 +58,18 @@ const ProfileInfo = (props) => {
     }
     useEffect(() => {
         const fetchData = async () => {
+            try {
+                const followerCount = await followers("/followers", props.user._id);
+                setFollowerCount(followerCount);
+                console.log(followerCount)
+            } catch (error) {
+                console.error("Error fetching followers:", error);
+            }
             const account = props.visit;
             const followId = props.user;
             setUser(account);
             setFollow_id(followId);
+
             if (account) {
                 const res = await follows("following", account._id, followId._id)
                 setFollowing(res.status)
@@ -108,7 +117,7 @@ const ProfileInfo = (props) => {
                                     <ActionButton
                                         label="Message"
                                         className="thebtn buttonstyle"
-                                        svgClassName="bi bi-chat-right-text mt-2 ms-4"
+                                        svgClassName="bi bi-chat-right-text"
                                         path1="M2 1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h9.586a2 2 0 0 1 1.414.586l2 2V2a1 1 0 0 0-1-1zm12-1a2 2 0 0 1 2 2v12.793a.5.5 0 0 1-.854.353l-2.853-2.853a1 1 0 0 0-.707-.293H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2z"
                                         path2="M3 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5M3 6a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 6m0 2.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5"
                                         width="20"
@@ -222,7 +231,7 @@ const ProfileInfo = (props) => {
                         </div>
                         <div className="">
                             <div className="buttons1">
-                                <InfoButton text="Followers" value="356K" />
+                                <InfoButton text="Followers" value={followerCount.followerCount} />
                                 <InfoButton text="Works" value="21" />
                                 <InfoButton text="Following" value="356" />
                             </div>
