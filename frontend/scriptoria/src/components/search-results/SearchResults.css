@@ -67,8 +67,7 @@
 }
 
 .move {
-    position: relative !important;
-    right: 5%;
+    margin-left: inherit
 }
 
 .nexteach {
