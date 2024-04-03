@@ -80,7 +80,19 @@
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
-    align-items: end;
+    align-items: flex-end;
+}
+
+.Placement {
+    position: absolute;
+    right: 2%;
+    top: 75%;
+}
+
+.PlacementStar {
+    position: absolute;
+    right: 3%;
+    top: 40%;
 }
 
 
@@ -90,12 +102,6 @@
         white-space: nowrap;
         text-overflow: ellipsis;
         width: 200px;
-    }
-
-    .nexteach {
-        display: flex !important;
-        flex-wrap: wrap;
-        justify-content: center;
     }
 
     .StarRate {
