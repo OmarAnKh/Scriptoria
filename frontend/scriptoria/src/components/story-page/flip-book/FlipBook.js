@@ -47,11 +47,18 @@ function StoryPage(props) {
     const prevButtonClick = () => {
         // Function to handle previous page button click
         setDisplayButton(true);
-        flipBookRef.current?.pageFlip()?.flipPrev();
+        flipBookRef.current?.pageFlip()?.flipPrev(); //here
         setTimeout(() => {
             setDisplayButton(false);
         }, 1000);
     };
+    const totalPage = () => {
+        return flipBookRef.current?.pageFlip()?.getPageCount();
+    };
+    const getpageindex = () => {
+        return flipBookRef.current?.pageFlip()?.getCurrentPageIndex();
+    };
+
 
     return (
         <div className="StoryPage d-flex flex-column align-items-center justify-content-center vh-100">
@@ -76,6 +83,7 @@ function StoryPage(props) {
                 >
                     <i className="bi bi-arrow-bar-left h3"></i> Previous page
                 </button>
+                [<span>{getpageindex() + 1 || 1}</span> of <span>{totalPage() || "..."}</span>]
                 <button
                     type="button"
                     className="btn-info btn-sm btn-style "

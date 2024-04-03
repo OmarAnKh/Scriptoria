@@ -14,7 +14,7 @@ import SearchResultsPage from './components/search-results/SearchResults.js'
 import Settings from './components/settings/Settings.js';
 import Profile from './components/profile-page/Profile.js';
 import StoryPage from './components/story-page/StoryPage.js';
-
+import AllMembers from './components/team-members/AllMembers.js';
 
 function App() {
   return (
@@ -31,9 +31,10 @@ function App() {
         <Route path='/EmailVerifing/:email' element={<EmailVerifing />} />
         <Route path='/ResetPassword' element={<ResetPassword />} />
         <Route path='/settings/:id' element={<Settings />} />
-        <Route path='*' element={<ErrorPage />} />
         <Route path='/Search' element={<SearchResultsPage />} />
         <Route path='/StoryPage' element={<StoryPage />} />
+        <Route path='/TeamMembers' element={<AllMembers />} />
+        <Route path='*' element={<ErrorPage />} />
       </Routes>
     </div>
   )
