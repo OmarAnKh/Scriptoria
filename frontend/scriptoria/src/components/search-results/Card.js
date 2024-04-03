@@ -5,7 +5,6 @@ const Card = (props) => {
     return (
         <div className='info-container'>
             <h1>{props.name}</h1>
-            <h6>By {props.auther}</h6>
             <br />
             <div className="nexteach">
                 <p>

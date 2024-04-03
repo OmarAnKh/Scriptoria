@@ -31,7 +31,7 @@ function App() {
         <Route path='/EmailVerifing/:email' element={<EmailVerifing />} />
         <Route path='/ResetPassword' element={<ResetPassword />} />
         <Route path='/settings/:id' element={<Settings />} />
-        <Route path='/Search' element={<SearchResultsPage />} />
+        <Route path='/Search/:criteria' element={<SearchResultsPage />} />
         <Route path='/StoryPage' element={<StoryPage />} />
         <Route path='/TeamMembers' element={<AllMembers />} />
         <Route path='*' element={<ErrorPage />} />

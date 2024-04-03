@@ -55,7 +55,6 @@ const Profile = () => {
             const handleUser = async () => {
                 try {
                     const res = await findAccount({ userName: Cookies.get("userInfo") });
-
                     if (!res.message) {
                         setUser({ status: false });
                         return;
@@ -69,9 +68,9 @@ const Profile = () => {
         }
     }, []);
     const handleBlocked = async () => {
+
         try {
             const res = await follows("blocking", user._id, data._id);
-
             setBlock(res.status)
             return
         } catch (err) {
@@ -92,6 +91,7 @@ const Profile = () => {
             </>
         );
     } else if (username !== Cookies.get("userInfo") && data.userName) {
+
         handleBlocked()
         if (!block || !Cookies.get("userInfo")) {
             return (
@@ -102,7 +102,6 @@ const Profile = () => {
                 </div>
             );
         } else {
-            console.log(user)
             return (
                 < div className="container-fluid profile-page-body" >
                     <Navbar />
