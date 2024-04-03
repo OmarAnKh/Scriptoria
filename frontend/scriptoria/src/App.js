@@ -32,7 +32,7 @@ function App() {
         <Route path='/ResetPassword' element={<ResetPassword />} />
         <Route path='/settings/:id' element={<Settings />} />
         <Route path='*' element={<ErrorPage />} />
-        <Route path='/Search' element={<SearchResultsPage />} />
+        <Route path='/Search/:criteria' element={<SearchResultsPage />} />
         <Route path='/StoryPage' element={<StoryPage />} />
       </Routes>
     </div>
