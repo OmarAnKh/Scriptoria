@@ -31,9 +31,9 @@ function App() {
         <Route path='/EmailVerifing/:email' element={<EmailVerifing />} />
         <Route path='/ResetPassword' element={<ResetPassword />} />
         <Route path='/settings/:id' element={<Settings />} />
-        <Route path='*' element={<ErrorPage />} />
         <Route path='/Search' element={<SearchResultsPage />} />
         <Route path='/StoryPage' element={<StoryPage />} />
+        <Route path='*' element={<ErrorPage />} />
       </Routes>
     </div>
   )
