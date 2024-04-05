@@ -69,12 +69,12 @@ const ProfileInfo = (props) => {
                 console.error("Error fetching followers:", error);
             }
             
-            // try {
-            //     const storiesObject = await writerStory("/stories", props.user._id);
-            //     console.log(storiesObject)
-            // } catch (error) {
-            //     console.error("Error fetching stories:", error);
-            // }
+            try {
+                const storiesObject = await writerStory("/stories", props.user._id);
+                console.log(storiesObject)
+            } catch (error) {
+                console.error("Error fetching stories:", error);
+            }
 
             const account = props.visit;
             const followId = props.user;
