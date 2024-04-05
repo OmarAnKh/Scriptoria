@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom"
 import Cookies from 'js-cookie';
 import logo from "../../img/content.png";
 import { saveDocument } from '../../api/API\'s.js';
+import { writerStory } from '../../api/storyAPI.js'
 const ProfileInfo = (props) => {
     const data = props.user;
     const [following, setFollowing] = useState(false)
@@ -67,6 +68,14 @@ const ProfileInfo = (props) => {
             } catch (error) {
                 console.error("Error fetching followers:", error);
             }
+            
+            // try {
+            //     const storiesObject = await writerStory("/stories", props.user._id);
+            //     console.log(storiesObject)
+            // } catch (error) {
+            //     console.error("Error fetching stories:", error);
+            // }
+
             const account = props.visit;
             const followId = props.user;
             setUser(account);

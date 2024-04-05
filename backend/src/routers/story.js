@@ -48,4 +48,14 @@ router.post(
     }
 );
 
+router.get("/stories/:id", async (req, res) => {
+    try {
+        const Stories = await Story.find({ AccountId: req.body._id });
+        res.status(200).send({ Stories });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Internal Server Error");
+    }
+});
+
 export default router;

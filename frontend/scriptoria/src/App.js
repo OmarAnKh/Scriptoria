@@ -15,6 +15,7 @@ import Settings from './components/settings/Settings.js';
 import Profile from './components/profile-page/Profile.js';
 import StoryPage from './components/story-page/StoryPage.js';
 import AllMembers from './components/team-members/AllMembers.js';
+import BookToDisplay from './components/book-holder/book-to-display/BookToDisplay.js';
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
         <Route path='/Search' element={<SearchResultsPage />} />
         <Route path='/StoryPage' element={<StoryPage />} />
         <Route path='/TeamMembers' element={<AllMembers />} />
+        <Route path='/book' element={<BookToDisplay />} />
         <Route path='*' element={<ErrorPage />} />
       </Routes>
     </div>

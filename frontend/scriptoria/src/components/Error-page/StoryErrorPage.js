@@ -1,4 +1,4 @@
-import ErrorImg from "../../img/ErrorImg.png";
+import ErrorImg from "../../img/BookPage.png";
 import Navbar from "../navbar/Navbar";
 
 const ErrorPage = () => {
@@ -9,7 +9,7 @@ const ErrorPage = () => {
                 <div className="row">
                     <div className="col text-center">
                         <img src={ErrorImg} alt="ErrorImg" className="img-fluid" />
-                        <p className="mt-2" style={{ fontSize: "calc(3.375rem + 1.5vw)", fontWeight: "bold" }}>Page was not found...</p>
+                        <p className="mt-2" style={{ fontSize: "calc(2.375rem + 1.5vw)", fontWeight: "bold" }}>Search something less silly next time!</p>
                     </div>
                 </div>
             </div>
