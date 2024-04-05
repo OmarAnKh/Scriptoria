@@ -1,6 +1,5 @@
 import mongoose, { Schema } from "mongoose";
-import Account from "./account";
-import Story from "./story";
+
 
 const readingListSchema = new mongoose.Schema({
     name: {

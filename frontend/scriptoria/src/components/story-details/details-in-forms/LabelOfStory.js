@@ -8,8 +8,8 @@ function LabelOfStory(props) {
   if(props.type==="text"){
     return (
       <div>
-           <label htmlFor={props.htmlFor} className="form-label">{props.name}</label>
-    <input type={props.type} className="form-control" onChange={changeHandler} placeholder={props.placeholder} />
+      <label htmlFor={props.htmlFor} className="form-label" >{props.name}</label>
+    <input type={props.type} className="form-control" onChange={changeHandler} placeholder={props.placeholder} required />
       </div>
       
     )
@@ -18,7 +18,7 @@ function LabelOfStory(props) {
      return(
       <div>
          <label htmlFor={props.htmlFor} className="form-label" >{props.name}</label>
-    <input type={props.type} onChange={changeHandler} name="character-background-color"/>
+    <input type={props.type} onChange={changeHandler} name="character-background-color" required />
       </div>
      )
    }
@@ -26,7 +26,7 @@ function LabelOfStory(props) {
     return(
       <div>
  <label htmlFor={props.htmlFor}  className="form-label">{props.name}</label>
-  <textarea  className="form-control textarea-full-width" onChange={changeHandler}  rows={5} defaultValue={""} />
+  <textarea  className="form-control textarea-full-width" onChange={changeHandler}  rows={5} defaultValue={""} required/>
       </div>
     )
    }
