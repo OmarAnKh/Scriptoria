@@ -20,6 +20,7 @@ const story = async (point, story, token) => {
     }
 }
 
+
 const writerStory = async (point, UserId) => {
     try {
         const response = await fetch("http://localhost:5000" + point + "/" + UserId, {
@@ -38,7 +39,26 @@ const writerStory = async (point, UserId) => {
     }
 }
 
+const findStory = async (criteria) => {
+    try {
+        const response = await fetch(`http://localhost:5000/search/${criteria}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        })
+        if (response.ok) {
+            return response.json();
+        }
+        return response;
+    } catch (error) {
+
+
+    }
+}
+
 export {
     story,
-    writerStory
+    writerStory,
+    findStory
 }
