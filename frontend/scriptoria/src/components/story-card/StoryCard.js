@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import './StoryCard.css'
 import StarRating from '../star-rating/StarRating';
+import { useTranslation } from 'react-i18next';
 const StoryCard = () => {
+    const { t } = useTranslation()
     const [visiblestory, setVisiblestory] = useState(3);
     const loadMoreCards = () => {
         setVisiblestory((prevCount) => prevCount + 3);
@@ -84,7 +86,7 @@ const StoryCard = () => {
                 </div>
             ))}
             {visiblestory < storyData.length && (
-                <button type="button" className=" btn loadMoreCards-btn " onClick={loadMoreCards} style={{ marginBottom: "3%", marginTop: "3%" }}> Show more </button>
+                <button type="button" className=" btn loadMoreCards-btn " onClick={loadMoreCards} style={{ marginBottom: "3%", marginTop: "3%" }}> {t("StoryCard.show_more")} </button>
             )}
         </div>
     );

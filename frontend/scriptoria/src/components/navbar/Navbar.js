@@ -5,6 +5,8 @@ import "./Navbar.css";
 import NavHomeButton from "./NavbarButton";
 import Cookies from 'js-cookie'
 import { findAccount, logoutAccount } from "../../api/accountApi";
+import { useTranslation } from 'react-i18next';
+
 const NavHomeLink = ({ to, children }) => (
     <Link className="nav-link" to={to}>{children}</Link>
 );
@@ -15,7 +17,7 @@ const Navbar = () => {
     const [hasAccount, setHasAccount] = useState(Cookies.get('userInfo'))
     const [accountId, setAccountId] = useState("*");
     const [accountUserName, setAccountUserName] = useState("*")
-
+    const { t, i18n } = useTranslation()
     useEffect(() => {
         const fetchData = async () => {
             const userName = Cookies.get("userInfo");
@@ -34,7 +36,13 @@ const Navbar = () => {
     }, []);
 
     const noHandel = () => { }
-
+    const translationHandler = () => {
+        if (i18n.language === 'en') {
+            i18n.changeLanguage('ar')
+            return
+        }
+        i18n.changeLanguage('en')
+    }
     const logoutHandel = async () => {
         const token = Cookies.get("token")
         const response = await logoutAccount(token);
@@ -55,17 +63,17 @@ const Navbar = () => {
 
     const accountDropDown = [
         {
-            title: "profile",
+            title: t("Navbar.profile"),
             to: accountUserName,
             method: noHandel
         },
         {
-            title: "settings",
+            title: t("Navbar.settings"),
             to: accountId,
             method: noHandel
         },
         {
-            title: "logout",
+            title: t("Navbar.logout"),
             to: "/",
             method: logoutHandel
         }
@@ -88,29 +96,29 @@ const Navbar = () => {
                     <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
                         <div className="navbar-nav">
                             <div className="nav-home-link">
-                                <NavHomeLink to="/">Home</NavHomeLink>
-                                <NavHomeLink to="/browse">Browse</NavHomeLink>
-                                <NavHomeLink to="/browse-by-language">Browse by Language</NavHomeLink>
+                                <NavHomeLink to="/">{t("Navbar.home")}</NavHomeLink>
+                                <NavHomeLink to="/browse">{t("Navbar.browse")}</NavHomeLink>
+                                <NavHomeLink to="/TeamMembers">{t("Navbar.teamMembers")}</NavHomeLink>
                             </div>
                             <form className="d-flex" role="search">
                                 <NavHomeButton iclassName="bi bi-search search-icon" className="input-group rounded" buttonClassName="input-group-text border-0 button-search" method={noHandel}>
-                                    <input type="search" className="form-control rounded search-navbar-input" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+                                    <input type="search" className="form-control rounded search-navbar-input" placeholder={t("Navbar.search")} aria-label="Search" aria-describedby="search-addon" />
                                 </NavHomeButton>
                             </form>
                             <div className="right-side">
                                 {
                                     hasAccount ? <><Link type="button" className="addstory btn btn-outline-dark rounded-5 m-2" to={`/StoryDetails`}>
-                                        add a story
+                                        {t("Navbar.add_a_story")}
                                     </Link>
-                                        <NavHomeButton iclassName="bi bi-translate" className="navbar-button" buttonClassName="btn btn rounded-5 m-2" method={noHandel} />
+                                        <NavHomeButton iclassName="bi bi-translate" className="navbar-button" buttonClassName="btn btn rounded-5 m-2" method={translationHandler} />
                                         <NavHomeButton iclassName="bi bi-inbox" className="navbar-button" buttonClassName="btn btn rounded-5 m-2" method={noHandel} />
                                         <NavHomeButton iclassName="bi bi-bell" className="navbar-button" buttonClassName="btn btn rounded-5 m-2" method={noHandel} />
                                         <NavHomeButton iclassName="bi bi-person-circle" className="navbar-button" buttonClassName="btn btn rounded-5 m-2" isDropDown={true} accountDropDown={accountDropDown} />
                                     </> : <><Link type="button" className="addstory btn btn-outline-dark rounded-5 m-2" to={`/SignIn`}>
-                                        SignIn
+                                        {t("Navbar.signIn")}
                                     </Link>
                                         <Link type="button" className="addstory btn btn-outline-dark rounded-5 m-2" to={`/SignUp`}>
-                                            SignUp
+                                            {t("Navbar.signUp")}
                                         </Link>
                                     </>
                                 }
@@ -123,4 +131,5 @@ const Navbar = () => {
     );
 };
 
-export default Navbar;
+
+export default Navbar

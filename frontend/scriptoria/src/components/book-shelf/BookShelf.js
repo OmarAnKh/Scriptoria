@@ -4,6 +4,7 @@ import './BookShelf.css'
 import Book from "./book/Book.js";
 import Shelf from "./shelf/Shelf.js";
 import ShelfHeader from "./shelf-header/ShelfHeader.js";
+import { useTranslation } from 'react-i18next';
 
 
 const works = [
@@ -65,6 +66,7 @@ const responsive = {
 };
 
 const BookShelf = (props) => {
+  const { t } = useTranslation()
 
   const CustomLeftArrow = ({ onClick }) => (
     <button className="custom-arrow custom-left-arrow" onClick={onClick}>
@@ -81,9 +83,7 @@ const BookShelf = (props) => {
   return (
     <div className="mx-5 my-5 book-shelf ">
       <div className="carousel-container works-books my-5">
-
-        <ShelfHeader title="Works" btnTitle="See all works" />
-
+        <ShelfHeader title={t("BookShelf.works")} btnTitle={t("BookShelf.see_all_works")} />
         <Carousel
           responsive={responsive}
           containerClass="custom-carousel hide-arrows"
@@ -123,7 +123,7 @@ const BookShelf = (props) => {
 
       <div className="carousel-container reading-list-books my-5" style={{}}>
 
-        <ShelfHeader title="Reading list" btnTitle="All reading list" />
+        <ShelfHeader title={t("BookShelf.reading_list")} btnTitle={t("BookShelf.all_reading_list")} />
 
         <Carousel
           responsive={responsive}
@@ -166,4 +166,4 @@ const BookShelf = (props) => {
   );
 }
 
-export default BookShelf;
+export default BookShelf

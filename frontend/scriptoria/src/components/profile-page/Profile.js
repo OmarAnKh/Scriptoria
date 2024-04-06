@@ -3,7 +3,7 @@ import '../profile-info/ProfileInfo.css'
 import { findAccount } from "../../api/accountApi";
 import Cookies from 'js-cookie'
 import { useState, useEffect } from 'react';
-import { useParams, useNavigate} from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import ProfileInfo from "../profile-info/ProfileInfo"
 import BookShelf from "../book-shelf/BookShelf"
 import FriendsList from "../friends-list/FriendsList";
@@ -44,9 +44,9 @@ const Profile = () => {
             } catch (err) {
                 console.log(err);
             }
-            
+
         };
-        
+
         handleResponse();
     }, []);
 
@@ -83,8 +83,9 @@ const Profile = () => {
     if (username === Cookies.get("userInfo") && data.userName) {
         return (
             <>
+                <Navbar />
                 <div className="container-fluid profile-page-body">
-                    <Navbar />
+
                     <ProfileInfo user={data} userStatus={false} ifblocked={false} />
                     <ProfileBooks username={username} />
                 </div>
@@ -95,18 +96,21 @@ const Profile = () => {
         handleBlocked()
         if (!block || !Cookies.get("userInfo")) {
             return (
-                <div className="container-fluid profile-page-body">
+                <>
                     <Navbar />
-                    <ProfileInfo visit={user} user={data} userStatus={true} ifblocked={false} />
-                    <ProfileBooks username={username} />
-                </div>
+                    <div className="container-fluid profile-page-body">
+                        <ProfileInfo visit={user} user={data} userStatus={true} ifblocked={false} />
+                        <ProfileBooks username={username} />
+                    </div></>
             );
         } else {
             return (
-                < div className="container-fluid profile-page-body" >
+                <>
                     <Navbar />
-                    <ProfileInfo visit={user} user={data} userStatus={true} ifblocked={true} />
-                </ div>
+                    < div className="container-fluid profile-page-body" >
+                        <ProfileInfo visit={user} user={data} userStatus={true} ifblocked={true} />
+                    </ div>
+                </>
             )
         }
     } else {
