@@ -21,7 +21,7 @@ const MemberPage = () => {
                         />
                         <MemberCard
                             imageSrc="https://pbs.twimg.com/media/GIGE2r0WkAEW7Tz?format=jpg&name=large"
-                            name="Abdelrahman Jbr"
+                            name="Abood Jbr"
                             role="Design Team Leader"
                             facebookLink="https://www.facebook.com/abooodjbr"
                             githubLink="https://github.com/AbooodJbr"

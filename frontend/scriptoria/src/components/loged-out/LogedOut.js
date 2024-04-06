@@ -1,8 +1,9 @@
 import logout from "../../img/logout.png";
 import { Link } from "react-router-dom";
 import Navbar from "../navbar/Navbar";
-
-const ErrorPage = () => {
+import { useTranslation } from "react-i18next";
+const LogedOut = () => {
+  const { t } = useTranslation();
   return (
     <>
       <Navbar />
@@ -10,16 +11,16 @@ const ErrorPage = () => {
         <img src={logout} alt="logout" className="img-fluid" width="600" />
       </div>
       <div className="text-center mb-5">
-        <p className="fw-bold h1">You have successfully logged out. </p>
-        <p className="h5 fw-bold">
-          <Link className="text-decoration-none" to="/">
-            Click here
-          </Link>{" "}
-          to return to the home page.
-        </p>
+        <p className="fw-bold h1">{t("Logout.text1")}</p>
+        <Link
+          className="h5 fw-bold text-secondary text-decoration-none"
+          to={""}
+        >
+          {t("Logout.text2")}
+        </Link>
       </div>
     </>
   );
 };
 
-export default ErrorPage;
+export default LogedOut;
