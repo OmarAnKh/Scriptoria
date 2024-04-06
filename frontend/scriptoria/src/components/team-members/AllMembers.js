@@ -17,6 +17,7 @@ const MemberPage = () => {
                             facebookLink="https://www.facebook.com/0marAnKh"
                             githubLink="https://github.com/OmarAnKh"
                             email="omarkhalili810@gmail.com"
+                            discordId="545313121208893445"
                         />
                         <MemberCard
                             imageSrc="https://pbs.twimg.com/media/GIGE2r0WkAEW7Tz?format=jpg&name=large"
@@ -25,6 +26,7 @@ const MemberPage = () => {
                             facebookLink="https://www.facebook.com/abooodjbr"
                             githubLink="https://github.com/AbooodJbr"
                             email="aboodasd321a@gmail.com"
+                            discordId="1071373404797681674"
                         />
                     </div>
                     <h1 className="mt-5">Designers &amp; Developers</h1>
@@ -36,6 +38,7 @@ const MemberPage = () => {
                             facebookLink="https://www.facebook.com/profile.php?id=100080038279314"
                             githubLink="https://github.com/Ahmadiyrot"
                             email="Ahmadiyroot@gmail.com"
+                            discordId="833407979034247189"
                         />
                         <MemberCard
                             imageSrc="https://cdn.discordapp.com/attachments/1074411853125533806/1225098858732978307/WhatsApp_Image_2024-04-03_at_6.05.01_PM.jpeg?ex=661fe539&is=660d7039&hm=341904f2ffdf113eedc8db000561360a1dc503f7bbeb9cb9ce684ef7cb2f11d0& "
@@ -44,6 +47,7 @@ const MemberPage = () => {
                             facebookLink="https://www.facebook.com/profile.php?id=100016711962016"
                             githubLink="https://github.com/areenabudayeh"
                             email="areen.a.abodayeh@gmail.com"
+                            discordId="1068112091040464906"
                         />
                         <MemberCard
                             imageSrc="https://media.discordapp.net/attachments/1101950978435055726/1225030553649287188/amjad.jpg?ex=661fa59b&is=660d309b&hm=242e87b8ac5e7b409ae22cb55507f7ef9b7734ee5b2232af407b2e0796684f8f&=&format=webp&width=685&height=676"
@@ -52,6 +56,7 @@ const MemberPage = () => {
                             facebookLink="https://www.facebook.com/amjad.awad.94651"
                             githubLink="https://github.com/amjadAwad95"
                             email="amjadawad129@gmail.com"
+                            discordId="1064908951906435082"
                         />
                         <MemberCard
                             imageSrc="https://cdn.discordapp.com/attachments/1074411853125533806/1225100031623823470/WhatsApp_Image_2024-04-03_at_6.09.39_PM.jpeg?ex=661fe650&is=660d7150&hm=f4eb1891f6556938b5de1a2d2e2209df68d478c2ee15611e32c4b85a9f03cb05& "
@@ -60,6 +65,7 @@ const MemberPage = () => {
                             facebookLink="https://www.facebook.com/profile.php?id=100006064278505&mibextid=eQY6cl"
                             githubLink="https://github.com/lamaabbaker"
                             email="lamaabbaker@gmail.com"
+                            discordId="1068186886323052624"
                         />
 
                         <MemberCard
@@ -69,6 +75,7 @@ const MemberPage = () => {
                             facebookLink="https://www.facebook.com/profile.php?id=100009352542889"
                             githubLink="https://www.github.com/mohammad-ali-jaber"
                             email="jaberaaa8@gmail.com"
+                            discordId="1111015215782445110"
                         />
                     </div>
 
