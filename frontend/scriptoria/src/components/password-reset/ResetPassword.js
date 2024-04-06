@@ -3,8 +3,9 @@ import EmailVerification from "../email-verification/EmailVerification";
 import { useState } from "react";
 import { editPassword } from "../../api/accountApi";
 import { saveDocument } from "../../api/API's";
-
+import { useTranslation } from 'react-i18next';
 const ResetPassword = () => {
+    const { t } = useTranslation()
     const navigate = useNavigate()
     const location = useLocation();
     const { email } = location.state || {};
@@ -20,7 +21,7 @@ const ResetPassword = () => {
             !/\d/.test(password) ||
             password !== confirmPassword
         ) {
-            setInputError("Password must be at least 6 characters long, contain at least one uppercase letter, contain at least one lowercase letter and contain at least one number")
+            setInputError(t("ResetPassword.InputError_password_criteria"))
             setInputColor("red")
             return
         }
@@ -42,19 +43,19 @@ const ResetPassword = () => {
             }
 
         }
-        setInputError("Please make sure that the password and the confirm password match")
+        setInputError(t("ResetPassword.InputError_confirm_password"))
         setInputColor("red")
     }
     if (email) {
         return (
             <div>
                 <EmailVerification
-                    cardType="Reset your password"
+                    cardType={t("ResetPassword.cardType")}
                     type="password"
-                    text="please choose a strong password"
-                    inputPlaceholder="Password"
+                    text={t("ResetPassword.text")}
+                    inputPlaceholder={t("ResetPassword.inputPlaceholder")}
                     methodOnChange={[setPassword, setConfirmPassword]}
-                    buttonTitle="Save new password"
+                    buttonTitle={t("ResetPassword.buttonTitle")}
                     methodOnClick={passwordHandler}
                     inputColor={inputColor}
                     inputError={inputError}

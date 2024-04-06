@@ -37,7 +37,6 @@ const SearchResultsPage = () => {
                 <div className="row">
                     <div className="col text-center">
                         <div className="Search-container">
-
                             {books.map((book, index) => {
                                 return (
                                     <React.Fragment key={index}>

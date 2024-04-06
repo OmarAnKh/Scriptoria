@@ -4,8 +4,10 @@ import { findAccount } from "../../api/accountApi";
 import EmailVerification from "../email-verification/EmailVerification";
 import { useNavigate, useParams } from "react-router-dom"
 import { sendEmail } from "../../api/API's";
+import { useTranslation } from 'react-i18next';
 
 const EmailVerifing = () => {
+    const { t } = useTranslation();
     const { email } = useParams();
     const [validEmail, setValidEmail] = useState(undefined);
     const [userCode, setUserCode] = useState("")
@@ -40,7 +42,6 @@ const EmailVerifing = () => {
     useEffect(() => {
         if (validEmail) {
             sendVerificationCode();
-
         }
     },);
 
@@ -74,7 +75,7 @@ const EmailVerifing = () => {
             return
         }
         setInputColor("red")
-        setInputError("invalid code")
+        setInputError(t("EmailVerifing.InputError"))
     }
     const codeResendHandler = () => {
         sendVerificationCode()
@@ -82,13 +83,13 @@ const EmailVerifing = () => {
     if (validEmail !== undefined) {
         return (
             <EmailVerification
-                cardType="Account recovery"
+                cardType={t("EmailVerifing.cardType")}
                 type="email"
-                text="Please enter the code that was sent to your email"
-                inputPlaceholder="Verification code"
+                text={t("EmailVerifing.text")}
+                inputPlaceholder={t("EmailVerifing.inputPlaceholder")}
                 methodOnChange={setUserCode}
-                buttonTitle="Verify my code"
-                buttonTitle2="resend a code"
+                buttonTitle={t("EmailVerifing.buttonTitle")}
+                buttonTitle2={t("EmailVerifing.buttonTitle2")}
                 methodOnClick={compareHandler}
                 methodOnClick2={codeResendHandler}
                 inputColor={inputColor}
@@ -96,7 +97,8 @@ const EmailVerifing = () => {
             />
         );
     } else {
-        return <div>Email is not valid or does not exist.</div>;
+        navigate('*')
+        return null
     }
 };
 

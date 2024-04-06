@@ -12,6 +12,7 @@ import Navbar from '../navbar/Navbar';
 import { updateDocument } from '../../api/API\'s';
 import AlertWithTime from '../alert/AlertWithTime';
 import {toast} from 'react-hot-toast'
+import { useTranslation } from 'react-i18next';
 
 
 
@@ -21,73 +22,6 @@ const uploader = Uploader({
 
 const options = { multi: true };
 
-const settingsButtonObject = [
-    {
-        className: "nav-link active nav-link-settings",
-        id: "v-pills-userInfo-tab",
-        dataBsToggle: "pill",
-        dataBsTarget: "#v-pills-userInfo",
-        type: "button",
-        role: "tab",
-        ariaControls: "v-pills-userInfo",
-        ariaSelected: true,
-        disabled: false,
-        title: "User Info",
-        classNameIcon: "bi bi-question-square-fill"
-    },
-    {
-        className: "nav-link nav-link-settings",
-        id: "v-pills-privacy-tab",
-        dataBsToggle: "pill",
-        dataBsTarget: "#v-pills-privacy",
-        type: "button",
-        role: "tab",
-        ariaControls: "v-pills-privacy",
-        ariaSelected: false,
-        disabled: false,
-        title: "Privacy",
-        classNameIcon: "bi bi-shield-lock-fill"
-    },
-    {
-        className: "nav-link nav-link-settings",
-        id: "v-pills-security-tab",
-        dataBsToggle: "pill",
-        dataBsTarget: "#v-pills-security",
-        type: "button",
-        role: "tab",
-        ariaControls: "v-pills-security",
-        ariaSelected: false,
-        disabled: false,
-        title: "Security",
-        classNameIcon: "bi bi-lock-fill"
-    },
-    {
-        className: "nav-link nav-link-settings",
-        id: "v-pills-termsOfUse-tab",
-        dataBsToggle: "pill",
-        dataBsTarget: "#v-pills-termsOfUse",
-        type: "button",
-        role: "tab",
-        ariaControls: "v-pills-termsOfUse",
-        ariaSelected: false,
-        disabled: false,
-        title: "Terms Of Use",
-        classNameIcon: "bi bi-layout-text-sidebar-reverse"
-    },
-    {
-        className: "nav-link nav-link-settings",
-        id: "v-pills-support-tab",
-        dataBsToggle: "pill",
-        dataBsTarget: "#v-pills-support",
-        type: "button",
-        role: "tab",
-        ariaControls: "v-pills-support",
-        ariaSelected: false,
-        disabled: false,
-        title: "Support",
-        classNameIcon: "bi bi-headset"
-    }
-];
 
 const CardSettingsInfo = (props) => {
     return (
@@ -132,10 +66,81 @@ const CardInputEditBody = (props) => {
 }
 
 const Settings = () => {
+    const { t } = useTranslation()
+    const settingsButtonObject = [
+        {
+            className: "nav-link active nav-link-settings",
+            id: "v-pills-userInfo-tab",
+            dataBsToggle: "pill",
+            dataBsTarget: "#v-pills-userInfo",
+            type: "button",
+            role: "tab",
+            ariaControls: "v-pills-userInfo",
+            ariaSelected: true,
+            disabled: false,
+            title: t("Settings.user_Info"),
+            classNameIcon: "bi bi-question-square-fill"
+        },
+        {
+            className: "nav-link nav-link-settings",
+            id: "v-pills-privacy-tab",
+            dataBsToggle: "pill",
+            dataBsTarget: "#v-pills-privacy",
+            type: "button",
+            role: "tab",
+            ariaControls: "v-pills-privacy",
+            ariaSelected: false,
+            disabled: false,
+            title: t("Settings.privacy"),
+            classNameIcon: "bi bi-shield-lock-fill"
+        },
+        {
+            className: "nav-link nav-link-settings",
+            id: "v-pills-security-tab",
+            dataBsToggle: "pill",
+            dataBsTarget: "#v-pills-security",
+            type: "button",
+            role: "tab",
+            ariaControls: "v-pills-security",
+            ariaSelected: false,
+            disabled: false,
+            title: t("Settings.security"),
+            classNameIcon: "bi bi-lock-fill"
+        },
+        {
+            className: "nav-link nav-link-settings",
+            id: "v-pills-termsOfUse-tab",
+            dataBsToggle: "pill",
+            dataBsTarget: "#v-pills-termsOfUse",
+            type: "button",
+            role: "tab",
+            ariaControls: "v-pills-termsOfUse",
+            ariaSelected: false,
+            disabled: false,
+            title: t("Settings.terms"),
+            classNameIcon: "bi bi-layout-text-sidebar-reverse"
+        },
+        {
+            className: "nav-link nav-link-settings",
+            id: "v-pills-support-tab",
+            dataBsToggle: "pill",
+            dataBsTarget: "#v-pills-support",
+            type: "button",
+            role: "tab",
+            ariaControls: "v-pills-support",
+            ariaSelected: false,
+            disabled: false,
+            title: t("Settings.support"),
+            classNameIcon: "bi bi-headset"
+        }
+    ];
+
     const [inputDisabled, setInputDisabled] = useState(true);
     const [textareaDisabled, setTextareaDisabled] = useState(true);
-    const [inputEventType, setInputEventType] = useState("Edit");
-    const [textAreaEventType, setTextAreaEventType] = useState("Edit");
+    const [inputEventTypeFlag, setInputEventTypeFlag] = useState(true);
+    const [inputEventType, setInputEventType] = useState(t("Settings.edit"));
+    const [textAreaEventTypeFlag, setTextAreaEventTypeFlag] = useState(true);
+    const [textAreaEventType, setTextAreaEventType] = useState(t("Settings.edit"));
     const [account, setAccount] = useState({})
     const { id } = useParams();
     const navigate = useNavigate();
@@ -177,9 +182,10 @@ const Settings = () => {
     }, [id]);
 
     const handalClickEditAndSaveInput = async () => {
-        if (inputEventType === "Edit") {
+        if (inputEventTypeFlag === true) {
             setInputDisabled(!inputDisabled);
-            setInputEventType("Save");
+            setInputEventType(t("Settings.save"));
+            setInputEventTypeFlag(false)
             return;
         }
         const updateUser = { _id: id }
@@ -213,13 +219,14 @@ const Settings = () => {
         }
 
         setInputDisabled(!inputDisabled);
-        setInputEventType("Edit");
+        setInputEventType(t("Settings.edit"));
+        setInputEventTypeFlag(true)
     }
 
     const handalClickEditAndSaveTextArea = async () => {
-        if (textAreaEventType === "Edit") {
+        if (textAreaEventTypeFlag === true) {
             setTextareaDisabled(!textareaDisabled);
-            setTextAreaEventType("Save");
+            setTextAreaEventType(t("Settings.save"));
             return;
         }
         const updateUser = { _id: id }
@@ -234,7 +241,8 @@ const Settings = () => {
             }
         }
         setTextareaDisabled(!textareaDisabled);
-        setTextAreaEventType("Edit");
+        setTextAreaEventType(t("Settings.edit"));
+        setTextAreaEventTypeFlag(false)
     }
 
     const handalClickProfilePicture = async () => {
@@ -255,13 +263,14 @@ const Settings = () => {
 
     return (
         <div className="settings-page-top-body">
+
             <Navbar />
             <div className="container-fluid my-5">
                 {alertMsg ? toast.success('image saved') : ""}
                 <div className="row">
                     <div className="col-md-8 mx-auto">
                         <div className="settings-page-header py-4">
-                            <span className="edit-profile-text">Settings</span>
+                            <span className="edit-profile-text">{t("Settings.settings")}</span>
                         </div>
                         <div className="row">
                             <div className="col-md-2">
@@ -270,6 +279,7 @@ const Settings = () => {
                                         settingsButtonObject.map((settingsButton, idx) => {
                                             return (
                                                 <React.Fragment key={idx}>
+
                                                     <SettingsButton
                                                         className={settingsButton.className}
                                                         id={settingsButton.id}
@@ -307,27 +317,27 @@ const Settings = () => {
                                                 <div className="ms-3 my-3">
                                                     <h5>{displayName}</h5>
                                                     <p className='user-name-text'>@{userName}</p>
-                                                    <SettingsButton className="sttings-edit-button" title={"Save"} classNameIcon="bi bi-pencil" method={handalClickProfilePicture} />
+                                                    <SettingsButton className="sttings-edit-button" title={t("Settings.save")} classNameIcon="bi bi-pencil" method={handalClickProfilePicture} />
                                                 </div>
                                             </div>
                                         </CardSettingsInfo>
 
                                         <CardSettingsInfo className="mt-3">
-                                            <CardInputEditBody title="User Information" element={<SettingsButton className="sttings-edit-button" title={inputEventType} classNameIcon="bi bi-pencil" method={handalClickEditAndSaveInput} />}>
-                                                <CardInput className="col" title="User Name" value={userName} disabled={inputDisabled} method={setUserName} error={error} />
-                                                <CardInput className="col" title="Disblay Name" value={displayName} disabled={inputDisabled} method={setDisplayName} />
+                                            <CardInputEditBody title={t("Settings.user_Information")} element={<SettingsButton className="sttings-edit-button" title={inputEventType} classNameIcon="bi bi-pencil" method={handalClickEditAndSaveInput} />}>
+                                                <CardInput className="col" title={t("Settings.user_name")} value={userName} disabled={inputDisabled} method={setUserName} error={error} />
+                                                <CardInput className="col" title={t("Settings.display_name")} value={displayName} disabled={inputDisabled} method={setDisplayName} />
                                                 <div className="w-100 my-3" />
-                                                <SettingsSelect title="gender" value={gender} disabled={inputDisabled} method={setGender} />
-                                                <SettingsSelect title="countrys" value={region} disabled={inputDisabled} method={setRegion} />
+                                                <SettingsSelect title={t("Settings.gender")} selectType="gender" value={gender} disabled={inputDisabled} method={setGender} />
+                                                <SettingsSelect title={t("Settings.county")} selectType="countries" value={region} disabled={inputDisabled} method={setRegion} />
                                             </CardInputEditBody>
                                         </CardSettingsInfo>
 
                                         <CardSettingsInfo className="mt-3">
-                                            <CardInputEditBody title="Description" element={<SettingsButton className="sttings-edit-button" title={textAreaEventType} classNameIcon="bi bi-pencil" method={handalClickEditAndSaveTextArea} />}>
+                                            <CardInputEditBody title={t("Settings.description")} element={<SettingsButton className="sttings-edit-button" title={textAreaEventType} classNameIcon="bi bi-pencil" method={handalClickEditAndSaveTextArea} />}>
                                                 <textarea
                                                     rows={20}
                                                     cols={70}
-                                                    placeholder="Enter your description here..."
+                                                    placeholder={t("Settings.desPlaceholder")}
                                                     value={description}
                                                     disabled={textareaDisabled}
                                                     onChange={(event) => {
@@ -339,33 +349,33 @@ const Settings = () => {
                                     </SettingsInfo>
 
                                     <SettingsInfo className="tab-pane fade settings-info-body" id="v-pills-privacy" role="tabpanel" aria-labelledby="v-pills-privacy-tab" tabIndex={0}>
-                                        privacy
+                                        {t("Settings.privacy")}
                                     </SettingsInfo>
 
                                     <SettingsInfo className="tab-pane fade settings-info-body" id="v-pills-security" role="tabpanel" aria-labelledby="v-pills-security-tab" tabIndex={0}>
                                         <CardSettingsInfo className="mt-3">
                                             <CardInputEditBody >
-                                                <CardInput className="col" title="Email" value={email} disabled={true} />
+                                                <CardInput className="col" title={t("Settings.mail")} value={email} disabled={true} />
                                             </CardInputEditBody>
                                         </CardSettingsInfo>
 
                                         <CardSettingsInfo className="mt-3">
-                                            <CardInputEditBody element={<SettingsButton className="sttings-edit-button" title={"Edit"} classNameIcon="bi bi-pencil" method={handalEditPassword} />}>
-                                                <CardInput className="col" title="Password" value={"*********"} disabled={true} />
+                                            <CardInputEditBody element={<SettingsButton className="sttings-edit-button" title={t("Settings.edit")} classNameIcon="bi bi-pencil" method={handalEditPassword} />}>
+                                                <CardInput className="col" title={t("Settings.password")} value={"*********"} disabled={true} />
                                             </CardInputEditBody>
                                         </CardSettingsInfo>
                                     </SettingsInfo>
 
                                     <SettingsInfo className="tab-pane fade settings-info-body" id="v-pills-termsOfUse" role="tabpanel" aria-labelledby="v-pills-termsOfUse-tab" tabIndex={0}>
-                                        Terms of Use content
+                                        {t("Settings.terms")}
                                     </SettingsInfo>
 
                                     <SettingsInfo className="tab-pane fade settings-info-body" id="v-pills-support" role="tabpanel" aria-labelledby="v-pills-support-tab" tabIndex={0}>
                                         <div className='text-center'>
-                                            <h2>Need Help?</h2>
-                                            If you have any questions or issues, please don't hesitate to contact us.
+                                            <h2>{t("Settings.help")}</h2>
+                                            {t("Settings.q")}
                                             <br />
-                                            <a href='mailto:scriptoria.work@gmail.com'>Send Email</a>
+                                            <a href='mailto:scriptoria.work@gmail.com'>{t("Settings.sendEmail")}</a>
                                         </div>
                                     </SettingsInfo>
                                 </div>

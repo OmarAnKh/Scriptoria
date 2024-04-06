@@ -17,8 +17,12 @@ import StoryPage from './components/story-page/StoryPage.js';
 import AllMembers from './components/team-members/AllMembers.js';
 import LogedOut from './components/loged-out/LogedOut.js'
 
+
+
 function App() {
+
   return (
+
     <div className="App">
       <Routes>
         <Route path="/profile/:username" element={<Profile />} />
@@ -39,6 +43,7 @@ function App() {
         <Route path='*' element={<ErrorPage />} />
         
       </Routes>
+
     </div>
   )
 }
