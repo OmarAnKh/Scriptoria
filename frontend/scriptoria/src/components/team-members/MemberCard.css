@@ -16,6 +16,7 @@
     height: 400px;
     transition: transform 1s;
     object-fit: cover;
+
 }
 
 .profile-card .profile-content::before {
@@ -25,9 +26,10 @@
     left: 0;
     width: 50%;
     height: 40%;
-    border: 3px solid #333;
+    border: 4.5px solid #333;
     border-right: 3px solid transparent;
     border-bottom: 3px solid transparent;
+    border-radius: 6% 0% 6% 0%;
     transform: scale(1, 1);
     transition: all 0.50s linear;
 }
@@ -39,15 +41,16 @@
     right: 0;
     width: 50%;
     height: 40%;
-    border: 3px solid #222;
+    border: 4.5px solid #222;
     border-left: 3px solid transparent;
     border-top: 3px solid transparent;
+    border-radius: 6% 0% 6% 0%;
     transition: all 0.50s linear;
 }
 
 .IconColor {
-    background-color: rgb(255, 255, 255);
-    color: rgb(0, 0, 0);
+    background-color: transparent;
+    color: rgb(255, 255, 255);
     width: 40px;
     display: list-item;
     border-radius: 3px;
