@@ -7,7 +7,6 @@ import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import toast from "react-hot-toast";
 
-
 const HomePage = () => {
     const [alert, setAlert] = useState(false);
 
