@@ -36,7 +36,28 @@ const unfollow = async (point, obj) => {
     }
 }
 
+const followers = async (point, user) => {
+    try {
+        const response = await fetch('http://localhost:5000' + point + "/" + user, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+        if (response.ok) {
+            return response.json();
+        } else {
+            throw new Error("Failed to fetch followers");
+        }
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+};
+
+
 export {
     follows,
-    unfollow
+    unfollow,
+    followers
 }

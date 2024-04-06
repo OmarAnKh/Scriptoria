@@ -29,17 +29,17 @@ function Category(props) {
     }
     return (
         <div className="col-md-3 Category">
-            <label className="form-label">Category</label>
-            <select id="inputState" className="form-select" onChange={props.handleChange} >
-                <option selected>select one/more</option>
-                {options.map((option, index) => (
-                    <option key={index}>{option.label}</option>
-                ))}
-            </select>
-            <div >
-        {props.displayCategorys()}
-      </div>
+        <label className="form-label">Category</label>
+        <select id="inputState" className="form-select" onChange={props.handleChange} required>
+            <option value="" selected disabled>select one/more</option>
+            {options.map((option, index) => (
+                <option key={index} value={option.value}>{option.label}</option>
+            ))}
+        </select>
+        <div>
+            {props.displayCategorys()}
         </div>
+    </div>
     );
 }
 export default Category;

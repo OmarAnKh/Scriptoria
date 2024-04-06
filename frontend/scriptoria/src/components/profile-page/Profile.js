@@ -3,7 +3,7 @@ import '../profile-info/ProfileInfo.css'
 import { findAccount } from "../../api/accountApi";
 import Cookies from 'js-cookie'
 import { useState, useEffect } from 'react';
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate} from "react-router-dom";
 import ProfileInfo from "../profile-info/ProfileInfo"
 import BookShelf from "../book-shelf/BookShelf"
 import FriendsList from "../friends-list/FriendsList";
@@ -44,7 +44,9 @@ const Profile = () => {
             } catch (err) {
                 console.log(err);
             }
+            
         };
+        
         handleResponse();
     }, []);
 
@@ -53,7 +55,6 @@ const Profile = () => {
             const handleUser = async () => {
                 try {
                     const res = await findAccount({ userName: Cookies.get("userInfo") });
-
                     if (!res.message) {
                         setUser({ status: false });
                         return;
@@ -67,9 +68,9 @@ const Profile = () => {
         }
     }, []);
     const handleBlocked = async () => {
+
         try {
             const res = await follows("blocking", user._id, data._id);
-
             setBlock(res.status)
             return
         } catch (err) {
@@ -90,6 +91,7 @@ const Profile = () => {
             </>
         );
     } else if (username !== Cookies.get("userInfo") && data.userName) {
+
         handleBlocked()
         if (!block || !Cookies.get("userInfo")) {
             return (
@@ -100,7 +102,6 @@ const Profile = () => {
                 </div>
             );
         } else {
-            console.log(user)
             return (
                 < div className="container-fluid profile-page-body" >
                     <Navbar />

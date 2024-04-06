@@ -127,6 +127,7 @@ router.patch("/account/update", async (req, res) => {
                     .resize({ width: 250, height: 250 })
                     .png()
                     .toBuffer();
+                
                 req.body.profilePicture = buffer;
             } catch (error) {
                 console.error("Error fetching or processing image:", error);

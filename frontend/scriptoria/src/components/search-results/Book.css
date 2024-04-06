@@ -1,0 +1,79 @@
+.contain {
+  display: flex;
+}
+
+.book-container {
+  width: 200px;
+  height: 260px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 400px;
+}
+
+.Searchbook {
+  transform: rotateY(-30deg);
+  position: relative;
+  transform-style: preserve-3d;
+  width: 150px;
+  height: 220px;
+  transition: transform 1s ease;
+  animation: 1s ease 0s 1 initAnimation;
+}
+
+
+.Searchbook:hover {
+  transform: rotate(0deg);
+}
+
+@keyframes initAnimation {
+  0% {
+    transform: rotateY(0deg);
+  }
+
+  100% {
+    transform: rotateY(-30deg);
+  }
+}
+
+.Searchbook> :first-child {
+  object-fit: fill;
+  background: #0d47a1aa;
+  width: inherit;
+  height: inherit;
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+  box-shadow: 5px 5px 20px #666;
+}
+
+.Searchbook::before {
+  content: "";
+  height: inherit;
+  width: 50px;
+  top: 3px;
+  position: absolute;
+  transform: translateX(calc(200px - 50px / 2 - 55px)) rotateY(90deg) translateX(calc(50px / 2));
+  text-align: center;
+  color: #000;
+  font-size: xx-large;
+  font-weight: bold;
+  font-family: Arial, sans-serif;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  background: linear-gradient(to right, #fbfae8 9px, #e4e4e4 1px);
+  background-size: 10px 100%;
+}
+
+.Searchbook::after {
+  content: ' ';
+  position: absolute;
+  left: 0;
+  width: inherit;
+  height: inherit;
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+  background: #01060f;
+  transform: translateZ(-50px);
+  box-shadow: -10px 0 50px 10px #666;
+}
+

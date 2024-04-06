@@ -67,8 +67,8 @@ const Language = (props) => {
     return (
         <div className="col-4 languege">
             <label className="form-label">Language</label>
-            <select id="inputState" className="form-select" onChange={changeHandler}>
-                <option selected disabled>select one</option>
+            <select id="inputState" className="form-select" onChange={changeHandler} required>
+                <option value="" selected disabled>select one</option>
                 {options.map((option,index) => (
                     <option  key={index}>{option.label}</option>
                 ))}
