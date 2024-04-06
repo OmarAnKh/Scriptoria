@@ -73,7 +73,7 @@ const Navbar = () => {
     ]
 
     return (
-        <nav className="navbar navbar-expand-lg bg-body-tertiary">
+        <nav className="navbar navbar-expand-lg">
             <div className="container-fluid ">
                 <Link to="/" className="card-text d-flex align-items-center">
                     <img className="logo-size" src={Logo} alt="Scriptoria Logo" />

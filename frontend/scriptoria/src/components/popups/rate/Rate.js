@@ -3,20 +3,20 @@ import Rating from '@mui/material/Rating';
 import StarIcon from '@mui/icons-material/Star';
 import {sendRate, updateRate, getRate} from'../../../api/rateApi'
 import Cookies from 'js-cookie'
-
+import { toast} from 'react-hot-toast';
 
 const Rate = () => {
     const [value, setValue] = useState(0);
     const [isRated, setIsRated] = useState(false);
-    const [isSignedIn, setisSignedIn] = useState(false);
+    const [signedIn, setSignedIn] = useState(false);
     const [button, setButton] = useState("save")
+    const token = Cookies.get("token")
 
     useEffect(() => {
         const fetchData = async () => {
             const user = Cookies.get("userInfo");
             if(user){
-                setisSignedIn(true)
-                const token = Cookies.get("token");
+                setSignedIn(true)
                 const rating = await getRate('6607173031b513eec68df29d','65fb60a9334d75840746ae29', token );
                 if (rating !== undefined) {
                     setValue(rating);
@@ -30,26 +30,30 @@ const Rate = () => {
     
     
 
-    const handleRating = async ()=>{
-        if(isSignedIn){
-            const userInfo = Cookies.get("userInfo")
-            console.log(userInfo)
-            const token = Cookies.get("token")
-            const rate = {
-                StoryId : '65fb60a9334d75840746ae29',
-                AccountId : '6607173031b513eec68df29d',
-                rating : value
-            }
-            if(!isRated){
-                await sendRate(rate, token)
-                setIsRated(true)
-            } else {
-                await updateRate(rate.AccountId, rate, token)
-            }     
-        }   
-    }
-
-
+    const handleRating = async () => {
+        if (!signedIn) return;
+    
+        const rate = {
+            StoryId: '65fb60a9334d75840746ae29',
+            AccountId: '6607173031b513eec68df29d',
+            rating: value
+        };
+    
+        try {
+            await toast.promise(
+                isRated ? updateRate(rate.AccountId, rate, token) : sendRate(rate, token),
+                {
+                    loading: 'Submitting rating...',
+                    success: isRated ? 'Your rating has been updated successfully.' : 'Thank you for rating! Your rating has been successfully submitted.',
+                    error: 'Failed to save your rating. Please try again later.',
+                }
+            );
+    
+            setIsRated(true);
+        } catch (error) {
+            console.error('Rating error:', error);
+        }
+    };
 
     return (
         <div>
@@ -65,7 +69,7 @@ const Rate = () => {
                             </div>
                             <div className="modal-body container fs-1">
                                 <div className="row star-widget row-cols-auto justify-content-center">
-                                    <Rating
+                                <Rating
                                         name="hover-feedback"
                                         className='fs-1'
                                         value={value}
@@ -83,7 +87,7 @@ const Rate = () => {
                             </div>
 
                             <div className="container gap-2 btn-group mb-2">
-                                <button type="button" className="btn btn-primary rounded" onClick={handleRating} >{button}</button>
+                                <button type="button" className="btn btn-primary rounded" data-bs-dismiss="modal" onClick={handleRating} >{button}</button>
                                 <button type="button" className="btn btn-secondary rounded" data-bs-dismiss="modal">
                                     cancel
                                 </button>

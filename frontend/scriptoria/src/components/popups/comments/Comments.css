@@ -1,5 +1,3 @@
-
-
 .more-text{
     appearance: none;
 }
@@ -14,4 +12,15 @@
     cursor : pointer;
     color : black;
 }
+
+.custom-modal-content {
+    min-height: 300px; 
+}
+
+.no-horizontal-scroll {
+    overflow-x: hidden;
+}
+
+
+
 
