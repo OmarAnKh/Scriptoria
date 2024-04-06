@@ -4,13 +4,17 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
-import {Toaster} from 'react-hot-toast'
+import './i18n';
+import { Suspense } from 'react';
+import { Toaster } from "react-hot-toast"
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <BrowserRouter>
-   <Toaster/>
-    <App />
+    <Suspense fallback="...loading">
+      <Toaster />
+      <App />
+    </Suspense>
   </BrowserRouter>
 );
 

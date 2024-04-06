@@ -3,7 +3,7 @@ import logo from "../../img/scriptoria-logo.png";
 import FooterLink from "./FooterLink";
 import ActionButton from "../profile-info/ButtonCard";
 import React from "react";
-
+import { useTranslation } from 'react-i18next';
 const actionButtonsData = [
     {
         className: "facebook btn btn-outline-dark rounded-5 m-2",
@@ -40,6 +40,7 @@ const actionButtonsData = [
 ];
 
 const Footer = () => {
+    const { t } = useTranslation()
     return (
         <footer>
             <section className="top mt-3">
@@ -50,33 +51,38 @@ const Footer = () => {
                             <span className="Scriptoria ourbtn fs-2 py-0 px-0">Scriptoria</span>
                         </div>
                     </li>
-                    <FooterLink title="Product"
-                        firstLinkName="Features"
-                        secoundLinkName="Copy Rights"
+                    <FooterLink
+                        title={t("Footer.product")}
+                        firstLinkName={t("Footer.features")}
+                        secoundLinkName={t("Footer.copy_Rights")}
                         firstLink={`/features`}
                         secoundLink={`/copy-rights`} />
 
-                    <FooterLink title="Resources"
-                        firstLinkName="Blog"
-                        secoundLinkName="User guides"
+                    <FooterLink
+                        title={t("Footer.resources")}
+                        firstLinkName={t("Footer.blog")}
+                        secoundLinkName={t("Footer.user_guides")}
                         firstLink={`/blog`}
                         secoundLink={`/user-guides`} />
 
-                    <FooterLink title="Community"
-                        firstLinkName="Developers"
-                        secoundLinkName="Users"
+                    <FooterLink
+                        title={t("Footer.community")}
+                        firstLinkName={t("Footer.developers")}
+                        secoundLinkName={t("Footer.users")}
                         firstLink={`/developers`}
                         secoundLink={`/users`} />
 
-                    <FooterLink title="Company"
-                        firstLinkName="About"
-                        secoundLinkName="Join us"
+                    <FooterLink
+                        title={t("Footer.company")}
+                        firstLinkName={t("Footer.about")}
+                        secoundLinkName={t("Footer.join_us")}
                         firstLink={`/about`}
                         secoundLink={`/join-us`} />
 
-                    <FooterLink title="Support"
-                        firstLinkName="Help center"
-                        secoundLinkName="Chat support"
+                    <FooterLink
+                        title={t("Footer.support")}
+                        firstLinkName={t("Footer.help_center")}
+                        secoundLinkName={t("Footer.chat_support")}
                         firstLink={`/help-center`}
                         secoundLink={`/chat-support`} />
                 </ul>

@@ -11,18 +11,20 @@ import Cookies from "js-cookie";
 import Navbar from "../navbar/Navbar";
 import Footer from "../footer/Footer";
 import { useNavigate } from "react-router-dom";
-
+import { useTranslation } from "react-i18next";
 const uploader = Uploader({
   apiKey: "free"
 });
 
 const options = { multi: true };
-const htmlForStory = ["inputCity", "inputPassword4", "", "inputAddress2", "character-background-color"];
-const typeofStory = ["text", "number", "color", "textarea"];
-const nameOfDetails = ["Title", "Number of slides", "description (300 word max)", "Main Characters", "Background color:"];
-const placeholderOfForm = ["Untitled", "1", "", "name"];
+
 
 const StoryDetails = () => {
+  const { t } = useTranslation()
+  const htmlForStory = ["inputCity", "inputPassword4", "", "inputAddress2", "character-background-color"];
+  const typeofStory = ["text", "number", "color", "textarea"];
+  const nameOfDetails = [t("StoryDetails.title"), t("StoryDetails.number"), t("StoryDetails.description"), t("StoryDetails.characters"), t("StoryDetails.background")];
+  const placeholderOfForm = [t("StoryDetails.untitled"), "1", "", t("StoryDetails.name"),];
   const [title, setTitle] = useState("");
   const [description, setdescription] = useState("");
   const [MainCharacters, setMainCharacters] = useState([]);
@@ -110,7 +112,7 @@ const StoryDetails = () => {
   };
   const handleCancel = () => {
     const isConfirmed = window.confirm('Are you sure you want to cancel? You will be returned to the homepage without saving data.');
-    
+
     if (isConfirmed) {
       navigate(`/`);
     }
@@ -173,7 +175,7 @@ const StoryDetails = () => {
                     >
                       {({ onClick }) => (
                         <button type="button" className="button1" onClick={onClick}>
-                          Add Cover
+                          {t("StoryDetails.add_cover")}
                         </button>
                       )}
                     </UploadButton>
@@ -181,9 +183,9 @@ const StoryDetails = () => {
                 </div>
 
                 <div className="buttons-container mb-5">
-                {errorMessage && <p className="error-message">{errorMessage}</p>}
-                  <button id="button2" className="btn btn-primary btn-lg" type="submit">Start Writing</button>
-                  <button id="cancel-button" className="btn btn-secondary btn-lg" onClick={handleCancel}>Cancel</button>
+                  {errorMessage && <p className="error-message">{errorMessage}</p>}
+                  <button id="button2" className="btn btn-primary btn-lg" type="submit">{t("StoryDetails.start")}</button>
+                  <button id="cancel-button" className="btn btn-secondary btn-lg" onClick={handleCancel}>{t("StoryDetails.cancel")}</button>
                 </div>
               </div>
             </div>

@@ -1,0 +1,132 @@
+{
+    "Navbar": {
+        "search": "Search",
+        "home": "Home",
+        "browse": "browse",
+        "teamMembers": "TeamMembers",
+        "add_a_story": "add a story",
+        "signIn": "SignIn",
+        "signUp": "SignUp",
+        "profile": "profile",
+        "settings": "settings",
+        "logout": "logout"
+    },
+    "BookShelf": {
+        "see_all_works": "See all works",
+        "all_reading_list": "All reading list",
+        "works": "Works",
+        "reading_list": "Reading list"
+    },
+    "CarouselCards": {
+        "read_the_book": "Read the book"
+    },
+    "DiscoverTable": {
+        "all_genres": "All genres",
+        "action": "Action",
+        "horror": "Horror",
+        "romance": "Romance"
+    },
+    "ErrorPage": {
+        "page_was_not_found": "Page was not found"
+    },
+    "Footer": {
+        "product": "Product",
+        "features": "Features",
+        "copy_Rights": "Copy Rights",
+        "resources": "Resources",
+        "blog": "Blog",
+        "user_guides": "User guides",
+        "community": "Community",
+        "developers": "Developers",
+        "users": "Users",
+        "company": "Company",
+        "about": "About",
+        "join_us": "Join us",
+        "support": "Support",
+        "help_center": "Help center",
+        "chat_support": "Chat support"
+    },
+    "FriendsList": {
+        "friends_List": "Suggested friends",
+        "show_More": "Show More"
+    },
+    "GettingEmail": {
+        "InputError_valid_email": "Please enter a valid email",
+        "InputError_not_exsist": "There is no account with this email on our website ",
+        "cardType": "Account recovery",
+        "text": "to reset your password please provide your email address se we can send you a verification code",
+        "buttonTitle": "Get code",
+        "inputPlaceholder": "E-mail"
+    },
+    "EmailVerifing": {
+        "InputError": "invalid code",
+        "cardType": "Account recovery",
+        "text": "Please enter the code that was sent to your email",
+        "inputPlaceholder": "Verification code",
+        "buttonTitle": "Verify my code",
+        "buttonTitle2": "resend a code"
+    },
+    "ResetPassword": {
+        "InputError_password_criteria": "Password must be at least 6 characters long, contain at least one uppercase letter, contain at least one lowercase letter and contain at least one number",
+        "InputError_confirm_password": "Please make sure that the password and the confirm password match",
+        "cardType": "Reset your password",
+        "text": "please choose a strong password",
+        "inputPlaceholder": "Password",
+        "buttonTitle": "Save new password"
+    },
+    "ProfileInfo": {
+        "hello": "Hello, I'm",
+        "about": "About Me",
+        "followers": "Followers",
+        "works": "Works",
+        "following": "Following",
+        "settings": "settings",
+        "edit": "edit about",
+        "follow": "follow",
+        "unfollow": "unfollow",
+        "message": "message",
+        "Unblock": "Unblock"
+    },
+    "Settings": {
+        "settings": "Settings",
+        "terms": "Terms of Use",
+        "help": "Need Help?",
+        "q": "If you have any questions or issues, please don't hesitate to contact us.",
+        "sendEmail": "Send Email",
+        "privacy": "Privacy",
+        "user_Info": "User Info",
+        "security": "Security",
+        "support": "Support",
+        "user_Information": "User Information",
+        "user_name": "User Name",
+        "display_name": "Display Name",
+        "gender": "gender",
+        "county": "country",
+        "desPlaceholder": "Enter your description here...",
+        "mail": "Email",
+        "edit": "Edit",
+        "password": "Password",
+        "save": "Save",
+        "description": "Description"
+    },
+    "StoryCard": {
+        "show_more": "Show more"
+    },
+    "StoryDetails": {
+        "title": "Title",
+        "number": "Number of slides",
+        "description": "description (300 word max)",
+        "characters": "Main Characters",
+        "background": "Background color:",
+        "cancel": "Cancel",
+        "start": "Start",
+        "add_cover": "Add Cover",
+        "category": "Category",
+        "select": "select one/more",
+        "Target": "Target Audience",
+        "select_one": "select one",
+        "language": "Language",
+        "name": "Name",
+        "untitled": "Untitled"
+    }
+}

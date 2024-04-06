@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { useTranslation } from 'react-i18next';
 const options = [
     { label: "Action", value: "Action" },
     { label: "Adventure", value: "Adventure" },
@@ -23,23 +23,24 @@ const options = [
 ];
 
 function Category(props) {
+    const { t } = useTranslation()
     const changeHandler = (event) => {
         props.method(event.target.value)
-    
+
     }
     return (
         <div className="col-md-3 Category">
-        <label className="form-label">Category</label>
-        <select id="inputState" className="form-select" onChange={props.handleChange} required>
-            <option value="" selected disabled>select one/more</option>
-            {options.map((option, index) => (
-                <option key={index} value={option.value}>{option.label}</option>
-            ))}
-        </select>
-        <div>
-            {props.displayCategorys()}
+            <label className="form-label">{t("StoryDetails.category")}</label>
+            <select id="inputState" className="form-select" onChange={props.handleChange} required>
+                <option value="" selected disabled>{t("StoryDetails.select")}</option>
+                {options.map((option, index) => (
+                    <option key={index} value={option.value}>{option.label}</option>
+                ))}
+            </select>
+            <div>
+                {props.displayCategorys()}
+            </div>
         </div>
-    </div>
     );
 }
 export default Category;
