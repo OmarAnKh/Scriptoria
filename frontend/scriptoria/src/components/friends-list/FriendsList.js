@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './FriendsList.css';
 import FriendsListBtn from './FriendsListBtn';
+import { useTranslation } from 'react-i18next';
 
 const friendsinfo = [
     { name: 'Omar Khalili', username: 'Omarkhalili', imageUrl: 'https://assets.website-files.com/6214e7d4ee77846c19ee2dab/64789b44f257164ca2906859_Profile%20Placeholder.png', icon: 'https://d3k81ch9hvuctc.cloudfront.net/company/Wi8qPx/images/f12b4ab0-e38b-4baa-9f5f-1f61586750ad.png' },
@@ -14,6 +15,7 @@ const friendsinfo = [
 ];
 
 const FriendsList = () => {
+    const { t } = useTranslation();
     const [showAll, setShowAll] = useState(false);
     const toggleShowAll = () => {
         setShowAll(!showAll);
@@ -21,7 +23,7 @@ const FriendsList = () => {
 
     return (
         <div className="container">
-            <h2 className="title-friends-list ">Friends List</h2>
+            <h2 className="title-friends-list ">{t("FriendsList.friends_List")}</h2>
             <div className={`card-big friend-card-body ${showAll ? 'scrollspy' : ''}`} >
                 {friendsinfo.slice(0, showAll ? friendsinfo.length : 5).map((friend, index) => (
                     <div key={index} className="card friend-list-card mb-3" style={{ width: '100%' }}>
@@ -38,7 +40,7 @@ const FriendsList = () => {
                         <FriendsListBtn />
                     </div>
                 ))}
-                {!showAll && <button className="btn show-more-friend " onClick={toggleShowAll}>Show More</button>}
+                {!showAll && <button className="btn show-more-friend " onClick={toggleShowAll}>{t("FriendsList.show_More")}</button>}
             </div>
         </div>
     );

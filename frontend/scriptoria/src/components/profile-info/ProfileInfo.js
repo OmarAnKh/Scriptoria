@@ -7,7 +7,9 @@ import { useNavigate } from "react-router-dom"
 import Cookies from 'js-cookie';
 import logo from "../../img/content.png";
 import { saveDocument } from '../../api/API\'s.js';
+import { useTranslation } from 'react-i18next';
 const ProfileInfo = (props) => {
+    const { t } = useTranslation()
     const data = props.user;
     const [following, setFollowing] = useState(false)
     const [user, setUser] = useState({})
@@ -84,13 +86,14 @@ const ProfileInfo = (props) => {
             <div className="MainPage row">
                 <div className="Nda col">
                     <div className="DisplayName">
-                        Hello, I'm<br></br>{data.userName}
+                        {t("ProfileInfo.hello")}
+                        <br></br>{data.userName}
                         <div className="Username"> @{data.displayName}</div>
                     </div>
                     <br />
                     <div className='container'>
                         <div className="AboutMe">
-                            About Me
+                            {t("ProfileInfo.about")}
                             <div className="DescriptionArea ">
                                 <p>
                                     {data.description}
@@ -104,7 +107,7 @@ const ProfileInfo = (props) => {
                             <>
                                 {!Cookies.get("userInfo") ? (<>
                                     <ActionButton
-                                        label="Follow"
+                                        label={t("ProfileInfo.follow")}
                                         className="thebtn buttonstyle icon"
                                         svgClassName="bi bi-person-add ms-3"
                                         path1="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7m.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0m-2-6a3 3 0 1 1-6 0 3 3 0 0 1 6 0M8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4"
@@ -115,7 +118,7 @@ const ProfileInfo = (props) => {
                                         method={signInHandler}
                                     />
                                     <ActionButton
-                                        label="Message"
+                                        label={t("ProfileInfo.message")}
                                         className="thebtn buttonstyle"
                                         svgClassName="bi bi-chat-right-text"
                                         path1="M2 1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h9.586a2 2 0 0 1 1.414.586l2 2V2a1 1 0 0 0-1-1zm12-1a2 2 0 0 1 2 2v12.793a.5.5 0 0 1-.854.353l-2.853-2.853a1 1 0 0 0-.707-.293H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2z"
@@ -129,7 +132,7 @@ const ProfileInfo = (props) => {
                                 ) : (
                                     !following ? (<>
                                         <ActionButton
-                                            label="Follow"
+                                            label={t("ProfileInfo.follow")}
                                             className="thebtn buttonstyle icon"
                                             svgClassName="bi bi-person-add ms-3"
                                             path1="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7m.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0m-2-6a3 3 0 1 1-6 0 3 3 0 0 1 6 0M8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4"
@@ -140,7 +143,7 @@ const ProfileInfo = (props) => {
                                             method={followHandler}
                                         />
                                         <ActionButton
-                                            label="Message"
+                                            label={t("ProfileInfo.message")}
                                             className="thebtn buttonstyle"
                                             svgClassName="bi bi-chat-right-text mt-2 ms-4"
                                             path1="M2 1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h9.586a2 2 0 0 1 1.414.586l2 2V2a1 1 0 0 0-1-1zm12-1a2 2 0 0 1 2 2v12.793a.5.5 0 0 1-.854.353l-2.853-2.853a1 1 0 0 0-.707-.293H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2z"
@@ -161,7 +164,7 @@ const ProfileInfo = (props) => {
                                     </>
                                     ) : (<>
                                         <ActionButton
-                                            label="Followed"
+                                            label={t("ProfileInfo.unfollow")}
                                             className="thebtn buttonstyle icon"
                                             svgClassName="bi bi-person-add ms-3"
                                             path1="M15.854 5.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L12.5 7.793l2.646-2.647a.5.5 0 0 1 .708 0"
@@ -172,7 +175,7 @@ const ProfileInfo = (props) => {
                                             method={unfollowHandler}
                                         />
                                         <ActionButton
-                                            label="Message"
+                                            label={t("ProfileInfo.message")}
                                             className="thebtn buttonstyle"
                                             svgClassName="bi bi-chat-right-text mt-2 ms-4"
                                             path1="M2 1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h9.586a2 2 0 0 1 1.414.586l2 2V2a1 1 0 0 0-1-1zm12-1a2 2 0 0 1 2 2v12.793a.5.5 0 0 1-.854.353l-2.853-2.853a1 1 0 0 0-.707-.293H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2z"
@@ -198,7 +201,7 @@ const ProfileInfo = (props) => {
                         ) : (
                             <>
                                 <ActionButton
-                                    label="Edit about"
+                                    label={t("ProfileInfo.edit")}
                                     className="thebtn buttonstyle icon"
                                     svgClassName="bi bi-person-add ms-3"
                                     path1="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"
@@ -208,7 +211,7 @@ const ProfileInfo = (props) => {
                                     viewBox="0 0 16 16"
                                 />
                                 <ActionButton
-                                    label="Settings"
+                                    label={t("ProfileInfo.settings")}
                                     className="thebtn buttonstyle"
                                     svgClassName="bi bi-chat-right-text mt-2 ms-4"
                                     path1="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492M5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0"
@@ -231,9 +234,9 @@ const ProfileInfo = (props) => {
                         </div>
                         <div className="">
                             <div className="buttons1">
-                                <InfoButton text="Followers" value={followerCount.followerCount} />
-                                <InfoButton text="Works" value="21" />
-                                <InfoButton text="Following" value="356" />
+                                <InfoButton text={t("ProfileInfo.followers")} value={followerCount.followerCount} />
+                                <InfoButton text={t("ProfileInfo.works")} value="21" />
+                                <InfoButton text={t("ProfileInfo.following")} value="356" />
                             </div>
                         </div>
                     </div>
@@ -250,14 +253,14 @@ const ProfileInfo = (props) => {
 
                 <div className="Nda col">
                     <div className="DisplayName">
-                        Hello, I'm<br></br>{data.userName}
+                        {t("ProfileInfo.hello")}<br></br>{data.userName}
                         <div className="Username"> @{data.displayName}</div>
                     </div>
                     <br />
                     <br />
                     <div className="buttons">
                         <ActionButton
-                            label="Unblock"
+                            label={t("ProfileInfo.Unblock")}
                             className="thebtn buttonstyle icon"
                             svgClassName="bi bi-person-add ms-3"
                             path1="M15 8a6.97 6.97 0 0 0-1.71-4.584l-9.874 9.875A7 7 0 0 0 15 8M2.71 12.584l9.874-9.875a7 7 0 0 0-9.874 9.874ZM16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0"
