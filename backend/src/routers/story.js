@@ -84,4 +84,21 @@ router.get("/search/:criteria", async (req, res) => {
         return res.status(500).send({ error, status: false });
     }
 })
+
+router.get('/stories/:id',async (req, res) => {
+    const _id = req.params.id
+
+    try {
+        const story = await Story.findById(_id)
+        if(!story) {
+            return res.status(404).send()
+        }
+
+        res.send(story)
+    } catch (error) {
+        res.status(500).send(error)
+    }
+
+})
+
 export default router;
