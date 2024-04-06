@@ -11,6 +11,7 @@ import { UploadButton } from "react-uploader";
 import Navbar from '../navbar/Navbar';
 import { updateDocument } from '../../api/API\'s';
 import AlertWithTime from '../alert/AlertWithTime';
+import {toast} from 'react-hot-toast'
 import { useTranslation } from 'react-i18next';
 
 
@@ -264,7 +265,7 @@ const Settings = () => {
 
             <Navbar />
             <div className="container-fluid my-5">
-                {alertMsg ? <AlertWithTime msg="Image saved successfully!" severity="success" /> : <></>}
+                {alertMsg ? toast.success('image saved') : ""}
                 <div className="row">
                     <div className="col-md-8 mx-auto">
                         <div className="settings-page-header py-4">

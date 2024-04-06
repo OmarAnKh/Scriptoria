@@ -22,6 +22,11 @@
     font-weight: bold;
 }
 
+
+.navbar{
+    background-color: #DEE2FF;
+}
+
 @media (max-width: 1290px) {
     .nav-home-link {
         display: flex;
