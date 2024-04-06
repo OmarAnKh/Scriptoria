@@ -1,6 +1,6 @@
 const SettingsSelect = (props) => {
     const options = {
-        countrys: [
+        countries: [
             "Select Your country",
             "Afghanistan",
             "Åland Islands",
@@ -260,7 +260,7 @@ const SettingsSelect = (props) => {
                 <div className="col">
                     <label >{props.title}</label>
                     <select className="form-control settings-card-input" onChange={handleChange} value={props.value} disabled={props.disabled}>
-                        {options[props.title].map(option => {
+                        {options[props.selectType].map(option => {
                             return (
                                 <option value={option} key={option}>{option}</option>
                             );

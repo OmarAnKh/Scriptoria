@@ -16,8 +16,12 @@ import Profile from './components/profile-page/Profile.js';
 import StoryPage from './components/story-page/StoryPage.js';
 import AllMembers from './components/team-members/AllMembers.js';
 
+
+
 function App() {
+
   return (
+
     <div className="App">
       <Routes>
         <Route path="/profile/:username" element={<Profile />} />
@@ -36,6 +40,7 @@ function App() {
         <Route path='/TeamMembers' element={<AllMembers />} />
         <Route path='*' element={<ErrorPage />} />
       </Routes>
+
     </div>
   )
 }

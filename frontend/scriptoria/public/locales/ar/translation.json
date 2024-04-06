@@ -1,0 +1,132 @@
+{
+    "Navbar": {
+        "search": "البحث",
+        "home": "الصفحة الرئيسية",
+        "browse": "تصفح",
+        "teamMembers": "اعضاء الفريق",
+        "add_a_story": "اكتب قصة جديدة",
+        "signIn": "تسجيل الدخول",
+        "signUp": "انشاء حساب",
+        "profile": "الملف الشخصي",
+        "settings": "الاعدادات",
+        "logout": "تسجيل الخروج"
+    },
+    "BookShelf": {
+        "see_all_works": "جميع اعمال الكاتب",
+        "all_reading_list": "جميع قائمة القراءة ",
+        "works": "الاعمال",
+        "reading_list": "قائمة القراءة"
+    },
+    "CarouselCards": {
+        "read_the_book": "ابدأ القراءة"
+    },
+    "DiscoverTable": {
+        "all_genres": "جميع الفئات",
+        "action": "أكشن",
+        "horror": "رعب",
+        "romance": "رومانسية"
+    },
+    "ErrorPage": {
+        "page_was_not_found": "الصفحة غير موجودة"
+    },
+    "Footer": {
+        "support": "الدعم",
+        "company": "الشركة",
+        "community": "المجتمع",
+        "resources": "المصادر",
+        "product": "المنتجات",
+        "features": "مميزت",
+        "copy_Rights": "حقوق الطباعة والنشر",
+        "blog": "بلوق",
+        "user_guides": "دليل المستخدم",
+        "developers": "المطورين",
+        "users": "المستخدمين",
+        "about": "من نحن",
+        "join_us": "انضم لنا",
+        "help_center": "مركز المساعدة",
+        "chat_support": "دردشة المساعدة"
+    },
+    "FriendsList": {
+        "friends_List": "الأصدقاء المقترحين",
+        "show_More": "عرض المزيد"
+    },
+    "GettingEmail": {
+        "InputError_valid_email": "الرجاء ادخال بريد الكتروني صحيح",
+        "InputError_not_exsist": "لا يوجد حساب لهذا البريد الالكتروني",
+        "cardType": "استراجع الحساب",
+        "text": "لاعادة ضبط كلمة المرور الرجاء ادخال بريدك الالكتروني لارسال رمز تأكيد اليه ",
+        "buttonTitle": "ارسل الرمز",
+        "inputPlaceholder": "البريد الالكتروني"
+    },
+    "EmailVerifing": {
+        "InputError": "الرمز الذي ادخلته خاطئ",
+        "cardType": "استراجع الحساب",
+        "text": "الرجاء ادخال الرمز الذي ارسل الى بريدك الالكتروني",
+        "inputPlaceholder": "رمز التحقق",
+        "buttonTitle": "تحقكك من الرمز",
+        "buttonTitle2": "اعادة ارسال الرمز"
+    },
+    "ResetPassword": {
+        "InputError_password_criteria": "يجب ان تحتوي كلمة المرور على 6 رموز , ويجب ان يكون على الاقل حرف واحد كبير في اللغة الانجليزية, وحرف واحد صغير , وعلى الاقل رقم واحد",
+        "InputError_confirm_password": "الرجاء التأكد من ان الكلمتان متطابقتان",
+        "cardType": "اعادة ضبط كلمة المرور",
+        "text": "يرجى التأكد ان تكون كلمة المرور قوية",
+        "inputPlaceholder": "كلمة المرور",
+        "buttonTitle": "حفظ كلمة المرور"
+    },
+    "ProfileInfo": {
+        "hello": "اهلا, انا ",
+        "about": "من انا",
+        "followers": "المتابعون",
+        "works": "الاعمال",
+        "following": "يتابع",
+        "settings": "الاعدادات",
+        "edit": "تعديل",
+        "follow": "متابعة",
+        "unfollow": "الغاء المتابعة",
+        "message": "مرسالة",
+        "Unblock": "الغاء الحظر"
+    },
+    "Settings": {
+        "settings": "الاعدادات",
+        "terms": "شروط الاستخدام",
+        "help": "هل تحتاج مساعدة؟",
+        "q": "اذا كان لديك اي مشكلة لا تتردد في التواصل معنا.",
+        "sendEmail": "ارسل لنا رسالة",
+        "privacy": "الخصوصية",
+        "user_Info": "معلومات المستخدم",
+        "security": "الامان",
+        "support": "الدعم",
+        "user_Information": "معلومات المستخدم",
+        "user_name": "اسم المستخدم",
+        "display_name": "اسم العرض",
+        "gender": "الجنس",
+        "county": "الدولة",
+        "desPlaceholder": "اكتب وصفك الخاص هنا",
+        "mail": "بريدك الالكتروني",
+        "edit": "تعديل",
+        "password": "كلمة المرور",
+        "save": "حفظ",
+        "description": "الوصف"
+    },
+    "StoryCard": {
+        "show_more": "عرض المزيد"
+    },
+    "StoryDetails": {
+        "title": "العنوان",
+        "number": "عدد الصفحات",
+        "description": "الوصف (300 كلمة كحد اقصى)",
+        "characters": "الشخصيات الرئيسية",
+        "background": "لون الخلفية",
+        "cancel": "الغاء",
+        "start": "البدء",
+        "add_cover": "صورة الغلاف",
+        "category": "التصنيفات",
+        "select": "اختر واحد او اكثر",
+        "Target": "الفئات العمرية",
+        "select_one": "اختر واحدة",
+        "language": "اللغة",
+        "name": "الاسم",
+        "untitled": "بلا عنوان"
+    }
+}

@@ -5,23 +5,21 @@ import Footer from "../footer/Footer";
 import Navbar from "../navbar/Navbar";
 import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
-import AlertWithTime from "../alert/AlertWithTime";
-
-
+import toast from "react-hot-toast";
 
 const HomePage = () => {
-    const [alert, setAlert] = useState(false)
+    const [alert, setAlert] = useState(false);
+
     useEffect(() => {
         if (Cookies.get("userInfo")) {
-            setAlert(true)
+            setAlert(true);
+            toast.success("You are signed in");
         }
+    }, []); 
 
-    })
     return (
         <>
             <Navbar />
-            <br></br>
-            {alert ? <AlertWithTime msg="You have signed in successfully!" severity="success" /> : <></>}
             <CarouselCards />
             <DiscoverTable />
             <StoryCard />

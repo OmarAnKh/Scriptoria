@@ -1,6 +1,5 @@
 import mongoose, { Schema } from "mongoose";
 
-
 const readingListSchema = new mongoose.Schema({
     name: {
         type: String,
@@ -11,16 +10,14 @@ const readingListSchema = new mongoose.Schema({
         ref: 'Account',
         required: true,
     },
-    storyId: {
+    stories: [{
         type: Schema.Types.ObjectId,
         ref: 'Story',
-        required: true,
-    },
+    }],
 });
 
-readingListSchema.index({ accountId: 1, storyId: 1, name: 1 }, { unique: true });
+readingListSchema.index({ accountId: 1, name: 1 }, { unique: true });
 
 const ReadingList = mongoose.model('ReadingList', readingListSchema);
-
 
 export default ReadingList
