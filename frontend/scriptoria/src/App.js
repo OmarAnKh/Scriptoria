@@ -25,7 +25,6 @@ function App() {
 
     <div className="App">
       <Routes>
-
         <Route path="/profile/:username" element={<Profile />} />
         <Route path="/SignIn" element={<SignIn />} />
         <Route path="/SignUp" element={<SingUp />} />
