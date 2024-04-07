@@ -6,9 +6,13 @@ import {
   updateReadingLists,
 } from "../../../api/readingListsApi";
 import {toast} from 'react-hot-toast'
+import { useTranslation } from 'react-i18next';
 import "./Lists.css";
 
+
 const Lists = ({storyId}) => {
+  const {t} = useTranslation()
+
   const [signedIn, setSignedIn] = useState(false);
   const [lists, setLists] = useState([]);
   const [checkedLists, setCheckedValues] = useState([]);
@@ -103,7 +107,7 @@ const createList = async () => {
             <div className="modal-content">
               <div className="modal-header py-2">
                 <h1 className="modal-title fs-5" id="addToListLabel">
-                  save story to...
+                  {t("SaveTo.SaveTo")}
                 </h1>
                 <button
                   type="button"
@@ -145,14 +149,14 @@ const createList = async () => {
                   data-bs-target="#createList"
                   data-bs-toggle="modal"
                 >
-                  <i className="bi bi-plus-lg"></i> create a new list
+                  <i className="bi bi-plus-lg"></i> {t("SaveTo.createNewList")}
                 </button>
                 <button
                   className="btn btn-primary rounded w-50"
                   data-bs-dismiss="modal"
                   onClick = {saveData}
                 >
-                save
+                {t("SaveTo.save")}
                 </button>
               </div>
             </div>
@@ -172,7 +176,7 @@ const createList = async () => {
                   className="modal-title fs-5"
                   id="addToListLabel2"
                 >
-                  create a new reading list
+                  {t("SaveTo.createRLPopUp")}
                 </span>
                 <button
                   type="button"
@@ -185,7 +189,7 @@ const createList = async () => {
                 <div className="form-check px-0">
                   <div className="mb-3">
                     <label htmlFor="newList" className="form-label">
-                      Name
+                      {t("SaveTo.Name")}
                     </label>
                     <input
                       type="email"
@@ -203,25 +207,26 @@ const createList = async () => {
                   data-bs-toggle="modal"
                   onClick={createList}
                 >
-                  create and save
+                  {t("SaveTo.createAndSave")}
                 </button>
                 <button
                   className="btn btn-secondary rounded w-50"
                   data-bs-target="#addToList"
                   data-bs-toggle="modal"
                 >
-                  cancel
+                  {t("SaveTo.cancel")}
                 </button>
               </div>
             </div>
           </div>
         </div>
-      
         <i className="bi bi-plus-lg"
           data-bs-target="#addToList"
-          data-bs-toggle={signedIn? "modal" : ""} 
           style={{color: 'white', cursor: 'pointer', fontSize: '2.5rem', justifySelf: 'center' }}></i>
-
+          data-bs-toggle={signedIn? "modal" : ""}
+        >
+          {t("SaveTo.addToReadingList")}
+        </button>
       </div>
     </div>
   );
