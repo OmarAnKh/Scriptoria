@@ -7,7 +7,7 @@ import { findAccount } from '../../../api/accountApi'
 import { useTranslation } from 'react-i18next';
 
 
-const Comments = ({storyId}) => {
+const Comments = ({id}) => {
   const {t} = useTranslation()
   const [signedIn, setSignedIn] = useState(false);
   const [comments, setComments] = useState([])
@@ -18,7 +18,7 @@ const Comments = ({storyId}) => {
     const fetchData = async () => {
       if (userName !== undefined) {
         setSignedIn(true);
-        const value = await getComments(storyId);
+        const value = await getComments(id);
         if (value !== undefined) {
           setComments(value.data);
         }
@@ -34,7 +34,7 @@ const Comments = ({storyId}) => {
   }, []);
   
   const updateComments = async () => {
-    const value = await getComments(storyId);
+    const value = await getComments(id);
     if (value !== undefined) {
       setComments(value.data);
     }
