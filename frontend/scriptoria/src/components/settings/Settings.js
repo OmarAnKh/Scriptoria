@@ -14,7 +14,6 @@ import AlertWithTime from '../alert/AlertWithTime';
 import {toast} from 'react-hot-toast'
 import { useTranslation } from 'react-i18next';
 
-
 const uploader = Uploader({
     apiKey: "free"
 });
