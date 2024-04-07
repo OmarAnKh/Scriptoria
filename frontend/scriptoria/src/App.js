@@ -44,9 +44,7 @@ function App() {
         <Route path='/stories/:id' element={<StoryHeader />} />
         <Route path='/logout' element={ <LogedOut/> }/>
         <Route path='*' element={<ErrorPage />} />
-        
       </Routes>
-
     </div>
   )
 }
