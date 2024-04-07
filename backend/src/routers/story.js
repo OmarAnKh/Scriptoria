@@ -97,26 +97,32 @@ router.get('/stories/:id', async (req, res) => {
             return res.status(404).send()
         }
 
-        const writer = await Writers.findOne({StoryId: _id})
-        if(!writer) {
+        const writers = await Writers.find({ StoryId: _id });
+
+        if(!writers) {
             return res.status(404).send()
         }
 
-        const account = await Account.findById(writer.AccountId)
-        if(!account) {
-            return res.status(404).send()
+        const accounts = []; 
+        for (const writer of writers) {
+            const account = await Account.findById(writer.AccountId);
+
+            if (!account) {
+                return res.status(404).send(); 
+            }
+
+            accounts.push(account);
         }
 
-        const countComments = await Comment.countDocuments({}); 
-        const countRates = await Rating.countDocuments({});
+        const countComments = await Comment.countDocuments({storyId: _id}); 
+        const countRates = await Rating.countDocuments({StoryId: _id});
         const result = await Rating.aggregate([
-            { $group: { _id: null, averageRate: { $avg: "$rating" } } }
+            { $group: { _id: _id, averageRate: { $avg: "$rating" } } }
         ]);
         
         const averageRating = result[0].averageRate;
         
-        console.log(averageRating)
-        res.send({ story: story, account: account, counts: {comments: countComments, rates: countRates, avg: averageRating} })
+        res.send({ story: story, accounts: accounts, counts: {comments: countComments, rates: countRates, avg: averageRating} })
         
     } catch (error) {
         res.status(500).send(error)

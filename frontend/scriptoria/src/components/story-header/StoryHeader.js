@@ -9,22 +9,14 @@ import { getStory } from '../../api/storyAPI';
 
 const StoryHeader = () => {
 
-    const {point, id} = useParams()
+    const {id} = useParams()
 
     const [data, setData] = useState({})
+    const [genres, setGenres] = useState([])
 
-    const [genres, setGenres] = useState(() => {
-        const storedGenres = localStorage.getItem('genres');
-        return storedGenres ? JSON.parse(storedGenres) : [];
-    })
+    const [coverPhoto, setCoverPhoto] = useState('')
 
-    const [coverPhoto, setCoverPhoto] = useState(() => {
-        
-        const storedCover = localStorage.getItem('coverPhoto');
-        return storedCover ? JSON.parse(storedCover) : null;
-    })
-
-    const [author, setAuthor] = useState([])
+    const [authors, setAuthors] = useState([])
     const [counts, setCounts] = useState({})
 
     const [isExpanded, setIsExpanded] = useState(false);
@@ -35,19 +27,15 @@ const StoryHeader = () => {
     useEffect(() => {
         const fetchStory = async () => {
             try {
-                const response = await getStory(id, point);
+                const response = await getStory(id, 'stories');
 
-                setAuthor(response.account);
+                setAuthors(response.accounts);
                 setData(response.story);
                 setCounts(response.counts);
+                setGenres(response.story.genres);
                 
-                const converted = (Buffer.from(data.coverPhoto).toString('base64'));
-                const cover = `data:image/png;base64,${converted}`;
-                localStorage.setItem('coverPhoto', JSON.stringify(cover));
-                setCoverPhoto(cover)
-
-                localStorage.setItem('genres', JSON.stringify(data.genres));
-                setGenres(data.genres  || [])
+                const cover = Buffer.from(response.story.coverPhoto).toString('base64');
+                setCoverPhoto(`data:image/png;base64,${cover}`);
                 
             } catch(error) {
                 console.log(error) 
@@ -76,18 +64,23 @@ const StoryHeader = () => {
     };
 
 
-
     return(
         <div className="col-lg-12 details-card" style={{background: `linear-gradient(to bottom, ${data.backgroundColor}, white)`}}>
             <div className="row g-0">
                 <div className="col-md-2">
-                <img src={coverPhoto} className="img-fluid rounded-start details-img" alt="..."/>
+                    <img src={coverPhoto} className="img-fluid rounded-start details-img" alt="..."/>
                 </div>   
                 <div className="details-container col-md-10 d-md-block px-4">
                     <div className="card-body details text-white">
                         <div className="header-details">
                             <h3 className="card-title mb-2 fs-1">{data.title}</h3>
-                            <p className="author-name mb-0 fs-5">{author.displayName}</p>
+                            <p className="author-name mb-0 fs-5">
+
+                                {authors.map((author, idx) => {
+                                    return <span key={idx}>{author.displayName}</span>;
+                                })}
+
+                            </p>
                             <p className="mb-1">{data.language}</p>
                         </div>
 
@@ -110,7 +103,7 @@ const StoryHeader = () => {
                     })}
 
                     </div>
-                    <Icons data={data} id={id} counts={counts} point={point} setData={setData}/>
+                    <Icons data={data} id={id} counts={counts} setData={setData}/>
                 </div>
             </div>
         </div>

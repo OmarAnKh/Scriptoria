@@ -1,10 +1,16 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { saveDocument, updateDocument } from "../../../api/API's";
 
-const Heart = ({num, id, point, setData}) => {
+const Heart = ({num, id, accountId, setData}) => {
 
-    const [heartIcon, setHeartIcon] = useState("text-white");
-    const [isLiked, setIsLiked] = useState(false)
+    const [heartIcon, setHeartIcon] = useState(() => {
+        const storedColor = localStorage.getItem('heartColor');
+        return storedColor ? storedColor : 'text-white';
+    });
+    
+    useEffect(() => {
+        localStorage.setItem('heartColor', heartIcon);
+      }, [heartIcon]);
 
     const ChangeIconColor = () => {
         setHeartIcon((originalColor) => (originalColor == "text-white" ? "text-danger" : "text-white"));
@@ -12,19 +18,17 @@ const Heart = ({num, id, point, setData}) => {
 
     const handleClick = async () => {
         
-        if(isLiked) {
-            const updated = await updateDocument(point, {id: id , likes: num - 1})
-            setIsLiked(false)
+        if(heartIcon == "text-danger") {
+            const updated = await updateDocument('stories', {id: id , likes: num - 1})
             setData(updated)
 
         } else {
-            const updated = await updateDocument(point, {id: id , likes: num + 1})
-            setIsLiked(true)
+            const updated = await updateDocument('stories', {id: id , likes: num + 1})
             setData(updated)
 
             const currentDate = new Date();
             await saveDocument('likes', {
-                AccountId: '661141dafaf51791f652bea9',
+                AccountId: accountId,
                 StoryId: id,
                 publishDate: currentDate.toISOString()
             })
@@ -32,6 +36,7 @@ const Heart = ({num, id, point, setData}) => {
 
         ChangeIconColor()
     }    
+
 
     return(  
         <span className="mx-5">
