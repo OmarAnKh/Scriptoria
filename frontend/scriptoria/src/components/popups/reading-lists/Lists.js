@@ -8,11 +8,10 @@ import {
 import {toast} from 'react-hot-toast'
 import "./Lists.css";
 
-const Lists = () => {
+const Lists = ({storyId}) => {
   const [signedIn, setSignedIn] = useState(false);
   const [lists, setLists] = useState([]);
   const [checkedLists, setCheckedValues] = useState([]);
-  const storyId = "6608b64d884187dfdf038226"
   const token = Cookies.get("token");
 
   useEffect(() => {
@@ -217,13 +216,12 @@ const createList = async () => {
             </div>
           </div>
         </div>
-        <button
-          className="btn btn-primary"
+      
+        <i className="bi bi-plus-lg"
           data-bs-target="#addToList"
-          data-bs-toggle={signedIn? "modal" : ""}
-        >
-          add to reading list
-        </button>
+          data-bs-toggle={signedIn? "modal" : ""} 
+          style={{color: 'white', cursor: 'pointer', fontSize: '2.5rem', justifySelf: 'center' }}></i>
+
       </div>
     </div>
   );

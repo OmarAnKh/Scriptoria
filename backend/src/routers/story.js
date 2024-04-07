@@ -6,6 +6,9 @@ import express from "express";
 import sharp from "sharp";
 import axios from "axios";
 import Account from "../models/account.js";
+import Like from "../models/like.js";
+import Comment from "../models/comment.js";
+import Rating from "../models/rating.js";
 
 const router = new express.Router();
 
@@ -84,4 +87,68 @@ router.get("/search/:criteria", async (req, res) => {
         return res.status(500).send({ error, status: false });
     }
 })
+
+router.get('/stories/:id', async (req, res) => {
+    const _id = req.params.id
+
+    try {
+        const story = await Story.findById(_id)
+        if(!story) {
+            return res.status(404).send()
+        }
+
+        const writer = await Writers.findOne({StoryId: _id})
+        if(!writer) {
+            return res.status(404).send()
+        }
+
+        const account = await Account.findById(writer.AccountId)
+        if(!account) {
+            return res.status(404).send()
+        }
+
+        const countComments = await Comment.countDocuments({}); 
+        const countRates = await Rating.countDocuments({});
+        const result = await Rating.aggregate([
+            { $group: { _id: null, averageRate: { $avg: "$rating" } } }
+        ]);
+        
+        const averageRating = result[0].averageRate;
+        
+        console.log(averageRating)
+        res.send({ story: story, account: account, counts: {comments: countComments, rates: countRates, avg: averageRating} })
+        
+    } catch (error) {
+        res.status(500).send(error)
+    }
+
+});
+
+router.post('/likes', async (req, res) => {
+    const like = new Like(req.body)
+    try {
+        await like.save()
+        res.status(201).send(like)
+
+    } catch (error) {
+        res.status(500).send(error)
+    }
+});
+
+router.patch('/stories/update', async (req, res) => {
+
+    try {
+        const updatedStory = await Story.findByIdAndUpdate(req.body.id, req.body, {new: true, runValidators: true});
+      
+        if(!updatedStory) {
+            res.status(404).send()
+        }
+        
+        res.status(200).send(updatedStory);
+
+    } catch (error) {
+        res.status(500).send(error.message);
+    }
+});
+
 export default router;

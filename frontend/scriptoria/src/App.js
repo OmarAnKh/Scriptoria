@@ -15,6 +15,7 @@ import Settings from './components/settings/Settings.js';
 import Profile from './components/profile-page/Profile.js';
 import StoryPage from './components/story-page/StoryPage.js';
 import AllMembers from './components/team-members/AllMembers.js';
+import StoryHeader from './components/story-header/StoryHeader.js';
 
 
 
@@ -38,6 +39,7 @@ function App() {
         <Route path='/Search/:criteria' element={<SearchResultsPage />} />
         <Route path='/StoryPage' element={<StoryPage />} />
         <Route path='/TeamMembers' element={<AllMembers />} />
+        <Route path='/stories/:id' element={<StoryHeader />} />
         <Route path='*' element={<ErrorPage />} />
       </Routes>
 
