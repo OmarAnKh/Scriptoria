@@ -6,12 +6,12 @@ import { getComments } from '../../../api/commentsApi'
 import { findAccount } from '../../../api/accountApi'
 import { useTranslation } from 'react-i18next';
 
-const Comments = () => {
+
+const Comments = ({storyId}) => {
   const {t} = useTranslation()
   const [signedIn, setSignedIn] = useState(false);
   const [comments, setComments] = useState([])
   const [user, setUser] = useState({})
-  const storyId = "65fb62a8ee26f1f61eefc481"
 
   useEffect(() => {
     const userName = Cookies.get("userInfo");
@@ -60,9 +60,9 @@ const Comments = () => {
   return (
     <>
 <div>
-  <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-    Comment
-  </button>
+  
+  <i className="bi bi-chat-fill" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style={{color: 'white', cursor: 'pointer', justifySelf: 'center', fontSize: '2rem' }}></i>
+
   <div className="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex={-1} aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable p-0">
       <div className="modal-content">

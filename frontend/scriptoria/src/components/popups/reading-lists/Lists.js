@@ -9,13 +9,13 @@ import {toast} from 'react-hot-toast'
 import { useTranslation } from 'react-i18next';
 import "./Lists.css";
 
-const Lists = () => {
 
+const Lists = ({storyId}) => {
   const {t} = useTranslation()
+
   const [signedIn, setSignedIn] = useState(false);
   const [lists, setLists] = useState([]);
   const [checkedLists, setCheckedValues] = useState([]);
-  const storyId = "6608b64d884187dfdf038226"
   const token = Cookies.get("token");
 
   useEffect(() => {
@@ -220,9 +220,9 @@ const createList = async () => {
             </div>
           </div>
         </div>
-        <button
-          className="btn btn-primary"
+        <i className="bi bi-plus-lg"
           data-bs-target="#addToList"
+          style={{color: 'white', cursor: 'pointer', fontSize: '2.5rem', justifySelf: 'center' }}></i>
           data-bs-toggle={signedIn? "modal" : ""}
         >
           {t("SaveTo.addToReadingList")}
