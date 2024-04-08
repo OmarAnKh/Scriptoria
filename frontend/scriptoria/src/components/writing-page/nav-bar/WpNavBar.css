@@ -29,7 +29,7 @@
 }
 
 .navbar{
-    background-color: #DEE2FF;
+    background-color: var(--accent-Color);
 }
 
 

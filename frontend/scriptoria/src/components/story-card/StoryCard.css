@@ -1,18 +1,18 @@
 @font-face {
     font-family: 'Poppins';
     src: url('../../fonts/Poppins-Light.ttf') format('truetype');
-    font-weight: bold; 
+    font-weight: bold;
     font-style: normal;
     font-display: swap;
-  }
-  
-  @font-face {
+}
+
+@font-face {
     font-family: 'Righteous';
     src: url('../../fonts/Righteous-Regular.ttf') format('truetype');
-    font-weight: bold; 
+    font-weight: bold;
     font-style: normal;
     font-display: swap;
-  }
+}
 
 .card-img {
     margin-top: -35px;
@@ -54,7 +54,7 @@
 }
 
 .loadMoreCards-btn {
-    background-color: #F3C6C6;
+    background-color: var(--primary-Color);
     border: 1px solid #000000;
     box-Shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     margin-left: auto;
@@ -63,9 +63,10 @@
     border-radius: 9px;
     border: none;
     width: 154px;
-    height: 33px; 
+    height: 33px;
 }
+
 .loadMoreCards-btn:hover,
 .loadMoreCards-btn:active {
-    background-color: #F3C6C6 !important ;
+    background-color: var(--dark-primary-Color) !important;
 }
