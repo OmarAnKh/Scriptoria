@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { findAccount } from "../../api/accountApi";
+import { getStory } from "../../api/getstory";
 import { useParams } from 'react-router-dom';
 import './ProfileCard.css';
 

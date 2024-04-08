@@ -35,7 +35,6 @@ const StoryCard = () => {
         setShowArrowLeft(!showProfileCard);
     }, [showProfileCard]);
     
-
     const { id } = useParams();
 
     useEffect(() => {
