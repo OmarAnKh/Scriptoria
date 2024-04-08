@@ -7,7 +7,7 @@ const router = new express.Router()
 router.post('/rate', authentication, async (req,res)=>{
     const rate = new Rating({
         rating : req.body.rating,
-        StoryId : '65fb60a9334d75840746ae29',
+        StoryId : '660c0ef9f7c89b9cfdd1aacb',
         AccountId : req.user.id
     })
     try{

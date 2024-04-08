@@ -17,7 +17,7 @@ const Rate = ({id}) => {
             const user = Cookies.get("userInfo");
             if(user){
                 setSignedIn(true)
-                const rating = await getRate('6607173031b513eec68df29d', id, token );
+                const rating = await getRate('6601c152cb5456ed5aca4eac', id, token );
                 if (rating !== undefined) {
                     setValue(rating);
                     setButton("update")
@@ -35,7 +35,7 @@ const Rate = ({id}) => {
     
         const rate = {
             StoryId: id,
-            AccountId: '6607173031b513eec68df29d',
+            AccountId: '6601c152cb5456ed5aca4eac',
             rating: value
         };
     

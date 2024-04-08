@@ -39,12 +39,14 @@ const findStory = async (criteria) => {
 
 const getStory = async (id, point) => {
     try {
+
         const response = await fetch("http://localhost:5000/" + point + "/" + id)
-        if(response.ok) {
+        if (response.ok) {
             return response.json()
         }
+        
         return response
-    } catch(error) {
+    } catch (error) {
         console.log(error)
     }
 }

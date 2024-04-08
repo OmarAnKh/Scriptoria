@@ -17,7 +17,7 @@ import StoryPage from './components/story-page/StoryPage.js';
 import AllMembers from './components/team-members/AllMembers.js';
 import StoryHeader from './components/story-header/StoryHeader.js';
 import LogedOut from './components/loged-out/LogedOut.js'
-
+import StoryCard from './components/story-card/StoryCard.js';
 
 
 
@@ -39,10 +39,11 @@ function App() {
         <Route path='/ResetPassword' element={<ResetPassword />} />
         <Route path='/settings/:id' element={<Settings />} />
         <Route path='/Search/:criteria' element={<SearchResultsPage />} />
+        <Route path='/story/:id' element={<StoryCard />} />
         <Route path='/StoryPage' element={<StoryPage />} />
         <Route path='/TeamMembers' element={<AllMembers />} />
         <Route path='/stories/:id' element={<StoryHeader />} />
-        <Route path='/logout' element={ <LogedOut/> }/>
+        <Route path='/logout' element={<LogedOut />} />
         <Route path='*' element={<ErrorPage />} />
       </Routes>
     </div>
