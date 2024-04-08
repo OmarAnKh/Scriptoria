@@ -139,16 +139,26 @@
         "edit" : "edit",
         "delete" : "delete",
         "save" : "save",
-        "cancel" : "cancel"
+        "cancel" : "cancel",
+        "no-comments" : "be the first to comment on this story",
+        "write-something" : "write something..."
     },
     "SaveTo" : {
-        "SaveTo" : "save story to...",
-        "createNewList" : "create a new list",
+        "save-to" : "save story to...",
+        "create-a-new-list" : "create a new list",
         "save" : "save",
-        "create" : "create a new reading list",
+        "create-reading-list-popop" : "create a new reading list",
         "Name" : "name",
-        "createAndSave" : "create and save",
+        "create-and-save" : "create and save",
         "cancel" : "cancel",
-        "addToReadingList" : "add to reading list"
+        "add-to-reading-list" : "add to reading list"
+    },
+    "Rate" : {
+        "msg1" : "Rate this story",
+        "msg2" : "You rated this story ",
+        "header" : "Rate",
+        "save" : "save",
+        "update" : "update",
+        "cancel" : "cancel"
     }
 }

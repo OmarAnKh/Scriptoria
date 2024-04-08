@@ -70,9 +70,9 @@ const Comments = ({id}) => {
           <h2 className="modal-title fs-5" id="staticBackdropLabel">{t("Comments.Comments")}</h2>
           <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" />
         </div>
-        <div className="modal-body overflow-x-hidden p-0 m-0">
-    {
 
+      {comments.length > 0 ? <div className="modal-body overflow-x-hidden p-0 m-0" style={{height : '670px'}}>
+    {
 comments.map((comment, index) => {  
   return (
       <Comment 
@@ -87,12 +87,16 @@ comments.map((comment, index) => {
       />
   );
 })
-
-    }
+}
+</div> : <div className="d-flex justify-content-center align-items-center" style={{height : '670px'}}>
+  <div className="text-center text-secondary h6">
+    {t("Comments.no-comments")}
+  </div>
 </div>
+}
 
       {signedIn ? <div className="modal-footer p-0">
-        <AddComment signedIn={signedIn} updateComments={updateComments}/>
+        <AddComment signedIn={signedIn} updateComments={updateComments} storyId={id}/>
         </div> : ``}
       </div>
     </div>

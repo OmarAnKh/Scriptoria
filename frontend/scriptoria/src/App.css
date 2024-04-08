@@ -74,6 +74,14 @@ body {
   font-display: swap;
 }
 
+@font-face {
+  font-family: 'Brasika';
+  src: url('./fonts/BrasikaDisplay.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
 
 
 body {
@@ -81,5 +89,5 @@ body {
 }
 
 .Scriptoria {
-  font-family: Righteous;
+  font-family: Brasika !important;
 }

@@ -80,7 +80,7 @@ const SignIn = () => {
                         <div className="side-box2"></div>
                         <div className="textBody">
                             <span className="box2-header">Hello Friend !</span>
-                            <p className="box1-text">Are you Ready to start your Scriptoria journey?<br></br>
+                            <p className="box1-text">Are you Ready to start your <span className="Scriptoria">Scriptoria</span> journey?<br></br>
                                 Join us now<br></br>
                                 to unleash your creative potential<br></br>
                                 and<br></br>

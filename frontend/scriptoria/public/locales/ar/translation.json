@@ -139,16 +139,26 @@
         "edit" : "تعديل",
         "delete" : "حذف",
         "save" : "حفظ",
-        "cancel" : "الغاء"
+        "cancel" : "الغاء",
+        "no-comments" : "كن أول المعلقين على هذه القصة",
+        "write-something" : "اكتب شيء ..."
     },
     "SaveTo" : {
-        "SaveTo" : "حفظ القصة في",
-        "createNewList" : "أنشئ قائمة جديدة",
+        "save-to" : "حفظ القصة في",
+        "create-a-new-list" : "أنشئ قائمة جديدة",
         "save" : "حفظ",
-        "createRLPopUp" : "أنشئ قائمة قراءة جديدة",
+        "create-reading-list-popop" : "أنشئ قائمة قراءة جديدة",
         "Name" : "الاسم",
-        "createAndSave" : "انشاء وحفظ",
+        "create-and-save" : "انشاء وحفظ",
         "cancel" : "الغاء",
-        "addToReadingList" : "اضافة الى قائمة قراءة"
+        "add-to-reading-list" : "اضافة الى قائمة قراءة"
+    },
+    "Rate" : {
+        "msg1" : "قم بتقييم هذه القصة",
+        "msg2" : "تقييمك لهذه القصة هو ",
+        "header" : "تقييم",
+        "save" : "حفظ",
+        "update" : "تحديث",
+        "cancel" : "الغاء"
     }
 }

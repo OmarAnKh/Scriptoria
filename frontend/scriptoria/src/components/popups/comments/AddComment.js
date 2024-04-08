@@ -3,9 +3,11 @@ import React, {useState, useEffect} from 'react'
 import logo from "../../../img/content.png";
 import { findAccount } from '../../../api/accountApi'
 import { sendComment } from '../../../api/commentsApi'
+import { useTranslation } from 'react-i18next';
 
-const AddComment = ({signedIn, updateComments}) => {
 
+const AddComment = ({storyId, signedIn, updateComments}) => {
+    const {t} = useTranslation()
     const [user, setUser] = useState({})
     const [imageUrl, setImageURL] = useState(logo)
 
@@ -27,7 +29,7 @@ const AddComment = ({signedIn, updateComments}) => {
         if(signedIn){
             const comment = {
                 accountId : user._id,
-                storyId : "65fb62a8ee26f1f61eefc481",
+                storyId,
                 text : document.getElementById('add-comment').value
         }
         const token = Cookies.get("token")
@@ -47,7 +49,7 @@ return (
                 <img src={imageUrl} alt="Profile" className="rounded-circle" width="35" />
             </div>
             <div className="p-1 bd-highlight flex-grow-1">
-                <textarea type="text" className="form-control fs-xs" id="add-comment" placeholder="write something..." />
+                <textarea type="text" className="form-control fs-xs" id="add-comment" placeholder={t("Comments.write-something")}/>
             </div>
             <div className="p-1 bd-highlight">
                 <button className='btn btn-primary bi bi-send-fill' onClick={saveComment}></button>
