@@ -1,0 +1,74 @@
+@font-face {
+    font-family: 'Righteous';
+    src: url('../../fonts/Righteous-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+.details, .genres, .icons {
+    font-family: 'Righteous';
+}
+
+.details-card {
+    height: 100%;
+    border-style: none;
+    padding: 50px 60px;
+}
+
+.details-img {
+    width: auto;
+    height: auto;
+    transition: 0.3s ease;
+}
+
+.details-img:hover {
+    transform: scale(1.1);
+}
+
+
+@media (min-width: 800px) and (max-width: 1500px) {
+
+    .icons > * {
+        font-size: xx-small;
+        margin: 2px !important;
+        padding: 0 10px;
+    }
+
+    .icons .icon-title {
+        display: none;
+    }
+}
+
+
+@media (max-width: 576px) { 
+    .icons {
+      justify-content: start; 
+    }
+
+    .icons > * {
+        font-size: x-small;
+        margin: 1px !important;
+    }
+
+    .icons .icon-title {
+        display: none;
+    }
+
+    .genres {
+        display: flex;
+    }
+    
+    .details {
+        margin-left: -2rem;
+    }
+
+    .description-card {
+        display: block !important;
+    }
+   
+    .story-description {
+        margin-right: -5rem;
+    }
+   
+}

@@ -5,7 +5,7 @@ import {sendRate, updateRate, getRate} from'../../../api/rateApi'
 import Cookies from 'js-cookie'
 import { toast} from 'react-hot-toast';
 
-const Rate = () => {
+const Rate = ({id}) => {
     const [value, setValue] = useState(0);
     const [isRated, setIsRated] = useState(false);
     const [signedIn, setSignedIn] = useState(false);
@@ -17,7 +17,7 @@ const Rate = () => {
             const user = Cookies.get("userInfo");
             if(user){
                 setSignedIn(true)
-                const rating = await getRate('6607173031b513eec68df29d','65fb60a9334d75840746ae29', token );
+                const rating = await getRate('6607173031b513eec68df29d', id, token );
                 if (rating !== undefined) {
                     setValue(rating);
                     setButton("update")
@@ -34,7 +34,7 @@ const Rate = () => {
         if (!signedIn) return;
     
         const rate = {
-            StoryId: '65fb60a9334d75840746ae29',
+            StoryId: id,
             AccountId: '6607173031b513eec68df29d',
             rating: value
         };
@@ -58,9 +58,9 @@ const Rate = () => {
     return (
         <div>
             <div>
-                <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                    Rate
-                </button>
+                
+                <h4 className="my-0 mx-2" style={{color: 'white', cursor: 'pointer', justifySelf: 'center'}} data-bs-toggle="modal" data-bs-target="#exampleModal">Rate</h4>
+                
                 <div className="modal fade" id="exampleModal" tabIndex={-1} aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div className="modal-dialog modal-dialog-centered">
                         <div className="modal-content">

@@ -5,17 +5,17 @@ import {
   createReadingList,
   updateReadingLists,
 } from "../../../api/readingListsApi";
-import {toast} from 'react-hot-toast'
+import { toast } from 'react-hot-toast'
 import { useTranslation } from 'react-i18next';
 import "./Lists.css";
 
-const Lists = () => {
 
-  const {t} = useTranslation()
+const Lists = ({ storyId }) => {
+  const { t } = useTranslation()
+  
   const [signedIn, setSignedIn] = useState(false);
   const [lists, setLists] = useState([]);
   const [checkedLists, setCheckedValues] = useState([]);
-  const storyId = "6608b64d884187dfdf038226"
   const token = Cookies.get("token");
 
   useEffect(() => {
@@ -40,56 +40,56 @@ const Lists = () => {
     }
   };
 
-  
-  
+
+
   const saveData = async () => {
     try {
-        const response = await getReadingLists(token)
-        
-        if (response && response.data) {
-            const lists = response.data;
-            await toast.promise(updateReadingLists(storyId, checkedLists, token, lists), {
-                loading: 'Saving data...', 
-                success: 'Data saved successfully.', 
-                error: 'Failed to save data. Please try again later.', 
-            });
-        }
+      const response = await getReadingLists(token)
+
+      if (response && response.data) {
+        const lists = response.data;
+        await toast.promise(updateReadingLists(storyId, checkedLists, token, lists), {
+          loading: 'Saving data...',
+          success: 'Data saved successfully.',
+          error: 'Failed to save data. Please try again later.',
+        });
+      }
     } catch (error) {
-        console.error("Error saving data:", error);
-        toast.error("Failed to save data. Please try again later."); 
+      console.error("Error saving data:", error);
+      toast.error("Failed to save data. Please try again later.");
     }
-};
-
-
-const createList = async () => {
-  const listName = document.getElementById('newList').value;
-  const newList = {
-    name: listName,
-    stories: [storyId]
   };
 
-  try {
-    await toast.promise(createReadingList(newList, token), {
-      loading: 'Creating list...', 
-      success: 'List created successfully.', 
-      error: 'Failed to create list. Please try again later.', 
-    });
-        const updatedLists = await getReadingLists(token);
-    if (updatedLists && updatedLists.data) {
-      setLists(updatedLists.data);
+
+  const createList = async () => {
+    const listName = document.getElementById('newList').value;
+    const newList = {
+      name: listName,
+      stories: [storyId]
+    };
+
+    try {
+      await toast.promise(createReadingList(newList, token), {
+        loading: 'Creating list...',
+        success: 'List created successfully.',
+        error: 'Failed to create list. Please try again later.',
+      });
+      const updatedLists = await getReadingLists(token);
+      if (updatedLists && updatedLists.data) {
+        setLists(updatedLists.data);
+      }
+
+
+      const newListId = updatedLists.data.find(list => list.name === listName)._id;
+      setCheckedValues([...checkedLists, newListId]);
+
+      document.getElementById('newList').value = ""
+    } catch (error) {
+      console.error(error);
+      toast.error("Failed to create list. Please try again later.");
+      document.getElementById('newList').value = ""
     }
-
-
-    const newListId = updatedLists.data.find(list => list.name === listName)._id;
-    setCheckedValues([...checkedLists, newListId]);
-
-    document.getElementById('newList').value = ""
-  } catch (error) {
-    console.error(error);
-    toast.error("Failed to create list. Please try again later."); 
-    document.getElementById('newList').value = ""
-  }
-};
+  };
 
 
 
@@ -128,7 +128,7 @@ const createList = async () => {
                           className="form-check-input"
                           type="checkbox"
                           id={`${list._id}-list`}
-                          value = {list._id}
+                          value={list._id}
                           checked={checkedLists.includes(list._id)}
                           onChange={handleCheckboxChange}
                         />
@@ -154,9 +154,9 @@ const createList = async () => {
                 <button
                   className="btn btn-primary rounded w-50"
                   data-bs-dismiss="modal"
-                  onClick = {saveData}
+                  onClick={saveData}
                 >
-                {t("SaveTo.save")}
+                  {t("SaveTo.save")}
                 </button>
               </div>
             </div>
@@ -220,15 +220,12 @@ const createList = async () => {
             </div>
           </div>
         </div>
-        <button
-          className="btn btn-primary"
+        <i className="bi bi-plus-lg"
           data-bs-target="#addToList"
-          data-bs-toggle={signedIn? "modal" : ""}
-        >
-          {t("SaveTo.addToReadingList")}
-        </button>
+          data-bs-toggle={signedIn ? "modal" : ""}
+          style={{ color: 'white', cursor: 'pointer', fontSize: '2.5rem', justifySelf: 'center' }}></i>
       </div>
-    </div>
+    </div >
   );
 };
 
