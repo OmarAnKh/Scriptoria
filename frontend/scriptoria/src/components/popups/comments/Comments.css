@@ -1,0 +1,24 @@
+.more-text{
+    appearance: none;
+}
+
+
+.reply-btn, .comment-like-btn{
+    cursor : pointer
+}
+
+.profile-link{
+    text-decoration: none;
+    cursor : pointer;
+    color : black;
+}
+
+.custom-modal-content {
+    min-height: 300px; 
+}
+
+.no-horizontal-scroll {
+    overflow-x: hidden;
+}
+
+

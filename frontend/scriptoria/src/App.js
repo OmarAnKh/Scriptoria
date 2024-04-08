@@ -16,6 +16,8 @@ import Profile from './components/profile-page/Profile.js';
 import StoryPage from './components/story-page/StoryPage.js';
 import AllMembers from './components/team-members/AllMembers.js';
 import BookToDisplay from './components/book-holder/book-to-display/BookToDisplay.js';
+import StoryHeader from './components/story-header/StoryHeader.js';
+import LogedOut from './components/loged-out/LogedOut.js'
 
 
 
@@ -40,9 +42,10 @@ function App() {
         <Route path='/StoryPage' element={<StoryPage />} />
         <Route path='/TeamMembers' element={<AllMembers />} />
         <Route path='/book' element={<BookToDisplay />} />
+        <Route path='/stories/:id' element={<StoryHeader />} />
+        <Route path='/logout' element={ <LogedOut/> }/>
         <Route path='*' element={<ErrorPage />} />
       </Routes>
-
     </div>
   )
 }

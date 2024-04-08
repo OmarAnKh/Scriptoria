@@ -3,6 +3,9 @@ import "./WritingPage.css";
 import WpNavBar from "./nav-bar/WpNavBar";
 import TextEditor from "./text-editor/TextEditor";
 
+
+
+
 const WritingPage = () => {
   const [zen, setZen] = useState(false);
   const [data, setData] = useState('');
@@ -33,7 +36,7 @@ const WritingPage = () => {
   return (
     <div className="WP">
       <WpNavBar setMode={setMode} data={data} setData={setData} />
-      <div
+        <div
         className="focus"
         style={{
           backgroundColor: zen ? "#25252585" : "#F6F9FE",
@@ -41,6 +44,7 @@ const WritingPage = () => {
           transition: "all 0.3s ease-in",
         }}
       >
+        
         <TextEditor mode={model} setModel={setModel} data={data} setData={setData} />
       </div>
     </div>

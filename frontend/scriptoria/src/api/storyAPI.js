@@ -57,8 +57,22 @@ const findStory = async (criteria) => {
     }
 }
 
+const getStory = async (id, point) => {
+    try {
+        const response = await fetch("http://localhost:5000/" + point + "/" + id)
+        if(response.ok) {
+            return response.json()
+        }
+        return response
+    } catch(error) {
+        console.log(error)
+    }
+}
+
 export {
     story,
     writerStory,
-    findStory
+    findStory,
+    getStory
+
 }
