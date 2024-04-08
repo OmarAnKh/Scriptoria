@@ -24,13 +24,13 @@
 }
 
 .card-big {
-    background-color: #CAD0FF;
+    background-color: var(--accent-Color);
     padding: 20px;
     border-radius: 10px;
 }
 
 .friend-list-card {
-    background-color: #BFC7FF;
+    background-color: var(--background-Color);
     border-radius: 10px;
     margin-bottom: 5px;
     width: 359px;
@@ -44,7 +44,7 @@
     height: 30px;
     padding: 0;
     margin-right: 10px;
-    background-color: #cad0ff;
+    background-color: var(--accent-Color);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
     border-radius: 5px;
     border: none;
@@ -82,14 +82,14 @@
     margin-right: 10px;
     width: 27px;
     height: 27px;
-    background-color: #cad0ff;
+    background-color: var(--accent-Color);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
     border-radius: 5px;
     border: none;
 }
 
 .show-more-friend {
-    background-color: #AAB5FF;
+    background-color: var(--primary-Color);
     border-radius: 9px;
     border: none;
     font-family: 'Poppins';
@@ -104,7 +104,9 @@
 
 .show-more-friend:hover,
 .show-more-friend:active {
-    background-color: #AAB5FF !important;
+    transform: scale(1.05);
+    transition: all 0.2s ease;
+    background-color: var(--primary-Color) !important;
 }
 
 .friend-card-body {

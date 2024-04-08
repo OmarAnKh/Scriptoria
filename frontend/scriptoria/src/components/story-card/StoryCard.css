@@ -68,5 +68,7 @@
 
 .loadMoreCards-btn:hover,
 .loadMoreCards-btn:active {
-    background-color: var(--dark-primary-Color) !important;
+    background-color: var(--primary-Color) !important;
+    transform: scale(1.05);
+    transition: all 0.2s ease;
 }
