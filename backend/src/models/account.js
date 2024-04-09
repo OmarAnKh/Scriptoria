@@ -99,11 +99,12 @@ accountSchema.pre("save", async function (next) {
 
 
 accountSchema.methods.generateAuthToken = async function () {
-    const user = this
-    const token = jwt.sign({ _id: user._id.toString() }, process.env.JWT_SECRET)
-    user.tokens = user.tokens.concat({ token })
-    await user.save()
-    return token
+    const user = this;
+    const accessToken = jwt.sign({ _id: user._id.toString() }, process.env.JWT_SECRET, { expiresIn: '20s' });
+    const refreshToken = jwt.sign({ _id: user._id.toString() }, process.env.JWT_REFRESH_SECRET, { expiresIn: '10m' });
+    user.tokens = user.tokens.concat({ token: refreshToken });
+    await user.save();
+    return { accessToken, refreshToken };
 }
 
 accountSchema.methods.toJSON = function () {

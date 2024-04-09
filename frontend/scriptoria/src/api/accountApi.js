@@ -2,6 +2,7 @@ const findAccount = async (findCriteria) => {
     try {
         const response = await fetch("http://localhost:5000/user/find", {
             method: "POST",
+            credentials: "include",
             headers: {
                 "Content-Type": "application/json",
             },
@@ -20,6 +21,7 @@ const sendEmail = async (point, emailDetails) => {
     try {
         const response = await fetch("http://localhost:5000/" + point, {
             method: "POST",
+            credentials: "include",
             headers: {
                 "Content-Type": "application/json",
             },
@@ -39,6 +41,7 @@ const editPassword = async (point, accountDetails) => {
     try {
         const response = await fetch("http://localhost:5000/" + point, {
             method: "PATCH",
+            credentials: "include",
             headers: {
                 "Content-Type": "application/json",
             },
@@ -59,6 +62,7 @@ const logoutAccount = async (token) => {
     try {
         const response = await fetch("http://localhost:5000/account/logout", {
             method: "POST",
+            credentials: "include",
             headers: {
                 "Content-Type": "application/json",
                 'Authorization': 'Bearer ' + token,

@@ -11,8 +11,6 @@ const sendRate = async (rate, token) => {
             },
             data: rate
         });
-        
-        console.log(rate);
     } catch (error) {
         console.log(error);
     }

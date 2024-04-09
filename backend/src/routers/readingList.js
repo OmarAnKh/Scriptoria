@@ -34,7 +34,6 @@ router.get('/readingLists/:id', authentication, async(req, res)=>{
     try {
         const stories = await ReadingList.findOne({_id : req.params.id, accountId : req.user.id}).populate('stories')
         if(!stories) return res.send({nothing : true})
-        console.log(stories)
         res.send(stories)
     } catch(error){
         console.log(error)

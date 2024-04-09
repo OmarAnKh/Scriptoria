@@ -30,7 +30,6 @@ router.post(
             const story = new Story(req.body);
             story.coverPhoto = buffer;
             await story.save();
-            console.log(story)
             const writers = new Writers({
                 AccountId: req.user._id,
                 StoryId: story._id,
@@ -70,8 +69,6 @@ router.get("/search/:criteria", async (req, res) => {
         })
         let storyId
         if (account) {
-            console.log(10)
-
             const writers = await Writers.find(
                 { 'AccountId': account._id })
 
@@ -105,37 +102,37 @@ router.get('/stories/:id', async (req, res) => {
 
     try {
         const story = await Story.findById(_id)
-        if(!story) {
+        if (!story) {
             return res.status(404).send()
         }
 
         const writers = await Writers.find({ StoryId: _id });
 
-        if(!writers) {
+        if (!writers) {
             return res.status(404).send()
         }
 
-        const accounts = []; 
+        const accounts = [];
         for (const writer of writers) {
             const account = await Account.findById(writer.AccountId);
 
             if (!account) {
-                return res.status(404).send(); 
+                return res.status(404).send();
             }
 
             accounts.push(account);
         }
 
-        const countComments = await Comment.countDocuments({storyId: _id}); 
-        const countRates = await Rating.countDocuments({StoryId: _id});
+        const countComments = await Comment.countDocuments({ storyId: _id });
+        const countRates = await Rating.countDocuments({ StoryId: _id });
         const result = await Rating.aggregate([
             { $group: { _id: _id, averageRate: { $avg: "$rating" } } }
         ]);
-        
+
         const averageRating = result[0].averageRate;
-        
-        res.send({ story: story, accounts: accounts, counts: {comments: countComments, rates: countRates, avg: averageRating} })
-        
+
+        res.send({ story: story, accounts: accounts, counts: { comments: countComments, rates: countRates, avg: averageRating } })
+
     } catch (error) {
         res.status(500).send(error)
     }
@@ -156,12 +153,12 @@ router.post('/likes', async (req, res) => {
 router.patch('/stories/update', async (req, res) => {
 
     try {
-        const updatedStory = await Story.findByIdAndUpdate(req.body.id, req.body, {new: true, runValidators: true});
-      
-        if(!updatedStory) {
+        const updatedStory = await Story.findByIdAndUpdate(req.body.id, req.body, { new: true, runValidators: true });
+
+        if (!updatedStory) {
             res.status(404).send()
         }
-        
+
         res.status(200).send(updatedStory);
 
     } catch (error) {

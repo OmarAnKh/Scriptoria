@@ -1,8 +1,8 @@
 const follows = async (point, user, follow) => {
     try {
-
         const response = await fetch("http://localhost:5000/" + point + "/" + user + "/" + follow, {
             method: "GET",
+            credentials: "include",
             headers: {
                 "Content-Type": "application/json",
             },
@@ -20,6 +20,7 @@ const unfollow = async (point, obj) => {
     try {
         const response = await fetch("http://localhost:5000/" + point, {
             method: "delete",
+            credentials: "include",
             headers: {
                 "Content-Type": "application/json",
             },
@@ -40,6 +41,7 @@ const followers = async (point, user) => {
     try {
         const response = await fetch('http://localhost:5000' + point + "/" + user, {
             method: "GET",
+            credentials: "include",
             headers: {
                 "Content-Type": "application/json",
             },
