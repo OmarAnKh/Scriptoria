@@ -3,27 +3,31 @@ import { Link } from "react-router-dom";
 import Logo from "../../img/scriptoria-logo.png"
 import "./Navbar.css";
 import NavHomeButton from "./NavbarButton";
-import Cookies from 'js-cookie'
-import { findAccount, logoutAccount } from "../../api/accountApi";
+import { findAccount } from "../../api/accountApi";
 import { useTranslation } from 'react-i18next';
+import useLogout from "../../hooks/useLogout";
+import useAuth from "../../hooks/useAuth";
 
 const NavHomeLink = ({ to, children }) => (
     <Link className="nav-link" to={to}>{children}</Link>
 );
 
-
-
 const Navbar = () => {
-    const [hasAccount, setHasAccount] = useState(Cookies.get('userInfo'))
+
+    const logout = useLogout();
+    const { auth } = useAuth();
+
+    const [hasAccount, setHasAccount] = useState(auth)
     const [accountId, setAccountId] = useState("*");
     const [accountUserName, setAccountUserName] = useState("*")
     const { t, i18n } = useTranslation()
+
     useEffect(() => {
         const fetchData = async () => {
-            const userName = Cookies.get("userInfo");
+            const userName = auth.userName;
             setAccountUserName(`/profile/${userName}`)
             const account = await findAccount({ userName });
-            if (!account.message) {
+            if (!account?.message) {
                 setAccountId("*");
             } else {
                 setAccountId(`/settings/${account._id}`);
@@ -36,6 +40,7 @@ const Navbar = () => {
     }, []);
 
     const noHandel = () => { }
+
     const translationHandler = () => {
         if (i18n.language === 'en') {
             i18n.changeLanguage('ar')
@@ -43,9 +48,9 @@ const Navbar = () => {
         }
         i18n.changeLanguage('en')
     }
+
     const logoutHandel = async () => {
-        const token = Cookies.get("token")
-        const response = await logoutAccount(token);
+        await logout();
         const clearAllCookies = () => {
             let cookies = document.cookie.split(";");
             for (let i = 0; i < cookies.length; i++) {
@@ -56,9 +61,8 @@ const Navbar = () => {
                 document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
             }
         }
-        setHasAccount(null)
-        clearAllCookies();
-
+        setHasAccount({})
+        // clearAllCookies();
     }
 
     const accountDropDown = [
@@ -74,7 +78,7 @@ const Navbar = () => {
         },
         {
             title: t("Navbar.logout"),
-            to: "/",
+            to: "/logout",
             method: logoutHandel
         }
 
@@ -107,7 +111,7 @@ const Navbar = () => {
                             </form>
                             <div className="right-side">
                                 {
-                                    hasAccount ? <><Link type="button" className="addstory btn btn-outline-dark rounded-5 m-2" to={`/StoryDetails`}>
+                                    hasAccount.token ? <><Link type="button" className="addstory btn btn-outline-dark rounded-5 m-2" to={`/StoryDetails`}>
                                         {t("Navbar.add_a_story")}
                                     </Link>
                                         <NavHomeButton iclassName="bi bi-translate" className="navbar-button" buttonClassName="btn btn rounded-5 m-2" method={translationHandler} />

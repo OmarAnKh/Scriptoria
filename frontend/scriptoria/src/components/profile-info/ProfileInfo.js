@@ -4,13 +4,16 @@ import InfoButton from './Card.js'
 import ActionButton from './ButtonCard.js'
 import { follows, unfollow, followers, followingCount } from "../../api/follow.js"
 import { useNavigate } from "react-router-dom"
-import Cookies from 'js-cookie';
 import logo from "../../img/content.png";
 import { saveDocument } from '../../api/API\'s.js';
 import { writerStory } from '../../api/storyAPI.js'
 import { useTranslation } from 'react-i18next';
+import useAuth from '../../hooks/useAuth.js';
 
 const ProfileInfo = (props) => {
+
+    const { auth } = useAuth();
+
     const { t } = useTranslation()
     const data = props.user;
     const [following, setFollowing] = useState(false)
@@ -65,14 +68,12 @@ const ProfileInfo = (props) => {
             try {
                 const followerCount = await followers("/followers", props.user._id);
                 setFollowerCount(followerCount);
-                console.log(followerCount)
             } catch (error) {
                 console.error("Error fetching followers:", error);
             }
-            
+
             try {
                 const storiesObject = await writerStory("/stories", props.user._id);
-                console.log(storiesObject)
             } catch (error) {
                 console.error("Error fetching stories:", error);
             }
@@ -115,7 +116,7 @@ const ProfileInfo = (props) => {
                     <div className="buttons">
                         {props.userStatus ? (
                             <>
-                                {!Cookies.get("userInfo") ? (<>
+                                {!auth.userName ? (<>
                                     <ActionButton
                                         label={t("ProfileInfo.follow")}
                                         className="thebtn buttonstyle icon"

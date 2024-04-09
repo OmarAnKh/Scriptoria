@@ -1,7 +1,6 @@
 import React from 'react';
 import '../profile-info/ProfileInfo.css'
 import { findAccount } from "../../api/accountApi";
-import Cookies from 'js-cookie'
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from "react-router-dom";
 import ProfileInfo from "../profile-info/ProfileInfo"
@@ -9,6 +8,7 @@ import BookShelf from "../book-shelf/BookShelf"
 import FriendsList from "../friends-list/FriendsList";
 import Navbar from "../navbar/Navbar";
 import { follows } from '../../api/follow';
+import useAuth from '../../hooks/useAuth';
 
 const ProfileBooks = (props) => {
     return (
@@ -26,6 +26,7 @@ const ProfileBooks = (props) => {
 }
 
 const Profile = () => {
+    const { auth } = useAuth();
     const [data, setData] = useState("");
     const [user, setUser] = useState("")
     const [block, setBlock] = useState(false)
@@ -51,10 +52,10 @@ const Profile = () => {
     }, []);
 
     useEffect(() => {
-        if (Cookies.get("userInfo")) {
+        if (auth.userName) {
             const handleUser = async () => {
                 try {
-                    const res = await findAccount({ userName: Cookies.get("userInfo") });
+                    const res = await findAccount({ userName: auth.userName });
                     if (!res.message) {
                         setUser({ status: false });
                         return;
@@ -67,8 +68,8 @@ const Profile = () => {
             handleUser();
         }
     }, []);
-    const handleBlocked = async () => {
 
+    const handleBlocked = async () => {
         try {
             const res = await follows("blocking", user._id, data._id);
             setBlock(res.status)
@@ -76,25 +77,21 @@ const Profile = () => {
         } catch (err) {
             console.log(err);
         }
-
-
     }
 
-    if (username === Cookies.get("userInfo") && data.userName) {
+    if (username === auth.userName && data.userName) {
         return (
             <>
                 <Navbar />
                 <div className="container-fluid profile-page-body">
-
                     <ProfileInfo user={data} userStatus={false} ifblocked={false} />
                     <ProfileBooks username={username} />
                 </div>
             </>
         );
-    } else if (username !== Cookies.get("userInfo") && data.userName) {
-
+    } else if (username !== auth.userName && data.userName) {
         handleBlocked()
-        if (!block || !Cookies.get("userInfo")) {
+        if (!block || !auth.userName) {
             return (
                 <>
                     <Navbar />
@@ -114,7 +111,6 @@ const Profile = () => {
             )
         }
     } else {
-
         navigate('*')
         return null;
     }

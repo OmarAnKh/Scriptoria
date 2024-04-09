@@ -27,7 +27,6 @@ router.get("/following/:user/:follow", async (req, res) => {
 })
 
 router.delete("/unfollow", async (req, res) => {
-    console.log(req.body)
     try {
         const user = await Follow.findOneAndDelete({ account: req.body.account, follow: req.body.follow })
         
