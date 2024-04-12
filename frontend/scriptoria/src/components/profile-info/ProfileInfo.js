@@ -38,11 +38,11 @@ const ProfileInfo = (props) => {
     }
 
     const blockHandler = async () => {
-        const following = {
+        const block = {
             account: user._id,
             block: follow_id._id
         }
-        const res = await saveDocument("block", following)
+        const res = await saveDocument("block", block)
         window.location.reload();
     }
     const unblockHandler = async () => {
@@ -87,8 +87,13 @@ const ProfileInfo = (props) => {
                 const res = await follows("following", account._id, followId._id)
                 setFollowing(res.status)
             }
-            setImgURL(`data:image/png;base64,${data.profilePicture}`)
-        };
+            if (data.profilePicture) {
+                setImgURL(`data:image/png;base64,${data.profilePicture}`)
+            } else {
+                setImgURL(logo)
+            }
+        }
+
         fetchData();
 
     }, []);

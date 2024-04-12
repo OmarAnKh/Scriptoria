@@ -41,14 +41,10 @@ const Navbar = () => {
 
     const noHandel = () => { }
 
-    const translationHandler = () => {
-        if (i18n.language === 'en') {
-            i18n.changeLanguage('ar')
-            return
-        }
-        i18n.changeLanguage('en')
+    const translationHandler = (lang) => {
+        i18n.changeLanguage(lang)
+        return
     }
-
     const logoutHandel = async () => {
         await logout();
         const clearAllCookies = () => {
@@ -84,6 +80,48 @@ const Navbar = () => {
 
     ]
 
+
+
+    const languageDropDown = [
+        {
+            title: t("Navbar.arabic"),
+            to: "",
+            method: () => { translationHandler('ar') }
+        },
+        {
+            title: t("Navbar.english"),
+            to: "",
+            method: () => { translationHandler('en') }
+        },
+        {
+            title: t("Navbar.mandarin"),
+            to: "",
+            method: () => { translationHandler('zh') }
+        },
+        {
+            title: t("Navbar.hindi"),
+            to: "",
+            method: () => { translationHandler('hin') }
+        },
+        {
+            title: t("Navbar.spanish"),
+            to: "",
+            method: () => { translationHandler('es') }
+        }
+        ,
+        {
+            title: t("Navbar.french"),
+            to: "",
+            method: () => { translationHandler('fr') }
+        }
+        ,
+        {
+            title: "...",
+            to: "https://chromewebstore.google.com/detail/google-translate/aapbdbdomjkkjkaonfhkkikfgjllcleb",
+            method: noHandel
+        }
+    ]
+
     return (
         <nav className="navbar navbar-expand-lg">
             <div className="container-fluid ">
@@ -114,7 +152,7 @@ const Navbar = () => {
                                     hasAccount.token ? <><Link type="button" className="addstory btn btn-outline-dark rounded-5 m-2" to={`/StoryDetails`}>
                                         {t("Navbar.add_a_story")}
                                     </Link>
-                                        <NavHomeButton iclassName="bi bi-translate" className="navbar-button" buttonClassName="btn btn rounded-5 m-2" method={translationHandler} />
+                                        <NavHomeButton iclassName="bi bi-translate" className="navbar-button" buttonClassName="btn btn rounded-5 m-2" isDropDown={true} accountDropDown={languageDropDown} />
                                         <NavHomeButton iclassName="bi bi-inbox" className="navbar-button" buttonClassName="btn btn rounded-5 m-2" method={noHandel} />
                                         <NavHomeButton iclassName="bi bi-bell" className="navbar-button" buttonClassName="btn btn rounded-5 m-2" method={noHandel} />
                                         <NavHomeButton iclassName="bi bi-person-circle" className="navbar-button" buttonClassName="btn btn rounded-5 m-2" isDropDown={true} accountDropDown={accountDropDown} />

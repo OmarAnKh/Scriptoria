@@ -7,10 +7,7 @@ const follows = async (point, user, follow) => {
                 "Content-Type": "application/json",
             },
         })
-        if (response.ok) {
-            return response.json();
-        }
-        return response;
+        return response.json();
     } catch (error) {
         console.log(error)
     }
@@ -26,11 +23,7 @@ const unfollow = async (point, obj) => {
             },
             body: JSON.stringify(obj)
         })
-        if (response.ok) {
-            return response.json();
-        }
-        return response;
-
+        return response.json();
 
     } catch (error) {
         console.log(error)
