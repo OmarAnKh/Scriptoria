@@ -9,6 +9,7 @@ const sendRate = async (rate, token) => {
                 "Content-Type": "application/json",
                 "Authorization": 'Bearer ' + token,
             },
+            withCredentials: true,
             data: rate
         });
     } catch (error) {
@@ -25,6 +26,7 @@ const getRate = async (AccountId, StoryId, token) => {
                 "Content-Type": "application/json",
                 "Authorization": 'Bearer ' + token,
             },
+            withCredentials: true,
             params: {
                 AccountId,
                 StoryId
@@ -45,6 +47,7 @@ const updateRate = async (id, rate, token) => {
                 "Content-Type": "application/json",
                 "Authorization": 'Bearer ' + token,
             },
+            withCredentials: true,
             data: rate
         });
         

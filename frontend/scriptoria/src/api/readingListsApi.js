@@ -1,9 +1,10 @@
 import axios from 'axios'
-const getReadingLists = async (token) =>{
+const getReadingLists = async (token) => {
     try {
         const response = await axios({
             url: "http://localhost:5000/readingLists",
             method: "GET",
+            withCredentials: true,
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": 'Bearer ' + token,
@@ -15,32 +16,34 @@ const getReadingLists = async (token) =>{
     }
 }
 
-const createReadingList = async (list, token) =>{
-    try{
+const createReadingList = async (list, token) => {
+    try {
         await axios({
-            url : "http://localhost:5000/readingLists",
-            method : "POST",
-            headers : {
-                "Content-Type": "application/json",
-                "Authorization": 'Bearer ' + token,
-            },
-            data : list
-        })
-    }catch(error){
-        console.log(error)
-    }
-}
-
-const getStoriesFromRL = async (_id, token)=>{
-    try{
-        const response = await axios({
-            url: "http://localhost:5000/readingLists/" + _id,
-            method: "GET",
+            url: "http://localhost:5000/readingLists",
+            method: "POST",
+            withCredentials: true,
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": 'Bearer ' + token,
             },
-            params : {
+            data: list
+        })
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+const getStoriesFromRL = async (_id, token) => {
+    try {
+        const response = await axios({
+            url: "http://localhost:5000/readingLists/" + _id,
+            method: "GET",
+            withCredentials: true,
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": 'Bearer ' + token,
+            },
+            params: {
                 _id
             }
         });
@@ -50,53 +53,54 @@ const getStoriesFromRL = async (_id, token)=>{
     }
 }
 
-const updateList = async (id, stories, token) =>{
-    try{
+const updateList = async (id, stories, token) => {
+    try {
         await axios({
-            url : "http://localhost:5000/readingLists/" + id,
-            method : "PATCH",
-            headers : {
+            url: "http://localhost:5000/readingLists/" + id,
+            method: "PATCH",
+            withCredentials: true,
+            headers: {
                 "Content-Type": "application/json",
                 "Authorization": 'Bearer ' + token,
             },
-            data : {stories}
+            data: { stories }
         })
-    }catch(error){
+    } catch (error) {
         console.log(error)
     }
 }
 
-const updateReadingLists = async (storyId, checkedLists, token) =>{
-    
+const updateReadingLists = async (storyId, checkedLists, token) => {
+
     const response = await getReadingLists(token);
-  
-  if (!response || !response.data) {
-    console.error('getReadingLists did not return expected data');
-    return;
-  }
-  
-  const lists = response.data;
+
+    if (!response || !response.data) {
+        console.error('getReadingLists did not return expected data');
+        return;
+    }
+
+    const lists = response.data;
 
     try {
-            await Promise.all(
-              lists.map(async (list) => {
+        await Promise.all(
+            lists.map(async (list) => {
                 let stories = list.stories
-                if(checkedLists.includes(list._id)){
-                    if(!stories.includes(storyId)){
+                if (checkedLists.includes(list._id)) {
+                    if (!stories.includes(storyId)) {
                         stories.push(storyId)
-                        await updateList(list._id, stories,token)
+                        await updateList(list._id, stories, token)
                     }
                 } else {
-                    if(stories.includes(storyId)) {
+                    if (stories.includes(storyId)) {
                         stories = stories.filter(story => story !== storyId)
-                        await updateList(list._id, stories,token)
+                        await updateList(list._id, stories, token)
                     }
                 }
-              })
-            );
-        } catch (error) {
+            })
+        );
+    } catch (error) {
         console.error(error);
-        }
+    }
 }
 
 export {
