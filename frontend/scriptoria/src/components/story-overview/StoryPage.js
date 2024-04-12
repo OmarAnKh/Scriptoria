@@ -56,7 +56,7 @@ const StoryCard = () => {
         <div className="d-flex justify-content-end align-items-center" style={{ width: "100%", height: "100vh", position: "relative" }}>
             <div className="d-flex justify-content-center align-items-start" style={{ width: "900px", height: "600px" }}>
                 {showProfileCard && (
-                    <div className="position-absolute" style={{ marginTop: "-50px", left: 200 }}>
+                    <div className="position-absolute" style={{ marginTop: "-50px", left: 550 }}>
                         
                         <ProfileCard onHideProfile={onHideProfile} storyId={stories._id} />
                     </div>
