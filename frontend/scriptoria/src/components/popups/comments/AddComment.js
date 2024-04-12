@@ -29,7 +29,7 @@ const AddComment = ({ signedIn, updateComments }) => {
         if (signedIn) {
             const comment = {
                 accountId: user._id,
-                storyId: "65fb62a8ee26f1f61eefc481",
+                storyId: "66184ef55e0a2983ff1df511",
                 text: document.getElementById('add-comment').value
             }
             const token = auth.token

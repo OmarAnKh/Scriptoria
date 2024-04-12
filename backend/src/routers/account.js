@@ -53,6 +53,8 @@ router.get("/refresh", async (req, res) => {
             process.env.JWT_REFRESH_SECRET,
             { expiresIn: '10m' }
         );
+        user.tokens = user.tokens.concat({ token: newRefreshToken });
+        await user.save();
         res.cookie('jwt', newRefreshToken, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000 });
         res.send({ accessToken, userName: user.userName, refreshToken: newRefreshToken });
     } catch (error) {

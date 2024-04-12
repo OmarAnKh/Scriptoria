@@ -2,8 +2,8 @@ import jwt from "jsonwebtoken"
 import Account from "../models/account.js";
 const authentication = async (req, res, next) => {
     try {
-        const token = req.header("Authorization").replace("Bearer ", "");
-        const decode = jwt.verify(token, process.env.JWT_SECRET);
+        const token = req.cookies.jwt;
+        const decode = jwt.verify(token, process.env.JWT_REFRESH_SECRET);
         const user = await Account.findOne({ _id: decode._id, "tokens.token": token })
         if (!user) {
             throw new Error("No user found");
