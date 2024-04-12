@@ -18,16 +18,14 @@ import AllMembers from './components/team-members/AllMembers.js';
 import BookToDisplay from './components/book-holder/book-to-display/BookToDisplay.js';
 import StoryHeader from './components/story-header/StoryHeader.js';
 import LogedOut from './components/loged-out/LogedOut.js'
+import StoryCard from "./components/story-overview/StoryPage.js"
 import Layout from './components/layout/Layout.js';
 import PersistLogin from './components/persist-login/PersistLogin.js';
 import RequireAuth from './components/require-auth/RequireAuth.js';
 
-
-
 function App() {
 
   return (
-
     <div className="App">
       <Routes>
         <Route path='/' element={<Layout />}>
