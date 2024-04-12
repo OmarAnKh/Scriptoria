@@ -14,7 +14,7 @@ const LogedOut = () => {
         <p className="fw-bold h1">{t("Logout.text1")}</p>
         <Link
           className="h5 fw-bold text-secondary text-decoration-none"
-          to={""}
+          to={"/"}
         >
           {t("Logout.text2")}
         </Link>

@@ -9,7 +9,13 @@
         "signUp": "SignUp",
         "profile": "profile",
         "settings": "settings",
-        "logout": "logout"
+        "logout": "logout",
+        "arabic": "العربية",
+        "english": "English",
+        "mandarin": "Mandarin",
+        "hindi": "Hindi",
+        "spanish": "Spanish",
+        "french": "French"
     },
     "BookShelf": {
         "see_all_works": "See all works",
@@ -129,9 +135,9 @@
         "name": "Name",
         "untitled": "Untitled"
     },
-    "Logout" : {
-        "text1" : "You have successfully logged out.",
-        "text2" : "Click here to return to the home page."
+    "Logout": {
+        "text1": "You have successfully logged out.",
+        "text2": "Click here to return to the home page."
     },
     "Comments" : {
         "Comments" : "Comments",

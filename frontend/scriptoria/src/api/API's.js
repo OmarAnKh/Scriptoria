@@ -2,6 +2,7 @@ const saveDocument = async (point, document) => {
     try {
         const response = await fetch("http://localhost:5000/" + point, {
             method: "POST",
+            credentials: "include",
             headers: {
                 "Content-Type": "application/json",
             },
@@ -12,7 +13,6 @@ const saveDocument = async (point, document) => {
         }
         return response;
 
-
     } catch (error) {
         console.log(error)
     }
@@ -22,6 +22,7 @@ const sendEmail = async (point, emailDetails) => {
     try {
         const response = await fetch("http://localhost:5000/" + point, {
             method: "POST",
+            credentials: "include",
             headers: {
                 "Content-Type": "application/json",
             },
@@ -41,6 +42,7 @@ const updateDocument = async (point, document) => {
     try {
         const response = await fetch(`http://localhost:5000/${point}/update`, {
             method: "PATCH",
+            credentials: "include",
             headers: {
                 "Content-Type": "application/json",
             },
@@ -55,8 +57,6 @@ const updateDocument = async (point, document) => {
         console.log(error)
     }
 }
-
-
 
 export {
     saveDocument,

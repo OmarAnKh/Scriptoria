@@ -4,6 +4,7 @@ import Navbar from "../navbar/Navbar";
 import { useTranslation } from 'react-i18next';
 
 const ErrorPage = () => {
+
     const { t } = useTranslation()
     return (<>
         <Navbar />

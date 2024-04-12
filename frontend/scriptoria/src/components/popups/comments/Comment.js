@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import Cookies from "js-cookie";
 import { deleteComment, editComment } from "../../../api/commentsApi";
 import toast from "react-hot-toast";
 import logo from "../../../img/content.png";
 import { useTranslation } from "react-i18next";
 import "./Comments.css";
+import useAuth from "../../../hooks/useAuth";
+
 
 const Comment = ({
   userId,
@@ -16,8 +17,9 @@ const Comment = ({
   updateComments,
   likes,
 }) => {
+  const { auth } = useAuth();
   const { t } = useTranslation();
-  const token = Cookies.get("token");
+  const token = auth.token;
   const [like, setLike] = useState(false);
   const [signedIn, setSignedIn] = useState(false);
   const [imageUrl, setImageURL] = useState(logo);
@@ -64,7 +66,7 @@ const Comment = ({
   };
 
   useEffect(() => {
-    const userName = Cookies.get("userInfo");
+    const userName = auth.userName;
     userName !== undefined ? setSignedIn(true) : setSignedIn(false);
     setImageURL(`data:image/png;base64,${account.profilePicture}`);
     setEditedText(text);
@@ -188,9 +190,8 @@ const Comment = ({
               </div>
               <div className="col-3 px-2 comment-like-btn text-end">
                 <a
-                  className={`comment-like-btn text-decoration-none bi bi-heart-fill text-${
-                    like ? "danger" : "secondary"
-                  }`}
+                  className={`comment-like-btn text-decoration-none bi bi-heart-fill text-${like ? "danger" : "secondary"
+                    }`}
                   onClick={likeHandler}
                 ></a>
               </div>

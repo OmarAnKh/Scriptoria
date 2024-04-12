@@ -9,7 +9,13 @@
         "signUp": "انشاء حساب",
         "profile": "الملف الشخصي",
         "settings": "الاعدادات",
-        "logout": "تسجيل الخروج"
+        "logout": "تسجيل الخروج",
+        "arabic": "العربية",
+        "english": "English",
+        "mandarin": "Mandarin",
+        "hindi": "Hindi",
+        "spanish": "Spanish",
+        "french": "French"
     },
     "BookShelf": {
         "see_all_works": "جميع اعمال الكاتب",
@@ -129,9 +135,9 @@
         "name": "الاسم",
         "untitled": "بلا عنوان"
     },
-    "Logout" : {
-        "text1" : ".لقد تم تسجيل خروجك بنجاح",
-        "text2" : ".اضغط هنا للعودة للصفحة الرئيسية"
+    "Logout": {
+        "text1": ".لقد تم تسجيل خروجك بنجاح",
+        "text2": ".اضغط هنا للعودة للصفحة الرئيسية"
     },
     "Comments" : {
         "Comments" : "التعليقات",
