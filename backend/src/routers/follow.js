@@ -27,9 +27,9 @@ router.get("/following/:user/:follow", async (req, res) => {
 })
 
 router.delete("/unfollow", async (req, res) => {
-
     try {
         const user = await Follow.findOneAndDelete({ account: req.body.account, follow: req.body.follow })
+        
 
         if (user) {
             return res.status(200).send({ status: true })
@@ -49,15 +49,6 @@ router.get("/followers/:user", async (req, res) => {
         console.error(error);
         res.status(500).send("Internal Server Error");
     }
-});
-router.get("/following/:user", async (req, res) => {
-    try {
-        const user = await Follow.countDocuments({ account: req.params.user });
-        res.status(200).send({ followerCount: user });
-    } catch (error) {
-        console.error(error);
-        res.status(500).send("Internal Server Error");
-    }
-});
+})
 
 export default router;

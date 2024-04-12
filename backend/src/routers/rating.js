@@ -14,7 +14,7 @@ router.post('/rate', authentication, async (req,res)=>{
         await rate.save()
         res.send(rate)
     } catch(error){
-        console.log(error, 10)
+        console.log(error)
         res.status(400).send(error)
     }
 })

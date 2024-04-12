@@ -7,11 +7,11 @@ import LabelOfStory from "./details-in-forms/LabelOfStory";
 import { Uploader } from "uploader";
 import { UploadButton } from "react-uploader";
 import { story } from "../../api/storyAPI";
-import Cookies from "js-cookie";
 import Navbar from "../navbar/Navbar";
 import Footer from "../footer/Footer";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import useAuth from "../../hooks/useAuth";
 const uploader = Uploader({
   apiKey: "free"
 });
@@ -20,6 +20,7 @@ const options = { multi: true };
 
 
 const StoryDetails = () => {
+  const { auth } = useAuth();
   const { t } = useTranslation()
   const htmlForStory = ["inputCity", "inputPassword4", "", "inputAddress2", "character-background-color"];
   const typeofStory = ["text", "number", "color", "textarea"];
@@ -56,7 +57,7 @@ const StoryDetails = () => {
       mainCharacters: mainCharactersList
     };
 
-    const res = await story("story", storyData, Cookies.get("token"));
+    const res = await story("story", storyData, auth.token);
     navigate(`/WritingPage`);
   };
 

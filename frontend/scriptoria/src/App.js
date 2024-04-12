@@ -15,9 +15,12 @@ import Settings from './components/settings/Settings.js';
 import Profile from './components/profile-page/Profile.js';
 import StoryPage from './components/story-page/StoryPage.js';
 import AllMembers from './components/team-members/AllMembers.js';
+import BookToDisplay from './components/book-holder/book-to-display/BookToDisplay.js';
 import StoryHeader from './components/story-header/StoryHeader.js';
 import LogedOut from './components/loged-out/LogedOut.js'
-import StoryCard from './components/story-card/StoryCard.js';
+import Layout from './components/layout/Layout.js';
+import PersistLogin from './components/persist-login/PersistLogin.js';
+import RequireAuth from './components/require-auth/RequireAuth.js';
 
 
 
@@ -27,24 +30,33 @@ function App() {
 
     <div className="App">
       <Routes>
-        <Route path="/profile/:username" element={<Profile />} />
-        <Route path="/SignIn" element={<SignIn />} />
-        <Route path="/SignUp" element={<SingUp />} />
-        <Route path='/' element={<HomePage />} />
-        <Route path='/WritingPage' element={<WritingPage />} />
-        <Route path='/StoryDetails' element={<StoryDetails />} />
-        <Route path='/SignUpVerificationCode' element={<SignUpVerificationCode />} />
-        <Route path='/GetEmail' element={<GettingEmail />} />
-        <Route path='/EmailVerifing/:email' element={<EmailVerifing />} />
-        <Route path='/ResetPassword' element={<ResetPassword />} />
-        <Route path='/settings/:id' element={<Settings />} />
-        <Route path='/Search/:criteria' element={<SearchResultsPage />} />
-        <Route path='/story/:id' element={<StoryCard />} />
-        <Route path='/StoryPage' element={<StoryPage />} />
-        <Route path='/TeamMembers' element={<AllMembers />} />
-        <Route path='/stories/:id' element={<StoryHeader />} />
-        <Route path='/logout' element={<LogedOut />} />
-        <Route path='*' element={<ErrorPage />} />
+        <Route path='/' element={<Layout />}>
+          {/*public routes*/}
+          <Route path="SignIn" element={<SignIn />} />
+          <Route path="SignUp" element={<SingUp />} />
+          <Route path='SignUpVerificationCode' element={<SignUpVerificationCode />} />
+          <Route path='GetEmail' element={<GettingEmail />} />
+          <Route path='EmailVerifing/:email' element={<EmailVerifing />} />
+          <Route path='ResetPassword' element={<ResetPassword />} />
+          <Route path='logout' element={<LogedOut />} />
+          {/*we want to protect these routes*/}
+          <Route element={<PersistLogin />}>
+            <Route path='/' element={<HomePage />} />
+            <Route path="profile/:username" element={<Profile />} />
+            <Route path='Search/:criteria' element={<SearchResultsPage />} />
+            <Route path='StoryPage' element={<StoryPage />} />
+            <Route path='TeamMembers' element={<AllMembers />} />
+            <Route path='book' element={<BookToDisplay />} />
+            <Route path='stories/:id' element={<StoryHeader />} />
+            <Route element={<RequireAuth />}>
+              <Route path='WritingPage' element={<WritingPage />} />
+              <Route path='StoryDetails' element={<StoryDetails />} />
+              <Route path='settings/:id' element={<Settings />} />
+            </Route>
+          </Route>
+          {/*catch all*/}
+          <Route path='*' element={<ErrorPage />} />
+        </Route>
       </Routes>
     </div>
   )

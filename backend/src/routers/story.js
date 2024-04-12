@@ -30,7 +30,6 @@ router.post(
             const story = new Story(req.body);
             story.coverPhoto = buffer;
             await story.save();
-            console.log(story)
             const writers = new Writers({
                 AccountId: req.user._id,
                 StoryId: story._id,
@@ -44,6 +43,17 @@ router.post(
         }
     }
 );
+
+router.get("/stories/:id", async (req, res) => {
+    try {
+        const Stories = await Story.find({ AccountId: req.body._id });
+        res.status(200).send({ Stories });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Internal Server Error");
+    }
+});
+
 
 
 router.get("/search/:criteria", async (req, res) => {
@@ -59,8 +69,6 @@ router.get("/search/:criteria", async (req, res) => {
         })
         let storyId
         if (account) {
-            console.log(10)
-
             const writers = await Writers.find(
                 { 'AccountId': account._id })
 
@@ -87,6 +95,7 @@ router.get("/search/:criteria", async (req, res) => {
         return res.status(500).send({ error, status: false });
     }
 })
+
 
 router.get('/stories/:id', async (req, res) => {
     const _id = req.params.id
@@ -120,7 +129,7 @@ router.get('/stories/:id', async (req, res) => {
             { $group: { _id: _id, averageRate: { $avg: "$rating" } } }
         ]);
 
-        const averageRating = result[0]?.averageRate;
+        const averageRating = result[0].averageRate;
 
         res.send({ story: story, accounts: accounts, counts: { comments: countComments, rates: countRates, avg: averageRating } })
 

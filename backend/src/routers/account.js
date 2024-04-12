@@ -4,6 +4,8 @@ import sendMail from "../emails/sendMail.js"
 import authentication from "../middleware/authentication.js";
 import axios from "axios";
 import sharp from "sharp";
+import jwt from "jsonwebtoken"
+
 
 const router = new express.Router()
 
@@ -11,8 +13,9 @@ router.post("/SignUp", async (req, res) => {
     const user = new Account(req.body);
     try {
         await user.save();
-        const token = await user.generateAuthToken();
-        res.status(201).send({ user, token })
+        const { accessToken, refreshToken } = await user.generateAuthToken();
+        res.cookie('jwt', refreshToken, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000 });
+        res.status(201).send({ user, token: accessToken, refreshToken });
     } catch (error) {
         res.status(400).send(error);
     }
@@ -21,13 +24,53 @@ router.post("/SignUp", async (req, res) => {
 router.post('/signIn', async (req, res) => {
     try {
         const user = await Account.findByCredentials(req.body.email, req.body.password)
-        const token = await user.generateAuthToken()
-        res.status(200).send({ user, token })
+        const { accessToken, refreshToken } = await user.generateAuthToken();
+        res.cookie('jwt', refreshToken, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000 });
+        res.status(200).send({ user, token: accessToken, refreshToken });
     } catch (error) {
         res.status(400).send()
     }
 })
 
+router.get("/refresh", async (req, res) => {
+    const refreshToken = req.cookies.jwt;
+    res.clearCookie('jwt', { httpOnly: true });
+    if (!refreshToken) {
+        return res.status(400).send({ error: 'Refresh token is required' });
+    }
+    try {
+        const decoded = jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET);
+        const user = await Account.findOne({ _id: decoded._id });
+        if (!user) {
+            throw new Error();
+        }
+        user.tokens = user.tokens.filter((token) => token.token !== refreshToken);
+        await user.save();
+        const accessToken = jwt.sign({ _id: user._id.toString() }, process.env.JWT_SECRET, { expiresIn: "20s" });
+
+        const newRefreshToken = jwt.sign(
+            { _id: user._id.toString() },
+            process.env.JWT_REFRESH_SECRET,
+            { expiresIn: '10m' }
+        );
+        res.cookie('jwt', newRefreshToken, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000 });
+        res.send({ accessToken, userName: user.userName, refreshToken: newRefreshToken });
+    } catch (error) {
+        res.status(401).send({ error: 'Invalid refresh token' });
+    }
+});
+
+router.get('/find/userName/:userName', async (req, res) => {
+    try {
+        const user = await Account.findOne({ userName: req.params.userName })
+        if (!user) {
+            return res.status(404).send({ error: "Username not found" })
+        }
+        res.status(200).send(user)
+    } catch (error) {
+        res.status(500).send(error)
+    }
+})
 
 router.post("/user/find", async (req, res) => {
     try {
@@ -40,6 +83,28 @@ router.post("/user/find", async (req, res) => {
         res.status(500).send({ error: "Server error" })
     }
 })
+
+router.post('/account/recovery', async (req, res) => {
+    try {
+        sendMail(req.body.email, req.body.codeGenerated)
+        res.status(200).send({ status: true })
+    } catch (error) {
+        res.status(500).send({ status: false })
+    }
+})
+
+router.get('/find/email/:email', async (req, res) => {
+    try {
+        const user = await Account.findOne({ email: req.params.email })
+        if (!user) {
+            return res.status(404).send({ error: "Email not found" })
+        }
+        res.status(200).send(user)
+    } catch (error) {
+        res.status(500).send(error)
+    }
+})
+
 
 router.post('/account/recovery', async (req, res) => {
     try {
@@ -67,10 +132,20 @@ router.patch('/reset/password', async (req, res) => {
         res.status(500).send({ status: false })
     }
 })
-router.post("/account/logout", authentication, async (req, res) => {
+router.post("/account/logout", async (req, res) => {
     try {
-        req.user.tokens = req.user.tokens.filter((token) => token.token !== req.token);
-        await req.user.save();
+        const refreshToken = req.cookies.jwt;
+        res.clearCookie('jwt', { httpOnly: true });
+        if (!refreshToken) {
+            return res.status(400).send({ error: 'Refresh token is required' });
+        }
+        const decoded = jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET);
+        const user = await Account.findOne({ _id: decoded._id });
+        user.tokens = user.tokens.filter((token) => token.token !== refreshToken);
+        if (!user) {
+            throw new Error();
+        }
+        await user.save();
         res.send({ status: true });
     } catch (error) {
         res.status(500).send(error)
@@ -95,7 +170,6 @@ router.patch("/account/update", async (req, res) => {
                     .resize({ width: 250, height: 250 })
                     .png()
                     .toBuffer();
-                
                 req.body.profilePicture = buffer;
             } catch (error) {
                 console.error("Error fetching or processing image:", error);

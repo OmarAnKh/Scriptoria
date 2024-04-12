@@ -1,5 +1,5 @@
 .tab-home-bar {
-    background-color: #DEE2FF;
+    background-color: var(--accent-Color);
     border-radius: 5px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
     width: 30%;
@@ -13,7 +13,7 @@
 }
 
 .nav-link-bar {
-    color: #495057;
+    color: var(--text-color);
     background-color: transparent;
     border: none;
     margin-right: 15px;
@@ -25,6 +25,7 @@
 
 .nav-link-bar:hover {
     background-color: #e9ecef;
+    color: var(--text-color);
 }
 
 .nav-link-bar.active {
