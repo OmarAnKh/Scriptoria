@@ -9,13 +9,20 @@ import commentsRouter from "./routers/comments.js"
 import listsRouter from "./routers/readingList.js"
 import writersRouter from "./routers/writers.js"
 import cors from "cors"
+import cookieParser from "cookie-parser"
 
 const app = express()
 
 const port = process.env.PORT
 
-app.use(cors());
+app.use(cors({
+    origin: 'http://localhost:3000',
+    credentials: true,
+    optionsSuccessStatus: 200
+}));
 app.use(express.json())
+app.use(cookieParser())
+
 app.use(userRouter)
 app.use(storyRouter)
 app.use(followRouter)

@@ -6,6 +6,9 @@ import express from "express";
 import sharp from "sharp";
 import axios from "axios";
 import Account from "../models/account.js";
+import Like from "../models/like.js";
+import Comment from "../models/comment.js";
+import Rating from "../models/rating.js";
 
 const router = new express.Router();
 
@@ -27,7 +30,6 @@ router.post(
             const story = new Story(req.body);
             story.coverPhoto = buffer;
             await story.save();
-            console.log(story)
             const writers = new Writers({
                 AccountId: req.user._id,
                 StoryId: story._id,
@@ -41,6 +43,17 @@ router.post(
         }
     }
 );
+
+// router.get("/stories/:id", async (req, res) => {
+//     try {
+//         const Stories = await Story.find({ AccountId: req.body._id });
+//         res.status(200).send({ Stories });
+//     } catch (error) {
+//         console.error(error);
+//         res.status(500).send("Internal Server Error");
+//     }
+// });
+
 
 
 router.get("/search/:criteria", async (req, res) => {
@@ -56,8 +69,6 @@ router.get("/search/:criteria", async (req, res) => {
         })
         let storyId
         if (account) {
-            console.log(10)
-
             const writers = await Writers.find(
                 { 'AccountId': account._id })
 
@@ -85,20 +96,72 @@ router.get("/search/:criteria", async (req, res) => {
     }
 })
 
-router.get('/stories/:id',async (req, res) => {
+router.get('/stories/:id', async (req, res) => {
     const _id = req.params.id
 
     try {
         const story = await Story.findById(_id)
-        if(!story) {
+        if (!story) {
             return res.status(404).send()
         }
 
-        res.send(story)
+        const writers = await Writers.find({ StoryId: _id });
+
+        if (!writers) {
+            return res.status(404).send()
+        }
+
+        const accounts = [];
+        for (const writer of writers) {
+            const account = await Account.findById(writer.AccountId);
+
+            if (!account) {
+                return res.status(404).send();
+            }
+
+            accounts.push(account);
+        }
+
+        const countComments = await Comment.countDocuments({ storyId: _id });
+        const countRates = await Rating.countDocuments({ StoryId: _id });
+        const result = await Rating.aggregate([
+            { $group: { _id: _id, averageRate: { $avg: "$rating" } } }
+        ]);
+
+        const averageRating = result[0]?.averageRate;
+        res.send({ story: story, accounts: accounts, counts: { comments: countComments, rates: countRates, avg: averageRating } })
+
     } catch (error) {
         res.status(500).send(error)
     }
 
-})
+});
+
+router.post('/likes', async (req, res) => {
+    const like = new Like(req.body)
+    try {
+        await like.save()
+        res.status(201).send(like)
+
+    } catch (error) {
+        res.status(500).send(error)
+    }
+});
+
+router.patch('/stories/update', async (req, res) => {
+
+    try {
+        const updatedStory = await Story.findByIdAndUpdate(req.body.id, req.body, { new: true, runValidators: true });
+
+        if (!updatedStory) {
+            res.status(404).send()
+        }
+
+        res.status(200).send(updatedStory);
+
+    } catch (error) {
+        res.status(500).send(error.message);
+    }
+});
 
 export default router;

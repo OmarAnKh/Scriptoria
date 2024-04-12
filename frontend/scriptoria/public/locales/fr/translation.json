@@ -1,0 +1,160 @@
+{
+    "Navbar": {
+        "search": "Rechercher",
+        "home": "Accueil",
+        "browse": "Parcourir",
+        "teamMembers": "Membres de l'équipe",
+        "add_a_story": "Ajouter une histoire",
+        "signIn": "Se connecter",
+        "signUp": "S'inscrire",
+        "profile": "Profil",
+        "settings": "Paramètres",
+        "logout": "Déconnexion",
+        "arabic": "العربية",
+        "english": "English",
+        "mandarin": "Mandarin",
+        "hindi": "Hindi",
+        "spanish": "Spanish",
+        "french": "French"
+    },
+    "BookShelf": {
+        "see_all_works": "Voir tous les travaux",
+        "all_reading_list": "Tous les livres lus",
+        "works": "Travaux",
+        "reading_list": "Liste de lecture"
+    },
+    "CarouselCards": {
+        "read_the_book": "Lire le livre"
+    },
+    "DiscoverTable": {
+        "all_genres": "Tous les genres",
+        "action": "Action",
+        "horror": "Horreur",
+        "romance": "Romance"
+    },
+    "ErrorPage": {
+        "page_was_not_found": "Page non trouvée"
+    },
+    "Footer": {
+        "product": "Produit",
+        "features": "Fonctionnalités",
+        "copy_Rights": "Droits d'auteur",
+        "resources": "Ressources",
+        "blog": "Blog",
+        "user_guides": "Guides d'utilisateur",
+        "community": "Communauté",
+        "developers": "Développeurs",
+        "users": "Utilisateurs",
+        "company": "Entreprise",
+        "about": "À propos de",
+        "join_us": "Rejoignez-nous",
+        "support": "Support",
+        "help_center": "Centre d'aide",
+        "chat_support": "Support par chat"
+    },
+    "FriendsList": {
+        "friends_List": "Amis suggérés",
+        "show_More": "Afficher plus"
+    },
+    "GettingEmail": {
+        "InputError_valid_email": "Veuillez saisir une adresse e-mail valide",
+        "InputError_not_exsist": "Il n'y a pas de compte avec cet e-mail sur notre site Web",
+        "cardType": "Récupération de compte",
+        "text": "Pour réinitialiser votre mot de passe, veuillez fournir votre adresse e-mail afin que nous puissions vous envoyer un code de vérification",
+        "buttonTitle": "Obtenir le code",
+        "inputPlaceholder": "E-mail"
+    },
+    "EmailVerifing": {
+        "InputError": "Code invalide",
+        "cardType": "Récupération de compte",
+        "text": "Veuillez saisir le code qui vous a été envoyé par e-mail",
+        "inputPlaceholder": "Code de vérification",
+        "buttonTitle": "Vérifier mon code",
+        "buttonTitle2": "Renvoyer un code"
+    },
+    "ResetPassword": {
+        "InputError_password_criteria": "Le mot de passe doit comporter au moins 6 caractères, contenir au moins une lettre majuscule, au moins une lettre minuscule et au moins un chiffre",
+        "InputError_confirm_password": "Veuillez vous assurer que le mot de passe et le mot de passe de confirmation correspondent",
+        "cardType": "Réinitialiser votre mot de passe",
+        "text": "Veuillez choisir un mot de passe fort",
+        "inputPlaceholder": "Mot de passe",
+        "buttonTitle": "Enregistrer le nouveau mot de passe"
+    },
+    "ProfileInfo": {
+        "hello": "Bonjour, je suis",
+        "about": "À propos de moi",
+        "followers": "Abonnés",
+        "works": "Travaux",
+        "following": "Abonnements",
+        "settings": "Paramètres",
+        "edit": "Modifier à propos",
+        "follow": "Suivre",
+        "unfollow": "Ne plus suivre",
+        "message": "Message",
+        "Unblock": "Débloquer"
+    },
+    "Settings": {
+        "settings": "Paramètres",
+        "terms": "Conditions d'utilisation",
+        "help": "Besoin d'aide ?",
+        "q": "Si vous avez des questions ou des problèmes, n'hésitez pas à nous contacter.",
+        "sendEmail": "Envoyer un e-mail",
+        "privacy": "Confidentialité",
+        "user_Info": "Informations utilisateur",
+        "security": "Sécurité",
+        "support": "Support",
+        "user_Information": "Informations utilisateur",
+        "user_name": "Nom d'utilisateur",
+        "display_name": "Nom d'affichage",
+        "gender": "Genre",
+        "county": "Pays",
+        "desPlaceholder": "Entrez votre description ici...",
+        "mail": "E-mail",
+        "edit": "Modifier",
+        "password": "Mot de passe",
+        "save": "Enregistrer",
+        "description": "Description"
+    },
+    "StoryCard": {
+        "show_more": "Afficher plus"
+    },
+    "StoryDetails": {
+        "title": "Titre",
+        "number": "Nombre de diapositives",
+        "description": "Description (maximum 300 mots)",
+        "characters": "Personnages principaux",
+        "background": "Couleur de fond :",
+        "cancel": "Annuler",
+        "start": "Commencer",
+        "add_cover": "Ajouter une couverture",
+        "category": "Catégorie",
+        "select": "Sélectionner un ou plusieurs",
+        "Target": "Public cible",
+        "select_one": "Sélectionner un",
+        "language": "Langue",
+        "name": "Nom",
+        "untitled": "Sans titre"
+    },
+    "Logout": {
+        "text1": "Vous avez été déconnecté avec succès.",
+        "text2": "Cliquez ici pour retourner à la page d'accueil."
+    },
+    "Comments": {
+        "Comments": "Commentaires",
+        "Reply": "Répondre",
+        "edit": "Modifier",
+        "delete": "Supprimer",
+        "save": "Enregistrer",
+        "cancel": "Annuler"
+    },
+    "SaveTo": {
+        "SaveTo": "Enregistrer l'histoire dans...",
+        "createNewList": "Créer une nouvelle liste",
+        "save": "Enregistrer",
+        "create": "Créer une nouvelle liste de lecture",
+        "Name": "Nom",
+        "createAndSave": "Créer et enregistrer",
+        "cancel": "Annuler",
+        "addToReadingList": "Ajouter à la liste de lecture"
+    }
+}

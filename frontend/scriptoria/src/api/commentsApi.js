@@ -5,6 +5,7 @@ const sendComment = async (comment, token) => {
         await axios({
             url: "http://localhost:5000/comments",
             method: "POST",
+            withCredentials: true,
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": 'Bearer ' + token,
@@ -21,6 +22,7 @@ const getComments = async (storyId) =>{
         const response = await axios({
             url: "http://localhost:5000/comments/" + storyId,
             method: "GET",
+            withCredentials: true,
             headers: {
                 "Content-Type": "application/json",
             },
@@ -39,6 +41,7 @@ const editComment = async (commentId, text, token) =>{
         await axios({
             url : "http://localhost:5000/comments/" + commentId,
             method : "PATCH",
+            withCredentials: true,
             headers : {
                 "Content-Type": "application/json",
                 "Authorization": 'Bearer ' + token,
@@ -55,6 +58,7 @@ const deleteComment = async (id, token) => {
         const response = await axios({
             url: `http://localhost:5000/comments/${id}`,
             method: "DELETE",
+            withCredentials: true,
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": `Bearer ${token}`,
