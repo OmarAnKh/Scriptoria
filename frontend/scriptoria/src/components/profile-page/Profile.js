@@ -1,7 +1,6 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../profile-info/ProfileInfo.css'
 import { findAccount } from "../../api/accountApi";
-import { useState } from 'react';
 import { useParams, useNavigate } from "react-router-dom";
 import ProfileInfo from "../profile-info/ProfileInfo"
 import BookShelf from "../book-shelf/BookShelf"
@@ -27,91 +26,79 @@ const ProfileBooks = (props) => {
 
 const Profile = () => {
     const { auth } = useAuth();
-    const dataRef = useRef(null);
     const [user, setUser] = useState("")
     const [block, setBlock] = useState(false)
     const { username } = useParams()
     const navigate = useNavigate()
 
     useEffect(() => {
-        const handleResponse = async () => {
+        const fetchData = async () => {
             try {
                 const res = await findAccount({ userName: username });
                 if (!res.message) {
-                    dataRef.current = { status: false };
+                    navigate('*');
                     return;
                 }
-                dataRef.current = res.user;
+                setUser(res.user);
             } catch (err) {
                 console.log(err);
             }
-
         };
 
-        handleResponse();
-    }, []);
+        fetchData();
+    }, [username, navigate]);
 
     useEffect(() => {
-        if (auth.userName) {
-            const handleUser = async () => {
-                try {
-                    const res = await findAccount({ userName: auth.userName });
-                    if (!res.message) {
-                        setUser({ status: false });
-                        return;
-                    }
-                    setUser(res.user);
-                } catch (err) {
-                    console.log(err);
+        const handleBlocked = async () => {
+            try {
+                if (user) {
+                    const res = await follows("blocking", user._id, auth._id);
+                    setBlock(res.status)
+                    return
                 }
-            };
-            handleUser();
-        }
-    }, []);
+            } catch (err) {
+                console.log(err);
+            }
+        };
 
-    const handleBlocked = async () => {
-        try {
-            const res = await follows("blocking", user._id, dataRef.current._id);
-            setBlock(res.status)
-            return
-        } catch (err) {
-            console.log(err);
+        if (auth.userName) {
+            handleBlocked();
         }
-    }
+    }, [auth, user]);
 
-    if (username === auth.userName && dataRef.current?.userName) {
+    if (username === auth.userName && user) {
         return (
             <>
                 <Navbar />
                 <div className="container-fluid profile-page-body">
-                    <ProfileInfo user={dataRef.current} userStatus={false} ifblocked={false} />
+                    <ProfileInfo user={user} userStatus={false} ifblocked={false} />
                     <ProfileBooks username={username} />
                 </div>
             </>
         );
-    } else if (username !== auth.userName && dataRef.current?.userName) {
-        handleBlocked()
+    } else if (username !== auth.userName && user) {
         if (!block || !auth.userName) {
             return (
                 <>
                     <Navbar />
                     <div className="container-fluid profile-page-body">
-                        <ProfileInfo visit={user} user={dataRef.current} userStatus={true} ifblocked={false} />
+                        <ProfileInfo visit={user} user={user} userStatus={true} ifblocked={false} />
                         <ProfileBooks username={username} />
-                    </div></>
+                    </div>
+                </>
             );
         } else {
             return (
                 <>
                     <Navbar />
-                    < div className="container-fluid profile-page-body" >
-                        <ProfileInfo visit={user} user={dataRef.current} userStatus={true} ifblocked={true} />
-                    </ div>
+                    <div className="container-fluid profile-page-body">
+                        <ProfileInfo visit={user} user={user} userStatus={true} ifblocked={true} />
+                    </div>
                 </>
             )
         }
     } else {
-        navigate('*')
+        navigate('*');
         return null;
     }
 };

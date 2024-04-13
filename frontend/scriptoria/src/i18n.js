@@ -13,13 +13,28 @@ i18n
     debug: true,
     fallbackLng: 'en',
     detection: {
-      order: ['path', 'cookie', 'htmlTag'],
-
+      order: ['cookie', 'path', 'htmlTag'],
     },
+    backend: {
+      loadPath: '/locales/{{lng}}/{{ns}}.json',
+    },
+    saveMissing: true,
+    interpolation: {
+      format: (value, format, lng) => {
+        if (format === 'DATE_LONG') {
+          return DateTime.fromJSDate(value)
+            .setLocale(lng)
+            .toLocaleString(DateTime.DATE_HUGE);
+        }
+        return value;
+      },
+    },
+    react: {
+      bindI18n: 'languageChanged',
+      bindStore: 'added removed',
+      nsMode: 'fallback',
+    },
+    saveState: true,
   });
-
-i18n.services.formatter.add('DATE_LONG', (value, lng, _options) => {
-  return DateTime.fromJSDate(value).setLocale(lng).toLocaleString(DateTime.DATE_HUGE)
-});
 
 export default i18n;
