@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import Cookies from "js-cookie";
 import {
   getReadingLists,
   createReadingList,
@@ -8,19 +7,21 @@ import {
 import { toast } from 'react-hot-toast'
 import { useTranslation } from 'react-i18next';
 import "./Lists.css";
+import useAuth from "../../../hooks/useAuth";
 
 
 const Lists = ({ storyId }) => {
+  const { auth } = useAuth();
   const { t } = useTranslation()
-  
+
   const [signedIn, setSignedIn] = useState(false);
   const [lists, setLists] = useState([]);
   const [checkedLists, setCheckedValues] = useState([]);
-  const token = Cookies.get("token");
+  const token = auth.token;
 
   useEffect(() => {
     const fetchData = async () => {
-      const user = Cookies.get("userInfo");
+      const user = auth.userName;
       if (user) {
         setSignedIn(true);
         const readingLists = await getReadingLists(token);

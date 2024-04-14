@@ -1,0 +1,160 @@
+{
+    "Navbar": {
+        "search": "खोजें",
+        "home": "होम",
+        "browse": "ब्राउज़ करें",
+        "teamMembers": "टीम सदस्य",
+        "add_a_story": "कहानी जोड़ें",
+        "signIn": "साइन इन करें",
+        "signUp": "साइन अप करें",
+        "profile": "प्रोफ़ाइल",
+        "settings": "सेटिंग्स",
+        "logout": "लॉग आउट",
+        "arabic": "العربية",
+        "english": "English",
+        "mandarin": "Mandarin",
+        "hindi": "Hindi",
+        "spanish": "Spanish",
+        "french": "French"
+    },
+    "BookShelf": {
+        "see_all_works": "सभी काम देखें",
+        "all_reading_list": "सभी पढ़ने की सूची",
+        "works": "काम",
+        "reading_list": "पढ़ने की सूची"
+    },
+    "CarouselCards": {
+        "read_the_book": "किताब पढ़ें"
+    },
+    "DiscoverTable": {
+        "all_genres": "सभी शैलियाँ",
+        "action": "क्रिया",
+        "horror": "भय",
+        "romance": "रोमांस"
+    },
+    "ErrorPage": {
+        "page_was_not_found": "पृष्ठ नहीं मिला"
+    },
+    "Footer": {
+        "product": "उत्पाद",
+        "features": "विशेषताएँ",
+        "copy_Rights": "कॉपीराइट",
+        "resources": "संसाधन",
+        "blog": "ब्लॉग",
+        "user_guides": "उपयोगकर्ता गाइड",
+        "community": "समुदाय",
+        "developers": "डेवलपर्स",
+        "users": "उपयोगकर्ता",
+        "company": "कंपनी",
+        "about": "के बारे में",
+        "join_us": "हमारे साथ जुड़ें",
+        "support": "सहायता",
+        "help_center": "सहायता केंद्र",
+        "chat_support": "चैट समर्थन"
+    },
+    "FriendsList": {
+        "friends_List": "सुझाई गई दोस्त",
+        "show_More": "और दिखाएं"
+    },
+    "GettingEmail": {
+        "InputError_valid_email": "कृपया एक मान्य ईमेल पता दर्ज करें",
+        "InputError_not_exsist": "हमारी वेबसाइट पर इस ईमेल के साथ कोई खाता नहीं है",
+        "cardType": "खाता पुनर्प्राप्ति",
+        "text": "अपना पासवर्ड रीसेट करने के लिए कृपया अपना ईमेल पता दर्ज करें ताकि हम आपको एक सत्यापन कोड भेज सकें",
+        "buttonTitle": "कोड प्राप्त करें",
+        "inputPlaceholder": "ईमेल"
+    },
+    "EmailVerifing": {
+        "InputError": "अमान्य कोड",
+        "cardType": "खाता पुनर्प्राप्ति",
+        "text": "कृपया उस कोड को दर्ज करें जो आपके ईमेल पर भेजा गया था",
+        "inputPlaceholder": "सत्यापन कोड",
+        "buttonTitle": "मेरा कोड सत्यापित करें",
+        "buttonTitle2": "एक कोड पुनः भेजें"
+    },
+    "ResetPassword": {
+        "InputError_password_criteria": "पासवर्ड कम से कम 6 वर्ण लंबा होना चाहिए, कम से कम एक बड़ा अक्षर होना चाहिए, कम से कम एक छोटा अक्षर होना चाहिए और कम से कम एक संख्या होनी चाहिए",
+        "InputError_confirm_password": "कृपया सुनिश्चित करें कि पासवर्ड और पासवर्ड की पुष्टि मेल खाती है",
+        "cardType": "अपना पासवर्ड रीसेट करें",
+        "text": "कृपया एक मजबूत पासवर्ड चुनें",
+        "inputPlaceholder": "पासवर्ड",
+        "buttonTitle": "नया पासवर्ड सहेजें"
+    },
+    "ProfileInfo": {
+        "hello": "नमस्ते, मैं हूँ",
+        "about": "मेरे बारे में",
+        "followers": "अनुयायी",
+        "works": "काम",
+        "following": "फ़ॉलो करना",
+        "settings": "सेटिंग्स",
+        "edit": "संपादित करें",
+        "follow": "फॉलो करें",
+        "unfollow": "अनफॉलो करें",
+        "message": "संदेश",
+        "Unblock": "अवरोध हटाएं"
+    },
+    "Settings": {
+        "settings": "सेटिंग्स",
+        "terms": "उपयोग की शर्तें",
+        "help": "मदद चाहिए?",
+        "q": "यदि आपके पास कोई सवाल या समस्या है, तो कृपया हमसे संपर्क करने से न हिचकें।",
+        "sendEmail": "ईमेल भेजें",
+        "privacy": "गोपनीयता",
+        "user_Info": "उपयोगकर्ता जानकारी",
+        "security": "सुरक्षा",
+        "support": "समर्थन",
+        "user_Information": "उपयोगकर्ता जानकारी",
+        "user_name": "उपयोगकर्ता नाम",
+        "display_name": "प्रदर्शन नाम",
+        "gender": "लिंग",
+        "county": "देश",
+        "desPlaceholder": "यहाँ अपना विवरण लिखें...",
+        "mail": "ईमेल",
+        "edit": "संपादित करें",
+        "password": "पासवर्ड",
+        "save": "सहेजें",
+        "description": "विवरण"
+    },
+    "StoryCard": {
+        "show_more": "और दिखाएं"
+    },
+    "StoryDetails": {
+        "title": "शीर्षक",
+        "number": "स्लाइड की संख्या",
+        "description": "विवरण (300 शब्द अधिकतम)",
+        "characters": "मुख्य पात्र",
+        "background": "पृष्ठभूमि रंग:",
+        "cancel": "रद्द करें",
+        "start": "शुरू करें",
+        "add_cover": "कवर जोड़ें",
+        "category": "श्रेणी",
+        "select": "एक/एक से अधिक चुनें",
+        "Target": "लक्ष्य दर्शक",
+        "select_one": "एक चुनें",
+        "language": "भाषा",
+        "name": "नाम",
+        "untitled": "अभिनव"
+    },
+    "Logout": {
+        "text1": "आप सफलतापूर्वक लॉग आउट हो गए हैं।",
+        "text2": "होम पेज पर वापस जाने के लिए यहाँ क्लिक करें।"
+    },
+    "Comments": {
+        "Comments": "टिप्पणियाँ",
+        "Reply": "जवाब दें",
+        "edit": "संपादित करें",
+        "delete": "हटाएं",
+        "save": "सहेजें",
+        "cancel": "रद्द करें"
+    },
+    "SaveTo": {
+        "SaveTo": "कहानी को बचाओ...",
+        "createNewList": "नई सूची बनाएं",
+        "save": "सहेजें",
+        "create": "नई पढ़ने की सूची बनाएं",
+        "Name": "नाम",
+        "createAndSave": "बनाएं और सहेजें",
+        "cancel": "रद्द करें",
+        "addToReadingList": "पढ़ने की सूची में जोड़ें"
+    }
+}
