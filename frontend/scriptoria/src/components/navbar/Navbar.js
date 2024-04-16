@@ -152,7 +152,7 @@ const Navbar = () => {
                                     hasAccount.token ? <><Link type="button" className="addstory btn btn-outline-dark rounded-5 m-2" to={`/StoryDetails`}>
                                         {t("Navbar.add_a_story")}
                                     </Link>
-                                        <NavHomeButton iclassName="bi bi-translate" className="navbar-button" buttonClassName="btn btn rounded-5 m-2" isDropDown={true} accountDropDown={languageDropDown} />
+                                        <NavHomeButton iclassName="bi bi-globe2" className="navbar-button" buttonClassName="btn btn rounded-5 m-2" isDropDown={true} accountDropDown={languageDropDown} />
                                         <NavHomeButton iclassName="bi bi-inbox" className="navbar-button" buttonClassName="btn btn rounded-5 m-2" method={noHandel} />
                                         <NavHomeButton iclassName="bi bi-bell" className="navbar-button" buttonClassName="btn btn rounded-5 m-2" method={noHandel} />
                                         <NavHomeButton iclassName="bi bi-person-circle" className="navbar-button" buttonClassName="btn btn rounded-5 m-2" isDropDown={true} accountDropDown={accountDropDown} />

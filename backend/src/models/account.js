@@ -30,7 +30,6 @@ const accountSchema = new mongoose.Schema({
         trim: true,
         lowercase: true
     },
-
     dateOfBirth: {
         type: Date,
         required: true,

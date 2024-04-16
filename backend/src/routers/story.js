@@ -96,7 +96,6 @@ router.get("/search/:criteria", async (req, res) => {
     }
 })
 
-
 router.get('/stories/:id', async (req, res) => {
     const _id = req.params.id
 
