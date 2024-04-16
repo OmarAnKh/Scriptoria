@@ -21,7 +21,7 @@ import LogedOut from './components/loged-out/LogedOut.js'
 import Layout from './components/layout/Layout.js';
 import PersistLogin from './components/persist-login/PersistLogin.js';
 import RequireAuth from './components/require-auth/RequireAuth.js';
-
+import ListsPage from './components/reading-lists-page/ListsPage.js';
 
 
 function App() {
@@ -52,6 +52,7 @@ function App() {
               <Route path='WritingPage' element={<WritingPage />} />
               <Route path='StoryDetails' element={<StoryDetails />} />
               <Route path='settings/:id' element={<Settings />} />
+              <Route path='readingLists' element={<ListsPage/>}/>
             </Route>
           </Route>
           {/*catch all*/}

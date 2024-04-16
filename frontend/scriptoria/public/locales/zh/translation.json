@@ -139,22 +139,32 @@
         "text1": "您已成功登出。",
         "text2": "点击此处返回主页。"
     },
-    "Comments": {
-        "Comments": "评论",
-        "Reply": "回复",
-        "edit": "编辑",
-        "delete": "删除",
-        "save": "保存",
-        "cancel": "取消"
+    "Comments" : {
+        "Comments" : "评论",
+        "Reply" : "回复",
+        "edit" : "编辑",
+        "delete" : "删除",
+        "save" : "保存",
+        "cancel" : "取消",
+        "no-comments" : "成为第一个评论此故事的人",
+        "write-something" : "写点什么..."
     },
-    "SaveTo": {
-        "SaveTo": "保存至...",
-        "createNewList": "创建新列表",
-        "save": "保存",
-        "create": "创建新的阅读列表",
-        "Name": "名称",
-        "createAndSave": "创建并保存",
-        "cancel": "取消",
-        "addToReadingList": "添加到阅读列表"
-    }
+    "SaveTo" : {
+        "save-to" : "保存故事到...",
+        "create-a-new-list" : "创建新列表",
+        "save" : "保存",
+        "create-reading-list-popop" : "创建新阅读列表",
+        "Name" : "名称",
+        "create-and-save" : "创建并保存",
+        "cancel" : "取消",
+        "add-to-reading-list" : "添加到阅读列表"
+    },
+    "Rate" : {
+        "msg1" : "评价此故事",
+        "msg2" : "你已经评价了此故事",
+        "header" : "评价",
+        "save" : "保存",
+        "update" : "更新",
+        "cancel" : "取消"
+    }    
 }

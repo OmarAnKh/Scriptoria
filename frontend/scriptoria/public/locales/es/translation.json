@@ -139,22 +139,32 @@
         "text1": "Has cerrado sesión exitosamente.",
         "text2": "Haz clic aquí para volver a la página de inicio."
     },
-    "Comments": {
-        "Comments": "Comentarios",
-        "Reply": "responder",
-        "edit": "editar",
-        "delete": "eliminar",
-        "save": "guardar",
-        "cancel": "cancelar"
+    "Comments" : {
+        "Comments" : "Comentarios",
+        "Reply" : "Responder",
+        "edit" : "Editar",
+        "delete" : "Eliminar",
+        "save" : "Guardar",
+        "cancel" : "Cancelar",
+        "no-comments" : "Sé el primero en comentar esta historia",
+        "write-something" : "Escribe algo..."
     },
-    "SaveTo": {
-        "SaveTo": "guardar historia en...",
-        "createNewList": "crear una nueva lista",
-        "save": "guardar",
-        "create": "crear una nueva lista de lectura",
-        "Name": "nombre",
-        "createAndSave": "crear y guardar",
-        "cancel": "cancelar",
-        "addToReadingList": "agregar a lista de lectura"
-    }
+    "SaveTo" : {
+        "save-to" : "Guardar historia en...",
+        "create-a-new-list" : "Crear una nueva lista",
+        "save" : "Guardar",
+        "create-reading-list-popop" : "Crear una nueva lista de lectura",
+        "Name" : "Nombre",
+        "create-and-save" : "Crear y guardar",
+        "cancel" : "Cancelar",
+        "add-to-reading-list" : "Agregar a la lista de lectura"
+    },
+    "Rate" : {
+        "msg1" : "Evaluar esta historia",
+        "msg2" : "Has calificado esta historia ",
+        "header" : "Calificar",
+        "save" : "Guardar",
+        "update" : "Actualizar",
+        "cancel" : "Cancelar"
+    }    
 }
