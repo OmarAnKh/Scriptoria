@@ -1,225 +1,222 @@
-Variables
-:root {
-    --bg-color: #E6E5E1;
-    --shdow-gray: #d3d3d5;
-    --orange: #DA4D1D;
-    --blue: #2b26c3;
-    --img-url: "https://images.unsplash.com/photo-1525543907410-b2562b6796d6?ixlib=rb-0.3.5&s=9ff8e5e718a6a40cbd0e1471235912f4&auto=format&fit=crop&w=3452&q=80";
-    --img-url2: "https://images.unsplash.com/photo-1528785198459-ec50485704c7?ixlib=rb-0.3.5&s=3a2fc3039516555bbb2e9cd2967bd321&auto=format&fit=crop&w=1537&q=80";
-  }
-  
-  /* Reset */
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
-  /* General styles */
-  i {
-    opacity: 0;
-    font-size: 18px;
-    color: #fff;
-    will-change: transform;
-    -webkit-transform: scale(0.1);
-    transform: scale(0.1);
-    -webkit-transition: all 0.2s ease;
-    transition: all 0.2s ease;
-  }
-  
-  h2 {
+Variables :root {
+  --bg-color: #e6e5e1;
+  --shdow-gray: #d3d3d5;
+  --orange: #da4d1d;
+  --blue: #2b26c3;
+  --img-url: "https://images.unsplash.com/photo-1525543907410-b2562b6796d6?ixlib=rb-0.3.5&s=9ff8e5e718a6a40cbd0e1471235912f4&auto=format&fit=crop&w=3452&q=80";
+  --img-url2: "https://images.unsplash.com/photo-1528785198459-ec50485704c7?ixlib=rb-0.3.5&s=3a2fc3039516555bbb2e9cd2967bd321&auto=format&fit=crop&w=1537&q=80";
+}
+
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* General styles */
+i {
+  opacity: 0;
+  font-size: 18px;
+  color: #fff;
+  will-change: transform;
+  -webkit-transform: scale(0.1);
+  transform: scale(0.1);
+  -webkit-transition: all 0.2s ease;
+  transition: all 0.2s ease;
+}
+
+/* h2 {
     pointer-events: none;
-  }
-  
-  body {
+  } */
+
+/* body {
     background-color: var(--bg-color);
     width: 100vw;
     height: 100vh;
-  }
-  
-  .container {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-  }
-  
-  /* Card styles */
-  .card {
-    position: relative;
-    width: 500px;
-    height: 200px;
-    background-color: #fff;
-    overflow: hidden;
-    margin-bottom: 4px;
-  }
-  
-  .card:before,
-  .card:after {
-    content: "";
-    z-index: 99;
-    position: absolute;
-    top: -10px;
-    left: 32px;
-    display: block;
-    width: 16px;
-    height: 16px;
-    border-radius: 16px;
-    background-color: var(--bg-color);
-  }
-  
-  .card:after {
-    bottom: -10px;
-  }
-  
-  .card ul {
-    z-index: 99;
-    position: absolute;
-    left: 39px;
-    top: 5px;
-    list-style-type: none;
-  }
-  
-  .card ul li {
-    width: 2px;
-    height: 2px;
-    border-radius: 2px;
-    margin: 6px 0;
-    background-color: var(--bg-color);
-  }
-  
-  .card h2 {
-    z-index: 99;
-    font-family: "Poppins", sans-serif;
-    position: absolute;
-    bottom: 0;
-    right: 130px;
-    font-size: 60px;
-    font-weight: 700;
-    color: #fff;
-  }
-  
-  .card .fa-arrow-right {
-    z-index: 100;
-    position: absolute;
-    right: 75px;
-    bottom: 25px;
-    font-size: 40px;
-    cursor: pointer;
-  }
-  
-  .card p {
-    z-index: 99;
-    position: absolute;
-    top: 20px;
-    right: 70px;
-    color: #333;
-    opacity: 0.7;
-    font-size: 12px;
-    letter-spacing: 1px;
-    writing-mode: vertical-lr;
-    -webkit-transition: all 0.2s ease;
-    transition: all 0.2s ease;
-  }
-  
-  .pic {
-    z-index: 100;
-    width: 400px;
-    height: 200px;
-    filter: grayscale(100%);
-  }
-  
-  
-  .card .social {
-    position: absolute;
-    left: 60px;
-    top: 0;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-pack: distribute;
-    justify-content: space-around;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
-    width: 180px;
-    height: 64px;
-    border-radius: 80px;
-  }
-  
-  .card .social i:nth-of-type(1) {
-    -webkit-transition-delay: 0.4s;
-    transition-delay: 0.4s;
-  }
-  
-  .card .social i:nth-of-type(2) {
-    -webkit-transition-delay: 0.3s;
-    transition-delay: 0.3s;
-  }
-  
-  .card .social i:nth-of-type(3) {
-    -webkit-transition-delay: 0.2s;
-    transition-delay: 0.2s;
-  }
-  
-  .card .social i:nth-of-type(4) {
-    -webkit-transition-delay: 0.1s;
-    transition-delay: 0.1s;
-  }
-  
-  .card:hover i {
-    opacity: 1;
-    -webkit-transform: scale(1);
-    transform: scale(1);
-  }
-  
-  .card button {
-    position: absolute;
-    right: 14px;
-    bottom: 14px;
-    width: 30px;
-    height: 30px;
-    background-color: var(--orange);
-    border: none;
-    border-radius: 30px;
-    cursor: pointer;
-    outline: none;
-    transition: all 0.3s ease;
-    mix-blend-mode: hard-light;
-  }
-  
-  .card button i {
-    font-size: 3rem;
-  }
-  
-  .card:hover button {
-    transform: scale(16.5);
-  }
-  
-  .card:hover p {
-    color: #fff;
-  }
-  
-  .card:hover .pic {
-    filter: grayscale(0);
-  }
-  
-  /* Second card styles */
-  /* .card2 .pic {
+  } */
+
+.list-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+/* Card styles */
+.list-card {
+  position: relative;
+  width: 500px;
+  height: 200px;
+  background-color: #fff;
+  overflow: hidden;
+  margin-bottom: 4px;
+}
+
+.list-card:before,
+.list-card:after {
+  content: "";
+  z-index: 99;
+  position: absolute;
+  top: -10px;
+  left: 32px;
+  display: block;
+  width: 16px;
+  height: 16px;
+  border-radius: 16px;
+  background-color: var(--bg-color);
+}
+
+.list-card:after {
+  bottom: -10px;
+}
+
+.list-card ul {
+  z-index: 99;
+  position: absolute;
+  left: 39px;
+  top: 5px;
+  list-style-type: none;
+}
+
+.list-card ul li {
+  width: 2px;
+  height: 2px;
+  border-radius: 2px;
+  margin: 6px 0;
+  background-color: var(--bg-color);
+}
+
+.list-card h2 {
+  z-index: 99;
+  font-family: "Poppins", sans-serif;
+  position: absolute;
+  bottom: 0;
+  right: 130px;
+  font-size: 60px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.list-card .fa-arrow-right {
+  z-index: 100;
+  position: absolute;
+  right: 75px;
+  bottom: 25px;
+  font-size: 40px;
+  cursor: pointer;
+}
+
+.list-card p {
+  z-index: 99;
+  position: absolute;
+  top: 20px;
+  right: 70px;
+  color: #333;
+  opacity: 0.7;
+  font-size: 12px;
+  letter-spacing: 1px;
+  writing-mode: vertical-lr;
+  -webkit-transition: all 0.2s ease;
+  transition: all 0.2s ease;
+}
+
+.list-pic {
+  z-index: 100;
+  width: 400px;
+  height: 200px;
+  filter: grayscale(100%);
+}
+
+.list-card .social {
+  position: absolute;
+  left: 60px;
+  top: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+  justify-content: space-around;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  width: 180px;
+  height: 64px;
+  border-radius: 80px;
+}
+
+.list-card .social i:nth-of-type(1) {
+  -webkit-transition-delay: 0.4s;
+  transition-delay: 0.4s;
+}
+
+.list-card .social i:nth-of-type(2) {
+  -webkit-transition-delay: 0.3s;
+  transition-delay: 0.3s;
+}
+
+.list-card .social i:nth-of-type(3) {
+  -webkit-transition-delay: 0.2s;
+  transition-delay: 0.2s;
+}
+
+.list-card .social i:nth-of-type(4) {
+  -webkit-transition-delay: 0.1s;
+  transition-delay: 0.1s;
+}
+
+.list-card:hover i {
+  opacity: 1;
+  -webkit-transform: scale(1);
+  transform: scale(1);
+}
+
+.list-card button {
+  position: absolute;
+  right: 14px;
+  bottom: 14px;
+  width: 30px;
+  height: 30px;
+  background-color: var(--orange);
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.3s ease;
+  mix-blend-mode: hard-light;
+}
+
+.list-card button i {
+  font-size: 3rem;
+}
+
+.list-card:hover button {
+  transform: scale(16.5);
+}
+
+.list-card:hover p {
+  color: #fff;
+}
+
+.list-card:hover .list-pic {
+  filter: grayscale(0);
+}
+
+/* Second list-card styles */
+/* .list-card2 .list-pic {
     background-image: url(var(--img-url2));
   } */
-  
-  .card2 button {
-    background-color: var(--blue);
-  }
-  
-  /* Dribbble link styles */
-  .dr {
-    position: absolute;
-    bottom: 16px;
-    right: 16px;
-    width: 100px;
-  }
-  
+
+.list-card2 button {
+  background-color: var(--blue);
+}
+
+/* Dribbble link styles */
+.dr {
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+  width: 100px;
+}

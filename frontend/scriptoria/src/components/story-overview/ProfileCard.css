@@ -1,140 +1,137 @@
 @font-face {
-    font-family: 'Poppins';
-    src: url('../../fonts/Poppins-Light.ttf') format('truetype');
-    font-weight: bold; 
-    font-style: normal;
+  font-family: "Poppins";
+  src: url("../../fonts/Poppins-Light.ttf") format("truetype");
+  font-weight: bold;
+  font-style: normal;
 }
 
 @font-face {
-    font-family: 'Lilita One';
-    src: url('../../fonts/Righteous-Regular.ttf') format('truetype');
-    font-weight: bold; 
-    font-style: normal;
+  font-family: "Lilita One";
+  src: url("../../fonts/Righteous-Regular.ttf") format("truetype");
+  font-weight: bold;
+  font-style: normal;
 }
 
 .btnfollowandviewprofile {
-    background-color: #aab1b8; 
-    border: none;
-    margin-right: 5px; 
-    margin-left: 5px; 
-    height: 25px;
-    width: 120px;
-    display: inline-flex; 
-    align-items: center;
-    justify-content: center; 
-    text-align: center; 
+  background-color: #aab1b8;
+  border: none;
+  margin-right: 5px;
+  margin-left: 5px;
+  height: 25px;
+  width: 120px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
 
 .btnfollowandviewprofile:hover {
-    background-color: #bac0c5;
+  background-color: #bac0c5;
 }
 
 .profile-username {
-    font-family: 'Lilita One';
-    margin-top: -5px;
-    font-size: small;
+  font-family: "Lilita One";
+  margin-top: -5px;
+  font-size: small;
 }
 .profile-name {
-    font-family: 'Poppins';
-    margin-top: -10px;
-    font-size: medium;
-    text-shadow: 0px 1px 1px #000000;
-    font-weight: bold;
-    
+  font-family: "Poppins";
+  margin-top: -10px;
+  font-size: medium;
+  text-shadow: 0px 1px 1px #000000;
+  font-weight: bold;
 }
 
 .titleFW {
-    font-family: 'Lilita One';
-    margin-top: -8px;
-    font-size: medium;
+  font-family: "Lilita One";
+  margin-top: -8px;
+  font-size: medium;
 }
 .numberFW {
-    font-family: 'Poppins';
-    margin-top: -10px;
-    font-size: small;
-    text-shadow: 0px 1px 1px #000000;
-    font-weight: bold;
+  font-family: "Poppins";
+  margin-top: -10px;
+  font-size: small;
+  text-shadow: 0px 1px 1px #000000;
+  font-weight: bold;
 }
 
 .arabic-textt {
-    text-align: left;
-    direction: rtl;
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
+  text-align: left;
+  direction: rtl;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
 }
 
 .profile-card-container {
-    display: flex;
-    justify-content: flex-end;
-    width: 100%;
-    height: 100%;
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  height: 100%;
 }
 
 .profile-card {
-    width: 350px;
-    height: 400px;
-    margin-right: 20px; 
-    z-index: 100; 
+  width: 350px;
+  height: 400px;
+  margin-right: 20px;
+  z-index: 100;
 }
 .buttonfolowandview {
-    position: absolute;
-    bottom: 20px; 
-    width: 100%;
-    text-align: center;
-    left: 50%;
-    transform: translateX(-50%); 
+  position: absolute;
+  bottom: 20px;
+  width: 100%;
+  text-align: center;
+  left: 50%;
+  transform: translateX(-50%);
 }
 .socilmedia {
-    position: absolute;
-    bottom: 60px; 
-    width: 100%;
-    text-align: center;
-    left: 50%;
-    transform: translateX(-50%); 
-    
+  position: absolute;
+  bottom: 60px;
+  width: 100%;
+  text-align: center;
+  left: 50%;
+  transform: translateX(-50%);
 }
 .socilmedia a.icon i {
-    font-size: 20px; 
-        color: black; 
-    
+  font-size: 20px;
+  color: black;
 }
 .descriptionperson {
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 3; 
-    overflow: hidden;
-    text-overflow: ellipsis; 
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .bi-arrow-bar-left {
-    font-size: 24px;
-    cursor: pointer; 
+  font-size: 24px;
+  cursor: pointer;
 }
 
 @media (max-width: 576px) {
-    .profile-card-container {
-        justify-content: start;
-    }
+  .profile-card-container {
+    justify-content: start;
+  }
 
-    .profile-card-container > * {
-        font-size: x-small; 
-        margin: 1px !important;
-    }
+  .profile-card-container > * {
+    font-size: x-small;
+    margin: 1px !important;
+  }
 
-    .profile-card-container .profile-card-title {
-        display: none;
-    }
+  .profile-card-container .profile-card-title {
+    display: none;
+  }
 
-    .profile-card-container .profile-card-details {
-        display: flex;
-    }
+  .profile-card-container .profile-card-details {
+    display: flex;
+  }
 
-    .profile-card-container .profile-card-description {
-        display: block !important;
-    }
+  .profile-card-container .profile-card-description {
+    display: block !important;
+  }
 
-    .profile-card-container .profile-card-description {
-        margin-right: -5rem;
-    }
+  .profile-card-container .profile-card-description {
+    margin-right: -5rem;
+  }
 }

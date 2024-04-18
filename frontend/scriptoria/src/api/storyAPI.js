@@ -91,5 +91,6 @@ export {
     story,
     writerStory,
     findStory,
-    getStory
+    getStory,
+    getstory
 }

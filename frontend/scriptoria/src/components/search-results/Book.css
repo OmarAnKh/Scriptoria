@@ -21,7 +21,6 @@
   animation: 1s ease 0s 1 initAnimation;
 }
 
-
 .Searchbook:hover {
   transform: rotate(0deg);
 }
@@ -36,7 +35,7 @@
   }
 }
 
-.Searchbook> :first-child {
+.Searchbook > :first-child {
   object-fit: fill;
   background: #0d47a1aa;
   width: inherit;
@@ -52,7 +51,8 @@
   width: 50px;
   top: 3px;
   position: absolute;
-  transform: translateX(calc(200px - 50px / 2 - 55px)) rotateY(90deg) translateX(calc(50px / 2));
+  transform: translateX(calc(200px - 50px / 2 - 55px)) rotateY(90deg)
+    translateX(calc(50px / 2));
   text-align: center;
   color: #000;
   font-size: xx-large;
@@ -65,7 +65,7 @@
 }
 
 .Searchbook::after {
-  content: ' ';
+  content: " ";
   position: absolute;
   left: 0;
   width: inherit;
@@ -76,4 +76,3 @@
   transform: translateZ(-50px);
   box-shadow: -10px 0 50px 10px #666;
 }
-

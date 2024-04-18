@@ -2,24 +2,18 @@
   text-align: center;
   padding-right: 100px;
   background-color: #a9c8fc;
-
 }
 
 .languege {
   margin-top: 24px;
 }
 
-
 .story {
   font-weight: bold;
   border-radius: 10px;
   background: #e0e0e0;
-  box-shadow: -5px 5px 0px #bebebe,
-    5px -5px 0px #ffffff;
-
-
+  box-shadow: -5px 5px 0px #bebebe, 5px -5px 0px #ffffff;
 }
-
 
 .button1 {
   background-color: rgb(85, 239, 85);
@@ -42,24 +36,19 @@
   border-radius: 10px;
 }
 
-
 .back {
   margin-top: 50px;
   margin-left: 30px;
-
 }
 
 .Add-cover {
   margin-top: 40px;
   border-radius: 10px;
   background: #e0e0e0;
-  box-shadow: -5px 5px 0px #bebebe,
-    5px -5px 0px #ffffff;
-
+  box-shadow: -5px 5px 0px #bebebe, 5px -5px 0px #ffffff;
 }
 
 .displayDivInCategory {
-
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -91,7 +80,6 @@
   object-fit: cover;
 }
 
-
 .title {
   margin-top: 23px;
   margin-bottom: 20px;
@@ -120,7 +108,6 @@
   float: left;
 }
 
-
 .textarea-full-width {
   width: 82%;
 }
@@ -138,10 +125,8 @@
   margin-right: 160px;
 }
 
-
 .displayDiv {
   display: block;
-
 }
 
 .pInBorder {
@@ -156,12 +141,11 @@
   margin-left: 10px;
 }
 
-.borderContainer {
+.bordercontainer {
   display: flex;
   justify-content: space-between;
   align-items: center;
   border: 3px solid #96949498;
   width: 150px;
   border-radius: 5px;
-
 }
