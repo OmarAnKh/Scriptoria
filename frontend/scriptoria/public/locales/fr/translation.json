@@ -139,32 +139,22 @@
         "text1": "Vous avez été déconnecté avec succès.",
         "text2": "Cliquez ici pour retourner à la page d'accueil."
     },
-    "Comments" : {
-        "Comments" : "Commentaires",
-        "Reply" : "répondre",
-        "edit" : "modifier",
-        "delete" : "supprimer",
-        "save" : "enregistrer",
-        "cancel" : "annuler",
-        "no-comments" : "soyez le premier à commenter cette histoire",
-        "write-something" : "écrire quelque chose..."
-        },
-        "SaveTo" : {
-        "save-to" : "enregistrer l'histoire dans...",
-        "create-a-new-list" : "créer une nouvelle liste",
-        "save" : "enregistrer",
-        "create-reading-list-popop" : "créer une nouvelle liste de lecture",
-        "Name" : "nom",
-        "create-and-save" : "créer et enregistrer",
-        "cancel" : "annuler",
-        "add-to-reading-list" : "ajouter à la liste de lecture"
-        },
-        "Rate" : {
-        "msg1" : "Évaluer cette histoire",
-        "msg2" : "Vous avez évalué cette histoire ",
-        "header" : "Évaluer",
-        "save" : "enregistrer",
-        "update" : "mettre à jour",
-        "cancel" : "annuler"
-        }
+    "Comments": {
+        "Comments": "Commentaires",
+        "Reply": "Répondre",
+        "edit": "Modifier",
+        "delete": "Supprimer",
+        "save": "Enregistrer",
+        "cancel": "Annuler"
+    },
+    "SaveTo": {
+        "SaveTo": "Enregistrer l'histoire dans...",
+        "createNewList": "Créer une nouvelle liste",
+        "save": "Enregistrer",
+        "create": "Créer une nouvelle liste de lecture",
+        "Name": "Nom",
+        "createAndSave": "Créer et enregistrer",
+        "cancel": "Annuler",
+        "addToReadingList": "Ajouter à la liste de lecture"
+    }
 }

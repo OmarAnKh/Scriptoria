@@ -22,7 +22,7 @@ import StoryCard from "./components/story-overview/StoryPage.js"
 import Layout from './components/layout/Layout.js';
 import PersistLogin from './components/persist-login/PersistLogin.js';
 import RequireAuth from './components/require-auth/RequireAuth.js';
-import ListsPage from './components/reading-lists-page/ListsPage.js';
+
 
 function App() {
 
@@ -48,10 +48,10 @@ function App() {
             <Route path='book' element={<BookToDisplay />} />
             <Route path='stories/:id' element={<StoryHeader />} />
             <Route path='settings/:id' element={<Settings />} />
-            <Route path='readingLists' element={<ListsPage/>}/>
             <Route element={<RequireAuth />}>
               <Route path='WritingPage' element={<WritingPage />} />
               <Route path='StoryDetails' element={<StoryDetails />} />
+              <Route path='settings/:id' element={<Settings />} />
             </Route>
           </Route>
           {/*catch all*/}

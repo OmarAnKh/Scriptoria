@@ -5,7 +5,7 @@ import Icons from './icons/Icons';
 import { useParams } from 'react-router-dom';
 import { Buffer } from 'buffer';
 import { getStory } from '../../api/storyAPI';
-import Navbar from './../navbar/Navbar.js'
+
 
 const StoryHeader = () => {
 
@@ -67,8 +67,6 @@ const StoryHeader = () => {
 
 
     return (
-        <>
-        <Navbar/>
         <div className="col-lg-12 details-card" style={{ background: `linear-gradient(to bottom, ${data.backgroundColor}, white)` }}>
             <div className="row g-0">
                 <div className="col-md-2">
@@ -111,7 +109,6 @@ const StoryHeader = () => {
                 </div>
             </div>
         </div>
-        </>
     );
 }
 

@@ -95,7 +95,7 @@ const Comment = ({
         <div className="col">
           <Link
             to={`/profile/${account.userName}`}
-            className="fw-bold profile-link"
+            className="fw-bold h6 small profile-link"
             onClick={handleCloseModal}
           >
             {account.displayName}
@@ -138,7 +138,7 @@ const Comment = ({
           <>
             <div className="row py-2">
               <textarea
-                className="form-control"
+                className="form-control fs-xs"
                 id="edit-comment"
                 placeholder="write something..."
                 value={editedText}
@@ -172,8 +172,8 @@ const Comment = ({
           </>
         ) : (
           <>
-            <div className="fw-normal  comment-text">{text}</div>
-            <div className="row  w-100 text-center justify-content-between">
+            <div className="fw-normal small h6  comment-text">{text}</div>
+            <div className="row small w-100 text-center justify-content-between">
               <div className="col-8 col-sm-4 row">
                 <div className="col-4 time-passed text-muted">
                   <small>{time}</small>
