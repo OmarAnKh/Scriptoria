@@ -80,8 +80,6 @@ const ProfileInfo = (props) => {
 
             const account = props.visit;
             const followId = props.user;
-            console.log(account, 10)
-            console.log(followId, 20)
             setUser(account);
             setFollow_id(followId);
 

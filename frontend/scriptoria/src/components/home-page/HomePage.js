@@ -23,7 +23,6 @@ const HomePage = () => {
         <>
             <Navbar />
             <CarouselCards />
-            <DiscoverTable />
             <StoryCard />
             <Footer />
         </>
