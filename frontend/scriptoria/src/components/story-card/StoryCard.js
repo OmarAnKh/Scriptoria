@@ -1,98 +1,71 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './StoryCard.css'
 import StarRating from '../star-rating/StarRating';
 import { useTranslation } from 'react-i18next';
-import DiscoverTable from '../discover-tab/DiscoverTable';
-const StoryCard = () => {
+import { Buffer } from 'buffer';
+
+const StoryCard = ({selectedTab}) => {
     const { t } = useTranslation()
     const [visiblestory, setVisiblestory] = useState(3);
     const loadMoreCards = () => {
         setVisiblestory((prevCount) => prevCount + 3);
     };
-    const storyData = [
-        {
-            id: 1,
-            title: 'superman',
-            author: 'by name ',
-            image: 'https://i.pinimg.com/originals/b2/19/21/b2192115221557ec63aaefdcd1e64c4a.jpg',
-            description: 'Superman: Chronicles the transformation of Clark Kent into the iconic superhero, highlighting his origin and unwavering commitment to justice.',
-            voters: 850,
-            rating: 2,
-            color: " bg-warning"
-        },
-        {
-            id: 2,
-            title: 'Batman',
-            author: 'by name ',
-            image: 'https://imgix-media.wbdndc.net/ingest/book/preview/510d37e5-c2b6-4430-94c8-ea1aebd8fc2d/affa926f-7434-449d-ad14-0ab0a757b68a/0.jpg',
-            description: 'Batman: Follow Bruce Wayne s evolution into the Dark Knight as he battles crime in Gotham.',
-            voters: 850,
-            rating: 3.5,
-            color: "bg-secondary "
-        },
-        {
-            id: 3,
-            title: 'solo leveling',
-            author: 'by name ',
-            image: 'https://images-na.ssl-images-amazon.com/images/I/31zw0daVfwL._SX331_BO1%2C204%2C203%2C200_.jpg',
-            description: 'Solo Leveling" chronicles Jinwoo s growth as a hunter with a unique power in a monster-filled world, catering to fans of action.',
-            voters: 850,
-            rating: 1.7,
-            color: "bg-dark text-white"
-        },
-        {
-            id: 4,
-            title: 'superman',
-            author: 'by name',
-            image: 'https://m.media-amazon.com/images/I/51bmUW46V-L.jpg',
-            description: 'Superman: Chronicles the transformation of Clark Kent into the iconic superhero, highlighting his origin and unwavering commitment to justice.',
-            voters: 850,
-            rating: 4.8,
-            color: "bg-info"
-        },
-        {
-            id: 5,
-            title: 'Batman',
-            author: 'by name ',
-            image: 'https://imgix-media.wbdndc.net/ingest/book/preview/510d37e5-c2b6-4430-94c8-ea1aebd8fc2d/affa926f-7434-449d-ad14-0ab0a757b68a/0.jpg',
-            description: 'Batman: Follow Bruce Wayne s evolution into the Dark Knight as he battles crime in Gotham, revealing the essence of justice and resilience in the iconic superhero.',
-            voters: 850,
-            rating: 4,
-            color: "bg-secondary "
-        },
-    ];
+    const [storyData, setStoryData] = useState([]);
 
+
+  useEffect(() => {
+    console.log(selectedTab);
+    const fetchStoriesByGenre = async () => {
+      try {
+        const response = await fetch(`/storiesGenre/${selectedTab}`);
+        if (response.ok) {
+            const data = await response.json();
+            console.log( data);
+            setStoryData(data || []);
+        } else {
+          throw new Error('Failed to fetch stories');
+        }
+      } catch (error) {
+        console.error('Error fetching stories:', error);
+      }
+    };
+
+    fetchStoriesByGenre();
+  }, [selectedTab]);
+   
     return (
-        <>
-            <DiscoverTable />
-            <div className=" d-flex flex-wrap" >
-                {storyData.map((story, index) => (
-                    <div key={story.id} className={`col-md-4 mb-3  ${index >= visiblestory ? 'd-none' : ''} my-5`} >
-                        <div className={`card friend-list-card mb-1 ${story.color}`} style={{ width: '95%', height: '100%', margin: '0 10px' }}>
-                            <div className="row no-gutters">
-                                <div className="col-md-4">
-                                    <img src={story.image} alt="story-img" className="card-img" style={{ width: '100%', height: 'auto' }} />
-                                </div>
-                                <div className="col-md-8">
-                                    <div className="card-body">
-                                        <h5 className="card-title story-title text-white">{story.title}</h5>
-                                        <h6 className="author text-white">{story.author}</h6>
-                                        <div className="d-flex ">
-                                            <StarRating rating={story.rating} />
-                                            <div className='voters text-white'>{story.voters}votes</div>
-                                        </div>
-                                        <p className="card-text description-story text-white">{story.description}</p>
+        <div className=" d-flex flex-wrap">
+            {storyData.map((story, index) => (
+                <div key={story.id} className={`col-md-4 mb-3  ${index >= visiblestory ? 'd-none' : ''} my-5`}>
+                    <div className={`card  mb-1`} style={{ width: '95%', height: '100%', margin: '0 10px', minHeight: '200px', backgroundColor: story.story.backgroundColor }}>
+                        <div className="row no-gutters">
+                            <div className="col-md-4">
+                            <img 
+                                src={story.story.coverPhoto?.data ? `data:image/jpeg;base64,${Buffer.from(story.story.coverPhoto.data).toString('base64')}` : ''} 
+                                alt="story-img" 
+                                className="card-img" 
+                                style={{ width: '100%', height: '100%', minHeight: '200px' }}   />
+                            </div>
+                            <div className="col-md-8">
+                                <div className="card-body">
+                                    <h5 className="card-title story-title text-white">{story.story.title}</h5>
+                                    <h6 className="author text-white">{story.accounts[0].displayName}</h6>
+                                    <div className="d-flex">
+                                        <StarRating rating={story.counts.avg} />
+                                        <div className='voters text-white'>{story.counts.rates } votes</div>
                                     </div>
+                                    <p className="card-text description-story text-white">{story.story.description}</p>
                                 </div>
                             </div>
                         </div>
                     </div>
-                ))}
-                {visiblestory < storyData.length && (
-                    <button type="button" className=" btn loadMoreCards-btn " onClick={loadMoreCards} style={{ marginBottom: "3%", marginTop: "3%" }}> {t("StoryCard.show_more")} </button>
-                )}
-            </div></>
+                </div>
+            ))}
+            {visiblestory < storyData.length && (
+                <button type="button" className="btn loadMoreCards-btn" onClick={loadMoreCards} style={{ marginBottom: "3%", marginTop: "3%" }}> {t("StoryCard.show_more")} </button>
+            )}
+        </div>
     );
-
+    
 };
 export default StoryCard;
