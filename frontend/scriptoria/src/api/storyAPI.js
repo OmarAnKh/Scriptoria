@@ -68,7 +68,7 @@ const getStory = async (id, point) => {
         if (response.ok) {
             return response.json()
         }
-        
+
         return response
     } catch (error) {
         console.log(error)
@@ -91,5 +91,6 @@ export {
     story,
     writerStory,
     findStory,
-    getStory
+    getStory,
+    getstory
 }
