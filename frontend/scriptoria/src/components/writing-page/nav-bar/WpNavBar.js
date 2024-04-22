@@ -63,6 +63,7 @@ const WpNavBar = ({ setMode, data, setData }) => {
     }
 
     const res = await findAccount(options)
+    console.log(res)
     if (!res.message) {
       setInvaledEmail("block")
       return

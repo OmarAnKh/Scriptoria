@@ -9,6 +9,7 @@
 .TextEditorSize {
     width: 80%;
     font-family: "Gill Sans", sans-serif;
+    border: none !important;
 }
 
 .TextEditorSize a {

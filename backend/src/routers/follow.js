@@ -4,7 +4,6 @@ const router = express.Router();
 
 router.post("/follow", async (req, res) => {
     const newFollow = new Follow(req.body);
-
     try {
         await newFollow.save();
         res.status(201).send({ status: true })
@@ -29,7 +28,7 @@ router.get("/following/:user/:follow", async (req, res) => {
 router.delete("/unfollow", async (req, res) => {
     try {
         const user = await Follow.findOneAndDelete({ account: req.body.account, follow: req.body.follow })
-        
+
 
         if (user) {
             return res.status(200).send({ status: true })

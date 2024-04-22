@@ -37,6 +37,7 @@ function App() {
           <Route path='EmailVerifing/:email' element={<EmailVerifing />} />
           <Route path='ResetPassword' element={<ResetPassword />} />
           <Route path='logout' element={<LogedOut />} />
+          <Route path='/test/:id' element={<StoryCard />} />
           {/*we want to protect these routes*/}
           <Route element={<PersistLogin />}>
             <Route path='/' element={<HomePage />} />

@@ -58,7 +58,7 @@ const StoryDetails = () => {
     };
 
     const res = await story("story", storyData, auth.token);
-    navigate(`/WritingPage`);
+    navigate(`/WritingPage/${res.story._id}`);
   };
 
   const handleChange = (event) => {

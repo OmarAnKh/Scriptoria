@@ -30,10 +30,7 @@ const PersistLogin = () => {
         } else {
             setIsLoading(false);
         }
-
-        // setTimeout(() => {
-        //     setNewRefreshTone(true);
-        // }, 25000)
+        setNewRefreshTone(true);
 
         return () => {
             isMounted = false;

@@ -1,53 +1,109 @@
-import React from 'react'
-import 'froala-editor/css/froala_style.min.css';
-import 'froala-editor/css/froala_editor.pkgd.min.css';
-import FroalaEditor from 'react-froala-wysiwyg';
-import 'froala-editor/js/plugins/image.min.js'
-import 'froala-editor/js/plugins/edit_in_popup.min.js'
-import 'froala-editor/js/plugins/markdown.min.js'
-import 'froala-editor/js/plugins/save.min.js'
-import 'froala-editor/js/plugins/fullscreen.min.js'
-import 'froala-editor/js/plugins/emoticons.min.js'
-import 'froala-editor/js/plugins/font_size.min.js'
+import { useCallback, useEffect, useState } from "react";
+import Quill from "quill";
+import "quill/dist/quill.snow.css";
+import { io } from "socket.io-client";
+import { useParams } from "react-router-dom";
 import TEInstructions from './TEInstructions';
 
 
-const TextEditor = ({ model, setModel, data, setData }) => {
+const SAVE_INTERVAL_MS = 2000
+const TOOLBAR_OPTIONS = [
+  [{ header: [1, 2, 3, 4, 5, 6, false] }],
+  [{ font: [] }],
+  [{ list: "ordered" }, { list: "bullet" }],
+  ["bold", "italic", "underline"],
+  [{ color: [] }, { background: [] }],
+  [{ script: "sub" }, { script: "super" }],
+  [{ align: [] }],
+  ["image", "blockquote", "code-block"],
+  ["clean"],
+]
 
+export default function TextEditor() {
+  const { id: documentId } = useParams()
+  const [socket, setSocket] = useState()
+  const [quill, setQuill] = useState()
 
+  useEffect(() => {
+    const s = io("http://localhost:5000")
+    setSocket(s)
+
+    return () => {
+      s.disconnect()
+    }
+  }, [])
+
+  useEffect(() => {
+    if (socket == null || quill == null) return
+
+    socket.once("load-document", document => {
+      quill.setContents(document)
+      quill.enable()
+    })
+
+    socket.emit("get-document", documentId)
+  }, [socket, quill, documentId])
+
+  useEffect(() => {
+    if (socket == null || quill == null) return
+
+    const interval = setInterval(() => {
+      socket.emit("save-document", quill.getContents())
+    }, SAVE_INTERVAL_MS)
+
+    return () => {
+      clearInterval(interval)
+    }
+  }, [socket, quill])
+
+  useEffect(() => {
+    if (socket == null || quill == null) return
+
+    const handler = delta => {
+      quill.updateContents(delta)
+    }
+    socket.on("receive-changes", handler)
+
+    return () => {
+      socket.off("receive-changes", handler)
+    }
+  }, [socket, quill])
+
+  useEffect(() => {
+    if (socket == null || quill == null) return
+
+    const handler = (delta, oldDelta, source) => {
+      if (source !== "user") return
+      socket.emit("send-changes", delta)
+    }
+    quill.on("text-change", handler)
+
+    return () => {
+      quill.off("text-change", handler)
+    }
+  }, [socket, quill])
+
+  const wrapperRef = useCallback(wrapper => {
+    if (wrapper == null) return
+
+    wrapper.innerHTML = ""
+    const editor = document.createElement("div")
+    wrapper.append(editor)
+    const q = new Quill(editor, {
+      theme: "snow",
+      modules: { toolbar: TOOLBAR_OPTIONS },
+    })
+    q.disable()
+    q.setText("Loading...")
+    setQuill(q)
+  }, [])
   return (
     <div className=' mb-5'>      <br></br>
       <br></br>
       <TEInstructions />
-      <div className='TextEditorSize container justify-content-center align-items-center' id="hello">
-        <FroalaEditor
-          model={model}
-          onModelChange={(e) => setModel(e)}
-          config={{
-            placeholderText: "write something....",
-            saveInterval: 500,
-            attribution: false,
-            toolbarButtons: ['bold', 'italic', 'underline', 'strikeThrough', 'insertImage', 'fontSize', 'insertHR', 'emoticons', 'fullscreen', 'undo', 'redo'],
-            saveMethod: 'Post',
-            events: {
-              'save.before': function (html) {
-                localStorage.setItem('story', html);
-              },
-              // contentChanged: function(){
-              //   const text = this.html.get();
-              //   setData(text)
-              // },
-            },
-
-          }}
-
-
-        />
-
-
+      <div className='TextEditorSize container justify-content-center align-items-center bg-light p-0 rounded-4 border-none' id="hello">
+        <div ref={wrapperRef} className="" ></div>
       </div>
       <br></br></div>
   )
 }
-
-export default TextEditor
