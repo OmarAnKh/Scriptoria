@@ -2,12 +2,17 @@ import React, { useState, useEffect } from "react";
 import "./ProfileCard.css";
 import { getWriters } from "../../api/writers";
 import { follows, unfollow, followers } from "../../api/follow";
+import useAuth from "../../hooks/useAuth";
+import { findAccount } from "../../api/accountApi";
+import { saveDocument } from "../../api/API's";
 
 const ProfileCard = (props) => {
+  const { auth } = useAuth();
   const [userData, setUserData] = useState([]);
   const [followersData, setFollowersData] = useState(0);
   const [followingData, setFollowingData] = useState(0);
-  const [isFollowing, setIsFollowing] = useState(false); 
+  const [isFollowing, setIsFollowing] = useState(false);
+  const [yourId, setYourId] = useState("")
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -15,8 +20,10 @@ const ProfileCard = (props) => {
         const response = await getWriters(props.storyId);
         setUserData(response.users);
 
-        fetchfollowers(response.users[0]._id); 
-        fetchfollowing(response.users[0]._id); 
+        fetchfollowers(response.users[0].AccountId);
+        fetchfollowing(response.users[0].AccountId);
+        fetchUserAccount();
+        ifIsFollowing();
       } catch (error) {
         console.log(error);
       }
@@ -40,21 +47,39 @@ const ProfileCard = (props) => {
       }
     };
 
+    const fetchUserAccount = async () => {
+      try {
+        const account = await findAccount({ userName: auth.userName });
+        setYourId(account._id);
+      } catch (error) {
+        console.log(error)
+      }
+    }
+
+    const ifIsFollowing = async () => {
+      try {
+        const response = await follows("following", userData[0].AccountId);
+        setIsFollowing(response.status)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+
     fetchUserData();
   }, []);
 
   const handleFollowClick = async () => {
-    const userId = userData[0]._id;
-
+    const userId = userData[0].AccountId;
     try {
       if (isFollowing) {
-        
-        await unfollow("/unfollow", { account: props.loggedInUserId, follow: userId });
+
+        await unfollow("unfollow", { account: yourId, follow: userId });
         setIsFollowing(false);
         setFollowersData(prevCount => prevCount - 1);
       } else {
-        
-        await follows("/follow", { account: props.loggedInUserId, follow: userId });
+
+        // await follows("follow", { account: yourId, follow: userId });
+        await saveDocument("follow", { account: yourId, follow: userId })
         setIsFollowing(true);
         setFollowersData(prevCount => prevCount + 1);
       }
@@ -87,7 +112,7 @@ const ProfileCard = (props) => {
                   />
                   <div className="card-body text-center">
                     <h5 className="card-title profile-name">
-                      
+
                       {user?.userName}
                     </h5>
                     <p className="card-text text-muted profile-username">

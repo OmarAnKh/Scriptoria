@@ -16,7 +16,7 @@ const WpNavBar = ({ setMode, data, setData }) => {
     setMode();
   };
   return (
-<nav className="navbar navbar-expand-lg WpNavBar py-1 fixed-top" id="WpNavBar">
+<nav className="navbar navbar-expand-lg WpNavBar py-1 " id="WpNavBar">
   <div className="container-fluid d-flex justify-content-between">
     <Link to={`/`} className="card-text d-flex align-items-center" target="">
       <img className="logo-size" src={Logo} alt="no"></img>

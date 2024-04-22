@@ -44,7 +44,6 @@ const WritingPage = () => {
           transition: "all 0.3s ease-in",
         }}
       >
-        
         <TextEditor mode={model} setModel={setModel} data={data} setData={setData} />
       </div>
     </div>

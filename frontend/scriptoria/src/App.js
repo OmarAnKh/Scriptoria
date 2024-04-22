@@ -37,6 +37,7 @@ function App() {
           <Route path='EmailVerifing/:email' element={<EmailVerifing />} />
           <Route path='ResetPassword' element={<ResetPassword />} />
           <Route path='logout' element={<LogedOut />} />
+          <Route path='/test/:id' element={<StoryCard />} />
           {/*we want to protect these routes*/}
           <Route element={<PersistLogin />}>
             <Route path='/' element={<HomePage />} />
@@ -47,7 +48,7 @@ function App() {
             <Route path='book' element={<BookToDisplay />} />
             <Route path='stories/:id' element={<StoryHeader />} />
             <Route element={<RequireAuth />}>
-              <Route path='WritingPage' element={<WritingPage />} />
+              <Route path='WritingPage/:id' element={<WritingPage />} />
               <Route path='StoryDetails' element={<StoryDetails />} />
               <Route path='settings/:id' element={<Settings />} />
             </Route>
