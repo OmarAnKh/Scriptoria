@@ -156,5 +156,9 @@
         "createAndSave": "create and save",
         "cancel": "cancel",
         "addToReadingList": "add to reading list"
+    },
+    "ReadingPage": {
+        "like": "LIke",
+        "comment": "Comment"
     }
 }
