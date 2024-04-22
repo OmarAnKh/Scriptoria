@@ -45,6 +45,7 @@ const WpNavBar = ({ setMode, data, setData }) => {
     setInvitedUser(event.target.value)
     setInvitationError('none')
     setInvaledEmail("none")
+    setUserExistError("none")
 
   }
   const invitationHandler = async () => {
@@ -72,7 +73,9 @@ const WpNavBar = ({ setMode, data, setData }) => {
       StoryId: id
     }
     try {
+      console.log(document)
       const writing = await saveDocument('Writer', document)
+      console.log(writing)
       if (writing.status === 400) {
         setUserExistError("block")
       }
