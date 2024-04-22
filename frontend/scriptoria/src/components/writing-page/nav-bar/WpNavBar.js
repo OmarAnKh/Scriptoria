@@ -11,6 +11,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { saveDocument } from "../../../api/API's";
 import { getWriters } from "../../../api/writers";
 import useAuth from "../../../hooks/useAuth";
+import { getstory } from "../../../api/storyAPI";
 
 const WpNavBar = ({ setMode, data, setData }) => {
   const navigate = useNavigate()
@@ -22,16 +23,25 @@ const WpNavBar = ({ setMode, data, setData }) => {
   const [invaledEmail, setInvaledEmail] = useState("none")
 
   useEffect(() => {
-
-    const fetchUsers = async () => {
-      const res = await getWriters(id)
-      const userExists = res.users.some(writer => writer.AccountId === auth?.userInfo._id);
-      if (!userExists) {
+    const ExistStory = async () => {
+      const res = await getstory(id)
+      if (res?.status) {
         navigate('/')
+        return
       }
     }
 
+    const fetchUsers = async () => {
+      const res = await getWriters(id)
+      const userExists = res.users?.some(writer => writer.AccountId === auth?.userInfo._id);
+      if (!userExists) {
+        navigate('/')
+        return
+      }
+    }
+    ExistStory()
     fetchUsers()
+
   }, [])
 
 
@@ -50,7 +60,6 @@ const WpNavBar = ({ setMode, data, setData }) => {
   }
   const invitationHandler = async () => {
     const options = {
-
     }
     if (invitedUser === "") {
       setInvitationError('block')
@@ -73,9 +82,7 @@ const WpNavBar = ({ setMode, data, setData }) => {
       StoryId: id
     }
     try {
-      console.log(document)
       const writing = await saveDocument('Writer', document)
-      console.log(writing)
       if (writing.status === 400) {
         setUserExistError("block")
       }

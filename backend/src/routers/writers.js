@@ -41,7 +41,6 @@ router.get("/find/writers/:id", async (req, res) => {
 router.post("/Writer", async (req, res) => {
     try {
         const user = await Writers.findOne({ AccountId: req.body.AccountId })
-        console.log(user)
         if (user) {
             return res.status(400).send({ message: false })
         }
