@@ -37,7 +37,6 @@ export default function TextEditor() {
     if (socket == null || quill == null) return
 
     socket.once("load-document", document => {
-      console.log(document, 10)
       quill.setContents(document)
       quill.enable()
     })

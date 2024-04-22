@@ -75,17 +75,17 @@ const getStory = async (id, point) => {
     }
 }
 
-// const getstory = async (id) => {
-//     try {
-//         const response = await fetch(`http://localhost:5000/stories/${id}`);
-//         if(response.ok) {
-//             return response.json();
-//         }
-//         return response;
-//     } catch(error) {
-//         console.log(error);
-//     }
-// }
+const getstory = async (id) => {
+    try {
+        const response = await fetch(`http://localhost:5000/stories/${id}`);
+        if (response.ok) {
+            return response.json();
+        }
+        return response;
+    } catch (error) {
+        console.log(error);
+    }
+}
 
 export {
     story,

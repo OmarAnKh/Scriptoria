@@ -93,7 +93,6 @@ io.on("connection", socket => {
     socket.on("get-document", async documentId => {
         const document = await findDocument(documentId);
         socket.join(documentId);
-        console.log(document, 10)
         socket.emit("load-document", document.slide);
 
         socket.on("send-changes", async delta => {
