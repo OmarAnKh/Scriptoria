@@ -40,7 +40,7 @@ router.get("/find/writers/:id", async (req, res) => {
 
 router.post("/Writer", async (req, res) => {
     try {
-        const user = await Writers.findOne({ AccountId: req.body.AccountId })
+        const user = await Writers.findOne({ AccountId: req.body.AccountId, StoryId: req.body.StoryId })
         if (user) {
             return res.status(400).send({ message: false })
         }
@@ -52,5 +52,31 @@ router.post("/Writer", async (req, res) => {
     }
 })
 
+router.patch("/rule/update", async (req, res) => {
+    try {
+        const user = await Writers.findOne({ AccountId: req.body.AccountId, StoryId: req.body.StoryId })
+        if (!user) {
+            return res.status(400).send({ message: false })
+        }
+        user.rule = req.body.rule
+        await user.save()
+        return res.status(200).send({ message: true, user })
+    } catch (error) {
+        return res.status(500).send({ message: false })
+    }
+})
+
+
+router.delete('/writer/delete', async (req, res) => {
+    try {
+        const user = await Writers.findOneAndDelete({ AccountId: req.body.AccountId, StoryId: req.body.StoryId })
+        if (!user) {
+            return res.status(400).send({ message: false })
+        }
+        return res.status(200).send({ message: true, user })
+    } catch (error) {
+        return res.status(500).send({ message: false })
+    }
+})
 export default router;
 

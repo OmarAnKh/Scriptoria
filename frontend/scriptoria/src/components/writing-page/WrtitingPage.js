@@ -6,6 +6,7 @@ import TextEditor from "./text-editor/TextEditor";
 const WritingPage = () => {
   const [zen, setZen] = useState(false);
   const [data, setData] = useState('');
+  const [state, setState] = useState(false)
 
   // const setMode = () => {
   //   setZen(!zen);
@@ -33,7 +34,7 @@ const WritingPage = () => {
   return (
     <div className="WP">
       {/* <WpNavBar setMode={setMode} data={data} setData={setData} /> */}
-      <WpNavBar data={data} setData={setData} />
+      <WpNavBar data={data} setData={setData} setState={setState} />
       <div
         className="focus"
         style={{
@@ -42,7 +43,7 @@ const WritingPage = () => {
           transition: "all 0.3s ease-in",
         }}
       >
-        <TextEditor mode={model} setModel={setModel} data={data} setData={setData} />
+        <TextEditor mode={model} setModel={setModel} data={data} setData={setData} state={state} />
       </div>
     </div>
   );

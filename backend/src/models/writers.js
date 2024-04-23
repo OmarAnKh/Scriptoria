@@ -10,6 +10,10 @@ const writersSchema = new mongoose.Schema({
         ref: 'Story'
     },
     publishDate: { type: Date },
+    rule: {
+        type: String,
+        required: true
+    }
 });
 
 writersSchema.index({ AccountId: 1, StoryId: 1 }, { unique: true });
