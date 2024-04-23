@@ -91,7 +91,8 @@
         "follow": "关注",
         "unfollow": "取消关注",
         "message": "消息",
-        "Unblock": "解除阻止"
+        "Unblock": "解除阻止",
+        "save": "保存"
     },
     "Settings": {
         "settings": "设置",

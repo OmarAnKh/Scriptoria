@@ -46,7 +46,7 @@ function App() {
             <Route path='StoryPage' element={<StoryPage />} />
             <Route path='TeamMembers' element={<AllMembers />} />
             <Route path='book' element={<BookToDisplay />} />
-            <Route path='stories/:id' element={<StoryHeader />} />
+            <Route path='story/:id' element={<StoryHeader />} />
             <Route element={<RequireAuth />}>
               <Route path='WritingPage/:id' element={<WritingPage />} />
               <Route path='StoryDetails' element={<StoryDetails />} />
