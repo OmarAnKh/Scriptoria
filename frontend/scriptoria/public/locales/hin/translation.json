@@ -91,7 +91,9 @@
         "follow": "फॉलो करें",
         "unfollow": "अनफॉलो करें",
         "message": "संदेश",
-        "Unblock": "अवरोध हटाएं"
+        "Unblock": "अवरोध हटाएं",
+        "save": "सहेजें"
+
     },
     "Settings": {
         "settings": "सेटिंग्स",
@@ -133,7 +135,13 @@
         "select_one": "एक चुनें",
         "language": "भाषा",
         "name": "नाम",
-        "untitled": "अभिनव"
+        "untitled": "अभिनव",
+        "title-error": "कहानी का शीर्षक आवश्यक है",
+        "language-error": "भाषा आवश्यक है",
+        "description-error": "विवरण आवश्यक है",
+        "category-error": "श्रेणी आवश्यक है",
+        "target-audience-error": "लक्ष्य दर्शक आवश्यक है",
+        "uploaded-image-url-error": "छवि आवश्यक है"
     },
     "Logout": {
         "text1": "आप सफलतापूर्वक लॉग आउट हो गए हैं।",

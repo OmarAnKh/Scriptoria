@@ -14,7 +14,7 @@ const ProfileBooks = (props) => {
         <>
             <div className="row">
                 <div className="col text-center">
-                    <BookShelf username={props.username} />
+                    <BookShelf username={props.username} userId={props.userId} />
                 </div>
                 <div className="col-md-4">
                     <FriendsList username={props.username} />
@@ -72,7 +72,7 @@ const Profile = () => {
                 <Navbar />
                 <div className="container-fluid profile-page-body">
                     <ProfileInfo user={user} userStatus={false} ifblocked={false} />
-                    <ProfileBooks username={username} />
+                    <ProfileBooks username={username} userId={user.id} />
                 </div>
             </>
         );
@@ -83,7 +83,7 @@ const Profile = () => {
                     <Navbar />
                     <div className="container-fluid profile-page-body">
                         <ProfileInfo visit={user} user={user} userStatus={true} ifblocked={false} />
-                        <ProfileBooks username={username} />
+                        <ProfileBooks username={username} userId={user._id} />
                     </div>
                 </>
             );

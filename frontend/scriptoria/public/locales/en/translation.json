@@ -91,7 +91,8 @@
         "follow": "follow",
         "unfollow": "unfollow",
         "message": "message",
-        "Unblock": "Unblock"
+        "Unblock": "Unblock",
+        "save":"Save"
     },
     "Settings": {
         "settings": "Settings",
@@ -133,7 +134,13 @@
         "select_one": "select one",
         "language": "Language",
         "name": "Name",
-        "untitled": "Untitled"
+        "untitled": "Untitled",
+        "title-error": "Story title required",
+        "language-error": "language required",
+        "description-error": "description required",
+        "category-error": "category required",
+        "target-audience-error": "Target Audience required",
+        "uploaded-image-url-error": "image required"
     },
     "Logout": {
         "text1": "You have successfully logged out.",

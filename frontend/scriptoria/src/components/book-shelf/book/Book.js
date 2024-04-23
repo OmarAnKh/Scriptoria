@@ -1,10 +1,10 @@
 import './Book.css'
 
-const Book = ({data}) => {
-    return(
-            <div className="book">
-                <img src={data.img} alt="Book cover"/>
-            </div>
+const Book = ({ data }) => {
+    return (
+        <div className="book">
+            <img src={data} alt="Book cover" />
+        </div>
     );
 }
 
