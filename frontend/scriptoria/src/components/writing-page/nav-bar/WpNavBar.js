@@ -161,7 +161,7 @@ const WpNavBar = ({ setMode, data, setData, setState }) => {
             {/* invitation button */}
             <li className="nav-item invitation m-2">
               <div>
-                <button className="bi bi-envelope-paper-fill btn btn-outline-dark rounded-5 m-1" data-bs-toggle="modal" data-bs-target="#Invitation-modal"></button>
+                <button className="bi bi-envelope-paper-fill btn btn-outline-dark rounded-5 m-1" data-bs-toggle="modal" data-bs-target="#Invitation-modal" title="invite your friend"></button>
                 <div className="modal fade" id="Invitation-modal" tabIndex={-1} aria-labelledby="exampleModalLabel" aria-hidden="true">
                   <div className="modal-dialog modal-dialog-centered">
                     <div className="modal-content" style={{ display: "inline" }}>
