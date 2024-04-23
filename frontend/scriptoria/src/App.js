@@ -22,6 +22,8 @@ import StoryCard from "./components/story-overview/StoryPage.js"
 import Layout from './components/layout/Layout.js';
 import PersistLogin from './components/persist-login/PersistLogin.js';
 import RequireAuth from './components/require-auth/RequireAuth.js';
+import ServersErrorPage from './components/server-error-page/ServersErrorPage.js';
+import StoryErrorsPage from './components/server-error-page/StoryErrorsPage.js';
 
 function App() {
 
@@ -30,6 +32,8 @@ function App() {
       <Routes>
         <Route path='/' element={<Layout />}>
           {/*public routes*/}
+          <Route path='ServersErrorPage'element={<ServersErrorPage/>}/>
+          <Route path='StoryErrorsPage'element={<StoryErrorsPage/>}/>
           <Route path="SignIn" element={<SignIn />} />
           <Route path="SignUp" element={<SingUp />} />
           <Route path='SignUpVerificationCode' element={<SignUpVerificationCode />} />
@@ -51,6 +55,7 @@ function App() {
               <Route path='WritingPage/:id' element={<WritingPage />} />
               <Route path='StoryDetails' element={<StoryDetails />} />
               <Route path='settings/:id' element={<Settings />} />
+              
             </Route>
           </Route>
           {/*catch all*/}
