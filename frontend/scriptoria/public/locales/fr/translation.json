@@ -133,7 +133,13 @@
         "select_one": "Sélectionner un",
         "language": "Langue",
         "name": "Nom",
-        "untitled": "Sans titre"
+        "untitled": "Sans titre",
+        "title-error": "Titre de l'histoire requis",
+        "language-error": "Langue requise",
+        "description-error": "Description requise",
+        "category-error": "Catégorie requise",
+        "target-audience-error": "Public cible requis",
+        "uploaded-image-url-error": "Image requise"
     },
     "Logout": {
         "text1": "Vous avez été déconnecté avec succès.",
