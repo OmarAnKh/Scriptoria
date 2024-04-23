@@ -113,7 +113,12 @@
         "edit": "Editar",
         "password": "Contraseña",
         "save": "Guardar",
-        "description": "Descripción"
+        "description": "Descripción",
+        "delete_account": "Eliminar cuenta",
+        "confirm_password": "Por favor, confirma tu contraseña",
+        "delete_account_header": "¿Estás seguro de que quieres eliminar tu cuenta?",
+        "confirm": "Confirmar",
+        "cancel": "Cancelar"
     },
     "StoryCard": {
         "show_more": "Ver más"

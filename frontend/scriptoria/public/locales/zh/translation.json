@@ -113,7 +113,12 @@
         "edit": "编辑",
         "password": "密码",
         "save": "保存",
-        "description": "描述"
+        "description": "描述",
+        "delete_account": "删除账户",
+        "confirm_password": "请确认您的密码",
+        "delete_account_header": "您确定要删除您的账户吗？",
+        "confirm": "确认",
+        "cancel": "取消"
     },
     "StoryCard": {
         "show_more": "显示更多"

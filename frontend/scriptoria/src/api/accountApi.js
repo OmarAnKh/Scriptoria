@@ -57,6 +57,44 @@ const editPassword = async (point, accountDetails) => {
     }
 }
 
+const confirmPassword = async (point, accountDetails) => {
+    try {
+        const response = await fetch("http://localhost:5000/" + point, {
+            method: "POST",
+            credentials: "include",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(accountDetails)
+        })
+        if(response.ok) {
+            return response.json();
+        }
+        return response;
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+const logoutAll = async (token) => {
+    try {
+        const response = await fetch("http://localhost:5000/account/logoutAll", {
+            method: "POST",
+            credentials: "include",
+            headers: {
+                "Content-Type": "application/json",
+                'Authorization': 'Bearer ' + token,
+            }
+        })
+        if (response.ok) {
+            return response.json();
+        }
+        return response;
+
+    } catch (error) {
+        console.log(error)
+    }
+}
 
 const logoutAccount = async (token) => {
     try {
@@ -78,11 +116,33 @@ const logoutAccount = async (token) => {
     }
 }
 
+const deleteAccount = async (point, document) => {
+    try {
+        const response = await fetch("http://localhost:5000/" + point, {
+            method: "DELETE",
+            credentials: "include",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(document)
+        })
+        if (response.ok) {
+            return response.json();
+        }
+        return response;
+
+    } catch (error) {
+        console.log(error)
+    }
+}
 
 export {
     sendEmail,
     editPassword,
     findAccount,
-    logoutAccount
+    logoutAccount,
+    confirmPassword,
+    logoutAll,
+    deleteAccount
 }
 

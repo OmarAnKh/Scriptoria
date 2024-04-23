@@ -7,6 +7,7 @@ import blockRouter from "./routers/block.js"
 import ratingRouter from "./routers/rating.js"
 import commentsRouter from "./routers/comments.js"
 import listsRouter from "./routers/readingList.js"
+import likesRouter from "./routers/likes.js"
 import writersRouter from "./routers/writers.js"
 import cors from "cors"
 import cookieParser from "cookie-parser"
@@ -30,6 +31,7 @@ app.use(blockRouter)
 app.use(ratingRouter)
 app.use(commentsRouter)
 app.use(listsRouter)
+app.use(likesRouter)
 app.use(writersRouter)
 
 app.listen(port, () => {

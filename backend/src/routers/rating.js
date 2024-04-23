@@ -32,6 +32,22 @@ router.get('/rate', authentication, async (req, res)=>{
   }
 });
 
+router.get('/rates/:id', async (req, res) => {
+  const _id = req.params.id
+
+  try {
+    const countRates = await Rating.countDocuments({ StoryId: _id });
+    const result = await Rating.aggregate([
+        { $group: { _id: _id, averageRate: { $avg: "$rating" } } }
+    ]);
+
+    const averageRating = result[0]?.averageRate;
+    res.status(200).send({ counts: { rates: countRates, avg: averageRating } })
+
+  } catch (error) {
+    res.status(500).send(error)
+  }
+})
 
 router.patch('/rate/:id', authentication, async(req, res) => {
     const updates = Object.keys(req.body);
