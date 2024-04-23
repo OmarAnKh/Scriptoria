@@ -91,7 +91,9 @@
         "follow": "फॉलो करें",
         "unfollow": "अनफॉलो करें",
         "message": "संदेश",
-        "Unblock": "अवरोध हटाएं"
+        "Unblock": "अवरोध हटाएं",
+        "save": "सहेजें"
+
     },
     "Settings": {
         "settings": "सेटिंग्स",

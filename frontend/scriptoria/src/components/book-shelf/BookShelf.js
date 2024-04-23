@@ -5,26 +5,10 @@ import Book from "./book/Book.js";
 import Shelf from "./shelf/Shelf.js";
 import ShelfHeader from "./shelf-header/ShelfHeader.js";
 import { useTranslation } from 'react-i18next';
+import { useEffect, useState } from "react";
+import { getStories } from "../../api/writers.js";
+import { Buffer } from "buffer";
 
-
-const works = [
-  {
-    id: 1,
-    img: 'https://d1466nnw0ex81e.cloudfront.net/n_iv/600/715769.jpg'
-  },
-  {
-    id: 2,
-    img: 'https://comicvine.gamespot.com/a/uploads/scale_medium/0/3125/2289664-walt1.jpg'
-  },
-  {
-    id: 3,
-    img: 'https://i.pinimg.com/originals/ec/17/50/ec1750155aba43fbb77b5ae5354b4eff.jpg'
-  },
-  {
-    id: 4,
-    img: 'https://freshcomics.s3.amazonaws.com/issue_covers/MAR160461.jpg'
-  }
-]
 
 const readingList = [
   {
@@ -66,8 +50,15 @@ const responsive = {
 };
 
 const BookShelf = (props) => {
+  const [works, setWorks] = useState([])
   const { t } = useTranslation()
-
+  useEffect(() => {
+    const fetchWrokes = async () => {
+      const res = await getStories(props.userId)
+      setWorks(res.stories)
+    }
+    fetchWrokes()
+  }, [])
   const CustomLeftArrow = ({ onClick }) => (
     <button className="custom-arrow custom-left-arrow" onClick={onClick}>
       &lt; {/* left arrow symbol */}
@@ -106,11 +97,13 @@ const BookShelf = (props) => {
           customRightArrow={<CustomRightArrow />}
           customLeftArrow={<CustomLeftArrow />}
         >
-          {works.map((book, idx) => {
+          {works?.map((book, idx) => {
             return (
               <div className="row justify-content-center" key={idx}>
                 <div className="col-lg-12">
-                  <Book data={book} />
+
+
+                  <Book data={`data:image/png;base64,${Buffer.from(book.coverPhoto).toString('base64')}`} />
                 </div>
               </div>
             )
@@ -151,7 +144,7 @@ const BookShelf = (props) => {
             return (
               <div className="row justify-content-center" key={idx}>
                 <div className="col-lg-12">
-                  <Book data={book} />
+                  {book?.coverPhoto ? <Book data={`data:image/png;base64,${Buffer.from(book?.coverPhoto).toString('base64')}`} /> : <></>}
                 </div>
               </div>
             )

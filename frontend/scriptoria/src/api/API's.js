@@ -61,6 +61,7 @@ const deleteDocument = async (point, document) => {
 
 
 const updateDocument = async (point, document) => {
+    console.log(10)
     try {
         const response = await fetch(`http://localhost:5000/${point}/update`, {
             method: "PATCH",

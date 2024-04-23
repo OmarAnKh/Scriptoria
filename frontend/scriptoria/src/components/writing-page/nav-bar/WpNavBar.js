@@ -12,6 +12,7 @@ import { deleteDocument, saveDocument, updateDocument } from "../../../api/API's
 import { getWriters } from "../../../api/writers";
 import useAuth from "../../../hooks/useAuth";
 import { getstory } from "../../../api/storyAPI";
+import toast from "react-hot-toast";
 
 const WpNavBar = ({ setMode, data, setData, setState }) => {
   const navigate = useNavigate()
@@ -104,8 +105,9 @@ const WpNavBar = ({ setMode, data, setData, setState }) => {
       const randomNumber = Math.floor(Math.random() * 100);
       setAddUserState(randomNumber);
       document.getElementById('invitaionId').value = ""
-
-
+      toast("You Have add a new user successfully", {
+        icon: '🤝',
+      });
     } catch (error) {
     }
   }
@@ -120,6 +122,9 @@ const WpNavBar = ({ setMode, data, setData, setState }) => {
     const res = await updateDocument("rule", document)
     const randomNumber = Math.floor(Math.random() * 100);
     setRuleState(randomNumber)
+    toast("You Have changed a users rule successfully", {
+      icon: '😊',
+    });
   }
 
 
@@ -132,6 +137,9 @@ const WpNavBar = ({ setMode, data, setData, setState }) => {
     const res = await deleteDocument('writer', document)
     const randomNumber = Math.floor(Math.random() * 100);
     setRemoveState(randomNumber)
+    toast("You Have removed a user successfully", {
+      icon: '🙋‍♂️',
+    });
   }
   return (
     <nav className="navbar navbar-expand-lg WpNavBar py-1" id="WpNavBar">

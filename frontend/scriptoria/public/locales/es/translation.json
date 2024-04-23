@@ -91,7 +91,9 @@
         "follow": "seguir",
         "unfollow": "dejar de seguir",
         "message": "mensaje",
-        "Unblock": "Desbloquear"
+        "Unblock": "Desbloquear",
+        "save": "Guardar"
+
     },
     "Settings": {
         "settings": "Ajustes",

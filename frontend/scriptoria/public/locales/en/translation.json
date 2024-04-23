@@ -91,7 +91,8 @@
         "follow": "follow",
         "unfollow": "unfollow",
         "message": "message",
-        "Unblock": "Unblock"
+        "Unblock": "Unblock",
+        "save":"Save"
     },
     "Settings": {
         "settings": "Settings",

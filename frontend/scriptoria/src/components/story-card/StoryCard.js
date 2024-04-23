@@ -3,6 +3,7 @@ import './StoryCard.css'
 import StarRating from '../star-rating/StarRating';
 import { useTranslation } from 'react-i18next';
 import DiscoverTable from '../discover-tab/DiscoverTable';
+import { Link } from 'react-router-dom';
 const StoryCard = () => {
     const { t } = useTranslation()
     const [visiblestory, setVisiblestory] = useState(3);
@@ -71,7 +72,9 @@ const StoryCard = () => {
                         <div className={`card friend-list-card mb-1 ${story.color}`} style={{ width: '95%', height: '100%', margin: '0 10px' }}>
                             <div className="row no-gutters">
                                 <div className="col-md-4">
-                                    <img src={story.image} alt="story-img" className="card-img" style={{ width: '100%', height: 'auto' }} />
+                                    <Link to={`story/${story.id}`}>
+                                        <img src={story.image} alt="story-img" className="card-img" style={{ width: '100%', height: 'auto' }} />
+                                    </Link>
                                 </div>
                                 <div className="col-md-8">
                                     <div className="card-body">

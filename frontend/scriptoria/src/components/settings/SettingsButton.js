@@ -1,7 +1,7 @@
 
 const SettingsButton = (props) => {
     return (
-        <button className={props.className}
+        <button className={`${props.className} my-2`}
             id={props.id}
             data-bs-toggle={props.dataBsToggle}
             data-bs-target={props.dataBsTarget}
