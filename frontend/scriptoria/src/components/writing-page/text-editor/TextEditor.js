@@ -19,11 +19,11 @@ const TOOLBAR_OPTIONS = [
   ["clean"],
 ]
 
-export default function TextEditor() {
+export default function TextEditor({ state }) {
   const { id: documentId } = useParams()
   const [socket, setSocket] = useState()
   const [quill, setQuill] = useState()
-
+  useEffect(() => { }, [state])
   useEffect(() => {
     const s = io("http://localhost:5000")
     setSocket(s)
@@ -98,12 +98,25 @@ export default function TextEditor() {
     setQuill(q)
   }, [])
   return (
-    <div className=' mb-5'>      <br></br>
+    <div className='mb-5'>
+      <br></br>
       <br></br>
       <TEInstructions />
-      <div className='TextEditorSize container justify-content-center align-items-center bg-light p-0 rounded-4 border-none' id="hello">
-        <div ref={wrapperRef} className="" ></div>
+      <div className='TextEditorSize container justify-content-center align-items-center bg-light p-0 rounded-4 border-none' style={{ position: 'relative' }} id="hello">
+        {state ? <div style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          zIndex: 1000,
+          backgroundColor: 'rgba(255, 255, 255, 0.5)',
+          cursor: 'not-allowed'
+        }}></div> : <></>}
+
+        <div ref={wrapperRef} className=""></div>
       </div>
-      <br></br></div>
+      <br></br>
+    </div>
   )
 }
