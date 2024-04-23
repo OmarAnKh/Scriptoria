@@ -166,5 +166,9 @@
         "save" : "save",
         "update" : "update",
         "cancel" : "cancel"
+    },
+    "ReadingPage": {
+        "like": "LIke",
+        "comment": "Comment"
     }
 }

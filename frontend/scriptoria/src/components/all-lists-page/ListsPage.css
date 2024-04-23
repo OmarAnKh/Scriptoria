@@ -17,7 +17,6 @@
 }
 .list-card .list-name {
   z-index: 99;
-  font-family: "Poppins", sans-serif;
   position: absolute;
   bottom: 0;
   right: 130px;
@@ -27,7 +26,7 @@
   z-index: 100;
   position: absolute;
   right: 50px;
-  bottom: -10px;
+  bottom: -20px;
   font-size: 70px;
   cursor: pointer;
 }
@@ -102,7 +101,6 @@
   outline: none;
   transition: all 0.3s ease;
   mix-blend-mode : multiply;
-  background-color: chocolate;
 }
 .list-card button i {
   font-size: 3rem;
@@ -130,6 +128,7 @@
 .list-cards{
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   row-gap: 20px;
   column-gap: 25px;
 }

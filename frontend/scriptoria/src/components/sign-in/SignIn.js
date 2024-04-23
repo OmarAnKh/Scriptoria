@@ -52,8 +52,8 @@ const SignIn = () => {
             return;
         }
         const token = res.token
-        const userInfo = res.user.userName
-        setAuth({ userName: userInfo, token })
+        const userName = res.user.userName
+        setAuth({ userName, token, userInfo: res.user })
         navigate("/")
     }
 

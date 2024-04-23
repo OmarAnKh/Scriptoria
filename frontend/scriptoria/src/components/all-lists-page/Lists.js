@@ -4,7 +4,6 @@ import {getReadingLists} from './../../api/readingListsApi'
 import './ListsPage.css'
 const Lists = ({userName}) => {
   const [lists, setLists] = useState([])
-  const [cover, setCover] = useState({})
 
   useEffect(() => {
     const fetchData = async () => {
@@ -23,7 +22,7 @@ const Lists = ({userName}) => {
 
 
   return (
-      <div className="container m-4">
+      <div className="container m-4 justify-content-center">
         <div className="list-cards justify-content-center" >
           {lists ? (
             lists.map((list, index) => {

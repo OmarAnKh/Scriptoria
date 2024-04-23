@@ -1,7 +1,7 @@
 import express from "express";
 import Writers from "../models/writers.js";
 import Account from "../models/account.js";
-import Story from "../models/story.js"; 
+import Story from "../models/story.js";
 
 const router = express.Router();
 
@@ -37,6 +37,22 @@ router.get("/find/writers/:id", async (req, res) => {
         return res.status(500).send({ state: false, error: "Server error" });
     }
 });
+
+router.post("/Writer", async (req, res) => {
+    try {
+        console.log(req.body)
+        const user = await Writers.findOne({ AccountId: req.body.AccountId, StoryId: req.body.StoryId })
+        console.log(user)
+        if (user) {
+            return res.status(400).send({ message: false })
+        }
+        const writer = new Writers(req.body)
+        await writer.save()
+        return res.status(200).send({ message: true, writer })
+    } catch (error) {
+        return res.status(500).send({ message: false })
+    }
+})
 
 export default router;
 

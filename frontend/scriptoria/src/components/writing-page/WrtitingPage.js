@@ -34,6 +34,7 @@ const WritingPage = () => {
     <div className="WP">
       {/* <WpNavBar setMode={setMode} data={data} setData={setData} /> */}
       <WpNavBar data={data} setData={setData} />
+
         <div
         className="focus"
         style={{

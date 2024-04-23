@@ -1,21 +1,41 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import {Link} from 'react-router-dom'
+import { getStory } from '../../api/storyAPI';
+import { Buffer } from 'buffer';
+import logo from '../../img/content.png';
+import useAuth from '../../hooks/useAuth';
+import Popup from './Popup';
 import './ListsPage.css'
 
 const ListCard = ({userName, list}) => {
-  console.log(list)
+  const {auth} = useAuth()
+  const [cover, setCover] = useState(logo)
+  const [color, setColor] = useState('chocolate')
+ 
+
+  useEffect(()=>{
+    const fetchData = async ()=>{
+      const data = await getStory(list.stories[0], 'stories')
+      if(data.story){
+        setColor(data.story.backgroundColor)
+        setCover(`data:image/png;base64,${Buffer.from(data.story.coverPhoto).toString('base64')}`)
+      }
+    }
+    fetchData()
+  },[])
+
   return (
 <div>
+<div className='d-none'>
+</div>
+
 <div className="list-card text rounded">
-  <a className="list-name text-light h3 text-decoration-none fw-bold"><b>{list.name}</b></a>
-  <i className="list-arrow bi bi-arrow-right-short" />
+  <Link to={`${userName}/lists/${list._id}`} className="list-name text-light display-5 pb-1 text-decoration-none fw-bold text-break"><b>{list.name}</b></Link>
+  <i className="list-arrow bi bi-arrow-right-short ml-0" ><Link className='word-break' to={`${userName}/lists/${list._id}`}/></i>
   <p>reading list</p>
-  <img className="list-pic img-fluid object-fit-cover" src="https://c8.alamy.com/comp/T27DD2/italy-1973-first-edition-of-marvel-comic-books-cover-of-captain-america-T27DD2.jpg" />
-  <div className="list-btns">
-    <i className="edit-list">edit</i>
-    <i className="delete-list">delete</i>
-  </div>
-  <Link className='list-ball' to={`${userName}/lists/${list._id}`} style={{backgroundColor : "orange"}} />
+  <img className="list-pic img-fluid object-fit-cover bg-light" src={cover} />
+  <Popup list={list}/>
+  <Link className='list-ball' to={`${userName}/lists/${list._id}`} style={{backgroundColor : color}} />
 </div>
 
 </div>

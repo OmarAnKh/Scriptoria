@@ -25,8 +25,8 @@ const Lists = ({ storyId }) => {
       if (userName) {
         setSignedIn(true);
         const readingLists = await getReadingLists(userName);
-        setLists(readingLists.data);
-        const listsWithStory = readingLists.data.filter(list => list.stories.includes(storyId));
+        setLists(readingLists);
+        const listsWithStory = readingLists.filter(list => list.stories.includes(storyId));
         setCheckedValues(listsWithStory.map(list => list._id));
       }
     };
@@ -47,8 +47,8 @@ const Lists = ({ storyId }) => {
     try {
       const response = await getReadingLists(userName)
 
-      if (response && response.data) {
-        const lists = response.data;
+      if (response) {
+        const lists = response;
         await toast.promise(updateReadingLists(storyId, checkedLists, token, lists), {
           loading: 'Saving data...',
           success: 'Data saved successfully.',
@@ -76,12 +76,12 @@ const Lists = ({ storyId }) => {
         error: 'Failed to create list. Please try again later.',
       });
       const updatedLists = await getReadingLists(userName);
-      if (updatedLists && updatedLists.data) {
-        setLists(updatedLists.data);
+      if (updatedLists) {
+        setLists(updatedLists);
       }
 
 
-      const newListId = updatedLists.data.find(list => list.name === listName)._id;
+      const newListId = updatedLists.find(list => list.name === listName)._id;
       setCheckedValues([...checkedLists, newListId]);
 
       document.getElementById('newList').value = ""

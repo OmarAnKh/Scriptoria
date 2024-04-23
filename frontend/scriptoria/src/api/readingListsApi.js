@@ -58,17 +58,17 @@ const getStoriesFromRL = async (_id, token) => {
     }
 }
 
-const updateList = async (id, stories, token) => {
+const updateList = async (list, token) => {
     try {
         await axios({
-            url: "http://localhost:5000/readingLists/" + id,
+            url: "http://localhost:5000/readingLists/" + list._id,
             method: "PATCH",
             withCredentials: true,
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": 'Bearer ' + token,
             },
-            data: { stories }
+            data: list
         })
     } catch (error) {
         console.log(error)
@@ -77,14 +77,12 @@ const updateList = async (id, stories, token) => {
 
 const updateReadingLists = async (storyId, checkedLists, token) => {
 
-    const response = await getReadingLists(token);
+    const lists = await getReadingLists(token);
 
-    if (!response || !response.data) {
+    if (!lists) {
         console.error('getReadingLists did not return expected data');
         return;
     }
-
-    const lists = response.data;
 
     try {
         await Promise.all(
@@ -93,7 +91,7 @@ const updateReadingLists = async (storyId, checkedLists, token) => {
                 if (checkedLists.includes(list._id)) {
                     if (!stories.includes(storyId)) {
                         stories.push(storyId)
-                        await updateList(list._id, stories, token)
+                        await updateList(list, token)
                     }
                 } else {
                     if (stories.includes(storyId)) {
@@ -108,10 +106,29 @@ const updateReadingLists = async (storyId, checkedLists, token) => {
     }
 }
 
+const deleteReadingList = async(id, token) =>{
+    try {
+        await axios({
+            url: "http://localhost:5000/readingLists/" + id,
+            method: "DELETE",
+            withCredentials: true,
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": 'Bearer ' + token,
+            },
+            params: { id }
+        })
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 export {
     getReadingLists,
     createReadingList,
     updateReadingLists,
-    getStoriesFromRL
+    getStoriesFromRL,
+    deleteReadingList,
+    updateList
 }
 
