@@ -22,6 +22,7 @@ const TEInstructions = () => {
           separate slides.
         </h6>
       </div>
+      
     </section>
   );
 };

@@ -18,11 +18,13 @@ router.post('/readingLists', authentication, async (req, res) => {
     }
 })
 
-router.get('/readingLists', authentication, async (req, res) => {
-    const accountId = req.user.id
+
+router.get('/readingLists',  async (req, res) => {
+    const accountId = req.query.accountId
     try {
         const lists = await ReadingList.find({ accountId })
         if (!lists) return res.send()
+        console.log(lists)
         res.send(lists)
     } catch (error) {
         console.log(error)

@@ -1,20 +1,25 @@
 import axios from 'axios'
-const getReadingLists = async (token) => {
+import {findAccount} from './accountApi'
+const getReadingLists = async (userName) => {    
     try {
+        const account = await findAccount({ userName })
+        console.log(account);
+
         const response = await axios({
             url: "http://localhost:5000/readingLists",
             method: "GET",
             withCredentials: true,
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": 'Bearer ' + token,
             },
+            params : { accountId : account._id }
         });
-        return response;
+        return response.data; 
     } catch (error) {
         console.log(error);
     }
 }
+
 
 const createReadingList = async (list, token) => {
     try {

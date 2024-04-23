@@ -18,13 +18,13 @@ const Lists = ({ storyId }) => {
   const [lists, setLists] = useState([]);
   const [checkedLists, setCheckedValues] = useState([]);
   const token = auth.token;
+  const userName = auth.userName;
 
   useEffect(() => {
     const fetchData = async () => {
-      const user = auth.userName;
-      if (user) {
+      if (userName) {
         setSignedIn(true);
-        const readingLists = await getReadingLists(token);
+        const readingLists = await getReadingLists(userName);
         setLists(readingLists.data);
         const listsWithStory = readingLists.data.filter(list => list.stories.includes(storyId));
         setCheckedValues(listsWithStory.map(list => list._id));
@@ -45,7 +45,7 @@ const Lists = ({ storyId }) => {
 
   const saveData = async () => {
     try {
-      const response = await getReadingLists(token)
+      const response = await getReadingLists(userName)
 
       if (response && response.data) {
         const lists = response.data;
@@ -75,7 +75,7 @@ const Lists = ({ storyId }) => {
         success: 'List created successfully.',
         error: 'Failed to create list. Please try again later.',
       });
-      const updatedLists = await getReadingLists(token);
+      const updatedLists = await getReadingLists(userName);
       if (updatedLists && updatedLists.data) {
         setLists(updatedLists.data);
       }

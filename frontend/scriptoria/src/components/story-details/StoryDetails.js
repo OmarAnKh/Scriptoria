@@ -104,7 +104,7 @@ const StoryDetails = () => {
   const displayMainCharacters = () => {
     return mainCharactersList.map((character, index) => (
       <div className="displayDiv" key={index}>
-        <div className="bordercontainer">
+        <div className="borderContainer">
           <p className="pInBorder">{character}</p>
           <button onClick={(event) => handleDeleteMainCharacter(index, event)} className="buttonInCategory">X</button>
         </div>
