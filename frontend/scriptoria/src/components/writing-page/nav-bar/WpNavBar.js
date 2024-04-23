@@ -72,7 +72,6 @@ const WpNavBar = ({ setMode, data, setData }) => {
     }
 
     const res = await findAccount(options)
-    console.log(res)
     if (!res.message) {
       setInvaledEmail("block")
       return
@@ -81,7 +80,8 @@ const WpNavBar = ({ setMode, data, setData }) => {
       AccountId: res._id,
       StoryId: id
     }
-    try {
+    try {    
+        console.log(document)
       const writing = await saveDocument('Writer', document)
       if (writing.status === 400) {
         setUserExistError("block")
