@@ -115,7 +115,12 @@
         "edit": "संपादित करें",
         "password": "पासवर्ड",
         "save": "सहेजें",
-        "description": "विवरण"
+        "description": "विवरण",
+        "delete_account": "खाता हटाएं",
+        "confirm_password": "कृपया अपना पासवर्ड पुष्टि करें",
+        "delete_account_header": "क्या आप वाकई अपना खाता हटाना चाहते हैं?",
+        "confirm": "पुष्टि करें",
+        "cancel": "रद्द करें"
     },
     "StoryCard": {
         "show_more": "और दिखाएं"

@@ -114,7 +114,12 @@
         "edit": "تعديل",
         "password": "كلمة المرور",
         "save": "حفظ",
-        "description": "الوصف"
+        "description": "الوصف",
+        "delete_account": "حذف الحساب",
+        "confirm_password": "يرجى تأكيد كلمة المرور الخاصة بك",
+        "delete_account_header": "هل أنت متأكد من رغبتك في حذف حسابك؟",
+        "confirm": "تأكيد",
+        "cancel": "الغاء"
     },
     "StoryCard": {
         "show_more": "عرض المزيد"

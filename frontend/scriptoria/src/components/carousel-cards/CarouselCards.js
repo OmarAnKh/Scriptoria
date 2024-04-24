@@ -1,6 +1,8 @@
+import { useEffect, useState } from "react";
 import Card from "./Card";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
+import { getStories } from "../../api/storyAPI";
 
 
 // Data
@@ -117,6 +119,26 @@ const responsive = {
 
 
 const CarouselCards = (props) => {
+
+    const [ stories, setStories ] = useState([])
+    const numOfStories = 5
+
+    useEffect(() => {
+        const fetchStories = async () => {
+            try {
+                const response = await getStories('stories', numOfStories);
+                setStories(response);
+
+            } catch (error) {
+                console.log(error)
+            }
+        }
+
+        fetchStories();
+
+    }, []);
+
+
     return (
 
         <Carousel swipeable={false}
@@ -139,11 +161,11 @@ const CarouselCards = (props) => {
             focusOnSelect={true}
         >
 
-            {comics.map((comic) => {
+            {stories.map((story) => {
                 return (
-                    <div className="row justify-content-center" key={comic.id}>
+                    <div className="row justify-content-center" key={story.id}>
                         <div className="col-lg-12">
-                            <Card data={comic} />
+                            <Card data={story} />
                         </div>
                     </div>
                 )
