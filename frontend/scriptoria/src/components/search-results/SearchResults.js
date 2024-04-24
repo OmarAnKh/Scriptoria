@@ -1,7 +1,7 @@
 import "./SearchResults.css"
 import React, { useEffect, useState } from 'react';
 import BookCard from "./BookCard";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import { findStory } from "../../api/storyAPI";
 import { Buffer } from 'buffer';
 import Footer from "../footer/Footer";
@@ -40,8 +40,10 @@ const SearchResultsPage = () => {
                             {books.map((book, index) => {
                                 return (
                                     <React.Fragment key={index}>
+                                    
                                         <BookCard
-                                            imgURL={`data:image/png;base64,${Buffer.from(book.coverPhoto.data).toString('base64')}`}
+                                            storyId={book._id}
+                                            imgURL={book.coverPhoto.data}
                                             description={book.description}
                                             name={book.title}
                                             key={index}

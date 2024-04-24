@@ -23,9 +23,9 @@ const WpNavBar = ({ setMode, data, setData, setState }) => {
   const [userExistError, setUserExistError] = useState("none")
   const [invaledEmail, setInvaledEmail] = useState("none")
   const [users, setUsers] = useState([])
-  const [removeState, setRemoveState] = useState(false) // Updated
-  const [addUserState, setAddUserState] = useState(false) // Updated
-  const [ruleState, setRuleState] = useState(false) // Updated
+  const [removeState, setRemoveState] = useState(false) 
+  const [addUserState, setAddUserState] = useState(false) 
+  const [ruleState, setRuleState] = useState(false) 
   const [signedInUser, setSignedInUser] = useState({})
 
   useEffect(() => {
