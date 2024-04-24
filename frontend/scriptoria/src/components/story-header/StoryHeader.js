@@ -52,7 +52,7 @@ const StoryHeader = () => {
         if (textRef.current) {
             setShowReadMore(textRef.current.scrollHeight > textRef.current.clientHeight);
         }
-        console.log(data)
+
     }, [data.description]);
 
     const textStyle = isExpanded ? {

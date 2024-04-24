@@ -20,25 +20,29 @@ const Heart = ({ num, storyId, setData }) => {
     useEffect(() => {
 
         const fetchLike = async () => {
-            const user = auth.userName;
 
-            try {
-                const response = await findAccount({ userName: user });
-                setUserId(response._id);
+            if (Object.keys(auth).length !== 0) {
 
-                if(response.ok) {
-                    setAuthorized(true)
-                    const liked = await getLike('likes', response._id, storyId)
-                    if(liked.message) {
-                        setHeartIcon('text-danger')
+                const user = auth.userName;
+
+                try {
+                    const response = await findAccount({ userName: user });
+                    setUserId(response._id);
+
+                    if(response.message) {
+                        setAuthorized(true)
+                        const liked = await getLike('likes', response._id, storyId)
+                        if(liked.message) {
+                            setHeartIcon('text-danger')
+                        }
+                    } else {
+                        setAuthorized(false)
+                        return
                     }
-                } else {
-                    setAuthorized(false)
-                    return
+                    
+                } catch (error) {
+                    console.log(error);
                 }
-                
-            } catch (error) {
-                console.log(error);
             }
         };
 
@@ -67,9 +71,10 @@ const Heart = ({ num, storyId, setData }) => {
                 })
             }
             ChangeIconColor()
+        } else {
+            toast.error('You must be logged in to like this story!');
         }
 
-        toast.error('You must be logged in to like this story!');
     }
 
 
