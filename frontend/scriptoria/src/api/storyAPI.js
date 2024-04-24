@@ -82,7 +82,8 @@ const getStories = async (point, limit) => {
 
 const getStory = async (id, point) => {
     try {
-        const response = await fetch("http://localhost:5000/" + point + "/" + id, {
+        if(id){
+            const response = await fetch("http://localhost:5000/" + point + "/" + id, {
             credentials: "include"
         })
         if (response.ok) {
@@ -90,6 +91,9 @@ const getStory = async (id, point) => {
         }
 
         return response
+        } else {
+            return ({error : "no story to be found"})
+        }
     } catch (error) {
         console.log(error)
     }

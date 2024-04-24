@@ -36,6 +36,7 @@ const WritingPage = () => {
       {/* <WpNavBar setMode={setMode} data={data} setData={setData} /> */}
       <WpNavBar data={data} setData={setData} setState={setState} />
       <div
+
         className="focus"
         style={{
           // backgroundColor: zen ? "#25252585" : "#F6F9FE",

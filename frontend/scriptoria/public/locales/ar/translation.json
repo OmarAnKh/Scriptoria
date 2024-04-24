@@ -139,7 +139,7 @@
         "select_one": "اختر واحدة",
         "language": "اللغة",
         "name": "الاسم",
-       "untitled": "بلا عنوان",
+        "untitled": "بلا عنوان",
         "title-error": "يرجى إدخال العنوان",
         "language-error": "يرجى إدخال اللغة",
         "description-error": "يرجى إدخال وصف للقصة",
