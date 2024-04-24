@@ -5,13 +5,15 @@ import { useTranslation } from 'react-i18next';
 import { getWriters } from '../../api/writers';
 import { useEffect, useState } from 'react';
 import { getStoryRates } from '../../api/rateApi';
+import { useNavigate } from 'react-router-dom';
 
 const Card = ({ data }) => {
     const { t } = useTranslation();
 
-    const [ writers, setWriters ] = useState([])
-    const [ratings, setRatings ] = useState(0)
-    const [votes, setVotes ] = useState(0)
+    const [writers, setWriters] = useState([])
+    const [ratings, setRatings] = useState(0)
+    const [votes, setVotes] = useState(0)
+    const navigate = useNavigate()
 
     useEffect(() => {
         const fetchWriters = async () => {
@@ -26,9 +28,9 @@ const Card = ({ data }) => {
         const fetchRatings = async () => {
             try {
                 const response = await getStoryRates('rates', data._id);
-                setRatings(response.counts.avg); 
+                setRatings(response.counts.avg);
                 setVotes(response.counts.rates);
-                
+
             } catch (error) {
                 console.log(error)
             }
@@ -38,7 +40,11 @@ const Card = ({ data }) => {
         fetchRatings();
 
     }, []);
-    
+
+    const handleReadStory = (id) => {
+        navigate(`/story/${id}`)
+    }
+
     return (
         <div className="card mb-3 mt-4 col-lg-12" style={{ minHeight: '200px', width: 750, maxHeight: '100%', height: 250, backgroundColor: data.backgroundColor }}>
             <div className="row g-0">
@@ -50,14 +56,14 @@ const Card = ({ data }) => {
                         <h4 className="card-title">{data.title}</h4>
                         <h6 className="author-name">
                             {writers.map((writer, idx) => {
-                                    return <span key={idx}>{writer.displayName}</span>;
+                                return <span key={idx}>{writer.displayName}</span>;
                             })}
                         </h6>
                         <span className="d-flex">
                             <StarRating rating={ratings} />  &emsp; {votes} votes
                         </span>
                         <p className="card-text text-sm">{data.description}</p>
-                        <button type="button" className="btn btn-light rounded-4 px-5 fw-bold read-btn">{t("CarouselCards.read_the_book")}</button>
+                        <button type="button" onClick={() => handleReadStory(data._id)} className="btn btn-light rounded-4 px-5 fw-bold read-btn">{t("CarouselCards.read_the_book")}</button>
                     </div>
                 </div>
             </div>
