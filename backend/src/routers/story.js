@@ -33,6 +33,7 @@ router.post(
             const writers = new Writers({
                 AccountId: req.user._id,
                 StoryId: story._id,
+                rule: "owner"
             });
             await writers.save();
             res.status(201).send({ story, writers });

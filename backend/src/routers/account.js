@@ -57,7 +57,7 @@ router.get("/refresh", async (req, res) => {
         user.tokens = user.tokens.concat({ token: newRefreshToken });
         await user.save();
         res.cookie('jwt', newRefreshToken, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000 });
-        res.send({ accessToken, userName: user.userName, refreshToken: newRefreshToken });
+        res.send({ accessToken, userName: user.userName, refreshToken: newRefreshToken, userInfo: user });
     } catch (error) {
         res.status(401).send({ error: 'Invalid refresh token' });
     }

@@ -91,7 +91,9 @@
         "follow": "seguir",
         "unfollow": "dejar de seguir",
         "message": "mensaje",
-        "Unblock": "Desbloquear"
+        "Unblock": "Desbloquear",
+        "save": "Guardar"
+
     },
     "Settings": {
         "settings": "Ajustes",
@@ -138,7 +140,13 @@
         "select_one": "seleccionar uno",
         "language": "Idioma",
         "name": "Nombre",
-        "untitled": "Sin título"
+        "untitled": "Sin título",
+        "title-error": "Título de la historia requerido",
+        "language-error": "Idioma requerido",
+        "description-error": "Descripción requerida",
+        "category-error": "Categoría requerida",
+        "target-audience-error": "Público objetivo requerido",
+        "uploaded-image-url-error": "Imagen requerida"
     },
     "Logout": {
         "text1": "Has cerrado sesión exitosamente.",

@@ -91,7 +91,8 @@
         "follow": "متابعة",
         "unfollow": "الغاء المتابعة",
         "message": "مرسالة",
-        "Unblock": "الغاء الحظر"
+        "Unblock": "الغاء الحظر",
+        "save": "حفظ"
     },
     "Settings": {
         "settings": "الاعدادات",
@@ -138,7 +139,13 @@
         "select_one": "اختر واحدة",
         "language": "اللغة",
         "name": "الاسم",
-        "untitled": "بلا عنوان"
+        "untitled": "بلا عنوان",
+        "title-error": "يرجى إدخال العنوان",
+        "language-error": "يرجى إدخال اللغة",
+        "description-error": "يرجى إدخال وصف للقصة",
+        "category-error": "يرجى اختيار صنف",
+        "target-audience-error": "يرجى اختيار جمهور",
+        "uploaded-image-url-error": "يرجى إدخال صورة غلاف"
     },
     "Logout": {
         "text1": ".لقد تم تسجيل خروجك بنجاح",

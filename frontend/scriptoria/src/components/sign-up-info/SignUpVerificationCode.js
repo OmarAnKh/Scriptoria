@@ -49,7 +49,7 @@ const SignUpVerificationCode = () => {
             const userName = user.userName;
             const token = response.token;
 
-            setAuth({ userName, token })
+            setAuth({ userName, token, userInfo: user })
 
             navigate(`/`);
         }
