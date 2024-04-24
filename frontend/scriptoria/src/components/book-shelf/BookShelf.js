@@ -74,8 +74,8 @@ const BookShelf = (props) => {
   return (
     <div className="mx-5 my-5 book-shelf ">
       <div className="carousel-container works-books my-5">
-        <ShelfHeader title={t("BookShelf.works")} btnTitle={t("BookShelf.see_all_works")} />
-        <Carousel
+        <ShelfHeader title={t("BookShelf.works")} btnTitle={t("BookShelf.see_all_works")} state={works?.length} />
+        {works?.length ? <Carousel
           responsive={responsive}
           containerClass="custom-carousel hide-arrows"
           itemClass="custom-slide"
@@ -108,7 +108,8 @@ const BookShelf = (props) => {
               </div>
             )
           })}
-        </Carousel>
+        </Carousel> :
+          <></>}
 
       </div>
       <Shelf />
@@ -117,39 +118,40 @@ const BookShelf = (props) => {
       <div className="carousel-container reading-list-books my-5" style={{}}>
 
         <ShelfHeader title={t("BookShelf.reading_list")} btnTitle={t("BookShelf.all_reading_list")} />
-
-        <Carousel
-          responsive={responsive}
-          containerClass="custom-carousel"
-          itemClass="custom-slide"
-          infinite={true}
-          swipeable={false}
-          draggable={false}
-          showDots={false}
-          ssr={true}
-          autoPlay={false}
-          autoPlaySpeed={1000}
-          keyBoardControl={true}
-          customTransition="transform 1000ms ease-in-out"
-          transitionDuration={800}
-          removeArrowOnDeviceType={["tablet", "mobile"]}
-          deviceType={props.deviceType}
-          dotListClass="custom-dot-list-style"
-          focusOnSelect={true}
-          partialVisbile={false}
-          customRightArrow={<CustomRightArrow />}
-          customLeftArrow={<CustomLeftArrow />}
-        >
-          {readingList.map((book, idx) => {
-            return (
-              <div className="row justify-content-center" key={idx}>
-                <div className="col-lg-12">
-                  {book?.coverPhoto ? <Book data={`data:image/png;base64,${Buffer.from(book?.coverPhoto).toString('base64')}`} /> : <></>}
+        {readingList?.length ?
+          <Carousel
+            responsive={responsive}
+            containerClass="custom-carousel"
+            itemClass="custom-slide"
+            infinite={true}
+            swipeable={false}
+            draggable={false}
+            showDots={false}
+            ssr={true}
+            autoPlay={false}
+            autoPlaySpeed={1000}
+            keyBoardControl={true}
+            customTransition="transform 1000ms ease-in-out"
+            transitionDuration={800}
+            removeArrowOnDeviceType={["tablet", "mobile"]}
+            deviceType={props.deviceType}
+            dotListClass="custom-dot-list-style"
+            focusOnSelect={true}
+            partialVisbile={false}
+            customRightArrow={<CustomRightArrow />}
+            customLeftArrow={<CustomLeftArrow />}
+          >
+            {readingList.map((book, idx) => {
+              return (
+                <div className="row justify-content-center" key={idx}>
+                  <div className="col-lg-12">
+                    {book?.coverPhoto ? <Book data={`data:image/png;base64,${Buffer.from(book?.coverPhoto).toString('base64')}`} /> : <></>}
+                  </div>
                 </div>
-              </div>
-            )
-          })}
-        </Carousel>
+              )
+            })}
+          </Carousel> : <></>
+        }
 
       </div>
 
