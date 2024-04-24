@@ -11,7 +11,7 @@ import { UploadButton } from "react-uploader";
 import Navbar from '../navbar/Navbar';
 import { updateDocument } from '../../api/API\'s';
 import AlertWithTime from '../alert/AlertWithTime';
-import {toast} from 'react-hot-toast'
+import { toast } from 'react-hot-toast'
 import { useTranslation } from 'react-i18next';
 import DeleteButton from './DeleteButton';
 
@@ -223,9 +223,11 @@ const Settings = () => {
     }
 
     const handalClickEditAndSaveTextArea = async () => {
+        console.log(textAreaEventTypeFlag, 10)
         if (textAreaEventTypeFlag === true) {
             setTextareaDisabled(!textareaDisabled);
             setTextAreaEventType(t("Settings.save"));
+            setTextAreaEventTypeFlag(false)
             return;
         }
         const updateUser = { _id: id }
@@ -235,13 +237,14 @@ const Settings = () => {
         if (updateUser.description) {
             try {
                 const response = await updateDocument("account", updateUser);
+                console.log(response)
             } catch (error) {
                 console.log("error", error)
             }
         }
         setTextareaDisabled(!textareaDisabled);
         setTextAreaEventType(t("Settings.edit"));
-        setTextAreaEventTypeFlag(false)
+        setTextAreaEventTypeFlag(true)
     }
 
     const handalClickProfilePicture = async () => {
@@ -358,7 +361,7 @@ const Settings = () => {
                                                     {({ onClick }) =>
                                                         <button onClick={onClick} className="upload-button">
                                                             <img src={imgURL} className="rounded-circle image-img" style={{ width: "100px" }} alt="Profile Logo" />
-                                                            <i className="bi bi-camera" style={{position: 'absolute', top: '30px'}}></i>
+                                                            <i className="bi bi-camera" style={{ position: 'absolute', top: '30px' }}></i>
                                                         </button>
                                                     }
                                                 </UploadButton>
@@ -368,7 +371,7 @@ const Settings = () => {
                                                 </div>
                                             </div>
                                             <div className="ms-auto">
-                                                <DeleteButton/>
+                                                <DeleteButton />
                                             </div>
                                         </CardSettingsInfo>
                                     </SettingsInfo>

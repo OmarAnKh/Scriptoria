@@ -23,9 +23,9 @@ const WpNavBar = ({ setMode, data, setData, setState }) => {
   const [userExistError, setUserExistError] = useState("none")
   const [invaledEmail, setInvaledEmail] = useState("none")
   const [users, setUsers] = useState([])
-  const [removeState, setRemoveState] = useState(false) 
-  const [addUserState, setAddUserState] = useState(false) 
-  const [ruleState, setRuleState] = useState(false) 
+  const [removeState, setRemoveState] = useState(false)
+  const [addUserState, setAddUserState] = useState(false)
+  const [ruleState, setRuleState] = useState(false)
   const [signedInUser, setSignedInUser] = useState({})
   const [publishStatus, setPublishStatus] = useState(false);
 
@@ -146,7 +146,7 @@ const WpNavBar = ({ setMode, data, setData, setState }) => {
 
   const handelPublich = async () => {
     const document = {
-      _id: id,
+      id: id,
       publishStatus: !publishStatus
     }
     const res = await updateDocument("stories", document);
@@ -249,14 +249,6 @@ const WpNavBar = ({ setMode, data, setData, setState }) => {
               </div>
             </li>
 
-            {/* chat button */}
-            <li className="nav-item chat m-2">
-              <LinkBtns btnCn="Chats" icon="bi bi-chat-left-text-fill" badge={15} badgeMsg="unread messeges" />
-            </li>
-            {/* notifications button */}
-            <li className="nav-item notifications m-2">
-              <LinkBtns btnCn="Notifications" icon="bi bi-bell-fill" badge={55} badgeMsg="unread notifications" />
-            </li>
             {/* profile button */}
             <li className="nav-item pfp m-2">
               <LinkBtns btnCn="Profile" icon="bi bi-emoji-angry-fill" badge={0} />

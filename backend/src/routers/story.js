@@ -156,27 +156,10 @@ router.get('/stories/:id', async (req, res) => {
 });
 
 
-// router.patch('/stories/update', async (req, res) => {
-
-//     try {
-//         const updatedStory = await Story.findByIdAndUpdate(req.body.id, req.body, { new: true, runValidators: true });
-
-//         if (!updatedStory) {
-//             res.status(404).send()
-//         }
-
-//         res.status(200).send(updatedStory);
-
-//     } catch (error) {
-//         res.status(500).send(error.message);
-//     }
-// });
-
 router.patch('/stories/update', async (req, res) => {
-    const _id = req.body._id;
-    delete req.body._id;
+
     try {
-        const updatedStory = await Story.findByIdAndUpdate(_id, req.body);
+        const updatedStory = await Story.findByIdAndUpdate(req.body.id, req.body, { new: true, runValidators: true });
 
         if (!updatedStory) {
             res.status(404).send()
@@ -188,5 +171,22 @@ router.patch('/stories/update', async (req, res) => {
         res.status(500).send(error.message);
     }
 });
+
+// router.patch('/stories/update', async (req, res) => {
+//     const _id = req.body._id;
+//     delete req.body._id;
+//     try {
+//         const updatedStory = await Story.findByIdAndUpdate(_id, req.body);
+
+//         if (!updatedStory) {
+//             res.status(404).send()
+//         }
+
+//         res.status(200).send(updatedStory);
+
+//     } catch (error) {
+//         res.status(500).send(error.message);
+//     }
+// });
 
 export default router;

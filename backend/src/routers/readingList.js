@@ -24,7 +24,6 @@ router.get('/readingLists',  async (req, res) => {
     try {
         const lists = await ReadingList.find({ accountId });
         if (!lists) return res.send();
-        console.log(lists);
         res.send(lists);
     } catch (error) {
         console.log(error);
