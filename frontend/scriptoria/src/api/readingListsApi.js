@@ -96,7 +96,13 @@ const updateReadingLists = async (storyId, checkedLists, token) => {
                 } else {
                     if (stories.includes(storyId)) {
                         stories = stories.filter(story => story !== storyId)
-                        await updateList(list._id, stories, token)
+                        const editedList = {
+                            id : list._id,
+                            name : list.name,
+                            accountId : list.accountId,
+                            stories
+                        }
+                        await updateList(editedList, token)
                     }
                 }
             })

@@ -62,6 +62,7 @@ const Comments = ({ id }) => {
     <>
       <div>
 
+
         <i className="bi bi-chat-fill" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style={{ color: 'white', cursor: 'pointer', justifySelf: 'center', fontSize: '2rem' }}></i>
 
         <div className="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex={-1} aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -72,6 +73,7 @@ const Comments = ({ id }) => {
                 <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" />
               </div>
               {comments.length > 0 ? <div className="modal-body overflow-x-hidden p-0 m-0" style={{height : '670px'}}>
+
     {
 comments.map((comment, index) => {  
   return (

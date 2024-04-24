@@ -5,7 +5,8 @@ import { sendComment } from '../../../api/commentsApi'
 import { useTranslation } from 'react-i18next';
 import useAuth from "../../../hooks/useAuth"
 
-const AddComment = ({ signedIn,storyId, updateComments }) => {
+
+    const AddComment = ({ signedIn,storyId, updateComments }) => {
 
     const { auth } = useAuth();
     const {t} = useTranslation()
@@ -41,7 +42,6 @@ const AddComment = ({ signedIn,storyId, updateComments }) => {
             } catch (error) {
                 console.log(error);
             }
-
         }
     }
 

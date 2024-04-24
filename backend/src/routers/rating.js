@@ -7,7 +7,7 @@ const router = new express.Router()
 router.post('/rate', authentication, async (req,res)=>{
     const rate = new Rating({
         rating : req.body.rating,
-        StoryId : '660c0ef9f7c89b9cfdd1aacb',
+        StoryId : req.body.StoryId,
         AccountId : req.user.id
     })
     try{
@@ -19,28 +19,23 @@ router.post('/rate', authentication, async (req,res)=>{
     }
 })
 
-
-router.get('/rate', authentication, async (req, res)=>{
+router.get('/rate/:id', authentication, async (req, res)=>{
   const AccountId = req.user.id;
-  const StoryId = req.query.StoryId;
+  const StoryId = req.params.id
   try{
       const rate = await Rating.findOne({StoryId, AccountId });
-      if(!rate) return undefined;
+      if(!rate) return res.status(404).send();
       res.send(rate);
   }catch(e){
       res.status(500).send();
   }
 });
 
-
 router.patch('/rate/:id', authentication, async(req, res) => {
-    const updates = Object.keys(req.body);
-    const isValidOperation = updates.includes("rating");
-    if (!isValidOperation) {
-      return res.status(400).send({ "error": "invalid update!" });
-    }
+    const AccountId = req.user.id;
+    const StoryId = req.params.id
     try {
-      const rate = await Rating.findOne({AccountId : req.params.id ,StoryId: '65fb60a9334d75840746ae29' });
+      const rate = await Rating.findOne({AccountId, StoryId});
       if (!rate) {
         return res.status(404).send();
       }
@@ -50,7 +45,7 @@ router.patch('/rate/:id', authentication, async(req, res) => {
     } catch (error) {
       res.status(400).send(error);
     }
-  });
+});
 
   
 

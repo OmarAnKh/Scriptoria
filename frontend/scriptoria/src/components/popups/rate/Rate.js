@@ -7,6 +7,7 @@ import useAuth from '../../../hooks/useAuth';
 import { useTranslation } from 'react-i18next';
 
 const Rate = ({id}) => {
+
     const {t} = useTranslation()
     const { auth } = useAuth();
     const [value, setValue] = useState(0);
@@ -14,10 +15,11 @@ const Rate = ({id}) => {
     const [signedIn, setSignedIn] = useState(false);
     const [button, setButton] = useState(t("Rate.save"))
     const token = auth.token
+    const user = auth.userName
+    const StoryId = id
 
     useEffect(() => {
         const fetchData = async () => {
-            const user = auth.userName;
             if (user) {
                 setSignedIn(true)
                 const rating = await getRate(id, token );
@@ -25,7 +27,6 @@ const Rate = ({id}) => {
                     setValue(rating);
                     setButton(t("Rate.update"))
                     setIsRated(true); 
-
                 }
             }
         };
@@ -36,12 +37,10 @@ const Rate = ({id}) => {
 
     const handleRating = async () => {
         if (!signedIn) return;
-
         const rate = {
-            StoryId: id,
+            StoryId,
             rating: value
         };
-
         try {
             await toast.promise(
                 isRated ? updateRate(rate, token) : sendRate(rate, token),
@@ -51,7 +50,6 @@ const Rate = ({id}) => {
                     error: 'Failed to save your rating. Please try again later.',
                 }
             );
-
             setIsRated(true);
         } catch (error) {
             console.error('Rating error:', error);
