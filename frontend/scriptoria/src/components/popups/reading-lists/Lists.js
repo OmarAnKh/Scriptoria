@@ -108,7 +108,7 @@ const Lists = ({ storyId }) => {
             <div className="modal-content">
               <div className="modal-header py-2">
                 <h1 className="modal-title fs-5" id="addToListLabel">
-                  {t("SaveTo.SaveTo")}
+                  {t("SaveTo.save-to")}
                 </h1>
                 <button
                   type="button"
@@ -150,7 +150,7 @@ const Lists = ({ storyId }) => {
                   data-bs-target="#createList"
                   data-bs-toggle="modal"
                 >
-                  <i className="bi bi-plus-lg"></i> {t("SaveTo.createNewList")}
+                  <i className="bi bi-plus-lg"></i> {t("SaveTo.create-a-new-list")}
                 </button>
                 <button
                   className="btn btn-primary rounded w-50"
@@ -177,7 +177,7 @@ const Lists = ({ storyId }) => {
                   className="modal-title fs-5"
                   id="addToListLabel2"
                 >
-                  {t("SaveTo.createRLPopUp")}
+                  {t("SaveTo.create-reading-list-popop")}
                 </span>
                 <button
                   type="button"
@@ -208,7 +208,7 @@ const Lists = ({ storyId }) => {
                   data-bs-toggle="modal"
                   onClick={createList}
                 >
-                  {t("SaveTo.createAndSave")}
+                  {t("SaveTo.create-and-save")}
                 </button>
                 <button
                   className="btn btn-secondary rounded w-50"

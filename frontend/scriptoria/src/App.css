@@ -76,13 +76,23 @@ body {
   font-display: swap;
 }
 
+@font-face {
+  font-family: 'Brasika';
+  src: url('./fonts/BrasikaDisplay.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+
+
 body {
   font-family: Fibre Vintage;
   background-color:var(--background-Color);
 }
 
 .Scriptoria {
-  font-family: Righteous;
+  font-family: Brasika !important;
 }
 
 :root {
@@ -91,3 +101,4 @@ body {
   --primary-Color: #AC967F;
   --accent-Color: #E1D8D1;
 }
+

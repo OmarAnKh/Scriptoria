@@ -114,7 +114,12 @@
         "edit": "Modifier",
         "password": "Mot de passe",
         "save": "Enregistrer",
-        "description": "Description"
+        "description": "Description",
+        "delete_account": "Supprimer le compte",
+        "confirm_password": "Veuillez confirmer votre mot de passe",
+        "delete_account_header": "Êtes-vous sûr de vouloir supprimer votre compte ?",
+        "confirm": "Confirmer",
+        "cancel": "Annuler"
     },
     "StoryCard": {
         "show_more": "Afficher plus"
