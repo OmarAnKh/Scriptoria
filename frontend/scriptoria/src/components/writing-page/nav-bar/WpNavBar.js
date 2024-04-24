@@ -27,10 +27,12 @@ const WpNavBar = ({ setMode, data, setData, setState }) => {
   const [addUserState, setAddUserState] = useState(false) // Updated
   const [ruleState, setRuleState] = useState(false) // Updated
   const [signedInUser, setSignedInUser] = useState({})
+  const [publishStatus, setPublishStatus] = useState(false);
 
   useEffect(() => {
     const ExistStory = async () => {
       const res = await getstory(id)
+      setPublishStatus(res?.story.publishStatus);
       if (res?.status) {
         navigate('/')
         return
@@ -141,6 +143,16 @@ const WpNavBar = ({ setMode, data, setData, setState }) => {
       icon: '🙋‍♂️',
     });
   }
+
+  const handelPublich = async () => {
+    const document = {
+      _id: id,
+      publishStatus: !publishStatus
+    }
+    const res = await updateDocument("stories", document);
+    setPublishStatus(!publishStatus);
+  }
+
   return (
 
     <nav className="navbar navbar-expand-lg WpNavBar py-1" id="WpNavBar">
@@ -262,8 +274,8 @@ const WpNavBar = ({ setMode, data, setData, setState }) => {
               <Buttons btnCN="FocusMode" name="Focus Mode" />
             </li>
             <li className="nav-item">
-              <button type="button" className="btn btn-outline-dark rounded-5 m-2">
-                Publish
+              <button type="button" className="btn btn-outline-dark rounded-5 m-2" onClick={handelPublich}>
+                Publish Status:{publishStatus ? "Published" : "not Published"}
               </button>
             </li>
           </ol>
