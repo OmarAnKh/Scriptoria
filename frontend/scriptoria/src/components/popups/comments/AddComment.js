@@ -2,15 +2,13 @@ import React, { useState, useEffect } from 'react'
 import logo from "../../../img/content.png";
 import { findAccount } from '../../../api/accountApi'
 import { sendComment } from '../../../api/commentsApi'
-
 import { useTranslation } from 'react-i18next';
 import useAuth from "../../../hooks/useAuth"
-const AddComment = ({ signedIn, updateComments }) => {
+
+
+    const AddComment = ({ signedIn,storyId, updateComments }) => {
 
     const { auth } = useAuth();
-
-
-const AddComment = ({storyId, signedIn, updateComments}) => {
     const {t} = useTranslation()
     const [user, setUser] = useState({})
     const [imageUrl, setImageURL] = useState(logo)
@@ -32,9 +30,18 @@ const AddComment = ({storyId, signedIn, updateComments}) => {
     const saveComment = async () => {
         if (signedIn) {
             const comment = {
- accountId : user._id,
+                accountId: user._id,
                 storyId,
-                text : document.getElementById('add-comment').value
+                text: document.getElementById('add-comment').value
+            }
+            const token = auth.token
+            try {
+                await sendComment(comment, token);
+                document.getElementById('add-comment').value = '';
+                updateComments();
+            } catch (error) {
+                console.log(error);
+            }
         }
     }
 
