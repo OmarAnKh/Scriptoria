@@ -120,7 +120,7 @@ const responsive = {
 
 const CarouselCards = (props) => {
 
-    const [ stories, setStories ] = useState([])
+    const [stories, setStories] = useState([])
     const numOfStories = 5
 
     useEffect(() => {
@@ -163,7 +163,7 @@ const CarouselCards = (props) => {
 
             {stories.map((story) => {
                 return (
-                    <div className="row justify-content-center" key={story.id}>
+                    <div className="row justify-content-center" key={story._id}>
                         <div className="col-lg-12">
                             <Card data={story} />
                         </div>

@@ -17,13 +17,13 @@ router.post('/likes', authentication, async (req, res) => {
 
 
 router.get('/likes', async (req, res) => {
-    
+
     try {
 
         const { AccountId, StoryId } = req.query
         const liked = await Like.findOne({ AccountId, StoryId })
 
-        if(!liked) {
+        if (!liked) {
             return res.status(404).send({ message: false })
         }
         res.status(200).send({ message: true })
@@ -34,7 +34,7 @@ router.get('/likes', async (req, res) => {
 
 
 router.delete('/likes', async (req, res) => {
-    
+
     try {
         const { AccountId, StoryId } = req.body
         const like = await Like.findOneAndDelete({ AccountId, StoryId })

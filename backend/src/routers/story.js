@@ -104,11 +104,11 @@ router.get('/stories', async (req, res) => {
     try {
         const stories = await Story.find({ publishStatus: true }).limit(limit);
 
-        if(!stories) {
+        if (!stories) {
             res.status(404).send();
         }
         res.status(200).send(stories);
-        
+
     } catch (error) {
         res.status(500).send();
     }
@@ -171,5 +171,22 @@ router.patch('/stories/update', async (req, res) => {
         res.status(500).send(error.message);
     }
 });
+
+// router.patch('/stories/update', async (req, res) => {
+//     const _id = req.body._id;
+//     delete req.body._id;
+//     try {
+//         const updatedStory = await Story.findByIdAndUpdate(_id, req.body);
+
+//         if (!updatedStory) {
+//             res.status(404).send()
+//         }
+
+//         res.status(200).send(updatedStory);
+
+//     } catch (error) {
+//         res.status(500).send(error.message);
+//     }
+// });
 
 export default router;

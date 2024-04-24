@@ -6,9 +6,6 @@ import { useTranslation } from 'react-i18next';
 import useAuth from "../../../hooks/useAuth"
 
 
-
-
-
 const AddComment = ({ storyId, signedIn, updateComments }) => {
     const { auth } = useAuth();
 
@@ -37,6 +34,7 @@ const AddComment = ({ storyId, signedIn, updateComments }) => {
                 storyId,
                 text: document.getElementById('add-comment').value
             }
+
             const token = auth.token
             try {
                 await sendComment(comment, token);
@@ -46,8 +44,6 @@ const AddComment = ({ storyId, signedIn, updateComments }) => {
                 console.log(error);
             }
         }
-
-
     }
     return (
         <div className="d-flex flex-row bg-light w-100 rounded">
