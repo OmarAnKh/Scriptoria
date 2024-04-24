@@ -8,36 +8,38 @@ router.post('/readingLists', authentication, async (req, res) => {
     const readingList = new ReadingList({
         name: req.body.name,
         accountId: req.user.id
-    })
-    if (req.body.stories) readingList.stories = req.body.stories
+    });
+    if (req.body.stories) readingList.stories = req.body.stories;
     try {
-        await readingList.save()
-        res.send(readingList)
+        await readingList.save();
+        res.send(readingList);
     } catch (error) {
-        res.status(400).send(error)
+        res.status(400).send(error);
     }
 })
 
-router.get('/readingLists', authentication, async (req, res) => {
-    const accountId = req.user.id
+
+router.get('/readingLists',  async (req, res) => {
+    const accountId = req.query.accountId;
     try {
-        const lists = await ReadingList.find({ accountId })
-        if (!lists) return res.send()
-        res.send(lists)
+        const lists = await ReadingList.find({ accountId });
+        if (!lists) return res.send();
+        console.log(lists);
+        res.send(lists);
     } catch (error) {
-        console.log(error)
-        res.status(400).send()
+        console.log(error);
+        res.status(400).send();
     }
 })
 
 router.get('/readingLists/:id', authentication, async (req, res) => {
     try {
-        const stories = await ReadingList.findOne({ _id: req.params.id, accountId: req.user.id }).populate('stories')
-        if (!stories) return res.send({ nothing: true })
-        res.send(stories)
+        const stories = await ReadingList.findOne({ _id: req.params.id, accountId: req.user.id }).populate('stories');
+        if (!stories) return res.send({ nothing: true });
+        res.send(stories);
     } catch (error) {
-        console.log(error)
-        res.status(400).send()
+        console.log(error);
+        res.status(400).send();
     }
 })
 
@@ -45,19 +47,32 @@ router.get('/readingLists/:id', authentication, async (req, res) => {
 router.patch('/readingLists/:id', authentication, async (req, res) => {
     const id = req.params.id;
     const stories = req.body.stories;
+    const name = req.body.name
 
     try {
         const readingList = await ReadingList.findById(id);
         if (!readingList) {
             return res.status(404).send({ error: 'Reading list not found' });
         }
-        readingList.stories = stories
-        await readingList.save();
+        readingList.stories = stories;
+        readingList.name = name;
 
         res.send(readingList);
     } catch (error) {
         console.log(error);
         res.status(400).send(error);
+    }
+})
+
+router.delete('/readingLists/:id', async(req, res)=>{
+    try{
+        const list = await ReadingList.findByIdAndDelete(req.params.id)
+        if(!list){
+            return res.status(404).send();
+        }
+        res.send(list)
+    }catch(e){
+        res.status(500).send();
     }
 })
 

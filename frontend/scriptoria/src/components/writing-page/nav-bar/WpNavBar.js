@@ -142,6 +142,7 @@ const WpNavBar = ({ setMode, data, setData, setState }) => {
     });
   }
   return (
+
     <nav className="navbar navbar-expand-lg WpNavBar py-1" id="WpNavBar">
       <div className="container-fluid d-flex justify-content-between">
         <Link to={`/`} className="card-text d-flex align-items-center" target="">

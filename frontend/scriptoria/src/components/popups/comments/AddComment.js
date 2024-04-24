@@ -8,9 +8,11 @@ import useAuth from "../../../hooks/useAuth"
 
 
 
+
 const AddComment = ({ storyId, signedIn, updateComments }) => {
     const { auth } = useAuth();
-    const { t } = useTranslation()
+
+    const {t} = useTranslation()
     const [user, setUser] = useState({})
     const [imageUrl, setImageURL] = useState(logo)
 
@@ -34,6 +36,14 @@ const AddComment = ({ storyId, signedIn, updateComments }) => {
                 accountId: user._id,
                 storyId,
                 text: document.getElementById('add-comment').value
+            }
+            const token = auth.token
+            try {
+                await sendComment(comment, token);
+                document.getElementById('add-comment').value = '';
+                updateComments();
+            } catch (error) {
+                console.log(error);
             }
         }
 

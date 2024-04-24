@@ -62,6 +62,9 @@ const Comments = ({ id }) => {
     <>
       <div>
 
+
+        <i className="bi bi-chat-fill" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style={{ color: 'white', cursor: 'pointer', justifySelf: 'center', fontSize: '2rem' }}></i>
+
         <div className="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex={-1} aria-labelledby="staticBackdropLabel" aria-hidden="true">
           <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable p-0">
             <div className="modal-content">
@@ -69,38 +72,40 @@ const Comments = ({ id }) => {
                 <h2 className="modal-title fs-5" id="staticBackdropLabel">{t("Comments.Comments")}</h2>
                 <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" />
               </div>
+              {comments.length > 0 ? <div className="modal-body overflow-x-hidden p-0 m-0" style={{height : '670px'}}>
 
-              {comments.length > 0 ? <div className="modal-body overflow-x-hidden p-0 m-0" style={{ height: '670px' }}>
-                {
-                  comments.map((comment, index) => {
-                    return (
-                      <Comment
-                        userId={user._id}
-                        key={index}
-                        commentId={comment._id}
-                        account={comment.accountId}
-                        text={comment.text}
-                        time={getDateStringDifference(new Date(), new Date(comment.createdAt))}
-                        updateComments={updateComments}
-                        likes="1"
-                      />
-                    );
-                  })
-                }
-              </div> : <div className="d-flex justify-content-center align-items-center" style={{ height: '670px' }}>
-                <div className="text-center text-secondary h6">
-                  {t("Comments.no-comments")}
-                </div>
-              </div>
-              }
+    {
+comments.map((comment, index) => {  
+  return (
+      <Comment 
+          userId = {user._id}
+          key={index}
+          commentId={comment._id}
+          account={comment.accountId}
+          text={comment.text}
+          time={getDateStringDifference(new Date(), new Date(comment.createdAt))}
+          updateComments={updateComments}
+          likes="1"
+      />
+  );
+})
+}
+</div> : <div className="d-flex justify-content-center align-items-center" style={{height : '670px'}}>
+  <div className="text-center text-secondary h6">
+    {t("Comments.no-comments")}
+  </div>
+</div>
+}
 
-              {signedIn ? <div className="modal-footer p-0">
-                <AddComment signedIn={signedIn} updateComments={updateComments} storyId={id} />
-              </div> : ``}
-            </div>
-          </div>
-        </div>
+      {signedIn ? <div className="modal-footer p-0">
+        <AddComment signedIn={signedIn} updateComments={updateComments} storyId={id}/>
+        </div> : ``}
       </div>
+    </div>
+  </div>
+</div>
+
+
     </>
   )
 }
