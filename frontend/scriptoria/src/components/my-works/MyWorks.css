@@ -1,0 +1,181 @@
+.custom-card-container {
+  display: flex;
+  row-gap: 20px;
+  column-gap: 25px;
+  width: 80vw;
+  flex-wrap: nowrap;
+  position: relative;
+  top: 25%;
+  left: 5%;
+}
+
+.moveitmoveit {
+  position: relative;
+  top: 25%;
+  left: 5%;
+}
+
+.top5col {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 400px;
+  width: inherit;
+}
+
+.custom-card-container1 {
+  flex-wrap: wrap !important;
+}
+
+.custom-card-article {
+  position: relative;
+  overflow: hidden;
+  width: 200px;
+  height: auto;
+  margin-bottom: 15px;
+}
+
+.custom-card-img {
+  width: 170px;
+  height: 280px;
+  border-radius: 1.5rem;
+  object-fit: fill;
+}
+
+.custom-card-data {
+  background-color: white;
+  padding: 1.5rem 2rem;
+  box-shadow: 0 8px 24px hsla(0, 0%, 0%, .15);
+  border-radius: 1rem;
+  position: absolute;
+  bottom: -9rem;
+  left: 0;
+  right: 0;
+  margin-inline: auto;
+  opacity: 0;
+  transition: opacity 1s 1s;
+}
+
+
+.custom-card-title {
+  font-size: larger;
+  font-weight: 500;
+  color: black;
+  margin-bottom: .75rem;
+}
+
+.custom-card-button {
+  text-decoration: none;
+  font-size: small;
+  font-weight: 500;
+  color: black;
+}
+
+.custom-card-button:hover {
+  text-decoration: underline;
+}
+
+.custom-card-article:hover .custom-card-data {
+  animation: show-data 1s forwards;
+  opacity: 1;
+  transition: opacity .3s;
+}
+
+.custom-card-article:hover {
+  animation: remove-overflow 2s forwards;
+}
+
+.custom-card-article:not(:hover) {
+  animation: show-overflow 2s forwards;
+}
+
+.custom-card-article:not(:hover) .custom-card-data {
+  animation: remove-data 1s forwards;
+}
+
+.MostRated {
+  display: flex;
+  align-items: center;
+}
+
+.TopCard {
+  display: flex;
+  justify-content: flex-start;
+  width: 300px;
+  height: 70px;
+  padding: 5px;
+  border-radius: 15px;
+  background-color: var(--accent-Color);
+}
+
+.TopCard img {
+  min-width: 60px;
+  height: 60px;
+  object-fit: fill;
+  border-radius: 5px;
+}
+
+.TopCard h5 {
+  padding-left: 20px;
+  width: 100%;
+}
+
+.TopCard h3 {
+  display: flex;
+  align-items: center;
+  margin-right: 20px;
+}
+
+
+
+@keyframes show-data {
+  50% {
+    transform: translateY(-10rem);
+  }
+
+  100% {
+    transform: translateY(-7rem);
+  }
+}
+
+@keyframes remove-overflow {
+  to {
+    overflow: initial;
+  }
+}
+
+@keyframes remove-data {
+  0% {
+    transform: translateY(-7rem);
+  }
+
+  50% {
+    transform: translateY(-10rem);
+  }
+
+  100% {
+    transform: translateY(.5rem);
+  }
+}
+
+@keyframes show-overflow {
+  0% {
+    overflow: initial;
+    pointer-events: none;
+  }
+
+  50% {
+    overflow: hidden;
+  }
+}
+
+@media screen and (max-width: 340px) {
+  .container {
+    margin-inline: 1rem;
+  }
+
+  .custom-card-data {
+    width: 100%;
+    padding: 1rem;
+  }
+}

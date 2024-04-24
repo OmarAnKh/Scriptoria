@@ -22,7 +22,7 @@ import StoryCard from "./components/story-overview/StoryPage.js"
 import Layout from './components/layout/Layout.js';
 import PersistLogin from './components/persist-login/PersistLogin.js';
 import RequireAuth from './components/require-auth/RequireAuth.js';
-
+import MyWorks from './components/my-works/MyWorks.js'
 function App() {
 
   return (
@@ -36,17 +36,18 @@ function App() {
           <Route path='GetEmail' element={<GettingEmail />} />
           <Route path='EmailVerifing/:email' element={<EmailVerifing />} />
           <Route path='ResetPassword' element={<ResetPassword />} />
-          <Route path='logout' element={<LogedOut />} />
+          <Route path='logout' element={<LogedOut />} />                  
           {/*we want to protect these routes*/}
           <Route element={<PersistLogin />}>
             <Route path='/' element={<HomePage />} />
             <Route path="profile/:username" element={<Profile />} />
             <Route path='Search/:criteria' element={<SearchResultsPage />} />
-            <Route path='StoryPage' element={<StoryPage />} />
+            <Route path='StoryPage/:id' element={<StoryPage />} />
             <Route path='TeamMembers' element={<AllMembers />} />
             <Route path='book' element={<BookToDisplay />} />
             <Route path='stories/:id' element={<StoryHeader />} />
             <Route element={<RequireAuth />}>
+            <Route path='MyWorks/:id' element={<MyWorks />} />
               <Route path='WritingPage' element={<WritingPage />} />
               <Route path='StoryDetails' element={<StoryDetails />} />
               <Route path='settings/:id' element={<Settings />} />

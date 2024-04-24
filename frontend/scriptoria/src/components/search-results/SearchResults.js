@@ -44,6 +44,7 @@ const SearchResultsPage = () => {
                                             imgURL={`data:image/png;base64,${Buffer.from(book.coverPhoto.data).toString('base64')}`}
                                             description={book.description}
                                             name={book.title}
+                                            rate={book.rate}
                                             key={index}
                                         />
                                     </React.Fragment >)

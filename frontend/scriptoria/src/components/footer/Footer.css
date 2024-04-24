@@ -16,8 +16,6 @@ footer {
 
 .fitcon {
     font-size: x-large;
-    position: relative;
-    right: 13%;
 }
 
 .NeedHelpText {
@@ -25,12 +23,32 @@ footer {
 }
 
 .SupportImg {
-    width: 70%;
+    width: 400px;
     height: auto;
 }
 
 .footerplace {
     position: relative;
     color: var(--text-Color);
-    right: 5%;
+    left: 2%;
+    margin-top: 5%;
+}
+
+@media only screen and (max-width: 988px) {
+    .SupportImgDiv {
+        display: none;
+    }
+
+    .NeedHelpText {
+        text-align: center;
+    }
+
+    .iconsrow {
+        justify-content: center;
+    }
+
+    .fitcon {
+        left: 4%;
+        position: relative;
+    }
 }
