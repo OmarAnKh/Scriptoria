@@ -17,7 +17,7 @@ const sendRate = async (rate, token) => {
     }
 }
 
-const getRate = async (AccountId, StoryId, token) => {
+const getRate = async (StoryId, token) => {
     try {
         const response = await axios({
             url: "http://localhost:5000/rate",
@@ -28,7 +28,6 @@ const getRate = async (AccountId, StoryId, token) => {
             },
             withCredentials: true,
             params: {
-                AccountId,
                 StoryId
             }
         });
