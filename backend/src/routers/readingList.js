@@ -47,6 +47,7 @@ router.get('/readingLists/:id', authentication, async (req, res) => {
 router.patch('/readingLists/:id', authentication, async (req, res) => {
     const id = req.params.id;
     const stories = req.body.stories;
+    const name = req.body.name
 
     try {
         const readingList = await ReadingList.findById(id);
@@ -54,7 +55,7 @@ router.patch('/readingLists/:id', authentication, async (req, res) => {
             return res.status(404).send({ error: 'Reading list not found' });
         }
         readingList.stories = stories;
-        readingList.name = req.body.name;
+        readingList.name = name;
 
         res.send(readingList);
     } catch (error) {

@@ -61,7 +61,7 @@ const getStoriesFromRL = async (_id, token) => {
 const updateList = async (list, token) => {
     try {
         await axios({
-            url: "http://localhost:5000/readingLists/" + list._id,
+            url: "http://localhost:5000/readingLists/" + list.id,
             method: "PATCH",
             withCredentials: true,
             headers: {

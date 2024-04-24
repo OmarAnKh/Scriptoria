@@ -17,8 +17,17 @@ const Lists = ({userName}) => {
     };
     fetchData();
   }, []);
-  
 
+  
+  const update = async()=>{
+    try {
+      const readingLists = await getReadingLists(userName);
+      console.log("Reading lists:", readingLists);
+      setLists(readingLists);
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
 
   return (
@@ -26,7 +35,7 @@ const Lists = ({userName}) => {
         <div className="list-cards justify-content-center" >
           {lists ? (
             lists.map((list, index) => {
-              return <ListCard key={index} userName={userName} list={list} />;
+              return <ListCard update={update} key={index} userName={userName} list={list} />;
             })
           ) : (
             <p>Loading...</p>
