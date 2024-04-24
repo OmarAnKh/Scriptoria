@@ -5,7 +5,11 @@ import "./SignIn.css";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { saveDocument } from "../../api/API's";
+import useAuth from "../../hooks/useAuth";
 const SignIn = () => {
+
+    const { setAuth } = useAuth();
+
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [emailValid, setEmailValid] = useState("rgb(33,33,33)");
@@ -48,9 +52,8 @@ const SignIn = () => {
             return;
         }
         const token = res.token
-        const userInfo = res.user.userName
-        document.cookie = "token=" + token + ";"
-        document.cookie = "userInfo=" + userInfo + ";"
+        const userName = res.user.userName
+        setAuth({ userName, token, userInfo: res.user })
         navigate("/")
     }
 

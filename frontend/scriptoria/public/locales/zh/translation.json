@@ -1,0 +1,167 @@
+{
+    "Navbar": {
+        "search": "搜索",
+        "home": "主页",
+        "browse": "浏览",
+        "teamMembers": "团队成员",
+        "add_a_story": "添加故事",
+        "signIn": "登录",
+        "signUp": "注册",
+        "profile": "个人资料",
+        "settings": "设置",
+        "logout": "退出",
+        "arabic": "العربية",
+        "english": "English",
+        "mandarin": "Mandarin",
+        "hindi": "Hindi",
+        "spanish": "Spanish",
+        "french": "French"
+    },
+    "BookShelf": {
+        "see_all_works": "查看所有作品",
+        "all_reading_list": "所有阅读列表",
+        "works": "作品",
+        "reading_list": "阅读列表"
+    },
+    "CarouselCards": {
+        "read_the_book": "阅读书籍"
+    },
+    "DiscoverTable": {
+        "all_genres": "所有类型",
+        "action": "动作",
+        "horror": "恐怖",
+        "romance": "浪漫"
+    },
+    "ErrorPage": {
+        "page_was_not_found": "页面未找到"
+    },
+    "Footer": {
+        "product": "产品",
+        "features": "特性",
+        "copy_Rights": "版权",
+        "resources": "资源",
+        "blog": "博客",
+        "user_guides": "用户指南",
+        "community": "社区",
+        "developers": "开发者",
+        "users": "用户",
+        "company": "公司",
+        "about": "关于",
+        "join_us": "加入我们",
+        "support": "支持",
+        "help_center": "帮助中心",
+        "chat_support": "聊天支持"
+    },
+    "FriendsList": {
+        "friends_List": "建议的好友",
+        "show_More": "显示更多"
+    },
+    "GettingEmail": {
+        "InputError_valid_email": "请输入有效的电子邮件",
+        "InputError_not_exsist": "我们的网站上没有这个电子邮件的帐户",
+        "cardType": "账户恢复",
+        "text": "要重置您的密码，请提供您的电子邮件地址，以便我们发送您一个验证码",
+        "buttonTitle": "获取验证码",
+        "inputPlaceholder": "电子邮件"
+    },
+    "EmailVerifing": {
+        "InputError": "无效的验证码",
+        "cardType": "账户恢复",
+        "text": "请输入发送到您电子邮件的验证码",
+        "inputPlaceholder": "验证码",
+        "buttonTitle": "验证我的验证码",
+        "buttonTitle2": "重新发送验证码"
+    },
+    "ResetPassword": {
+        "InputError_password_criteria": "密码必须至少6个字符长，包含至少一个大写字母，至少一个小写字母和至少一个数字",
+        "InputError_confirm_password": "请确保密码和确认密码匹配",
+        "cardType": "重置您的密码",
+        "text": "请选择一个强密码",
+        "inputPlaceholder": "密码",
+        "buttonTitle": "保存新密码"
+    },
+    "ProfileInfo": {
+        "hello": "你好，我是",
+        "about": "关于我",
+        "followers": "粉丝",
+        "works": "作品",
+        "following": "正在关注",
+        "settings": "设置",
+        "edit": "编辑关于",
+        "follow": "关注",
+        "unfollow": "取消关注",
+        "message": "消息",
+        "Unblock": "解除阻止",
+        "save": "保存"
+    },
+    "Settings": {
+        "settings": "设置",
+        "terms": "使用条款",
+        "help": "需要帮助吗？",
+        "q": "如果您有任何问题或问题，请随时与我们联系。",
+        "sendEmail": "发送邮件",
+        "privacy": "隐私",
+        "user_Info": "用户信息",
+        "security": "安全",
+        "support": "支持",
+        "user_Information": "用户信息",
+        "user_name": "用户名",
+        "display_name": "显示名称",
+        "gender": "性别",
+        "county": "国家",
+        "desPlaceholder": "在此输入您的描述...",
+        "mail": "电子邮件",
+        "edit": "编辑",
+        "password": "密码",
+        "save": "保存",
+        "description": "描述"
+    },
+    "StoryCard": {
+        "show_more": "显示更多"
+    },
+    "StoryDetails": {
+        "title": "标题",
+        "number": "幻灯片数量",
+        "description": "描述（最多300字）",
+        "characters": "主要角色",
+        "background": "背景颜色：",
+        "cancel": "取消",
+        "start": "开始",
+        "add_cover": "添加封面",
+        "category": "类别",
+        "select": "选择一个/多个",
+        "Target": "目标受众",
+        "select_one": "选择一个",
+        "language": "语言",
+        "name": "名称",
+        "untitled": "无标题",
+        "title-error": "故事标题是必填项",
+        "language-error": "语言是必填项",
+        "description-error": "描述是必填项",
+        "category-error": "类别是必填项",
+        "target-audience-error": "目标受众是必填项",
+        "uploaded-image-url-error": "图片是必填项"
+    },
+    "Logout": {
+        "text1": "您已成功登出。",
+        "text2": "点击此处返回主页。"
+    },
+    "Comments": {
+        "Comments": "评论",
+        "Reply": "回复",
+        "edit": "编辑",
+        "delete": "删除",
+        "save": "保存",
+        "cancel": "取消"
+    },
+    "SaveTo": {
+        "SaveTo": "保存至...",
+        "createNewList": "创建新列表",
+        "save": "保存",
+        "create": "创建新的阅读列表",
+        "Name": "名称",
+        "createAndSave": "创建并保存",
+        "cancel": "取消",
+        "addToReadingList": "添加到阅读列表"
+    }
+}

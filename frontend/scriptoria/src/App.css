@@ -45,10 +45,12 @@
   font-style: normal;
   font-display: swap;
 }
+8c78b5
 
 body {
   font-family: Fibre Vintage;
 } */
+
 
 @font-face {
   font-family: 'Fibre Vintage';
@@ -86,8 +88,17 @@ body {
 
 body {
   font-family: Fibre Vintage;
+  background-color:var(--background-Color);
 }
 
 .Scriptoria {
   font-family: Brasika !important;
 }
+
+:root {
+  --text-Color: #000000;
+  --background-Color: #ECECEC;
+  --primary-Color: #AC967F;
+  --accent-Color: #E1D8D1;
+}
+

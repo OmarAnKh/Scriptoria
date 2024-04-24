@@ -3,10 +3,9 @@ import Block from "../models/block.js";
 const router = express.Router();
 
 router.post("/block", async (req, res) => {
-    const newFollow = new Block(req.body);
-
+    const newBlock = new Block(req.body);
     try {
-        await newFollow.save();
+        await newBlock.save();
         res.status(201).send({ status: true })
     } catch (error) {
         res.status(400).send({ error: "cant follow" });
@@ -27,10 +26,8 @@ router.get("/blocking/:user/:block", async (req, res) => {
 })
 
 router.delete("/unblock", async (req, res) => {
-
     try {
         const user = await Block.findOneAndDelete({ account: req.body.account, block: req.body.block })
-
         if (user) {
             return res.status(200).send({ status: true })
         }

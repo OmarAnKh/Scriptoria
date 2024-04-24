@@ -9,7 +9,13 @@
         "signUp": "انشاء حساب",
         "profile": "الملف الشخصي",
         "settings": "الاعدادات",
-        "logout": "تسجيل الخروج"
+        "logout": "تسجيل الخروج",
+        "arabic": "العربية",
+        "english": "English",
+        "mandarin": "Mandarin",
+        "hindi": "Hindi",
+        "spanish": "Spanish",
+        "french": "French"
     },
     "BookShelf": {
         "see_all_works": "جميع اعمال الكاتب",
@@ -85,7 +91,8 @@
         "follow": "متابعة",
         "unfollow": "الغاء المتابعة",
         "message": "مرسالة",
-        "Unblock": "الغاء الحظر"
+        "Unblock": "الغاء الحظر",
+        "save": "حفظ"
     },
     "Settings": {
         "settings": "الاعدادات",
@@ -127,13 +134,19 @@
         "select_one": "اختر واحدة",
         "language": "اللغة",
         "name": "الاسم",
-        "untitled": "بلا عنوان"
+       "untitled": "بلا عنوان",
+        "title-error": "يرجى إدخال العنوان",
+        "language-error": "يرجى إدخال اللغة",
+        "description-error": "يرجى إدخال وصف للقصة",
+        "category-error": "يرجى اختيار صنف",
+        "target-audience-error": "يرجى اختيار جمهور",
+        "uploaded-image-url-error": "يرجى إدخال صورة غلاف"
     },
-    "Logout" : {
+  "Logout" : {
         "text1" : ".لقد تم تسجيل خروجك بنجاح",
         "text2" : ".اضغط هنا للعودة للصفحة الرئيسية"
     },
-    "Comments" : {
+   "Comments" : {
         "Comments" : "التعليقات",
         "Reply" : "الرد",
         "edit" : "تعديل",
@@ -143,7 +156,7 @@
         "no-comments" : "كن أول المعلقين على هذه القصة",
         "write-something" : "اكتب شيء ..."
     },
-    "SaveTo" : {
+   "SaveTo" : {
         "save-to" : "حفظ القصة في",
         "create-a-new-list" : "أنشئ قائمة جديدة",
         "save" : "حفظ",

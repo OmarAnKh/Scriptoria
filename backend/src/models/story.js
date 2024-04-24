@@ -44,7 +44,7 @@ const storySchema = new mongoose.Schema({
         type: String,
         required: true
     }, slide: {
-        type: String
+        type: Object,
     }
 });
 

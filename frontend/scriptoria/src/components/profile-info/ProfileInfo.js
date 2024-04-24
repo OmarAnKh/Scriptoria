@@ -4,11 +4,16 @@ import InfoButton from './Card.js'
 import ActionButton from './ButtonCard.js'
 import { follows, unfollow, followers, followingCount } from "../../api/follow.js"
 import { useNavigate } from "react-router-dom"
-import Cookies from 'js-cookie';
 import logo from "../../img/content.png";
-import { saveDocument } from '../../api/API\'s.js';
+import { saveDocument, updateDocument } from '../../api/API\'s.js';
+import { writerStory } from '../../api/storyAPI.js'
 import { useTranslation } from 'react-i18next';
+import useAuth from '../../hooks/useAuth.js';
+
 const ProfileInfo = (props) => {
+
+    const { auth } = useAuth();
+
     const { t } = useTranslation()
     const data = props.user;
     const [following, setFollowing] = useState(false)
@@ -17,7 +22,23 @@ const ProfileInfo = (props) => {
     const [imgURL, setImgURL] = useState(logo)
     const navigate = useNavigate()
     const [followerCount, setFollowerCount] = useState(0);
+    const [editAbout, setEditAbout] = useState(false);
+    const [editedDescription, setEditedDescription] = useState(data.description);
 
+    const editAboutHandler = async () => {
+        setEditAbout(true);
+
+    }
+    const saveAboutHandler = async () => {
+        const document = {
+            _id: auth.userInfo._id,
+            description: editedDescription
+        }
+        const res = await updateDocument('account', document)
+        setEditAbout(false);
+        window.location.reload();
+
+    }
     const followHandler = async () => {
         const following = {
             account: user._id,
@@ -33,11 +54,11 @@ const ProfileInfo = (props) => {
     }
 
     const blockHandler = async () => {
-        const following = {
+        const block = {
             account: user._id,
             block: follow_id._id
         }
-        const res = await saveDocument("block", following)
+        const res = await saveDocument("block", block)
         window.location.reload();
     }
     const unblockHandler = async () => {
@@ -58,15 +79,26 @@ const ProfileInfo = (props) => {
         const res = await unfollow("unfollow", unfollowObj)
         setFollowing(false)
     }
+
+
+    const settingsHandler = async () => {
+        navigate(`/settings/${auth?.userInfo._id}`)
+    }
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const followerCount = await followers("/followers", props.user._id);
                 setFollowerCount(followerCount);
-                console.log(followerCount)
             } catch (error) {
                 console.error("Error fetching followers:", error);
             }
+
+            try {
+                const storiesObject = await writerStory("/stories", props.user._id);
+            } catch (error) {
+                console.error("Error fetching stories:", error);
+            }
+
             const account = props.visit;
             const followId = props.user;
             setUser(account);
@@ -76,14 +108,20 @@ const ProfileInfo = (props) => {
                 const res = await follows("following", account._id, followId._id)
                 setFollowing(res.status)
             }
-            setImgURL(`data:image/png;base64,${data.profilePicture}`)
-        };
+            if (data.profilePicture) {
+                setImgURL(`data:image/png;base64,${data.profilePicture}`)
+            } else {
+                setImgURL(logo)
+            }
+        }
+
         fetchData();
 
     }, []);
     if (!props.ifblocked) {
         return (
             <div className="MainPage row">
+
                 <div className="Nda col">
                     <div className="DisplayName">
                         {t("ProfileInfo.hello")}
@@ -95,9 +133,15 @@ const ProfileInfo = (props) => {
                         <div className="AboutMe">
                             {t("ProfileInfo.about")}
                             <div className="DescriptionArea ">
-                                <p>
-                                    {data.description}
-                                </p>
+                                {editAbout ? (
+                                    <textarea
+                                        className="form-control"
+                                        value={editedDescription}
+                                        onChange={(e) => setEditedDescription(e.target.value)}
+                                    />
+                                ) : (
+                                    <p>{data.description}</p>
+                                )}
                             </div>
                         </div>
                     </div>
@@ -105,7 +149,7 @@ const ProfileInfo = (props) => {
                     <div className="buttons">
                         {props.userStatus ? (
                             <>
-                                {!Cookies.get("userInfo") ? (<>
+                                {!auth.userName ? (<>
                                     <ActionButton
                                         label={t("ProfileInfo.follow")}
                                         className="thebtn buttonstyle icon"
@@ -201,25 +245,29 @@ const ProfileInfo = (props) => {
                         ) : (
                             <>
                                 <ActionButton
-                                    label={t("ProfileInfo.edit")}
+                                    label={!editAbout ? t("ProfileInfo.edit") : t("ProfileInfo.save")}
                                     className="thebtn buttonstyle icon"
                                     svgClassName="bi bi-person-add ms-3"
-                                    path1="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"
-                                    path2="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"
+                                    path1={!editAbout ? "M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" : "M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0"}
+                                    path2={!editAbout ? "M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z" : "M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0z"}
                                     width="20"
                                     height="20"
                                     viewBox="0 0 16 16"
+                                    method={!editAbout ? editAboutHandler : saveAboutHandler}
                                 />
-                                <ActionButton
-                                    label={t("ProfileInfo.settings")}
-                                    className="thebtn buttonstyle"
-                                    svgClassName="bi bi-chat-right-text mt-2 ms-4"
-                                    path1="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492M5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0"
-                                    path2="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115z"
-                                    width="20"
-                                    height="20"
-                                    viewBox="0 0 16 16"
-                                />
+                                
+                                {!editAbout ?
+                                    <ActionButton
+                                        label={t("ProfileInfo.settings")}
+                                        className="thebtn buttonstyle"
+                                        svgClassName="bi bi-chat-right-text mt-2 ms-4"
+                                        path1="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492M5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0"
+                                        path2="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115z"
+                                        width="20"
+                                        height="20"
+                                        viewBox="0 0 16 16"
+                                        method={settingsHandler}
+                                    /> : <></>}
                             </>
                         )}
                     </div>

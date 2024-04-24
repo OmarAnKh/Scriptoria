@@ -1,23 +1,25 @@
-import React,  { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import Rating from '@mui/material/Rating';
 import StarIcon from '@mui/icons-material/Star';
 import {sendRate, updateRate, getRate} from'../../../api/rateApi'
 import Cookies from 'js-cookie'
 import { toast} from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
+import useAuth from '../../../hooks/useAuth';
 
-const Rate = ({id}) => {
+const Rate = ({ id }) => {
     const {t} = useTranslation()
+    const { auth } = useAuth();
     const [value, setValue] = useState(0);
     const [isRated, setIsRated] = useState(false);
     const [signedIn, setSignedIn] = useState(false);
     const [button, setButton] = useState(t("Rate.save"))
-    const token = Cookies.get("token")
+    const token = auth.token
 
     useEffect(() => {
         const fetchData = async () => {
-            const user = Cookies.get("userInfo");
-            if(user){
+            const user = auth.userName;
+            if (user) {
                 setSignedIn(true)
                 const rating = await getRate(id, token );
                 if (rating !== undefined) {
@@ -29,17 +31,17 @@ const Rate = ({id}) => {
         };
         fetchData();
     }, []);
-    
-    
+
+
 
     const handleRating = async () => {
         if (!signedIn) return;
-    
+
         const rate = {
             StoryId: id,
             rating: value
         };
-    
+
         try {
             await toast.promise(
                 isRated ? updateRate(rate, token) : sendRate(rate, token),
@@ -49,7 +51,7 @@ const Rate = ({id}) => {
                     error: 'Failed to save your rating. Please try again later.',
                 }
             );
-    
+
             setIsRated(true);
         } catch (error) {
             console.error('Rating error:', error);
@@ -59,9 +61,8 @@ const Rate = ({id}) => {
     return (
         <div>
             <div>
-                
                 <h4 className="my-0 mx-2" style={{color: 'white', cursor: 'pointer', justifySelf: 'center'}} data-bs-toggle="modal" data-bs-target="#exampleModal">{t("Rate.header")}</h4>
-                
+
                 <div className="modal fade" id="exampleModal" tabIndex={-1} aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div className="modal-dialog modal-dialog-centered">
                         <div className="modal-content">
@@ -70,7 +71,7 @@ const Rate = ({id}) => {
                             </div>
                             <div className="modal-body container fs-1">
                                 <div className="row star-widget row-cols-auto justify-content-center">
-                                <Rating
+                                    <Rating
                                         name="hover-feedback"
                                         className='fs-1'
                                         value={value}
@@ -93,7 +94,7 @@ const Rate = ({id}) => {
                                     {t("Rate.cancel")}
                                 </button>
                             </div>
-                        
+
                         </div>
                     </div>
                 </div>

@@ -3,7 +3,10 @@ import EmailVerification from "../email-verification/EmailVerification";
 import { useEffect, useState } from "react";
 import { sendEmail } from "../../api/API's";
 import { saveDocument } from "../../api/API's";
+import useAuth from "../../hooks/useAuth"
+
 const SignUpVerificationCode = () => {
+    const { setAuth } = useAuth();
     const [code, setCode] = useState("");
     const [correctCode, setCorrectCode] = useState(null);
     const [inputColor, setInputColor] = useState("#cad0ff")
@@ -43,8 +46,11 @@ const SignUpVerificationCode = () => {
                 navigate(`/SignUp`);
                 return console.log(response);
             }
-            document.cookie = "token=" + response.token + ";";
-            document.cookie = "userInfo=" + user.userName + ";";
+            const userName = user.userName;
+            const token = response.token;
+
+            setAuth({ userName, token, userInfo: user })
+
             navigate(`/`);
         }
     };

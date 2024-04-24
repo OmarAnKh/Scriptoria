@@ -1,5 +1,5 @@
 .view-button {
-    border-color: #8D9BFF;
+    border-color: var(--primary-Color);
     background-color: transparent;
     color: black !important;
     font-family: 'Righteous';
@@ -12,7 +12,8 @@
 .view-button:hover,
 .view-button:focus,
 .view-button:active {
-    background-color: #8D9BFF !important
+    background-color: var(--primary-Color) !important;
+    border-color: var(--primary-Color) !important;
 }
 
 .shelf-title {
