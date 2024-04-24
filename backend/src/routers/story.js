@@ -97,6 +97,23 @@ router.get("/search/:criteria", async (req, res) => {
     }
 })
 
+router.get('/stories', async (req, res) => {
+
+    const limit = req.query.limit ? parseInt(req.query.limit, 10) : 7;
+
+    try {
+        const stories = await Story.find({ publishStatus: true }).limit(limit);
+
+        if(!stories) {
+            res.status(404).send();
+        }
+        res.status(200).send(stories);
+        
+    } catch (error) {
+        res.status(500).send();
+    }
+})
+
 router.get('/stories/:id', async (req, res) => {
     const _id = req.params.id
 
@@ -138,16 +155,6 @@ router.get('/stories/:id', async (req, res) => {
 
 });
 
-router.post('/likes', async (req, res) => {
-    const like = new Like(req.body)
-    try {
-        await like.save()
-        res.status(201).send(like)
-
-    } catch (error) {
-        res.status(500).send(error)
-    }
-});
 
 router.patch('/stories/update', async (req, res) => {
 

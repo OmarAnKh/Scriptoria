@@ -114,7 +114,12 @@
         "edit": "Edit",
         "password": "Password",
         "save": "Save",
-        "description": "Description"
+        "description": "Description",
+        "delete_account": "Delete Account",
+        "confirm_password": "Please confirm your password",
+        "delete_account_header": "Are you sure you want to delete your account?",
+        "confirm": "Confirm",
+        "cancel": "Cancel"
     },
     "StoryCard": {
         "show_more": "Show more"
