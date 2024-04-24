@@ -1,4 +1,5 @@
 
+import { Link } from "react-router-dom";
 import ActionButton from "./IntractButton.js";
 
 const Card = (props) => {
@@ -12,7 +13,7 @@ const Card = (props) => {
                 </p>
                 <div className="Placement">
                     <div className="buttonflex">
-                        <ActionButton
+                        <Link to={`/story/${props.storyId}`}><ActionButton
                             label="Read"
                             className="intractButton"
                             svgClassName="bi bi-volume-up move"
@@ -20,7 +21,7 @@ const Card = (props) => {
                             width="20"
                             height="20"
                             viewBox="0 0 16 16"
-                        />
+                        /></Link>
                         <ActionButton
                             label="Listen"
                             className="intractButton"

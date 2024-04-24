@@ -5,8 +5,10 @@ import { sendComment } from '../../../api/commentsApi'
 import { useTranslation } from 'react-i18next';
 import useAuth from "../../../hooks/useAuth"
 
-const AddComment = ({ signedIn, storyId, updateComments }) => {
+
+const AddComment = ({ storyId, signedIn, updateComments }) => {
     const { auth } = useAuth();
+
     const { t } = useTranslation()
     const [user, setUser] = useState({})
     const [imageUrl, setImageURL] = useState(logo)
@@ -57,5 +59,4 @@ const AddComment = ({ signedIn, storyId, updateComments }) => {
         </div>
     )
 }
-
 export default AddComment
