@@ -11,8 +11,9 @@ import { UploadButton } from "react-uploader";
 import Navbar from '../navbar/Navbar';
 import { updateDocument } from '../../api/API\'s';
 import AlertWithTime from '../alert/AlertWithTime';
-import {toast} from 'react-hot-toast'
+import { toast } from 'react-hot-toast'
 import { useTranslation } from 'react-i18next';
+import DeleteButton from './DeleteButton';
 
 const uploader = Uploader({
     apiKey: "free"
@@ -222,9 +223,11 @@ const Settings = () => {
     }
 
     const handalClickEditAndSaveTextArea = async () => {
+        console.log(textAreaEventTypeFlag, 10)
         if (textAreaEventTypeFlag === true) {
             setTextareaDisabled(!textareaDisabled);
             setTextAreaEventType(t("Settings.save"));
+            setTextAreaEventTypeFlag(false)
             return;
         }
         const updateUser = { _id: id }
@@ -234,13 +237,14 @@ const Settings = () => {
         if (updateUser.description) {
             try {
                 const response = await updateDocument("account", updateUser);
+                console.log(response)
             } catch (error) {
                 console.log("error", error)
             }
         }
         setTextareaDisabled(!textareaDisabled);
         setTextAreaEventType(t("Settings.edit"));
-        setTextAreaEventTypeFlag(false)
+        setTextAreaEventTypeFlag(true)
     }
 
     const handalClickProfilePicture = async () => {
@@ -348,6 +352,28 @@ const Settings = () => {
 
                                     <SettingsInfo className="tab-pane fade settings-info-body" id="v-pills-privacy" role="tabpanel" aria-labelledby="v-pills-privacy-tab" tabIndex={0}>
                                         {t("Settings.privacy")}
+
+                                        <CardSettingsInfo cardBodyClassName="d-flex align-items-end">
+                                            <div className="d-flex align-items-start px-5">
+                                                <UploadButton uploader={uploader}
+                                                    options={options}
+                                                    onComplete={files => setImgURL(files.map(x => x.fileUrl).join("\n"))}>
+                                                    {({ onClick }) =>
+                                                        <button onClick={onClick} className="upload-button">
+                                                            <img src={imgURL} className="rounded-circle image-img" style={{ width: "100px" }} alt="Profile Logo" />
+                                                            <i className="bi bi-camera" style={{ position: 'absolute', top: '30px' }}></i>
+                                                        </button>
+                                                    }
+                                                </UploadButton>
+                                                <div className="ms-3 my-3 px-3">
+                                                    <h5>{displayName}</h5>
+                                                    <p className='user-name-text'>@{userName}</p>
+                                                </div>
+                                            </div>
+                                            <div className="ms-auto">
+                                                <DeleteButton />
+                                            </div>
+                                        </CardSettingsInfo>
                                     </SettingsInfo>
 
                                     <SettingsInfo className="tab-pane fade settings-info-body" id="v-pills-security" role="tabpanel" aria-labelledby="v-pills-security-tab" tabIndex={0}>

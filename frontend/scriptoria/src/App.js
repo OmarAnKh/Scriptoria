@@ -24,6 +24,8 @@ import PersistLogin from './components/persist-login/PersistLogin.js';
 import RequireAuth from './components/require-auth/RequireAuth.js';
 import ServersErrorPage from './components/server-error-page/ServersErrorPage.js';
 import StoryErrorsPage from './components/server-error-page/StoryErrorsPage.js';
+import AllListsPage from './components/all-lists-page/AllListsPage.js'
+
 
 function App() {
 
@@ -51,6 +53,9 @@ function App() {
             <Route path='TeamMembers' element={<AllMembers />} />
             <Route path='book' element={<BookToDisplay />} />
             <Route path='stories/:id' element={<StoryHeader />} />
+            <Route path='settings/:id' element={<Settings />} />
+            <Route path=':userName/lists' element={<AllListsPage />} />
+            <Route path='story/:id' element={<StoryHeader />} />
             <Route element={<RequireAuth />}>
             <Route path='StoryDetails' element={<StoryDetails />} />
           <Route path='WritingPage/:id' element={<WritingPage />} />

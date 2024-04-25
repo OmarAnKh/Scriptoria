@@ -2,11 +2,11 @@ import React from "react";
 
 const TEInstructions = () => {
   return (
-    <section className="container wpi mt-5">
+    <section className="container wpi mt-5 mb-3">
       <h1 className="mb-0">
         Welcome to <span className="Scriptoria fs-1">Scriptoria</span>
       </h1>
-      <div className="instructions py-2">
+      {/* <div className="instructions py-2">
         <h6>
           use <span className="fw-bold fs-"> &mdash;</span> to add a new slide
         </h6>
@@ -21,7 +21,8 @@ const TEInstructions = () => {
           the <span className="fw-bold fs-4"> &mdash;</span> button is used to
           separate slides.
         </h6>
-      </div>
+      </div> */}
+
     </section>
   );
 };
