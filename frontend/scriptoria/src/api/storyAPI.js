@@ -60,9 +60,30 @@ const findStory = async (criteria) => {
     }
 }
 
+const getStories = async (point, limit) => {
+    try {
+        const response = await fetch(`http://localhost:5000/${point}?limit=${limit}`, {
+            method: "GET",
+            credentials: "include",
+            headers: {
+                "Content-Type": "application/json",
+            }
+        })
+
+        if (response.ok) {
+            return response.json()
+        }
+        return response
+        
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 const getStory = async (id, point) => {
     try {
-        const response = await fetch("http://localhost:5000/" + point + "/" + id, {
+        if(id){
+            const response = await fetch("http://localhost:5000/" + point + "/" + id, {
             credentials: "include"
         })
         if (response.ok) {
@@ -70,6 +91,9 @@ const getStory = async (id, point) => {
         }
 
         return response
+        } else {
+            return ({error : "no story to be found"})
+        }
     } catch (error) {
         console.log(error)
     }
@@ -91,6 +115,7 @@ export {
     story,
     writerStory,
     findStory,
+    getStories,
     getStory,
     getstory
 }

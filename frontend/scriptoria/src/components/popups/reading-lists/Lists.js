@@ -18,15 +18,15 @@ const Lists = ({ storyId }) => {
   const [lists, setLists] = useState([]);
   const [checkedLists, setCheckedValues] = useState([]);
   const token = auth.token;
+  const userName = auth.userName;
 
   useEffect(() => {
     const fetchData = async () => {
-      const user = auth.userName;
-      if (user) {
+      if (userName) {
         setSignedIn(true);
-        const readingLists = await getReadingLists(token);
-        setLists(readingLists.data);
-        const listsWithStory = readingLists.data.filter(list => list.stories.includes(storyId));
+        const readingLists = await getReadingLists(userName);
+        setLists(readingLists);
+        const listsWithStory = readingLists.filter(list => list.stories.includes(storyId));
         setCheckedValues(listsWithStory.map(list => list._id));
       }
     };
@@ -45,10 +45,10 @@ const Lists = ({ storyId }) => {
 
   const saveData = async () => {
     try {
-      const response = await getReadingLists(token)
+      const response = await getReadingLists(userName)
 
-      if (response && response.data) {
-        const lists = response.data;
+      if (response) {
+        const lists = response;
         await toast.promise(updateReadingLists(storyId, checkedLists, token, lists), {
           loading: 'Saving data...',
           success: 'Data saved successfully.',
@@ -75,13 +75,13 @@ const Lists = ({ storyId }) => {
         success: 'List created successfully.',
         error: 'Failed to create list. Please try again later.',
       });
-      const updatedLists = await getReadingLists(token);
-      if (updatedLists && updatedLists.data) {
-        setLists(updatedLists.data);
+      const updatedLists = await getReadingLists(userName);
+      if (updatedLists) {
+        setLists(updatedLists);
       }
 
 
-      const newListId = updatedLists.data.find(list => list.name === listName)._id;
+      const newListId = updatedLists.find(list => list.name === listName)._id;
       setCheckedValues([...checkedLists, newListId]);
 
       document.getElementById('newList').value = ""
@@ -108,7 +108,7 @@ const Lists = ({ storyId }) => {
             <div className="modal-content">
               <div className="modal-header py-2">
                 <h1 className="modal-title fs-5" id="addToListLabel">
-                  {t("SaveTo.SaveTo")}
+                  {t("SaveTo.save-to")}
                 </h1>
                 <button
                   type="button"
@@ -150,7 +150,7 @@ const Lists = ({ storyId }) => {
                   data-bs-target="#createList"
                   data-bs-toggle="modal"
                 >
-                  <i className="bi bi-plus-lg"></i> {t("SaveTo.createNewList")}
+                  <i className="bi bi-plus-lg"></i> {t("SaveTo.create-a-new-list")}
                 </button>
                 <button
                   className="btn btn-primary rounded w-50"
@@ -177,7 +177,7 @@ const Lists = ({ storyId }) => {
                   className="modal-title fs-5"
                   id="addToListLabel2"
                 >
-                  {t("SaveTo.createRLPopUp")}
+                  {t("SaveTo.create-reading-list-popop")}
                 </span>
                 <button
                   type="button"
@@ -208,7 +208,7 @@ const Lists = ({ storyId }) => {
                   data-bs-toggle="modal"
                   onClick={createList}
                 >
-                  {t("SaveTo.createAndSave")}
+                  {t("SaveTo.create-and-save")}
                 </button>
                 <button
                   className="btn btn-secondary rounded w-50"

@@ -25,6 +25,7 @@
     "js-cookie": "^3.0.5",
     "js-cookies": "^1.0.4",
     "luxon": "^3.4.4",
+    "quill": "^2.0.0",
     "react": "^18.2.0",
     "react-cookie": "^7.1.0",
     "react-dom": "^18.2.0",
@@ -37,6 +38,7 @@
     "react-router-dom": "^6.22.3",
     "react-scripts": "^5.0.1",
     "react-uploader": "^3.43.0",
+    "socket.io-client": "^4.7.5",
     "validator": "^13.11.0",
     "web-vitals": "^2.1.4"
   },

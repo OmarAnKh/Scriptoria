@@ -4,25 +4,29 @@ import StarIcon from '@mui/icons-material/Star';
 import { sendRate, updateRate, getRate } from '../../../api/rateApi'
 import { toast } from 'react-hot-toast';
 import useAuth from '../../../hooks/useAuth';
+import { useTranslation } from 'react-i18next';
 
-const Rate = ({ id }) => {
+const Rate = ({id}) => {
+
+    const {t} = useTranslation()
     const { auth } = useAuth();
     const [value, setValue] = useState(0);
     const [isRated, setIsRated] = useState(false);
     const [signedIn, setSignedIn] = useState(false);
-    const [button, setButton] = useState("save")
+    const [button, setButton] = useState(t("Rate.save"))
     const token = auth.token
+    const user = auth.userName
+    const StoryId = id
 
     useEffect(() => {
         const fetchData = async () => {
-            const user = auth.userName;
             if (user) {
                 setSignedIn(true)
-                const rating = await getRate('6607173031b513eec68df29d', id, token);
+                const rating = await getRate(id, token );
                 if (rating !== undefined) {
                     setValue(rating);
-                    setButton("update")
-                    setIsRated(true);
+                    setButton(t("Rate.update"))
+                    setIsRated(true); 
                 }
             }
         };
@@ -33,23 +37,19 @@ const Rate = ({ id }) => {
 
     const handleRating = async () => {
         if (!signedIn) return;
-
         const rate = {
-            StoryId: id,
-            AccountId: '6601c152cb5456ed5aca4eac',
+            StoryId,
             rating: value
         };
-
         try {
             await toast.promise(
-                isRated ? updateRate(rate.AccountId, rate, token) : sendRate(rate, token),
+                isRated ? updateRate(rate, token) : sendRate(rate, token),
                 {
                     loading: 'Submitting rating...',
                     success: isRated ? 'Your rating has been updated successfully.' : 'Thank you for rating! Your rating has been successfully submitted.',
                     error: 'Failed to save your rating. Please try again later.',
                 }
             );
-
             setIsRated(true);
         } catch (error) {
             console.error('Rating error:', error);
@@ -59,9 +59,7 @@ const Rate = ({ id }) => {
     return (
         <div>
             <div>
-
-                <h4 className="my-0 mx-2" style={{ color: 'white', cursor: 'pointer', justifySelf: 'center' }} data-bs-toggle="modal" data-bs-target="#exampleModal">Rate</h4>
-
+                <h4 className="my-0 mx-2" style={{color: 'white', cursor: 'pointer', justifySelf: 'center'}} data-bs-toggle="modal" data-bs-target="#exampleModal">{t("Rate.header")}</h4>
                 <div className="modal fade" id="exampleModal" tabIndex={-1} aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div className="modal-dialog modal-dialog-centered">
                         <div className="modal-content">
@@ -82,15 +80,15 @@ const Rate = ({ id }) => {
                                     />
 
                                 </div>
-                                <div className='row fs-5 justify-content-center'>
-                                    {value ? `You rated this story ${value}/5` : 'Rate this story'}
+                                <div className='row rate-msg fs-5 justify-content-center text-secondary'>
+                                    {value ? ` ${t("Rate.msg2")} ${value}/5` : `${t("Rate.msg1")}`}
                                 </div>
                             </div>
 
                             <div className="container gap-2 btn-group mb-2">
                                 <button type="button" className="btn btn-primary rounded" data-bs-dismiss="modal" onClick={handleRating} >{button}</button>
                                 <button type="button" className="btn btn-secondary rounded" data-bs-dismiss="modal">
-                                    cancel
+                                    {t("Rate.cancel")}
                                 </button>
                             </div>
 

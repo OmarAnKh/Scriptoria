@@ -32,6 +32,7 @@ router.post(
             const writers = new Writers({
                 AccountId: req.user._id,
                 StoryId: story._id,
+                rule: "owner"
             });
             await writers.save();
             res.status(201).send({ story, writers });
@@ -96,6 +97,23 @@ router.get("/search/:criteria", async (req, res) => {
     }
 })
 
+router.get('/stories', async (req, res) => {
+
+    const limit = req.query.limit ? parseInt(req.query.limit, 10) : 7;
+
+    try {
+        const stories = await Story.find({ publishStatus: true }).limit(limit);
+
+        if (!stories) {
+            res.status(404).send();
+        }
+        res.status(200).send(stories);
+
+    } catch (error) {
+        res.status(500).send();
+    }
+})
+
 router.get('/stories/:id', async (req, res) => {
     const _id = req.params.id
 
@@ -137,16 +155,6 @@ router.get('/stories/:id', async (req, res) => {
 
 });
 
-router.post('/likes', async (req, res) => {
-    const like = new Like(req.body)
-    try {
-        await like.save()
-        res.status(201).send(like)
-
-    } catch (error) {
-        res.status(500).send(error)
-    }
-});
 
 router.patch('/stories/update', async (req, res) => {
 
@@ -163,5 +171,22 @@ router.patch('/stories/update', async (req, res) => {
         res.status(500).send(error.message);
     }
 });
+
+// router.patch('/stories/update', async (req, res) => {
+//     const _id = req.body._id;
+//     delete req.body._id;
+//     try {
+//         const updatedStory = await Story.findByIdAndUpdate(_id, req.body);
+
+//         if (!updatedStory) {
+//             res.status(404).send()
+//         }
+
+//         res.status(200).send(updatedStory);
+
+//     } catch (error) {
+//         res.status(500).send(error.message);
+//     }
+// });
 
 export default router;

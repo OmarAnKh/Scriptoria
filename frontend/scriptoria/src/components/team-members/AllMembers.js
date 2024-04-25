@@ -1,7 +1,13 @@
 import MemberCard from "./MemberCard.js";
 import Waves from "../waves/Waves.js";
 import Navbar from "../navbar/Navbar.js";
-
+import omar from "./team-members-img/omar.jpg"
+import abood from "./team-members-img/abood.jpg"
+import amjad from "./team-members-img/amjad.jpg"
+import areen from "./team-members-img/areen.jpg"
+import lama from "./team-members-img/lama.jpg"
+import mohammad from "./team-members-img/mohammad.jpg"
+import ahmad from "./team-members-img/ahmad.jpg"
 const MemberPage = () => {
     return (
         <>
@@ -11,7 +17,7 @@ const MemberPage = () => {
                     <h1 className="mt-5">Our leadership team</h1>
                     <div className="row justify-content-center mt-5">
                         <MemberCard
-                            imageSrc="https://media.discordapp.net/attachments/882306256881221652/1225032721948999812/B09B7971-9FE6-4680-836A-399B71B62C35.jpg?ex=661fa7a0&is=660d32a0&hm=7e41c270b046293a8b4985634eed6c45e6af99df548a286e62acc7ede23d8eda&=&format=webp&width=541&height=676"
+                            imageSrc={omar}
                             name="Omar Khalili"
                             role="Project Manager"
                             facebookLink="https://www.facebook.com/0marAnKh"
@@ -20,7 +26,7 @@ const MemberPage = () => {
                             discordId="545313121208893445"
                         />
                         <MemberCard
-                            imageSrc="https://pbs.twimg.com/media/GIGE2r0WkAEW7Tz?format=jpg&name=large"
+                            imageSrc={abood}
                             name="Abood Jbr"
                             role="Design Team Leader"
                             facebookLink="https://www.facebook.com/abooodjbr"
@@ -32,7 +38,7 @@ const MemberPage = () => {
                     <h1 className="mt-5">Designers &amp; Developers</h1>
                     <div className="row justify-content-center mt-5">
                         <MemberCard
-                            imageSrc="https://media.discordapp.net/attachments/1123724326110253117/1225080086919909406/me1.png?ex=661fd3bd&is=660d5ebd&hm=79e2a6ae4aa43a5ca36a6bac5e7eaece51045f5e7e1ea6c305f3e2090d52373d&=&format=webp&quality=lossless"
+                            imageSrc={ahmad}
                             name="Ahmad iyrot"
                             role="Designer &amp; Developer"
                             facebookLink="https://www.facebook.com/profile.php?id=100080038279314"
@@ -41,7 +47,7 @@ const MemberPage = () => {
                             discordId="833407979034247189"
                         />
                         <MemberCard
-                            imageSrc="https://cdn.discordapp.com/attachments/1074411853125533806/1225098858732978307/WhatsApp_Image_2024-04-03_at_6.05.01_PM.jpeg?ex=661fe539&is=660d7039&hm=341904f2ffdf113eedc8db000561360a1dc503f7bbeb9cb9ce684ef7cb2f11d0& "
+                            imageSrc={areen}
                             name="Areen Abudayeh"
                             role="Designer &amp; Developer"
                             facebookLink="https://www.facebook.com/profile.php?id=100016711962016"
@@ -50,7 +56,7 @@ const MemberPage = () => {
                             discordId="1068112091040464906"
                         />
                         <MemberCard
-                            imageSrc="https://media.discordapp.net/attachments/1101950978435055726/1225030553649287188/amjad.jpg?ex=661fa59b&is=660d309b&hm=242e87b8ac5e7b409ae22cb55507f7ef9b7734ee5b2232af407b2e0796684f8f&=&format=webp&width=685&height=676"
+                            imageSrc={amjad}
                             name="Amjad Awad"
                             role="Developer &amp; QA"
                             facebookLink="https://www.facebook.com/amjad.awad.94651"
@@ -59,7 +65,7 @@ const MemberPage = () => {
                             discordId="1064908951906435082"
                         />
                         <MemberCard
-                            imageSrc="https://cdn.discordapp.com/attachments/1074411853125533806/1225100031623823470/WhatsApp_Image_2024-04-03_at_6.09.39_PM.jpeg?ex=661fe650&is=660d7150&hm=f4eb1891f6556938b5de1a2d2e2209df68d478c2ee15611e32c4b85a9f03cb05& "
+                            imageSrc={lama}
                             name="Lama Shraim"
                             role="Designer &amp; Developer"
                             facebookLink="https://www.facebook.com/profile.php?id=100006064278505&mibextid=eQY6cl"
@@ -69,7 +75,7 @@ const MemberPage = () => {
                         />
 
                         <MemberCard
-                            imageSrc="https://media.discordapp.net/attachments/1221546284712857780/1225070359892721704/431402166_3773083346346713_3276344665238324188_n.png?ex=661fcaae&is=660d55ae&hm=3352c38dd52f31cc033f130e2ea1126374613e607b1658596cad3474e662e99a&=&format=webp&quality=lossless&width=346&height=350"
+                            imageSrc={mohammad}
                             name="Mohamad ali jbr"
                             role="1/2 Developer"
                             facebookLink="https://www.facebook.com/profile.php?id=100009352542889"

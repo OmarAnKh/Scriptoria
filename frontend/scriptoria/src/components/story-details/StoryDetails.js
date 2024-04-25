@@ -1,17 +1,49 @@
-import "./StoryDetails.css";
 import React, { useState } from 'react';
-import Languege from "./details-in-forms/Languege";
-import TargetAudience from "./details-in-forms/TargetAudience";
-import Category from "./details-in-forms/Category";
-import LabelOfStory from "./details-in-forms/LabelOfStory";
+import Navbar from '../navbar/Navbar';
+import "./StoryDetails.css";
+import { UploadButton } from 'react-uploader';
 import { Uploader } from "uploader";
-import { UploadButton } from "react-uploader";
+import { targetAudiences, languages, categorys } from "./selectsArray"
 import { story } from "../../api/storyAPI";
-import Navbar from "../navbar/Navbar";
-import Footer from "../footer/Footer";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import useAuth from "../../hooks/useAuth";
+
+const StoryDetailsOption = ({ options, title, method, disabled, value, error }) => {
+  const handleChange = (event) => {
+    method(event.target.value)
+  }
+  return (
+    <div className="col row">
+      <div className="col">
+        <label >{title}</label>
+        <select className="form-control story-details-card-input" onChange={(event) => handleChange(event)} value={value} disabled={disabled}>
+          {options.map(option => {
+            return (
+              <option value={option} key={option}>{option}</option>
+            );
+          })}
+        </select>
+        <p className='story-details-error'>{error}</p>
+      </div>
+    </div>
+  )
+}
+
+const StoryDetailsInput = (props) => {
+  const handleChange = (event) => {
+    props.method(event.target.value);
+  }
+  return (
+    <div className={props?.className}>
+      <label>{props?.title}</label>
+      <input className="form-control" type={props?.type} style={props?.style} defaultValue={props.defaultValue} onChange={(event) => handleChange(event)} name={props.name} />
+      <p className='story-details-error'>{props.error}</p>
+    </div>
+  )
+}
+
+
 const uploader = Uploader({
   apiKey: "free"
 });
@@ -22,178 +54,247 @@ const options = { multi: true };
 const StoryDetails = () => {
   const { auth } = useAuth();
   const { t } = useTranslation()
-  const htmlForStory = ["inputCity", "inputPassword4", "", "inputAddress2", "character-background-color"];
-  const typeofStory = ["text", "number", "color", "textarea"];
-  const nameOfDetails = [t("StoryDetails.title"), t("StoryDetails.number"), t("StoryDetails.description"), t("StoryDetails.characters"), t("StoryDetails.background")];
-  const placeholderOfForm = [t("StoryDetails.untitled"), "1", "", t("StoryDetails.name"),];
-  const [title, setTitle] = useState("");
-  const [description, setdescription] = useState("");
-  const [MainCharacters, setMainCharacters] = useState([]);
+  const [storyTitle, setStoryTitle] = useState("");
   const [language, setLanguage] = useState("");
-  const [TargetAudiences, setTargetAudiences] = useState("");
-  const [background, setBackground] = useState("#000000");
+  const [description, setDescription] = useState("");
+  const [mainCharacters, setMainCharacters] = useState([]);
+  const [backgroundColor, setBackgroundColor] = useState("#6C5DA7");
+  const [category, setCategory] = useState([]);
+  const [targetAudience, setTargetAudience] = useState("")
+  const [mainCharactersHelper, setMainCharactersHelper] = useState("");
   const [uploadedImageUrl, setUploadedImageUrl] = useState(null);
-  const [Categorys, setCategorys] = useState([]);
-  const [mainCharactersList, setMainCharactersList] = useState([]);
-  const [errorMessage, setErrorMessage] = useState("");
+
+  const [storyTitleError, setStoryTitleError] = useState("");
+  const [languageError, setLanguageError] = useState("");
+  const [descriptionError, setDescriptionError] = useState("");
+  const [mainCharactersError, setMainCharactersError] = useState("");
+  const [categoryError, setCategoryError] = useState("");
+  const [targetAudienceError, setTargetAudienceError] = useState("");
+  const [uploadedImageUrlError, setUploadedImageUrlError] = useState("");
 
   const navigate = useNavigate();
 
-  const startWritingHandler = async (event) => {
-    event.preventDefault();
-    if (!uploadedImageUrl) {
-      setErrorMessage('Please upload a cover image.');
-      return;
+  const handaleMainCharacters = (value) => {
+    if (value === "") {
+      return
     }
+    setMainCharacters((prev) => {
+      return [...prev, value]
+    })
+  }
 
+  const handalCategory = (value) => {
+    const isCategory = category.find((categoryValue) => value === categoryValue)
+    if (isCategory) {
+      return
+    }
+    setCategory((prev) => {
+      return [...prev, value]
+    })
+  }
+
+  const handelDelete = (method, idx) => {
+    method((prev) => {
+      let newArray = [...prev];
+      newArray.splice(idx, 1);
+      return newArray
+    })
+  }
+
+  const handalStartWriting = async () => {
+    let isGoTo = true;
+    if (storyTitle === "") {
+      setStoryTitleError(t("StoryDetails.title-error"));
+      isGoTo = (false);
+    } else {
+      setStoryTitleError("")
+    }
+    if (language === "") {
+      setLanguageError(t("StoryDetails.language-error"));
+      isGoTo = (false);
+    } else {
+      setLanguageError("")
+    }
+    if (description === "") {
+      setDescriptionError(t("StoryDetails.description-error"));
+      isGoTo = (false);
+    }
+    if (mainCharacters.length === 0) {
+      console.log("ok");
+    }
+    if (category.length === 0) {
+      setCategoryError(t("StoryDetails.category-error"));
+      isGoTo = (false);
+    } else {
+      setCategoryError("")
+    }
+    if (targetAudience === "") {
+      setTargetAudienceError(t("StoryDetails.target-audience-error"));
+      isGoTo = (false);
+    } else {
+      setTargetAudienceError("")
+    }
+    if (!uploadedImageUrl) {
+      setUploadedImageUrlError(t("StoryDetails.uploaded-image-url-error"));
+      isGoTo = (false);
+    } else {
+      setUploadedImageUrlError("")
+    }
+    console.log(isGoTo)
+    if (!isGoTo) {
+
+      isGoTo = (true);
+      return
+    }
     const storyData = {
-      title: title,
+      title: storyTitle,
       description: description,
       language: language,
-      MPAFilmRatings: TargetAudiences,
-      genres: Categorys,
-      backgroundColor: background,
+      MPAFilmRatings: targetAudience,
+      genres: category,
+      backgroundColor: backgroundColor,
       coverPhoto: uploadedImageUrl,
-      mainCharacters: mainCharactersList
+      mainCharacters: mainCharacters
     };
-
     const res = await story("story", storyData, auth.token);
-    navigate(`/WritingPage`);
-  };
+    navigate(`/WritingPage/${res.story._id}`);
+  }
 
-  const handleChange = (event) => {
-    const selectedCategory = event.target.value;
-    setCategorys([...Categorys, selectedCategory]);
-    displayCategorys(selectedCategory);
-  };
-
-  const handleDelete = (indexToRemove) => {
-    setCategorys((prevCategorys) => {
-      let newCategorys = [...prevCategorys];
-      newCategorys.splice(indexToRemove, 1);
-      return newCategorys;
-    });
-  };
-
-  const displayCategorys = () => {
-    return Categorys.map((category, index) => (
-      <div className="displayDivInCategory" key={index}>
-        <p className="pInBorderInCategory">{category}</p>
-        <button onClick={() => handleDelete(index)} className="buttonInCategory">X</button>
-      </div>
-    ));
-  };
-
-  const handleDeleteMainCharacter = (indexToRemove, event) => {
-    event.preventDefault();
-    setMainCharactersList((prevCharacters) => {
-      let newCharacters = [...prevCharacters];
-      newCharacters.splice(indexToRemove, 1);
-      return newCharacters;
-    });
-  };
-
-  const addMainCharacter = (event) => {
-    event.preventDefault();
-    if (MainCharacters.trim() !== "") {
-      setMainCharactersList([...mainCharactersList, MainCharacters]);
-      setMainCharacters("");
-    }
-  };
-
-  const displayMainCharacters = () => {
-    return mainCharactersList.map((character, index) => (
-      <div className="displayDiv" key={index}>
-        <div className="borderContainer">
-          <p className="pInBorder">{character}</p>
-          <button onClick={(event) => handleDeleteMainCharacter(index, event)} className="buttonInCategory">X</button>
-        </div>
-      </div>
-    ));
-  };
-  const handleCancel = () => {
-    const isConfirmed = window.confirm('Are you sure you want to cancel? You will be returned to the homepage without saving data.');
-
-    if (isConfirmed) {
-      navigate(`/`);
-    }
-  };
+  const handelCancel = () => {
+    navigate("/")
+  }
 
   return (
-    <div>
+    <div className="story-details-body">
       <Navbar />
-      <div className="container " style={{ marginTop: "3%", marginBottom: "3%" }}>
-        <div className="container  story">
-          <form
-            className="row g-3"
-            onKeyDown={e => {
-              if (e.key === 'Enter') {
-                e.preventDefault();
-              }
-            }}
-            onSubmit={startWritingHandler}
-          >
-            <div className="row justify-content-start">
-              <div className="col-md-6 title">
-                <LabelOfStory htmlFor={htmlForStory[0]} type={typeofStory[0]} name={nameOfDetails[0]} placeholder={placeholderOfForm[0]} method={setTitle} />
-              </div>
-              <Languege method={setLanguage} />
+      <div className="container-fluid my-5">
+        <div className="row">
+          <div className="col-md-8 mx-auto">
+            <div className="story-details-header text-center">
+              <span className="story-details-title text-center">Story Details</span>
             </div>
-
-            <div className="mb-3 description">
-              <LabelOfStory htmlFor={htmlForStory[2]} type={typeofStory[3]} name={nameOfDetails[2]} method={setdescription} />
-            </div>
-
-            <div className="row justify-content-between mainAndBack">
-              <div className="col-4">
-                <LabelOfStory htmlFor={htmlForStory[3]} type={typeofStory[0]} name={nameOfDetails[3]} placeholder={placeholderOfForm[3]} method={setMainCharacters} />
+            <div className='story-details-inner-body p-5'>
+              <div className="row">
+                <StoryDetailsInput className="col-md-8" title={`${t("StoryDetails.title")} *`} defaultValue={""} type="text" method={setStoryTitle} error={storyTitleError} />
+                <div className="col-md-4">
+                  <StoryDetailsOption title={`${t("StoryDetails.language")} *`}
+                    options={languages}
+                    method={setLanguage}
+                    value={language}
+                    error={languageError}
+                  />
+                </div>
               </div>
-              <div className="col d-flex align-items-center Plus">
-                <button onClick={(event) => addMainCharacter(event)}>+</button>
+              <div className="row mt-3">
+                <div className="col-md-12">
+                  <label>{t("StoryDetails.description")} *</label>
+                  <textarea
+                    className="form-control"
+                    rows={10}
+                    placeholder="Enter your description here..."
+                    onChange={(event) => setDescription(event.target.value)}
+                  />
+                  <p className='story-details-error'>{descriptionError}</p>
+                </div>
               </div>
-              <div className="col-4 justify-content-end back">
-                <LabelOfStory htmlFor={htmlForStory[4]} type={typeofStory[2]} name={nameOfDetails[4]} method={setBackground} />
+              <div className="row mt-3">
+                <div className="col-md-12">
+                  <div className="d-flex">
+                    <StoryDetailsInput className="col-md-4" title={t("StoryDetails.characters")} defaultValue={""} type="text" method={setMainCharactersHelper} error={mainCharactersError} />
+                    <div className="col-md-4 align-self-center mx-2 my-4">
+                      <button className='btn btn-primary ml-2' style={{ backgroundColor: "#AC967F" }} onClick={() => handaleMainCharacters(mainCharactersHelper)}>+</button>
+                    </div>
+                    <StoryDetailsInput className="col-md-4 d-flex align-items-center "
+                      title={t("StoryDetails.background")} type="color"
+                      style={{ width: '30px', height: '30px', padding: '0' }}
+                      method={setBackgroundColor}
+                      name="character-background-color"
+                      defaultValue={"#6C5DA7"}
+                    />
+                  </div>
+                </div>
               </div>
-            </div>
-            {displayMainCharacters()}
-
-            <div className="row justify-content-between">
-              <Category handleChange={handleChange} displayCategorys={displayCategorys} method={setCategorys} />
-              <TargetAudience method={setTargetAudiences} />
-
-              <div className="row justify-content-end imageAndButton">
-                <div className="card" style={{ width: '15rem', height: "23rem" }}>
-                  {uploadedImageUrl ? (
-                    <img src={uploadedImageUrl} alt="Uploaded Cover" className="uploaded-cover" />
-                  ) : (
+              <div>
+                <ul className='list-group'>
+                  {
+                    mainCharacters.map((mainCharacter, idx) => {
+                      return (
+                        <div key={idx} className="d-flex align-items-center rounded p-1">
+                          <li className='list-group-item' style={{ width: "200px", wordBreak: "break-word" }}>{mainCharacter}</li>
+                          <button className='btn mx-1 py-1' style={{ backgroundColor: "#AC967F" }} onClick={() => handelDelete(setMainCharacters, idx)}>X</button>
+                        </div>
+                      )
+                    })
+                  }
+                </ul>
+              </div>
+              <div className='row mt-3 d-flex justify-content-between'>
+                <div className="col-md-4">
+                  <StoryDetailsOption title={`${t("StoryDetails.category")} *`}
+                    options={categorys}
+                    value={""}
+                    method={handalCategory}
+                    error={categoryError}
+                  />
+                  <p className='settings-error'></p>
+                </div>
+                <div className="col-md-4">
+                  <StoryDetailsOption title={`${t("StoryDetails.Target")} *`}
+                    options={targetAudiences}
+                    method={setTargetAudience}
+                    value={targetAudience}
+                    error={targetAudienceError}
+                  />
+                  <p className='settings-error'></p>
+                </div>
+              </div>
+              <div>
+                <ul className='list-group'>
+                  {
+                    category.map((category, idx) => {
+                      return (
+                        <div key={idx} className="d-flex align-items-center rounded p-1">
+                          <li className='list-group-item' style={{ width: "200px", wordBreak: "break-word" }}>{category}</li>
+                          <button className='btn mx-1 py-1' style={{ backgroundColor: "#AC967F" }} onClick={() => handelDelete(setCategory, idx)}>X</button>
+                        </div>
+                      )
+                    })
+                  }
+                </ul>
+              </div>
+              <div className='row justify-content-end'>
+                <div className="col-md-4 d-flex justify-content-center  flex-column">
+                  <div className="mt-2 text-center">
                     <UploadButton
                       uploader={uploader}
                       options={options}
                       onComplete={files => {
-                        setUploadedImageUrl(files[0].fileUrl);
-                        setErrorMessage('');
+                        setUploadedImageUrl(files[0]?.fileUrl);
                       }}
                     >
                       {({ onClick }) => (
-                        <button type="button" className="button1" onClick={onClick}>
-                          {t("StoryDetails.add_cover")}
+                        <button type="button" className='btn btn-secondary' onClick={onClick} style={{ backgroundColor: "#AC967F" }}>
+                          {t("StoryDetails.add_cover")} *
                         </button>
                       )}
                     </UploadButton>
-                  )}
+                    <p className='story-details-error'>{uploadedImageUrlError}</p>
+                    <div className="card" style={{ width: '15rem', height: "23rem" }}>
+                      {uploadedImageUrl && <img src={uploadedImageUrl} alt="Uploaded Cover" className="uploaded-cover" />}
+                    </div>
+                  </div>
                 </div>
-
-                <div className="buttons-container mb-5">
-                  {errorMessage && <p className="error-message">{errorMessage}</p>}
-                  <button id="button2" className="btn btn-primary btn-lg" type="submit">{t("StoryDetails.start")}</button>
-                  <button id="cancel-button" className="btn btn-secondary btn-lg" onClick={handleCancel}>{t("StoryDetails.cancel")}</button>
+              </div>
+              <div className='row justify-content-end my-5'>
+                <div className="col-auto">
+                  <button className='btn btn-secondary mx-2' style={{ backgroundColor: "#AC967F" }} onClick={handalStartWriting}>{t("StoryDetails.start")}</button>
+                  <button className='btn btn-secondary' style={{ backgroundColor: "#E1D8D1" }} onClick={handelCancel}>{t("StoryDetails.cancel")}</button>
                 </div>
               </div>
             </div>
-          </form>
+          </div>
         </div>
       </div>
-      <Footer />
     </div>
   );
 };

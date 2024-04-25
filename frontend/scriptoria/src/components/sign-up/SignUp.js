@@ -28,7 +28,7 @@ const SignUp = () => {
             setEmailError("red");
             return;
         }
-        let account = await findAccount({ email }) | {}
+        let account = await findAccount({ email })
 
         if (account.message) {
             setError("Email already exists")
@@ -36,7 +36,7 @@ const SignUp = () => {
                 validatorCounter--;
             }
         }
-        account = await findAccount({ userName }) | {}
+        account = await findAccount({ userName })
         if (account.message) {
             setError("user name already exists")
             if (validatorCounter > 0) {
@@ -73,7 +73,7 @@ const SignUp = () => {
                         <div className="col-12 col-lg-6 box-1 d-flex justify-content-center align-items-center text-center">
                             <div>
                                 <span className="box1-header">Welcome Back!</span>
-                                <p className="box1-text">sign in to continue your creativity with spectoria</p>
+                                <p className="box1-text">sign in to continue your creativity with <span className="Scriptoria">Scriptoria</span></p>
                                 <Link to={`/SignIn`} className="card-text" target="">
                                     <button className="btn login-button">Login</button>
                                 </Link>

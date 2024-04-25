@@ -52,8 +52,8 @@ const SignIn = () => {
             return;
         }
         const token = res.token
-        const userInfo = res.user.userName
-        setAuth({ userName: userInfo, token })
+        const userName = res.user.userName
+        setAuth({ userName, token, userInfo: res.user })
         navigate("/")
     }
 
@@ -83,7 +83,7 @@ const SignIn = () => {
                         <div className="side-box2"></div>
                         <div className="textBody">
                             <span className="box2-header">Hello Friend !</span>
-                            <p className="box1-text">Are you Ready to start your Scriptoria journey?<br></br>
+                            <p className="box1-text">Are you Ready to start your <span className="Scriptoria">Scriptoria</span> journey?<br></br>
                                 Join us now<br></br>
                                 to unleash your creative potential<br></br>
                                 and<br></br>

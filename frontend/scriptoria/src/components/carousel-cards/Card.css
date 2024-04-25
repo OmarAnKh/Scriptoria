@@ -53,7 +53,7 @@
 
 
 @media (max-width: 991px) {
-    .card {
+    .carousel-card {
         width: 100%;
     }
 
@@ -64,7 +64,7 @@
 }
 
 @media (max-width: 767px) {
-    .card {
+    .carousel-card {
         background: none !important;
         border-style: none;
     }

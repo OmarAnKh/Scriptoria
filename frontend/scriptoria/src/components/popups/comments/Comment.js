@@ -82,7 +82,7 @@ const Comment = ({
   };
 
   return (
-    <div className="comment d-flex flex-row bg-light p-2 w-100 rounded m-0">
+    <div className="comment h6 d-flex flex-row bg-light p-2 w-100 rounded m-0">
       <div className="bd-highlight">
         <img
           className="rounded-circle"
@@ -95,7 +95,7 @@ const Comment = ({
         <div className="col">
           <Link
             to={`/profile/${account.userName}`}
-            className="fw-bold h6 small profile-link"
+            className="fw-bold profile-link"
             onClick={handleCloseModal}
           >
             {account.displayName}
@@ -172,21 +172,12 @@ const Comment = ({
           </>
         ) : (
           <>
-            <div className="fw-normal small h6  comment-text">{text}</div>
-            <div className="row small w-100 text-center justify-content-between">
+            <div className="fw-normal comment-text text-secondary">{text}</div>
+            <div className="row w-100 text-center justify-content-between">
               <div className="col-8 col-sm-4 row">
                 <div className="col-4 time-passed text-muted">
                   <small>{time}</small>
                 </div>
-                {signedIn ? (
-                  <div className="col-4 reply-btn">
-                    <a className="reply-btn text-decoration-none text-secondary p-0">
-                      <small>{t("Comments.Reply")}</small>
-                    </a>
-                  </div>
-                ) : (
-                  ""
-                )}
               </div>
               <div className="col-3 px-2 comment-like-btn text-end">
                 <a

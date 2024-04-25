@@ -91,7 +91,8 @@
         "follow": "متابعة",
         "unfollow": "الغاء المتابعة",
         "message": "مرسالة",
-        "Unblock": "الغاء الحظر"
+        "Unblock": "الغاء الحظر",
+        "save": "حفظ"
     },
     "Settings": {
         "settings": "الاعدادات",
@@ -113,7 +114,12 @@
         "edit": "تعديل",
         "password": "كلمة المرور",
         "save": "حفظ",
-        "description": "الوصف"
+        "description": "الوصف",
+        "delete_account": "حذف الحساب",
+        "confirm_password": "يرجى تأكيد كلمة المرور الخاصة بك",
+        "delete_account_header": "هل أنت متأكد من رغبتك في حذف حسابك؟",
+        "confirm": "تأكيد",
+        "cancel": "الغاء"
     },
     "StoryCard": {
         "show_more": "عرض المزيد"
@@ -133,28 +139,44 @@
         "select_one": "اختر واحدة",
         "language": "اللغة",
         "name": "الاسم",
-        "untitled": "بلا عنوان"
+        "untitled": "بلا عنوان",
+        "title-error": "يرجى إدخال العنوان",
+        "language-error": "يرجى إدخال اللغة",
+        "description-error": "يرجى إدخال وصف للقصة",
+        "category-error": "يرجى اختيار صنف",
+        "target-audience-error": "يرجى اختيار جمهور",
+        "uploaded-image-url-error": "يرجى إدخال صورة غلاف"
     },
-    "Logout": {
-        "text1": ".لقد تم تسجيل خروجك بنجاح",
-        "text2": ".اضغط هنا للعودة للصفحة الرئيسية"
+  "Logout" : {
+        "text1" : ".لقد تم تسجيل خروجك بنجاح",
+        "text2" : ".اضغط هنا للعودة للصفحة الرئيسية"
     },
-    "Comments": {
-        "Comments": "التعليقات",
-        "Reply": "الرد",
-        "edit": "تعديل",
-        "delete": "حذف",
-        "save": "حفظ",
-        "cancel": "الغاء"
+   "Comments" : {
+        "Comments" : "التعليقات",
+        "Reply" : "الرد",
+        "edit" : "تعديل",
+        "delete" : "حذف",
+        "save" : "حفظ",
+        "cancel" : "الغاء",
+        "no-comments" : "كن أول المعلقين على هذه القصة",
+        "write-something" : "اكتب شيء ..."
     },
-    "SaveTo": {
-        "SaveTo": "حفظ القصة في",
-        "createNewList": "أنشئ قائمة جديدة",
-        "save": "حفظ",
-        "createRLPopUp": "أنشئ قائمة قراءة جديدة",
-        "Name": "الاسم",
-        "createAndSave": "انشاء وحفظ",
-        "cancel": "الغاء",
-        "addToReadingList": "اضافة الى قائمة قراءة"
+   "SaveTo" : {
+        "save-to" : "حفظ القصة في",
+        "create-a-new-list" : "أنشئ قائمة جديدة",
+        "save" : "حفظ",
+        "create-reading-list-popop" : "أنشئ قائمة قراءة جديدة",
+        "Name" : "الاسم",
+        "create-and-save" : "انشاء وحفظ",
+        "cancel" : "الغاء",
+        "add-to-reading-list" : "اضافة الى قائمة قراءة"
+    },
+    "Rate" : {
+        "msg1" : "قم بتقييم هذه القصة",
+        "msg2" : "تقييمك لهذه القصة هو ",
+        "header" : "تقييم",
+        "save" : "حفظ",
+        "update" : "تحديث",
+        "cancel" : "الغاء"
     }
 }

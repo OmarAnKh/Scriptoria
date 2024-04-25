@@ -1,40 +1,80 @@
 import { useState, useEffect } from "react";
-import { saveDocument, updateDocument } from "../../../api/API's";
+import { updateDocument } from "../../../api/API's";
+import { getLike, deleteLike, createLike } from "../../../api/likesApi";
+import useAuth from "../../../hooks/useAuth";
+import { findAccount } from "../../../api/accountApi";
+import { toast } from 'react-hot-toast';
 
-const Heart = ({ num, id, accountId, setData }) => {
+const Heart = ({ num, storyId, setData }) => {
 
-    const [heartIcon, setHeartIcon] = useState(() => {
-        const storedColor = localStorage.getItem('heartColor');
-        return storedColor ? storedColor : 'text-white';
-    });
+    const { auth } = useAuth();
 
-    useEffect(() => {
-        localStorage.setItem('heartColor', heartIcon);
-    }, [heartIcon]);
+    const [userId, setUserId] = useState()
+    const [authorized, setAuthorized] = useState(false)
+    const [heartIcon, setHeartIcon] = useState('text-white')
 
     const ChangeIconColor = () => {
         setHeartIcon((originalColor) => (originalColor == "text-white" ? "text-danger" : "text-white"));
     }
 
+    useEffect(() => {
+
+        const fetchLike = async () => {
+
+            if (Object.keys(auth).length !== 0) {
+
+                const user = auth.userName;
+
+                try {
+                    const response = await findAccount({ userName: user });
+                    setUserId(response._id);
+
+                    if(response.message) {
+                        setAuthorized(true)
+                        const liked = await getLike('likes', response._id, storyId)
+                        if(liked.message) {
+                            setHeartIcon('text-danger')
+                        }
+                    } else {
+                        setAuthorized(false)
+                        return
+                    }
+                    
+                } catch (error) {
+                    console.log(error);
+                }
+            }
+        };
+
+        fetchLike();
+    }, [])
+
     const handleClick = async () => {
 
-        if (heartIcon == "text-danger") {
-            const updated = await updateDocument('stories', { id: id, likes: num - 1 })
-            setData(updated)
+        if(authorized) {
 
+            if (heartIcon == "text-danger") {
+                const updated = await updateDocument('stories', { id: storyId, likes: num - 1 })
+                setData(updated)
+
+                await deleteLike('likes', { AccountId: userId, StoryId: storyId })
+
+            } else {
+                const updated = await updateDocument('stories', { id: storyId, likes: num + 1 })
+                setData(updated)
+
+                const currentDate = new Date();
+                await createLike('likes', {
+                    AccountId: userId,
+                    StoryId: storyId,
+                    publishDate: currentDate.toISOString()
+                })
+            }
+            ChangeIconColor()
         } else {
-            const updated = await updateDocument('stories', { id: id, likes: num + 1 })
-            setData(updated)
-
-            const currentDate = new Date();
-            await saveDocument('likes', {
-                AccountId: accountId,
-                StoryId: id,
-                publishDate: currentDate.toISOString()
-            })
+            toast.error('You must be logged in to like this story!');
         }
 
-        ChangeIconColor()
     }
 
 
@@ -46,6 +86,6 @@ const Heart = ({ num, id, accountId, setData }) => {
             <h6 className="text-white"> {num}<span className="icon-title"> likes</span></h6>
         </span>
     );
-}
+} 
 
 export default Heart;
