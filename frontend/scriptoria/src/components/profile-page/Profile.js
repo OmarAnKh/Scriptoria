@@ -72,7 +72,7 @@ const Profile = () => {
                 <Navbar />
                 <div className="container-fluid profile-page-body">
                     <ProfileInfo user={user} userStatus={false} ifblocked={false} />
-                    <ProfileBooks username={username} userId={user.id} />
+                    <ProfileBooks username={username} userId={user._id} />
                 </div>
             </>
         );

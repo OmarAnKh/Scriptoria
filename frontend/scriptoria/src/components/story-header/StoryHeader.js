@@ -30,7 +30,6 @@ const StoryHeader = () => {
                 const response = await getStory(id, 'stories');
 
                 setAuthors(response.accounts);
-                console.log(response.story, 10)
                 setData(response.story);
                 setCounts(response.counts);
                 setGenres(response.story.genres);

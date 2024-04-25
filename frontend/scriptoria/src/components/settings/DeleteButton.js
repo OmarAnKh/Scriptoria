@@ -25,12 +25,12 @@ const ConfirmDeletePopup = (props) => {
                 setPasswordValid("red");
                 setPasswordValidMsg("please enter your password")
 
-            } else if(!response.message) {
+            } else if (!response.message) {
                 setPasswordValid("red");
                 setPasswordValidMsg("Invalid Password")
 
-            } else if(response.message) {
-                setPasswordValid("green"); 
+            } else if (response.message) {
+                setPasswordValid("green");
                 setPasswordValidMsg("");
 
                 setModalDismiss("modal")
@@ -39,7 +39,7 @@ const ConfirmDeletePopup = (props) => {
                 await deleteAccount('account/delete', { userName: auth.userName })
                 navigate('/logout');
             }
-                
+
         } catch (error) {
             console.log(error);
         }
@@ -47,13 +47,13 @@ const ConfirmDeletePopup = (props) => {
 
     useEffect(() => {
         if (!modalDismiss) {
-          setModalDismiss("modal")
+            setModalDismiss("modal")
         }
     }, [modalDismiss]);
 
-    
-    return(
-        <div className="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+
+    return (
+        <div className="modal fade" id="deleteModal" tabIndex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
             <div className="modal-dialog">
                 <div className="modal-content">
                     <div className="modal-header">
@@ -62,7 +62,7 @@ const ConfirmDeletePopup = (props) => {
                     </div>
                     <div className="modal-body mx-auto">
                         <p className="fw-bold text-center">{t("Settings.confirm_password")}</p>
-                        <JoinInput method={setConfirmedPassword} type="password" color={passwordValid}/> 
+                        <JoinInput method={setConfirmedPassword} type="password" color={passwordValid} />
                         <p className="text-center">{passwordValidMsg}</p>
                     </div>
                     <div className="modal-footer">
@@ -78,14 +78,14 @@ const ConfirmDeletePopup = (props) => {
 const DeleteButton = () => {
     const { t } = useTranslation()
 
-    return(
-        <>           
-            <button type="button" className="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal"> 
-                <i className="bi bi-trash3 px-1"></i> 
+    return (
+        <>
+            <button type="button" className="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                <i className="bi bi-trash3 px-1"></i>
                 {t("Settings.delete_account")}
             </button>
 
-            <ConfirmDeletePopup t={t}/>
+            <ConfirmDeletePopup t={t} />
         </>
     );
 }

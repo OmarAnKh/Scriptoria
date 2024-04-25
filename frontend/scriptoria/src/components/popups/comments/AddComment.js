@@ -6,10 +6,10 @@ import { useTranslation } from 'react-i18next';
 import useAuth from "../../../hooks/useAuth"
 
 
-    const AddComment = ({ signedIn,storyId, updateComments }) => {
-
+const AddComment = ({ storyId, signedIn, updateComments }) => {
     const { auth } = useAuth();
-    const {t} = useTranslation()
+
+    const { t } = useTranslation()
     const [user, setUser] = useState({})
     const [imageUrl, setImageURL] = useState(logo)
 
@@ -34,6 +34,7 @@ import useAuth from "../../../hooks/useAuth"
                 storyId,
                 text: document.getElementById('add-comment').value
             }
+
             const token = auth.token
             try {
                 await sendComment(comment, token);
@@ -44,14 +45,13 @@ import useAuth from "../../../hooks/useAuth"
             }
         }
     }
-
     return (
         <div className="d-flex flex-row bg-light w-100 rounded">
             <div className="p-1 bd-highlight">
                 <img src={imageUrl} alt="Profile" className="rounded-circle" width="35" />
             </div>
             <div className="p-1 bd-highlight flex-grow-1">
-                <textarea type="text" className="form-control fs-xs" id="add-comment" placeholder={t("Comments.write-something")}/>
+                <textarea type="text" className="form-control fs-xs" id="add-comment" placeholder={t("Comments.write-something")} />
             </div>
             <div className="p-1 bd-highlight">
                 <button className='btn btn-primary bi bi-send-fill' onClick={saveComment}></button>
@@ -59,5 +59,4 @@ import useAuth from "../../../hooks/useAuth"
         </div>
     )
 }
-
 export default AddComment

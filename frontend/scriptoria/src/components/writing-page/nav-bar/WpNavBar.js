@@ -23,14 +23,16 @@ const WpNavBar = ({ setMode, data, setData, setState }) => {
   const [userExistError, setUserExistError] = useState("none")
   const [invaledEmail, setInvaledEmail] = useState("none")
   const [users, setUsers] = useState([])
-  const [removeState, setRemoveState] = useState(false) // Updated
-  const [addUserState, setAddUserState] = useState(false) // Updated
-  const [ruleState, setRuleState] = useState(false) // Updated
+  const [removeState, setRemoveState] = useState(false)
+  const [addUserState, setAddUserState] = useState(false)
+  const [ruleState, setRuleState] = useState(false)
   const [signedInUser, setSignedInUser] = useState({})
+  const [publishStatus, setPublishStatus] = useState(false);
 
   useEffect(() => {
     const ExistStory = async () => {
       const res = await getstory(id)
+      setPublishStatus(res?.story.publishStatus);
       if (res?.status) {
         navigate('/')
         return
@@ -141,6 +143,16 @@ const WpNavBar = ({ setMode, data, setData, setState }) => {
       icon: '🙋‍♂️',
     });
   }
+
+  const handelPublich = async () => {
+    const document = {
+      id: id,
+      publishStatus: !publishStatus
+    }
+    const res = await updateDocument("stories", document);
+    setPublishStatus(!publishStatus);
+  }
+
   return (
 
     <nav className="navbar navbar-expand-lg WpNavBar py-1" id="WpNavBar">
@@ -237,14 +249,6 @@ const WpNavBar = ({ setMode, data, setData, setState }) => {
               </div>
             </li>
 
-            {/* chat button */}
-            <li className="nav-item chat m-2">
-              <LinkBtns btnCn="Chats" icon="bi bi-chat-left-text-fill" badge={15} badgeMsg="unread messeges" />
-            </li>
-            {/* notifications button */}
-            <li className="nav-item notifications m-2">
-              <LinkBtns btnCn="Notifications" icon="bi bi-bell-fill" badge={55} badgeMsg="unread notifications" />
-            </li>
             {/* profile button */}
             <li className="nav-item pfp m-2">
               <LinkBtns btnCn="Profile" icon="bi bi-emoji-angry-fill" badge={0} />
@@ -262,8 +266,8 @@ const WpNavBar = ({ setMode, data, setData, setState }) => {
               <Buttons btnCN="FocusMode" name="Focus Mode" />
             </li>
             <li className="nav-item">
-              <button type="button" className="btn btn-outline-dark rounded-5 m-2">
-                Publish
+              <button type="button" className="btn btn-outline-dark rounded-5 m-2" onClick={handelPublich}>
+                Publish Status:{publishStatus ? "Published" : "not Published"}
               </button>
             </li>
           </ol>
