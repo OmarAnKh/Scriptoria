@@ -1,15 +1,16 @@
 import React, {useState, useEffect} from 'react'
 import ListCard from './ListCard'
 import {getReadingLists} from './../../api/readingListsApi'
+import useAuth from '../../hooks/useAuth';
 import './ListsPage.css'
 const Lists = ({userName}) => {
+  const {auth} = useAuth()
   const [lists, setLists] = useState([])
-
+  const all = auth?.userName===userName
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const readingLists = await getReadingLists(userName);
-        console.log("Reading lists:", readingLists);
+        const readingLists = await getReadingLists(userName, all);
         setLists(readingLists);
       } catch (error) {
         console.error(error);
@@ -21,8 +22,7 @@ const Lists = ({userName}) => {
   
   const update = async()=>{
     try {
-      const readingLists = await getReadingLists(userName);
-      console.log("Reading lists:", readingLists);
+      const readingLists = await getReadingLists(userName,all);
       setLists(readingLists);
     } catch (error) {
       console.error(error);
@@ -38,7 +38,7 @@ const Lists = ({userName}) => {
               return <ListCard update={update} key={index} userName={userName} list={list} />;
             })
           ) : (
-            <p>Loading...</p>
+            <p>this user may not have one public list at least</p>
           )}
         </div>
       </div>

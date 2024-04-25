@@ -74,22 +74,22 @@ const Comments = ({ id }) => {
               </div>
               {comments.length > 0 ? <div className="modal-body overflow-x-hidden p-0 m-0" style={{height : '670px'}}>
 
-    {
-comments.map((comment, index) => {  
-  return (
-      <Comment 
-          userId = {user._id}
-          key={index}
-          commentId={comment._id}
-          account={comment.accountId}
-          text={comment.text}
-          time={getDateStringDifference(new Date(), new Date(comment.createdAt))}
-          updateComments={updateComments}
-          likes="1"
-      />
-  );
-})
-}
+              {
+                comments.map((comment, index) => {  
+                  return (
+                      <Comment 
+                          userId = {user._id}
+                          key={index}
+                          commentId={comment._id}
+                          account={comment.accountId}
+                          text={comment.text}
+                          time={getDateStringDifference(new Date(), new Date(comment.createdAt))}
+                          updateComments={updateComments}
+                          likes="1"
+                      />
+                  );
+                })
+              }
 </div> : <div className="d-flex justify-content-center align-items-center" style={{height : '670px'}}>
   <div className="text-center text-secondary h6">
     {t("Comments.no-comments")}

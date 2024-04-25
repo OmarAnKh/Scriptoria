@@ -4,7 +4,6 @@ import Lists from './Lists'
 import { useParams } from 'react-router-dom';
 const ListPage = () => {
    const {userName} = useParams()
-   console.log(userName)
   return (
     <>
     <Navbar/>

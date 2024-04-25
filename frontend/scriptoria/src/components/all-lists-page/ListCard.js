@@ -3,12 +3,10 @@ import {Link} from 'react-router-dom'
 import { getStory } from '../../api/storyAPI';
 import { Buffer } from 'buffer';
 import logo from '../../img/content.png';
-import useAuth from '../../hooks/useAuth';
 import Popup from './Popup';
 import './ListsPage.css'
 
 const ListCard = ({userName, list, update, image}) => {
-  const {auth} = useAuth()
   const [cover, setCover] = useState(logo)
   const [color, setColor] = useState('chocolate')
   const [name, setName] = useState(list.name);

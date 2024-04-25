@@ -1,13 +1,13 @@
 import express from 'express'
 import ReadingList from '../models/readingList.js'
 import authentication from "../middleware/authentication.js";
-
 const router = new express.Router()
 
 router.post('/readingLists', authentication, async (req, res) => {
     const readingList = new ReadingList({
         name: req.body.name,
-        accountId: req.user.id
+        accountId: req.user.id,
+        privacy : req.body.privacy
     });
     if (req.body.stories) readingList.stories = req.body.stories;
     try {
@@ -21,10 +21,12 @@ router.post('/readingLists', authentication, async (req, res) => {
 
 router.get('/readingLists',  async (req, res) => {
     const accountId = req.query.accountId;
+    console.log(accountId)
+    const all = req.query.all === "true"
+    console.log(all)
     try {
-        const lists = await ReadingList.find({ accountId });
+        const lists = all? await ReadingList.find({accountId}) : await ReadingList.find({accountId, privacy : true})
         if (!lists) return res.send();
-        console.log(lists);
         res.send(lists);
     } catch (error) {
         console.log(error);
@@ -47,7 +49,8 @@ router.get('/readingLists/:id', authentication, async (req, res) => {
 router.patch('/readingLists/:id', authentication, async (req, res) => {
     const id = req.params.id;
     const stories = req.body.stories;
-    const name = req.body.name
+    const name = req.body.name;
+    const privacy = req.body.privacy
 
     try {
         const readingList = await ReadingList.findById(id);
@@ -56,7 +59,8 @@ router.patch('/readingLists/:id', authentication, async (req, res) => {
         }
         readingList.stories = stories;
         readingList.name = name;
-
+        readingList.privacy = privacy;
+        await readingList.save()
         res.send(readingList);
     } catch (error) {
         console.log(error);

@@ -30,7 +30,8 @@ const Popup = ({ list, update, name ,setName }) => {
           name: name,
           stories: [...list.stories],
           accountId: list.accountId,
-          id : list._id
+          privacy : list.privacy,
+          _id : list._id
         };
         await toast.promise(updateList(editedList, auth.token), {
           loading: 'updating list...',
@@ -42,10 +43,6 @@ const Popup = ({ list, update, name ,setName }) => {
     } catch (error) {}
   };
 
-  const handleDeleteClick = (event) => {
-    event.stopPropagation(); // Stop propagation to parent container
-    setType('delete');
-  };
 
   return (
     <div>
@@ -70,7 +67,7 @@ const Popup = ({ list, update, name ,setName }) => {
                     className="m-1 text-decoration-none text-light"
                     data-bs-toggle="modal"
                     data-bs-target={`#list-btns-modal-${type}-${list._id}`}
-                    onClick={handleDeleteClick}
+                    onClick = {()=>setType('delete')}
                     style={{ cursor: 'pointer' }}
                   >
                     delete
@@ -95,7 +92,6 @@ const Popup = ({ list, update, name ,setName }) => {
       ) : (
         <></>
       )}
-      {console.log(type)}
       <div className="modal fade d-normal" id={`list-btns-modal-${type}-${list._id}`} tabIndex={-1} aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div className="modal-dialog modal-dialog-centered">
           <div className="modal-content">
@@ -118,9 +114,9 @@ const Popup = ({ list, update, name ,setName }) => {
                       </div>
                       <div className="mb-3">
                           <label htmlFor="list-privacy" className="form-label">edit privacy</label>
-                      <select className="form-select form-select-lg mb-3" id="list-privacy" aria-label="Large select example">
-                      <option value={1}>public</option>
-                      <option value={0}>private</option>
+                      <select className="form-select form-select-lg mb-3" id="list-privacy" aria-label="Large select example" defaultValue={list.privacy}>
+                      <option value={true}>public</option>
+                      <option value={false}>private</option>
                       </select>
 
                       </div>

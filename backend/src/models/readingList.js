@@ -14,6 +14,10 @@ const readingListSchema = new mongoose.Schema({
         type: Schema.Types.ObjectId,
         ref: 'Story',
     }],
+    privacy: {
+        type: Boolean,
+        default: false
+    }
 });
 
 readingListSchema.index({ accountId: 1, name: 1 }, { unique: true });

@@ -36,7 +36,27 @@ const getRate = async (StoryId, token) => {
     }
 }
 
+const getStoryRates = async (point, storyId) => {
+    try {
+        const response = await fetch(`http://localhost:5000/${point}/${storyId}`, {
+            method: "GET",
+            credentials: "include",
+            headers: {
+                "Content-Type": "application/json",
+            }
+        })
+
+        if (response.ok) {
+            return response.json()
+        }
+        return response
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 const updateRate = async (rate, token) => {
+
     try {
         await axios({
             url: "http://localhost:5000/rate/" + rate.StoryId,
@@ -56,5 +76,6 @@ const updateRate = async (rate, token) => {
 export {
     sendRate,
     updateRate,
-    getRate
+    getRate,
+    getStoryRates
 };
