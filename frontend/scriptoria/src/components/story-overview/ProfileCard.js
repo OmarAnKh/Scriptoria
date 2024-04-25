@@ -12,6 +12,7 @@ const ProfileCard = (props) => {
   const [followersData, setFollowersData] = useState(0);
   const [followingData, setFollowingData] = useState(0);
   const [isFollowing, setIsFollowing] = useState(false);
+  const [worksCount, setWorksCount] = useState(0);
   const [yourId, setYourId] = useState("")
 
   useEffect(() => {
@@ -24,6 +25,7 @@ const ProfileCard = (props) => {
         fetchfollowing(response.users[0].AccountId);
         fetchUserAccount();
         ifIsFollowing();
+        setWorksCount(response.count);
       } catch (error) {
         console.log(error);
       }
@@ -92,11 +94,12 @@ const ProfileCard = (props) => {
     props.onHideProfile();
   };
 
+
   return (
     <div className="container mt-5">
       <div className="row">
         <div className="col-md-6">
-          <div className="card" style={{ width: "350px", height: "400px" }}>
+        <div className="card slide-from-right" style={{ width: "350px", height: "400px" }}>
             <i
               className="bi bi-arrow-bar-left position-absolute top-0 start-0 m-3"
               onClick={handleArrowLeftClick}
@@ -112,7 +115,6 @@ const ProfileCard = (props) => {
                   />
                   <div className="card-body text-center">
                     <h5 className="card-title profile-name">
-
                       {user?.userName}
                     </h5>
                     <p className="card-text text-muted profile-username">
@@ -133,7 +135,7 @@ const ProfileCard = (props) => {
                       </div>
                       <div className="col-4 text-muted mt-2">
                         <p className="titleFW">Work</p>
-                        <h6 className="numberFW">{user?.storyCount}</h6>
+                        <h6 className="numberFW">{worksCount}</h6>
                       </div>
                     </div>
                     <p className="mt-2 descriptionperson">
