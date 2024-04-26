@@ -61,7 +61,6 @@ const deleteDocument = async (point, document) => {
 
 
 const updateDocument = async (point, document) => {
-    console.log(10)
     try {
         const response = await fetch(`http://localhost:5000/${point}/update`, {
             method: "PATCH",
@@ -81,9 +80,29 @@ const updateDocument = async (point, document) => {
     }
 }
 
+const getDocumentByUsingParams = async (point, params) => {
+    try {
+        const response = await fetch(`http://localhost:5000/${point}/${params}`, {
+            method: "GET",
+            credentials: "include",
+            headers: {
+                "Content-Type": "application/json",
+            }
+        })
+        if (response.ok) {
+            return response.json();
+        }
+        return response;
+
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 export {
     saveDocument,
     sendEmail,
     updateDocument,
-    deleteDocument
+    deleteDocument,
+    getDocumentByUsingParams
 }

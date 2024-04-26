@@ -1,59 +1,48 @@
 import Story from "../models/story.js";
 import Writers from "../models/writers.js";
 import authentication from "../middleware/authentication.js";
-
 import express from "express";
-import sharp from "sharp";
-import axios from "axios";
 import Account from "../models/account.js";
 import Like from "../models/like.js";
 import Comment from "../models/comment.js";
 import Rating from "../models/rating.js";
+import { converImgToBuffer } from "../utils/image.js";
 
 const router = new express.Router();
 
 
-router.post(
-    "/story",
-    authentication,
-    async (req, res) => {
-        try {
-            const imageURL = req.body.coverPhoto;
-            const imageResponse = await axios.get(imageURL, {
-                responseType: "arraybuffer",
-            });
-            const buffer = await sharp(imageResponse.data)
-                .resize({ width: 250, height: 250 })
-                .png()
-                .toBuffer();
 
-            const story = new Story(req.body);
-            story.coverPhoto = buffer;
-            await story.save();
-            const writers = new Writers({
-                AccountId: req.user._id,
-                StoryId: story._id,
-                rule: "owner"
-            });
-            await writers.save();
-            res.status(201).send({ story, writers });
-        } catch (error) {
-            res
-                .status(500)
-                .send({ error: "An error occurred while processing your request" });
-        }
+
+router.post("/story", authentication, async (req, res) => {
+    try {
+        const buffer = await converImgToBuffer(req.body.coverPhoto);
+        const story = new Story(req.body);
+        story.coverPhoto = buffer;
+        await story.save();
+        const writers = new Writers({
+            AccountId: req.user._id,
+            StoryId: story._id,
+            rule: "owner"
+        });
+        await writers.save();
+        res.status(201).send({ story, writers });
+    } catch (error) {
+        res
+            .status(500)
+            .send({ error: "An error occurred while processing your request" });
     }
+}
 );
 
-// router.get("/stories/:id", async (req, res) => {
-//     try {
-//         const Stories = await Story.find({ AccountId: req.body._id });
-//         res.status(200).send({ Stories });
-//     } catch (error) {
-//         console.error(error);
-//         res.status(500).send("Internal Server Error");
-//     }
-// });
+router.get("/story/:id", async (req, res) => {
+    try {
+        const story = await Story.findById(req.params.id);
+        res.status(200).send(story);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Internal Server Error");
+    }
+});
 
 
 
@@ -157,7 +146,10 @@ router.get('/stories/:id', async (req, res) => {
 
 
 router.patch('/stories/update', async (req, res) => {
-
+    if (req.body.coverPhoto) {
+        const buffer = await converImgToBuffer(req.body.coverPhoto)
+        req.body.coverPhoto = buffer;
+    }
     try {
         const updatedStory = await Story.findByIdAndUpdate(req.body.id, req.body, { new: true, runValidators: true });
 

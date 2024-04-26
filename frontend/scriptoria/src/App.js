@@ -54,6 +54,7 @@ function App() {
             <Route element={<RequireAuth />}>
               <Route path='WritingPage/:id' element={<WritingPage />} />
               <Route path='StoryDetails' element={<StoryDetails />} />
+              <Route path='StoryDetails/:id' element={<StoryDetails />} />
               <Route path='settings/:id' element={<Settings />} />
             </Route>
           </Route>
