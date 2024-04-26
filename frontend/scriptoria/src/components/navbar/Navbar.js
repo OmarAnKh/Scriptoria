@@ -72,6 +72,11 @@ const Navbar = () => {
             method: noHandel
         },
         {
+            title: t("Navbar.lists"),
+            to: accountUserName + "/lists",
+            method: noHandel
+        },
+        {
             title: t("Navbar.settings"),
             to: accountId,
             method: noHandel

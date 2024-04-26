@@ -2,10 +2,7 @@ import axios from 'axios'
 import {findAccount} from './accountApi'
 import { getWriters } from './writers'
 
-
 const getReadingLists = async (userName, all) => {   
-    console.log(all) 
-    console.log(userName)
     try {
         const account = await findAccount({ userName })
         console.log(account)

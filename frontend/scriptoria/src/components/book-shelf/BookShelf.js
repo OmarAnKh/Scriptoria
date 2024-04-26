@@ -8,26 +8,9 @@ import { useTranslation } from 'react-i18next';
 import { useEffect, useState } from "react";
 import { getStories } from "../../api/writers.js";
 import { Buffer } from "buffer";
-
-
-const readingList = [
-  {
-    id: 1,
-    img: 'https://1.bp.blogspot.com/-dxRQjpu6lWI/WtaooLQAsxI/AAAAAAAAQFA/LdV2nNaypxYK2TQZozeIdlQ_qhHpqB_XgCEwYBhgL/s1600/AC_Cv1000_var1960.jpg'
-  },
-  {
-    id: 2,
-    img: 'https://3.bp.blogspot.com/_eAs_CUZnVbk/S8E2zwGs3II/AAAAAAAAAZk/OFlq5PUNJtw/s1600/Fantastic+Four+197+Cover.jpg'
-  },
-  {
-    id: 3,
-    img: 'https://d1466nnw0ex81e.cloudfront.net/n_iv/600/3009011.jpg'
-  },
-  {
-    id: 4,
-    img: 'https://img.gocollect.com/eyJidWNrZXQiOiJnb2NvbGxlY3QuaW1hZ2VzLnB1YiIsImtleSI6IjFhNGVlMDdhLTg2MDItNGQ4My05YzkwLWEyYmI1ZGIxYTJjNi5qcGciLCJlZGl0cyI6W119'
-  }
-]
+import useAuth from "../../hooks/useAuth.js";
+import {getReadingLists,getValidStoriesFrom } from "../../api/readingListsApi.js";
+import logo from './../../img/scriptoria-logo-black.png'
 
 
 // Responsive property for the <Carousel> tag from react-multi-carousel package
@@ -50,15 +33,35 @@ const responsive = {
 };
 
 const BookShelf = (props) => {
+  const {auth} = useAuth()
   const [works, setWorks] = useState([])
+  const [lists, setLists ] = useState([])
+  const [covers, setCovers] = useState([])
   const { t } = useTranslation()
   useEffect(() => {
     const fetchWrokes = async () => {
       const res = await getStories(props.userId)
       setWorks(res.stories)
+
+      const tempLists = await getReadingLists(props.username, auth?.userName===props.username)
+      setLists(tempLists)
+      await Promise.all( lists.map(async(list,index)=>{
+        let data = await getValidStoriesFrom(props.userName, list._id, auth?.userInfo?._id)
+        const stories = data?.stories?.filter((story)=> story!==undefined)
+      let cover 
+      console.log(data)
+      if(stories?.length > 0){
+        cover = `data:image/png;base64,${Buffer.from(stories[0]?.coverPhoto).toString('base64')}`
+      } else {
+        cover = logo
+      }
+      setCovers(prevCovers => [...prevCovers, cover])
+      })
+
+      )
     }
     fetchWrokes()
-  }, [])
+  }, [works,covers])
   const CustomLeftArrow = ({ onClick }) => (
     <button className="custom-arrow custom-left-arrow" onClick={onClick}>
       &lt; {/* left arrow symbol */}
@@ -101,8 +104,6 @@ const BookShelf = (props) => {
             return (
               <div className="row justify-content-center" key={idx}>
                 <div className="col-lg-12">
-
-
                   <Book data={`data:image/png;base64,${Buffer.from(book.coverPhoto).toString('base64')}`} />
                 </div>
               </div>
@@ -114,46 +115,48 @@ const BookShelf = (props) => {
       </div>
       <Shelf />
 
-
-      <div className="carousel-container reading-list-books my-5" style={{}}>
-
-        <ShelfHeader title={t("BookShelf.reading_list")} btnTitle={t("BookShelf.all_reading_list")} />
-        {readingList?.length ?
-          <Carousel
-            responsive={responsive}
-            containerClass="custom-carousel"
-            itemClass="custom-slide"
-            infinite={true}
-            swipeable={false}
-            draggable={false}
-            showDots={false}
-            ssr={true}
-            autoPlay={false}
-            autoPlaySpeed={1000}
-            keyBoardControl={true}
-            customTransition="transform 1000ms ease-in-out"
-            transitionDuration={800}
-            removeArrowOnDeviceType={["tablet", "mobile"]}
-            deviceType={props.deviceType}
-            dotListClass="custom-dot-list-style"
-            focusOnSelect={true}
-            partialVisbile={false}
-            customRightArrow={<CustomRightArrow />}
-            customLeftArrow={<CustomLeftArrow />}
-          >
-            {readingList.map((book, idx) => {
-              return (
-                <div className="row justify-content-center" key={idx}>
-                  <div className="col-lg-12">
-                    {book?.coverPhoto ? <Book data={`data:image/png;base64,${Buffer.from(book?.coverPhoto).toString('base64')}`} /> : <></>}
+        {
+          covers?.length? 
+          <div className="carousel-container reading-list-books my-5" style={{}}>
+          <ShelfHeader title={t("BookShelf.reading_list")} btnTitle={t("BookShelf.all_reading_list")} state={covers?.length} link={`/profile/${props.username}/lists`} />
+            <Carousel
+              responsive={responsive}
+              containerClass="custom-carousel"
+              itemClass="custom-slide"
+              infinite={true}
+              swipeable={false}
+              draggable={false}
+              showDots={false}
+              ssr={true}
+              autoPlay={false}
+              autoPlaySpeed={1000}
+              keyBoardControl={true}
+              customTransition="transform 1000ms ease-in-out"
+              transitionDuration={800}
+              removeArrowOnDeviceType={["tablet", "mobile"]}
+              deviceType={props.deviceType}
+              dotListClass="custom-dot-list-style"
+              focusOnSelect={true}
+              partialVisbile={false}
+              customRightArrow={<CustomRightArrow />}
+              customLeftArrow={<CustomLeftArrow />}
+            >
+              {covers.map((cover, idx) => {
+                console.log(cover,10)
+                return (
+                  <div className="row justify-content-center" key={idx}>
+                    <div className="col-lg-12"> 
+                      { cover? <Book data={cover} /> : <></>}
+                    </div>
                   </div>
-                </div>
-              )
-            })}
-          </Carousel> : <></>
+                )
+              })}
+            </Carousel>
+        </div>
+          : 
+          <></>
         }
 
-      </div>
 
       <Shelf />
 

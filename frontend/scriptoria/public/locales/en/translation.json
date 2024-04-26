@@ -9,6 +9,7 @@
         "signUp": "SignUp",
         "profile": "profile",
         "settings": "settings",
+        "lists" : "lists",
         "logout": "logout",
         "arabic": "العربية",
         "english": "English",
@@ -182,5 +183,21 @@
     "ReadingPage": {
         "like": "LIke",
         "comment": "Comment"
+    },
+    "Lists" : {
+        "reading-lists" : "'s Reading Lists",
+        "edit" : "edit",
+        "delete" : "delete",
+        "list-name" : "list name",
+        "edit-privacy" : "edit privacy",
+        "public" : "public",
+        "private" : "private",
+        "save" : "save",
+        "cancel" : "cancel",
+        "yes" : "yes",
+        "do-you-want-to-delete-this-list" : "do you want to delete this list?",
+        "do-you-want-to-copy-this-list" : "do you want to copy this list?",
+        "this-user-may-not-have-one-public-list-at-least" : "this user may not have one public list at least",
+        "loading" : "loading..."
     }
 }
