@@ -12,7 +12,7 @@
   position: relative;
   width: 25em;
   height: 12.5em;
-  background-color: #fff;
+  background-color: #fff !important;
   overflow: hidden;
 }
 .list-card .list-name {
@@ -76,14 +76,14 @@
   -webkit-transition-delay: 0.3s;
   transition-delay: 0.3s;
 }
-.list-card .list-btns i:nth-of-type(3) {
+/* .list-card .list-btns i:nth-of-type(3) {
   -webkit-transition-delay: 0.2s;
   transition-delay: 0.2s;
 }
 .list-card .list-btns i:nth-of-type(4) {
   -webkit-transition-delay: 0.1s;
   transition-delay: 0.1s;
-}
+} */
 .list-card:hover i {
   opacity: 1;
   -webkit-transform: scale(1);
@@ -116,6 +116,9 @@
 }
 .list-name{
   text-shadow: 4px 4px 16px #000000;
+  display : -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 }
 .edit-list, .delete-list{
   text-shadow: 2px 2px 8px #000000;

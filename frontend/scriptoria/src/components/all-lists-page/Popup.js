@@ -3,7 +3,7 @@ import useAuth from '../../hooks/useAuth';
 import { createReadingList, deleteReadingList, updateList } from '../../api/readingListsApi';
 import { toast } from 'react-hot-toast';
 
-const Popup = ({ list, update, name ,setName }) => {
+const Popup = ({ page, list, update, name ,setName }) => {
   const { auth } = useAuth();
   const [type, setType] = useState('');
 
@@ -12,15 +12,16 @@ const Popup = ({ list, update, name ,setName }) => {
       if (type === 'copy') {
         const newList = {
           name: list.name,
-          stories: [...list.stories]
+          stories: [...list.stories],
+          privacy : list.privacy
         };
-        await toast.promise(createReadingList(newList, auth.token), {
+        await toast.promise(createReadingList(newList, auth?.token), {
           loading: 'Creating list...',
           success: 'List created successfully.',
           error: 'Failed to create list. Please try again later.'
         });
       } else if (type === 'delete') {
-        await toast.promise(deleteReadingList(list._id, auth.token), {
+        await toast.promise(deleteReadingList(list._id, auth?.token), {
           loading: 'delete list...',
           success: 'List deleted successfully.',
           error: 'Failed to delete list. Please try again later.'
@@ -33,7 +34,7 @@ const Popup = ({ list, update, name ,setName }) => {
           privacy : list.privacy,
           _id : list._id
         };
-        await toast.promise(updateList(editedList, auth.token), {
+        await toast.promise(updateList(editedList, auth?.token), {
           loading: 'updating list...',
           success: 'List updated successfully.',
           error: 'Failed to update list. Please try again later.'
@@ -46,10 +47,10 @@ const Popup = ({ list, update, name ,setName }) => {
 
   return (
     <div>
-      {auth.userName ? (
+      {auth?.userName && page ==="allLists" ? (
         <>
           <div className="list-btns text-light">
-            {auth.userInfo._id === list.accountId ? (
+            {auth?.userInfo._id === list.accountId ? (
               <>
                 <i className="edit-list">
                   <a
@@ -85,6 +86,49 @@ const Popup = ({ list, update, name ,setName }) => {
                 >
                   copy
                 </a>
+              </i>
+            )}
+          </div>
+        </>
+      ) : auth?.userName && page==="list" ? (
+        <>
+          <div>
+            {auth?.userInfo._id === list.accountId ? (
+              <>
+                <i>
+                  <button
+                    className="btn m-1 text-decoration-none"
+                    data-bs-toggle="modal"
+                    data-bs-target={`#list-btns-modal-${type}-${list._id}`}
+                    onClick={() => setType("edit")}
+                    style={{ cursor: "pointer" }}
+                  >
+                    edit
+                  </button>
+                </i>
+                <i>
+                  <button
+                    className="btn m-1 text-decoration-none"
+                    data-bs-toggle="modal"
+                    data-bs-target={`#list-btns-modal-${type}-${list._id}`}
+                    onClick={() => setType("delete")}
+                    style={{ cursor: "pointer" }}
+                  >
+                    delete
+                  </button>
+                </i>
+              </>
+            ) : (
+              <i>
+                <button
+                  className="btn m-1 text-decoration-none"
+                  data-bs-toggle="modal"
+                  data-bs-target={`#list-btns-modal-${type}-${list._id}`}
+                  onClick={() => setType("copy")}
+                  style={{ cursor: "pointer" }}
+                >
+                  copy
+                </button>
               </i>
             )}
           </div>

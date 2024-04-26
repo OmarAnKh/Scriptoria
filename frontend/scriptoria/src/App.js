@@ -23,6 +23,7 @@ import Layout from './components/layout/Layout.js';
 import PersistLogin from './components/persist-login/PersistLogin.js';
 import RequireAuth from './components/require-auth/RequireAuth.js';
 import AllListsPage from './components/all-lists-page/AllListsPage.js'
+import ListPage from './components/list-page/ListPage.js'
 
 function App() {
 
@@ -50,6 +51,7 @@ function App() {
             <Route path='stories/:id' element={<StoryHeader />} />
             <Route path='settings/:id' element={<Settings />} />
             <Route path=':userName/lists' element={<AllListsPage />} />
+            <Route path=':userName/lists/:id' element={<ListPage />} />
             <Route path='story/:id' element={<StoryHeader />} />
             <Route element={<RequireAuth />}>
               <Route path='WritingPage/:id' element={<WritingPage />} />

@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react'
 import ListCard from './ListCard'
 import {getReadingLists} from './../../api/readingListsApi'
 import useAuth from '../../hooks/useAuth';
-import './ListsPage.css'
+import './AllListsPage.css'
 const Lists = ({userName}) => {
   const {auth} = useAuth()
   const [lists, setLists] = useState([])

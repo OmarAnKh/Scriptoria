@@ -34,11 +34,11 @@ router.get('/readingLists',  async (req, res) => {
     }
 })
 
-router.get('/readingLists/:id', authentication, async (req, res) => {
+router.get('/lists/:accountId/:listId', async (req, res) => {
     try {
-        const stories = await ReadingList.findOne({ _id: req.params.id, accountId: req.user.id }).populate('stories');
-        if (!stories) return res.send({ nothing: true });
-        res.send(stories);
+        const list = await ReadingList.findOne({ _id: req.params.listId, accountId: req.params.accountId }).populate('stories');
+        if (!list) return res.send({"hello" : "nothing"});
+        res.send(list);
     } catch (error) {
         console.log(error);
         res.status(400).send();

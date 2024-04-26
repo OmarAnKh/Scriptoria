@@ -2,9 +2,9 @@ import React, {useState, useEffect} from 'react'
 import {Link} from 'react-router-dom'
 import { getStory } from '../../api/storyAPI';
 import { Buffer } from 'buffer';
-import logo from '../../img/content.png';
+import logo from '../../img/scriptoria-logo-black.png';
 import Popup from './Popup';
-import './ListsPage.css'
+import './AllListsPage.css'
 
 const ListCard = ({userName, list, update, image}) => {
   const [cover, setCover] = useState(logo)
@@ -27,12 +27,12 @@ const ListCard = ({userName, list, update, image}) => {
 <div className='d-none'>
 </div>
 
-<div className="list-card text rounded">
-  <Link to={`${userName}/lists/${list._id}`} className="list-name text-light display-5 pb-1 text-decoration-none fw-bold text-break"><b>{name}</b></Link>
-  <i className="list-arrow bi bi-arrow-right-short ml-0" ><Link className='word-break' to={`${userName}/lists/${list._id}`}/></i>
+<div className="list-card card text rounded">
+  <Link to={`${userName}/lists/${list._id}`} className="list-name text-light display-5 pb-1 text-decoration-none fw-bold text-break" title={list.name}><b>{list.name}</b></Link>
+  <i className="list-arrow bi bi-arrow-right-short ml-0" ><Link to={`${userName}/lists/${list._id}`}/></i>
   <p>reading list</p>
   <img className="list-pic img-fluid object-fit-cover bg-light" src={cover} />
-  <Popup list={list} update={update} name={name} setName={setName}/>
+  <Popup page="allLists" list={list} update={update} name={name} setName={setName}/>
   <Link className='list-ball' to={`${userName}/lists/${list._id}`} style={{backgroundColor : color}} />
 </div>
 

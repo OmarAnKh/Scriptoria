@@ -1,5 +1,8 @@
 import axios from 'axios'
 import {findAccount} from './accountApi'
+import { getWriters } from './writers'
+
+
 const getReadingLists = async (userName, all) => {   
     console.log(all) 
     console.log(userName)
@@ -39,15 +42,15 @@ const createReadingList = async (list, token) => {
     }
 }
 
-const getStoriesFromRL = async (listId, token) => {
+const getListWithStories = async (userName,listId) => {
+    const account = await findAccount({ userName })
     try {
         const response = await axios({
-            url: "http://localhost:5000/readingLists/" + listId,
+            url: "http://localhost:5000/lists/" + account._id + "/" + listId,
             method: "GET",
             withCredentials: true,
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": 'Bearer ' + token,
             },
             params: {
                 listId
@@ -57,6 +60,31 @@ const getStoriesFromRL = async (listId, token) => {
     } catch (error) {
         console.log(error);
     }
+}
+
+const getValidStoriesFrom = async (owner, listId, myId )=>{
+    try {
+        const notFilteredList = (await getListWithStories(owner, listId)).data
+        const stories = await Promise.all(
+        notFilteredList.stories.map(async (story) => {
+            if(story.publishStatus) {
+                return story
+            } 
+            else if (!story.publishStatus) {
+                const response = await getWriters(story._id)
+                const writers = response.state ? response.users : []
+                if(writers.length>0){
+                const found = writers.find(writer => writer.AccountId === myId)
+                if(found) return story
+                }
+            }
+            })
+        )
+        const list = {...notFilteredList, stories}
+        return list
+        } catch (error) {
+        console.log(error)
+        }
 }
 
 const updateList = async (list, token) => {
@@ -136,8 +164,9 @@ export {
     getReadingLists,
     createReadingList,
     updateReadingLists,
-    getStoriesFromRL,
+    getListWithStories,
     deleteReadingList,
-    updateList
+    updateList,
+    getValidStoriesFrom
 }
 
