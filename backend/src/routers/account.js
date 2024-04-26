@@ -6,6 +6,7 @@ import axios from "axios";
 import sharp from "sharp";
 import jwt from "jsonwebtoken"
 import bcrypt from 'bcryptjs'
+import { converImgToBuffer } from "../utils/image.js";
 
 
 const router = new express.Router()
@@ -143,24 +144,24 @@ router.post('/confirm/password', async (req, res) => {
     try {
         const account = await Account.findOne({ userName }).select('password');
 
-        if(!account) {
+        if (!account) {
             res.status(404).send()
         }
 
         const passwordMatch = await bcrypt.compare(confirmedPassword, account.password)
 
-        if(!passwordMatch) {
+        if (!passwordMatch) {
             return res.status(401).send({ message: false })
         }
         res.status(200).send({ message: true })
 
-    } catch (error) { 
+    } catch (error) {
         res.status(500).send(error)
     }
 })
 
 router.post("/account/logoutAll", async (req, res) => {
-    
+
     try {
         const refreshToken = req.cookies.jwt;
         res.clearCookie('jwt', { httpOnly: true });
@@ -207,17 +208,7 @@ router.patch("/account/update", async (req, res) => {
     try {
         if (updates[0] === "profilePicture") {
             try {
-                const imageURL = req.body.profilePicture;
-                const imageResponse = await axios.get(imageURL, {
-                    responseType: "arraybuffer",
-                });
-                if (!imageResponse.data) {
-                    throw new Error("Image data not found in the response");
-                }
-                const buffer = await sharp(imageResponse.data)
-                    .resize({ width: 250, height: 250 })
-                    .png()
-                    .toBuffer();
+                const buffer = await converImgToBuffer(req.body.profilePicture);
                 req.body.profilePicture = buffer;
             } catch (error) {
                 console.error("Error fetching or processing image:", error);
