@@ -8,7 +8,8 @@ router.post('/rate', authentication, async (req,res)=>{
     const rate = new Rating({
         rating : req.body.rating,
         StoryId : req.body.StoryId,
-        AccountId : req.user.id
+        AccountId : req.user.id,
+        privacy : req.body.privacy
     })
     try{
         await rate.save()
@@ -21,7 +22,8 @@ router.post('/rate', authentication, async (req,res)=>{
 
 router.get('/rate/:id', authentication, async (req, res)=>{
   const AccountId = req.user.id;
-  const StoryId = req.params.id
+  const StoryId = req.params.id;
+  
   try{
       const rate = await Rating.findOne({StoryId, AccountId });
       if(!rate) return res.status(404).send();
@@ -30,7 +32,6 @@ router.get('/rate/:id', authentication, async (req, res)=>{
       res.status(500).send();
   }
 });
-
 
 router.get('/rates/:id', async (req, res) => {
   const _id = req.params.id
@@ -48,7 +49,6 @@ router.get('/rates/:id', async (req, res) => {
     res.status(500).send(error)
   }
 })
-
 
 router.patch('/rate/:id', authentication, async(req, res) => {
     const AccountId = req.user.id;

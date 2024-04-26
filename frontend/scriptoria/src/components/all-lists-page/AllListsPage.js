@@ -2,17 +2,21 @@ import React from 'react'
 import Navbar from '../navbar/Navbar'
 import Lists from './Lists'
 import { useParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+
 const ListPage = () => {
    const {userName} = useParams()
-   console.log(userName)
+   const {t} = useTranslation()
   return (
     <>
     <Navbar/>
     <div className='container display-4'>
-        Reading Lists
+        {userName}{t("Lists.reading-lists")}
     </div>
+    <div className='row justify-content-center'>
     <Lists userName={userName}/>
-    </>
+    </div>
+</>
   )
 }
 

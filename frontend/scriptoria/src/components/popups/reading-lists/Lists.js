@@ -6,17 +6,16 @@ import {
 } from "../../../api/readingListsApi";
 import { toast } from 'react-hot-toast'
 import { useTranslation } from 'react-i18next';
-import "./Lists.css";
 import useAuth from "../../../hooks/useAuth";
-
+import "./Lists.css";
 
 const Lists = ({ storyId }) => {
   const { auth } = useAuth();
   const { t } = useTranslation()
-
   const [signedIn, setSignedIn] = useState(false);
   const [lists, setLists] = useState([]);
   const [checkedLists, setCheckedValues] = useState([]);
+  const [valid, setValid] = useState(true);
   const token = auth.token;
   const userName = auth.userName;
 
@@ -24,7 +23,7 @@ const Lists = ({ storyId }) => {
     const fetchData = async () => {
       if (userName) {
         setSignedIn(true);
-        const readingLists = await getReadingLists(userName);
+        const readingLists = await getReadingLists(userName,true);
         setLists(readingLists);
         const listsWithStory = readingLists.filter(list => list.stories.includes(storyId));
         setCheckedValues(listsWithStory.map(list => list._id));
@@ -32,6 +31,7 @@ const Lists = ({ storyId }) => {
     };
     fetchData();
   }, []);
+  
 
   const handleCheckboxChange = (event) => {
     if (event.target.checked) {
@@ -41,58 +41,52 @@ const Lists = ({ storyId }) => {
     }
   };
 
-
-
-  const saveData = async () => {
+  const updateData = async () => {
     try {
-      const response = await getReadingLists(userName)
-
-      if (response) {
-        const lists = response;
-        await toast.promise(updateReadingLists(storyId, checkedLists, token, lists), {
+        await toast.promise(updateReadingLists(storyId, checkedLists, userName, token), {
           loading: 'Saving data...',
           success: 'Data saved successfully.',
           error: 'Failed to save data. Please try again later.',
         });
-      }
+      
     } catch (error) {
       console.error("Error saving data:", error);
       toast.error("Failed to save data. Please try again later.");
     }
   };
 
-
   const createList = async () => {
     const listName = document.getElementById('newList').value;
-    const newList = {
-      name: listName,
-      stories: [storyId]
-    };
+    setValid(!lists.find(list => list.name === listName));
+    if (valid){
 
     try {
+      setValid(!lists.find(list => list.name === listName));
+      if (valid){
+      const newList = {
+        name: listName,
+        stories: [storyId],
+        privacy : document.getElementById("list-privacy").value
+      };
       await toast.promise(createReadingList(newList, token), {
         loading: 'Creating list...',
         success: 'List created successfully.',
         error: 'Failed to create list. Please try again later.',
       });
-      const updatedLists = await getReadingLists(userName);
+      const updatedLists = await getReadingLists(userName,true);
       if (updatedLists) {
         setLists(updatedLists);
       }
 
-
       const newListId = updatedLists.find(list => list.name === listName)._id;
       setCheckedValues([...checkedLists, newListId]);
 
-      document.getElementById('newList').value = ""
+      document.getElementById('newList').value = ""}
     } catch (error) {
       console.error(error);
       toast.error("Failed to create list. Please try again later.");
-      document.getElementById('newList').value = ""
-    }
+    }}
   };
-
-
 
   return (
     <div>
@@ -117,8 +111,8 @@ const Lists = ({ storyId }) => {
                   aria-label="Close"
                 />
               </div>
-              <div className="modal-body">
-                {lists.map((list, index) => {
+              <div className="modal-body h6">
+                {lists.length > 0 ? lists.map((list, index) => {
                   return (
                     <div
                       key={index}
@@ -142,7 +136,11 @@ const Lists = ({ storyId }) => {
                       </div>
                     </div>
                   );
-                })}
+                }) : <div className="d-flex justify-content-center align-items-center" style={{height : '480px'}}>
+                <div className="text-center text-secondary h6">
+                  you have no lists, create one to save the story
+                </div>
+              </div>}
               </div>
               <div className="container btn-group gap-2 mb-2">
                 <button
@@ -155,7 +153,7 @@ const Lists = ({ storyId }) => {
                 <button
                   className="btn btn-primary rounded w-50"
                   data-bs-dismiss="modal"
-                  onClick={saveData}
+                  onClick={updateData}
                 >
                   {t("SaveTo.save")}
                 </button>
@@ -186,19 +184,31 @@ const Lists = ({ storyId }) => {
                   aria-label="Close"
                 />
               </div>
-              <div className="modal-body">
+              <div className="modal-body h6">
                 <div className="form-check px-0">
                   <div className="mb-3">
                     <label htmlFor="newList" className="form-label">
                       {t("SaveTo.Name")}
                     </label>
                     <input
-                      type="email"
-                      className="form-control"
+                      className={`form-control ${valid? "" : "is-invalid"}`}
                       id="newList"
                       placeholder="my list"
+                      aria-describedby = "new-name-validation"
                     />
+                    {
+                        valid? <></>
+                        : <div id="new-name-validation" className="invalid-feedback">
+                        list already exists
+                      </div> }
                   </div>
+                  <div className="mb-3">
+                  <label htmlFor="list-privacy" className="form-label">privacy</label>
+                      <select className="form-select form-select-lg mb-3" id="list-privacy" aria-label="Large select example">
+                      <option value={false}>private</option>
+                      <option value={true}>public</option>
+                      </select>
+                      </div>
                 </div>
               </div>
               <div className="container gap-2 btn-group mb-2">

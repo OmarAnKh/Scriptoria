@@ -1,5 +1,3 @@
-
-
 @font-face {
   font-family: 'Fibre Vintage';
   src: url('./fonts/LilitaOne-Regular.ttf') format('truetype');
@@ -36,8 +34,8 @@
 
 body {
   font-family: Fibre Vintage;
-  /* background-color:var(--background-Color);
-   */
+  background-color:var(--background-Color);
+  
 }
 
 .Scriptoria {

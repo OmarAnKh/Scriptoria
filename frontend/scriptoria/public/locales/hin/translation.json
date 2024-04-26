@@ -9,6 +9,7 @@
         "signUp": "साइन अप करें",
         "profile": "प्रोफ़ाइल",
         "settings": "सेटिंग्स",
+        "lists" : "सूचियाँ",
         "logout": "लॉग आउट",
         "arabic": "العربية",
         "english": "English",
@@ -179,5 +180,21 @@
         "save" : "सहेजें",
         "update" : "अपडेट",
         "cancel" : "रद्द करें"
-    }
+    },
+    "Lists" : {
+        "reading-lists" : "की पढ़ने की सूचियाँ",
+        "edit" : "संपादित करें",
+        "delete" : "हटाएँ",
+        "list-name" : "सूची का नाम",
+        "edit-privacy" : "गोपनीयता संपादित करें",
+        "public" : "सार्वजनिक",
+        "private" : "निजी",
+        "save" : "सहेजें",
+        "cancel" : "रद्द करें",
+        "yes" : "हां",
+        "do-you-want-to-delete-this-list" : "क्या आप इस सूची को हटाना चाहते हैं?",
+        "do-you-want-to-copy-this-list" : "क्या आप इस सूची को कॉपी करना चाहते हैं?",
+        "this-user-may-not-have-one-public-list-at-least" : "इस उपयोगकर्ता के पास कम से कम एक सार्वजनिक सूची होनी चाहिए",
+        "loading" : "लोड हो रहा है..."
+    }    
 }
