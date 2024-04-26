@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Logo from "../../img/scriptoria-logo.png"
 import "./Navbar.css";
 import NavHomeButton from "./NavbarButton";
@@ -21,6 +21,10 @@ const Navbar = () => {
     const [accountId, setAccountId] = useState("*");
     const [accountUserName, setAccountUserName] = useState("*")
     const { t, i18n } = useTranslation()
+
+    const [searchCriteria, setSearchCriteria] = useState("");
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchData = async () => {
@@ -122,6 +126,14 @@ const Navbar = () => {
         }
     ]
 
+    const searchHandel = () => {
+        if (searchCriteria === "") {
+            return;
+        }
+        navigate(`/Search/${searchCriteria}`);
+        window.location.reload();
+    }
+
     return (
         <nav className="navbar navbar-expand-lg">
             <div className="container-fluid ">
@@ -142,11 +154,11 @@ const Navbar = () => {
                                 <NavHomeLink to="/browse">{t("Navbar.browse")}</NavHomeLink>
                                 <NavHomeLink to="/TeamMembers">{t("Navbar.teamMembers")}</NavHomeLink>
                             </div>
-                            <form className="d-flex" role="search">
-                                <NavHomeButton iclassName="bi bi-search search-icon" className="input-group rounded" buttonClassName="input-group-text border-0 button-search" method={noHandel}>
-                                    <input type="search" className="form-control rounded search-navbar-input" placeholder={t("Navbar.search")} aria-label="Search" aria-describedby="search-addon" />
+                            <div className="d-flex" role="search">
+                                <NavHomeButton iclassName="bi bi-search search-icon" className="input-group rounded" buttonClassName="input-group-text border-0 button-search" method={searchHandel}>
+                                    <input type="search" className="form-control rounded search-navbar-input" placeholder={t("Navbar.search")} aria-label="Search" aria-describedby="search-addon" onChange={(event) => { setSearchCriteria(event.target.value) }} />
                                 </NavHomeButton>
-                            </form>
+                            </div>
                             <div className="right-side">
                                 {
                                     hasAccount.token ? <><Link type="button" className="addstory btn btn-outline-dark rounded-5 m-2" to={`/StoryDetails`}>

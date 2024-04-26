@@ -155,7 +155,7 @@ const WpNavBar = ({ setMode, data, setData, setState }) => {
       }
     });
     if (!userExists) {
-      toast.error('you can\'t publish this story because your aren\'t owner');
+      toast.error('you can\'t publish this story because you aren\'t the owner of the story');
       return;
     }
     const document = {

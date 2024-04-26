@@ -34,8 +34,8 @@ function App() {
       <Routes>
         <Route path='/' element={<Layout />}>
           {/*public routes*/}
-          <Route path='ServersErrorPage'element={<ServersErrorPage/>}/>
-          <Route path='StoryErrorsPage'element={<StoryErrorsPage/>}/>
+          <Route path='ServersErrorPage' element={<ServersErrorPage />} />
+          <Route path='StoryErrorsPage' element={<StoryErrorsPage />} />
           <Route path="SignIn" element={<SignIn />} />
           <Route path="SignUp" element={<SingUp />} />
           <Route path='SignUpVerificationCode' element={<SignUpVerificationCode />} />
@@ -61,7 +61,6 @@ function App() {
               <Route path='StoryDetails' element={<StoryDetails />} />
               <Route path='StoryDetails/:id' element={<StoryDetails />} />
               <Route path='settings/:id' element={<Settings />} />
-              
             </Route>
           </Route>
           {/*catch all*/}
