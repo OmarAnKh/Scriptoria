@@ -36,17 +36,17 @@ const getComments = async (storyId) =>{
     }
 }
 
-const editComment = async (commentId, text, token) =>{
+const editComment = async (comment, token) =>{
     try {
         await axios({
-            url : "http://localhost:5000/comments/" + commentId,
+            url : "http://localhost:5000/comments/" + comment._id,
             method : "PATCH",
             withCredentials: true,
             headers : {
                 "Content-Type": "application/json",
                 "Authorization": 'Bearer ' + token,
             },
-            data : {text} 
+            data : comment 
         })
     } catch(error){
         console.log(error)
@@ -56,12 +56,12 @@ const editComment = async (commentId, text, token) =>{
 const deleteComment = async (id, token) => {
     try {
         const response = await axios({
-            url: `http://localhost:5000/comments/${id}`,
+            url: "http://localhost:5000/comments/" + id,
             method: "DELETE",
             withCredentials: true,
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": `Bearer ${token}`,
+                "Authorization": 'Bearer ' + token,
             },
         });
         return response.data;

@@ -25,10 +25,12 @@ const AddComment = ({ storyId, signedIn, updateComments }) => {
             }
         }
         fetchData()
-    }, [])
+    }, [auth?.userInfo?._id])
 
     const saveComment = async () => {
-        if (signedIn) {
+        if(document.getElementById('add-comment').value.length > 0)
+        {
+            if (signedIn) {
             const comment = {
                 accountId: user._id,
                 storyId,
@@ -42,6 +44,7 @@ const AddComment = ({ storyId, signedIn, updateComments }) => {
                 updateComments();
             } catch (error) {
                 console.log(error);
+            }
             }
         }
     }

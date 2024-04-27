@@ -67,7 +67,7 @@ const getValidStoriesFrom = async (owner, listId, myId )=>{
             if(story.publishStatus) {
                 return story
             } 
-            else if (!story.publishStatus) {
+            else {
                 const response = await getWriters(story._id)
                 const writers = response.state ? response.users : []
                 if(writers.length>0){

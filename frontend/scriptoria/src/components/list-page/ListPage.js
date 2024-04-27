@@ -16,18 +16,15 @@ const ListPage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const tempList = await getValidStoriesFrom(userName, id, auth?.userInfo?._id)
-        setList({...tempList, stories : tempList.stories.filter((story)=> story!==undefined)})
-        setName(tempList.name)
-        
+        const tempList = await getValidStoriesFrom(userName, id, auth?.userInfo?._id);
+        setList({ ...tempList, stories : tempList.stories.filter((story) => story !== undefined) });
+        setName(tempList.name);
       } catch (error) {
-        console.log(error)
+        console.log(error);
       }
-    }
-    fetchData()
-    console.log(list)
-
-  }, [list])
+    };
+    fetchData();
+  }, [userName, id, auth?.userInfo?._id]);
 
 const update = async ()=>{
   try{
@@ -48,7 +45,7 @@ const update = async ()=>{
           <div className='col-md-6 col-sm-12 display-2 text-md-start text-sm-center'>{list.name}</div>
         <div className='col-md-4 col-sm-12 text-md-end text-sm-center'>
           <Popup page="list" list={list} name={name} setName={setName} update={update} />
-        </div></> : <div className='justify-content-center align-items-center'><h1>{t("Lists.loadig")}</h1></div>}
+        </div></> : <div className='justify-content-center align-items-center'><h1>{t("Lists.loading")}</h1></div>}
         </div>
       </div>
     </>

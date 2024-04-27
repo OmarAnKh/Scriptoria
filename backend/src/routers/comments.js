@@ -37,6 +37,7 @@ router.patch('/comments/:id', authentication, async (req, res) => {
             return res.status(404).send({ error: 'Reading list not found' });
         }
         comment.text = req.body.text
+        comment.likes = req.body.likes
         await comment.save();
 
         res.send(comment);
