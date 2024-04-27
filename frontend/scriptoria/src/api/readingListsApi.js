@@ -1,20 +1,26 @@
 import axios from 'axios'
-const getReadingLists = async (token) => {
+import {findAccount} from './accountApi'
+import { getWriters } from './writers'
+
+const getReadingLists = async (userName, all) => {   
     try {
+        const account = await findAccount({ userName })
+        console.log(account)
         const response = await axios({
             url: "http://localhost:5000/readingLists",
             method: "GET",
             withCredentials: true,
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": 'Bearer ' + token,
             },
+            params : { accountId : account._id, all }
         });
-        return response;
+        return response.data; 
     } catch (error) {
         console.log(error);
     }
 }
+
 
 const createReadingList = async (list, token) => {
     try {
@@ -33,18 +39,18 @@ const createReadingList = async (list, token) => {
     }
 }
 
-const getStoriesFromRL = async (_id, token) => {
+const getListWithStories = async (userName,listId) => {
+    const account = await findAccount({ userName })
     try {
         const response = await axios({
-            url: "http://localhost:5000/readingLists/" + _id,
+            url: "http://localhost:5000/lists/" + account._id + "/" + listId,
             method: "GET",
             withCredentials: true,
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": 'Bearer ' + token,
             },
             params: {
-                _id
+                listId
             }
         });
         return response;
@@ -53,53 +59,101 @@ const getStoriesFromRL = async (_id, token) => {
     }
 }
 
-const updateList = async (id, stories, token) => {
+const getValidStoriesFrom = async (owner, listId, myId )=>{
+    try {
+        const notFilteredList = (await getListWithStories(owner, listId)).data
+        const stories = await Promise.all(
+        notFilteredList.stories.map(async (story) => {
+            if(story.publishStatus) {
+                return story
+            } 
+            else if (!story.publishStatus) {
+                const response = await getWriters(story._id)
+                const writers = response.state ? response.users : []
+                if(writers.length>0){
+                const found = writers.find(writer => writer.AccountId === myId)
+                if(found) return story
+                }
+            }
+            })
+        )
+        const list = {...notFilteredList, stories}
+        return list
+        } catch (error) {
+        console.log(error)
+        }
+}
+
+const updateList = async (list, token) => {
+    
     try {
         await axios({
-            url: "http://localhost:5000/readingLists/" + id,
+            url: "http://localhost:5000/readingLists/" + list._id,
             method: "PATCH",
             withCredentials: true,
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": 'Bearer ' + token,
             },
-            data: { stories }
-        })
+            data: { 
+                stories: list.stories,
+                name: list.name,
+                privacy: list.privacy
+            }
+        });
     } catch (error) {
         console.log(error)
     }
 }
 
-const updateReadingLists = async (storyId, checkedLists, token) => {
 
-    const response = await getReadingLists(token);
-
-    if (!response || !response.data) {
-        console.error('getReadingLists did not return expected data');
-        return;
-    }
-
-    const lists = response.data;
-
+const updateReadingLists = async (storyId, checkedLists, userName ,token) => {
     try {
+        const lists = await getReadingLists(userName, true);
+        if(lists){
         await Promise.all(
             lists.map(async (list) => {
-                let stories = list.stories
+                let stories = list.stories;
                 if (checkedLists.includes(list._id)) {
                     if (!stories.includes(storyId)) {
-                        stories.push(storyId)
-                        await updateList(list._id, stories, token)
+                        stories.push(storyId);
+                        await updateList(list, token);
                     }
                 } else {
                     if (stories.includes(storyId)) {
-                        stories = stories.filter(story => story !== storyId)
-                        await updateList(list._id, stories, token)
+                        stories = stories.filter(story => story !== storyId);
+                        const editedList = {
+                            _id: list._id,
+                            name: list.name,
+                            accountId: list.accountId,
+                            privacy: list.privacy,
+                            stories
+                        };
+                        await updateList(editedList, token);
                     }
                 }
             })
-        );
+        );}
     } catch (error) {
         console.error(error);
+    }
+}
+
+
+const deleteReadingList = async(id, token) =>{
+    try {
+        await axios({
+            url: "http://localhost:5000/readingLists/" + id,
+            method: "DELETE",
+            withCredentials: true,
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": 'Bearer ' + token,
+            },
+            params: { id }
+        })
+    } catch (error) {
+        console.log(error)
     }
 }
 
@@ -107,6 +161,9 @@ export {
     getReadingLists,
     createReadingList,
     updateReadingLists,
-    getStoriesFromRL
+    getListWithStories,
+    deleteReadingList,
+    updateList,
+    getValidStoriesFrom
 }
 

@@ -2,12 +2,14 @@ import React, { useState, useEffect } from 'react'
 import logo from "../../../img/content.png";
 import { findAccount } from '../../../api/accountApi'
 import { sendComment } from '../../../api/commentsApi'
+import { useTranslation } from 'react-i18next';
 import useAuth from "../../../hooks/useAuth"
 
-const AddComment = ({ signedIn, updateComments }) => {
 
+const AddComment = ({ storyId, signedIn, updateComments }) => {
     const { auth } = useAuth();
 
+    const { t } = useTranslation()
     const [user, setUser] = useState({})
     const [imageUrl, setImageURL] = useState(logo)
 
@@ -29,9 +31,10 @@ const AddComment = ({ signedIn, updateComments }) => {
         if (signedIn) {
             const comment = {
                 accountId: user._id,
-                storyId: "66184ef55e0a2983ff1df511",
+                storyId,
                 text: document.getElementById('add-comment').value
             }
+
             const token = auth.token
             try {
                 await sendComment(comment, token);
@@ -42,14 +45,13 @@ const AddComment = ({ signedIn, updateComments }) => {
             }
         }
     }
-
     return (
         <div className="d-flex flex-row bg-light w-100 rounded">
             <div className="p-1 bd-highlight">
                 <img src={imageUrl} alt="Profile" className="rounded-circle" width="35" />
             </div>
             <div className="p-1 bd-highlight flex-grow-1">
-                <textarea type="text" className="form-control fs-xs" id="add-comment" placeholder="write something..." />
+                <textarea type="text" className="form-control fs-xs" id="add-comment" placeholder={t("Comments.write-something")} />
             </div>
             <div className="p-1 bd-highlight">
                 <button className='btn btn-primary bi bi-send-fill' onClick={saveComment}></button>
@@ -57,5 +59,4 @@ const AddComment = ({ signedIn, updateComments }) => {
         </div>
     )
 }
-
 export default AddComment

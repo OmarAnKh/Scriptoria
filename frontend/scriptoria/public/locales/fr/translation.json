@@ -9,6 +9,7 @@
         "signUp": "S'inscrire",
         "profile": "Profil",
         "settings": "Paramètres",
+        "lists" : "listes",
         "logout": "Déconnexion",
         "arabic": "العربية",
         "english": "English",
@@ -91,7 +92,8 @@
         "follow": "Suivre",
         "unfollow": "Ne plus suivre",
         "message": "Message",
-        "Unblock": "Débloquer"
+        "Unblock": "Débloquer",
+        "save": "Enregistrer"
     },
     "Settings": {
         "settings": "Paramètres",
@@ -113,7 +115,12 @@
         "edit": "Modifier",
         "password": "Mot de passe",
         "save": "Enregistrer",
-        "description": "Description"
+        "description": "Description",
+        "delete_account": "Supprimer le compte",
+        "confirm_password": "Veuillez confirmer votre mot de passe",
+        "delete_account_header": "Êtes-vous sûr de vouloir supprimer votre compte ?",
+        "confirm": "Confirmer",
+        "cancel": "Annuler"
     },
     "StoryCard": {
         "show_more": "Afficher plus"
@@ -133,28 +140,60 @@
         "select_one": "Sélectionner un",
         "language": "Langue",
         "name": "Nom",
-        "untitled": "Sans titre"
+        "untitled": "Sans titre",
+        "title-error": "Titre de l'histoire requis",
+        "language-error": "Langue requise",
+        "description-error": "Description requise",
+        "category-error": "Catégorie requise",
+        "target-audience-error": "Public cible requis",
+        "uploaded-image-url-error": "Image requise"
     },
     "Logout": {
         "text1": "Vous avez été déconnecté avec succès.",
         "text2": "Cliquez ici pour retourner à la page d'accueil."
     },
-    "Comments": {
-        "Comments": "Commentaires",
-        "Reply": "Répondre",
-        "edit": "Modifier",
-        "delete": "Supprimer",
-        "save": "Enregistrer",
-        "cancel": "Annuler"
+    "Comments" : {
+        "Comments" : "Commentaires",
+        "Reply" : "répondre",
+        "edit" : "modifier",
+        "delete" : "supprimer",
+        "save" : "enregistrer",
+        "cancel" : "annuler",
+        "no-comments" : "soyez le premier à commenter cette histoire",
+        "write-something" : "écrire quelque chose..."
     },
-    "SaveTo": {
-        "SaveTo": "Enregistrer l'histoire dans...",
-        "createNewList": "Créer une nouvelle liste",
-        "save": "Enregistrer",
-        "create": "Créer une nouvelle liste de lecture",
-        "Name": "Nom",
-        "createAndSave": "Créer et enregistrer",
-        "cancel": "Annuler",
-        "addToReadingList": "Ajouter à la liste de lecture"
-    }
+    "SaveTo" : {
+        "save-to" : "enregistrer l'histoire dans...",
+        "create-a-new-list" : "créer une nouvelle liste",
+        "save" : "enregistrer",
+        "create-reading-list-popop" : "créer une nouvelle liste de lecture",
+        "Name" : "nom",
+        "create-and-save" : "créer et enregistrer",
+        "cancel" : "annuler",
+        "add-to-reading-list" : "ajouter à la liste de lecture"
+    },
+    "Rate" : {
+        "msg1" : "Évaluez cette histoire",
+        "msg2" : "Vous avez évalué cette histoire ",
+        "header" : "Évaluer",
+        "save" : "enregistrer",
+        "update" : "mettre à jour",
+        "cancel" : "annuler"
+    },
+    "Lists" : {
+        "reading-lists" : "Listes de lecture de ",
+        "edit" : "modifier",
+        "delete" : "supprimer",
+        "list-name" : "nom de la liste",
+        "edit-privacy" : "modifier la confidentialité",
+        "public" : "public",
+        "private" : "privé",
+        "save" : "enregistrer",
+        "cancel" : "annuler",
+        "yes" : "oui",
+        "do-you-want-to-delete-this-list" : "Voulez-vous supprimer cette liste ?",
+        "do-you-want-to-copy-this-list" : "Voulez-vous copier cette liste ?",
+        "this-user-may-not-have-one-public-list-at-least" : "Cet utilisateur doit avoir au moins une liste publique",
+        "loading" : "chargement..."
+    }    
 }

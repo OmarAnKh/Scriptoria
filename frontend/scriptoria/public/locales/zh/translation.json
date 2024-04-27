@@ -9,6 +9,7 @@
         "signUp": "注册",
         "profile": "个人资料",
         "settings": "设置",
+        "lists" : "清单",
         "logout": "退出",
         "arabic": "العربية",
         "english": "English",
@@ -91,7 +92,8 @@
         "follow": "关注",
         "unfollow": "取消关注",
         "message": "消息",
-        "Unblock": "解除阻止"
+        "Unblock": "解除阻止",
+        "save": "保存"
     },
     "Settings": {
         "settings": "设置",
@@ -113,7 +115,12 @@
         "edit": "编辑",
         "password": "密码",
         "save": "保存",
-        "description": "描述"
+        "description": "描述",
+        "delete_account": "删除账户",
+        "confirm_password": "请确认您的密码",
+        "delete_account_header": "您确定要删除您的账户吗？",
+        "confirm": "确认",
+        "cancel": "取消"
     },
     "StoryCard": {
         "show_more": "显示更多"
@@ -133,7 +140,13 @@
         "select_one": "选择一个",
         "language": "语言",
         "name": "名称",
-        "untitled": "无标题"
+        "untitled": "无标题",
+        "title-error": "故事标题是必填项",
+        "language-error": "语言是必填项",
+        "description-error": "描述是必填项",
+        "category-error": "类别是必填项",
+        "target-audience-error": "目标受众是必填项",
+        "uploaded-image-url-error": "图片是必填项"
     },
     "Logout": {
         "text1": "您已成功登出。",
@@ -145,16 +158,42 @@
         "edit": "编辑",
         "delete": "删除",
         "save": "保存",
-        "cancel": "取消"
+        "cancel": "取消",
+        "no-comments": "成为第一个评论这个故事的人",
+        "write-something": "写点什么..."
     },
     "SaveTo": {
-        "SaveTo": "保存至...",
-        "createNewList": "创建新列表",
+        "save-to": "保存故事到...",
+        "create-a-new-list": "创建新列表",
         "save": "保存",
-        "create": "创建新的阅读列表",
+        "create-reading-list-popop": "创建新阅读列表",
         "Name": "名称",
-        "createAndSave": "创建并保存",
+        "create-and-save": "创建并保存",
         "cancel": "取消",
-        "addToReadingList": "添加到阅读列表"
-    }
+        "add-to-reading-list": "添加到阅读列表"
+    },
+    "Rate": {
+        "msg1": "给这个故事评分",
+        "msg2": "您已对此故事评分",
+        "header": "评分",
+        "save": "保存",
+        "update": "更新",
+        "cancel": "取消"
+    },
+    "Lists" : {
+        "reading-lists" : "的阅读列表",
+        "edit" : "编辑",
+        "delete" : "删除",
+        "list-name" : "清单名称",
+        "edit-privacy" : "编辑隐私",
+        "public" : "公开",
+        "private" : "私人",
+        "save" : "保存",
+        "cancel" : "取消",
+        "yes" : "是",
+        "do-you-want-to-delete-this-list" : "您要删除此列表吗？",
+        "do-you-want-to-copy-this-list" : "您要复制此列表吗？",
+        "this-user-may-not-have-one-public-list-at-least" : "此用户至少必须拥有一个公共列表",
+        "loading" : "载入中..."
+    }    
 }

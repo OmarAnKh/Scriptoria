@@ -4,9 +4,11 @@ import StarRating from '../star-rating/StarRating';
 import { useTranslation } from 'react-i18next';
 import { Buffer } from 'buffer';
 import {getGenrestory } from '../../api/storyAPI';
+import DiscoverTable from '../discover-tab/DiscoverTable';
+import { Link } from 'react-router-dom';
 
 const StoryCard = ({selectedTab}) => {
-    const { t } = useTranslation()
+  const { t } = useTranslation()
     const [visiblestory, setVisiblestory] = useState(3);
     const loadMoreCards = () => {
         setVisiblestory((prevCount) => prevCount + 3);
@@ -34,7 +36,7 @@ const StoryCard = ({selectedTab}) => {
                         <div className={`card mb-1`} style={{ width: '95%', height: '100%', margin: '0 10px', minHeight: '200px', backgroundColor: story.story.backgroundColor }}>
                             <div className="row no-gutters">
                                 <div className="col-md-4">
-                                    <img
+ <img
                                         src={story.story.coverPhoto?.data ? `data:image/jpeg;base64,${Buffer.from(story.story.coverPhoto.data).toString('base64')}` : ''}
                                         alt="story-img"
                                         className="card-img"

@@ -42,7 +42,7 @@ const SignUpInfo = (props) => {
                 <div className="row">
                     <div className="col-lg-6 box-3-info d-flex flex-column align-items-center text-center">
                         <img src={logo} alt="Scriptoria logo" id="logo" className="img-fluid" />
-                        <span className="scriptoria-text-info">Scriptoria</span>
+                        <span className="scriptoria-text-info Scriptoria">Scriptoria</span>
                         <div className="box1-text">
                             <p className="info-text">
                                 <span className="welcome-word-info">Welcome</span> "spec.user"<br />

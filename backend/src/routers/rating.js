@@ -7,8 +7,9 @@ const router = new express.Router()
 router.post('/rate', authentication, async (req,res)=>{
     const rate = new Rating({
         rating : req.body.rating,
-        StoryId : '660c0ef9f7c89b9cfdd1aacb',
-        AccountId : req.user.id
+        StoryId : req.body.StoryId,
+        AccountId : req.user.id,
+        privacy : req.body.privacy
     })
     try{
         await rate.save()
@@ -19,28 +20,41 @@ router.post('/rate', authentication, async (req,res)=>{
     }
 })
 
-
-router.get('/rate', authentication, async (req, res)=>{
+router.get('/rate/:id', authentication, async (req, res)=>{
   const AccountId = req.user.id;
-  const StoryId = req.query.StoryId;
+  const StoryId = req.params.id;
+  
   try{
       const rate = await Rating.findOne({StoryId, AccountId });
-      if(!rate) return undefined;
+      if(!rate) return res.status(404).send();
       res.send(rate);
   }catch(e){
       res.status(500).send();
   }
 });
 
+router.get('/rates/:id', async (req, res) => {
+  const _id = req.params.id
+
+  try {
+    const countRates = await Rating.countDocuments({ StoryId: _id });
+    const result = await Rating.aggregate([
+        { $group: { _id: _id, averageRate: { $avg: "$rating" } } }
+    ]);
+
+    const averageRating = result[0]?.averageRate;
+    res.status(200).send({ counts: { rates: countRates, avg: averageRating } })
+
+  } catch (error) {
+    res.status(500).send(error)
+  }
+})
 
 router.patch('/rate/:id', authentication, async(req, res) => {
-    const updates = Object.keys(req.body);
-    const isValidOperation = updates.includes("rating");
-    if (!isValidOperation) {
-      return res.status(400).send({ "error": "invalid update!" });
-    }
+    const AccountId = req.user.id;
+    const StoryId = req.params.id
     try {
-      const rate = await Rating.findOne({AccountId : req.params.id ,StoryId: '65fb60a9334d75840746ae29' });
+      const rate = await Rating.findOne({AccountId, StoryId});
       if (!rate) {
         return res.status(404).send();
       }
@@ -50,7 +64,7 @@ router.patch('/rate/:id', authentication, async(req, res) => {
     } catch (error) {
       res.status(400).send(error);
     }
-  });
+});
 
   
 

@@ -15,7 +15,8 @@ const ErrorPage = () => {
                     <p className="mt-2" style={{ fontSize: "calc(3.375rem + 1.5vw)", fontWeight: "bold" }}>{t("ErrorPage.page_was_not_found")}</p>
                 </div>
             </div>
-        </div></>
+        </div>
+        </>
     );
 }
 

@@ -9,6 +9,7 @@
         "signUp": "साइन अप करें",
         "profile": "प्रोफ़ाइल",
         "settings": "सेटिंग्स",
+        "lists" : "सूचियाँ",
         "logout": "लॉग आउट",
         "arabic": "العربية",
         "english": "English",
@@ -91,7 +92,9 @@
         "follow": "फॉलो करें",
         "unfollow": "अनफॉलो करें",
         "message": "संदेश",
-        "Unblock": "अवरोध हटाएं"
+        "Unblock": "अवरोध हटाएं",
+        "save": "सहेजें"
+
     },
     "Settings": {
         "settings": "सेटिंग्स",
@@ -113,7 +116,12 @@
         "edit": "संपादित करें",
         "password": "पासवर्ड",
         "save": "सहेजें",
-        "description": "विवरण"
+        "description": "विवरण",
+        "delete_account": "खाता हटाएं",
+        "confirm_password": "कृपया अपना पासवर्ड पुष्टि करें",
+        "delete_account_header": "क्या आप वाकई अपना खाता हटाना चाहते हैं?",
+        "confirm": "पुष्टि करें",
+        "cancel": "रद्द करें"
     },
     "StoryCard": {
         "show_more": "और दिखाएं"
@@ -133,28 +141,60 @@
         "select_one": "एक चुनें",
         "language": "भाषा",
         "name": "नाम",
-        "untitled": "अभिनव"
+        "untitled": "अभिनव",
+        "title-error": "कहानी का शीर्षक आवश्यक है",
+        "language-error": "भाषा आवश्यक है",
+        "description-error": "विवरण आवश्यक है",
+        "category-error": "श्रेणी आवश्यक है",
+        "target-audience-error": "लक्ष्य दर्शक आवश्यक है",
+        "uploaded-image-url-error": "छवि आवश्यक है"
     },
     "Logout": {
         "text1": "आप सफलतापूर्वक लॉग आउट हो गए हैं।",
         "text2": "होम पेज पर वापस जाने के लिए यहाँ क्लिक करें।"
     },
-    "Comments": {
-        "Comments": "टिप्पणियाँ",
-        "Reply": "जवाब दें",
-        "edit": "संपादित करें",
-        "delete": "हटाएं",
-        "save": "सहेजें",
-        "cancel": "रद्द करें"
+    "Comments" : {
+        "Comments" : "टिप्पणियाँ",
+        "Reply" : "उत्तर",
+        "edit" : "संपादित करें",
+        "delete" : "हटाएं",
+        "save" : "सहेजें",
+        "cancel" : "रद्द करें",
+        "no-comments" : "इस कहानी पर टिप्पणी करने का पहला हो",
+        "write-something" : "कुछ लिखें..."
     },
-    "SaveTo": {
-        "SaveTo": "कहानी को बचाओ...",
-        "createNewList": "नई सूची बनाएं",
-        "save": "सहेजें",
-        "create": "नई पढ़ने की सूची बनाएं",
-        "Name": "नाम",
-        "createAndSave": "बनाएं और सहेजें",
-        "cancel": "रद्द करें",
-        "addToReadingList": "पढ़ने की सूची में जोड़ें"
-    }
+    "SaveTo" : {
+        "save-to" : "कहानी को सहेजें...",
+        "create-a-new-list" : "नई सूची बनाएं",
+        "save" : "सहेजें",
+        "create-reading-list-popop" : "नई पढ़ने की सूची बनाएं",
+        "Name" : "नाम",
+        "create-and-save" : "बनाएं और सहेजें",
+        "cancel" : "रद्द करें",
+        "add-to-reading-list" : "पढ़ने की सूची में जोड़ें"
+    },
+    "Rate" : {
+        "msg1" : "इस कहानी को मूल्यांकित करें",
+        "msg2" : "आपने इस कहानी को मूल्यांकित किया है",
+        "header" : "मूल्यांकन",
+        "save" : "सहेजें",
+        "update" : "अपडेट",
+        "cancel" : "रद्द करें"
+    },
+    "Lists" : {
+        "reading-lists" : "की पढ़ने की सूचियाँ",
+        "edit" : "संपादित करें",
+        "delete" : "हटाएँ",
+        "list-name" : "सूची का नाम",
+        "edit-privacy" : "गोपनीयता संपादित करें",
+        "public" : "सार्वजनिक",
+        "private" : "निजी",
+        "save" : "सहेजें",
+        "cancel" : "रद्द करें",
+        "yes" : "हां",
+        "do-you-want-to-delete-this-list" : "क्या आप इस सूची को हटाना चाहते हैं?",
+        "do-you-want-to-copy-this-list" : "क्या आप इस सूची को कॉपी करना चाहते हैं?",
+        "this-user-may-not-have-one-public-list-at-least" : "इस उपयोगकर्ता के पास कम से कम एक सार्वजनिक सूची होनी चाहिए",
+        "loading" : "लोड हो रहा है..."
+    }    
 }

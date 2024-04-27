@@ -3,7 +3,7 @@ import './MemberCard.css';
 const MemberCard = (props) => {
     return (
         <div className="col-sm-6 col-md-3">
-            <div className="profile-card">
+            <div className="profile-card-teamMember">
                 <div className="profile-img">
                     <img src={props.imageSrc} alt="Coludnt load." />
                 </div>

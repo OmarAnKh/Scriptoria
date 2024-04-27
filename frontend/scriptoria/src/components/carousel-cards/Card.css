@@ -53,7 +53,7 @@
 
 
 @media (max-width: 991px) {
-    .CarouselCards {
+CarouselCards
         width: 100%;
     }
 
@@ -64,7 +64,7 @@
 }
 
 @media (max-width: 767px) {
-    .CarouselCards {
+CarouselCards
         background: none !important;
         border-style: none;
     }

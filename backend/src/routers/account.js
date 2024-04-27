@@ -5,6 +5,8 @@ import authentication from "../middleware/authentication.js";
 import axios from "axios";
 import sharp from "sharp";
 import jwt from "jsonwebtoken"
+import bcrypt from 'bcryptjs'
+import { converImgToBuffer } from "../utils/image.js";
 
 
 const router = new express.Router()
@@ -134,6 +136,51 @@ router.patch('/reset/password', async (req, res) => {
         res.status(500).send({ status: false })
     }
 })
+
+router.post('/confirm/password', async (req, res) => {
+
+    const { userName, confirmedPassword } = req.body
+
+    try {
+        const account = await Account.findOne({ userName }).select('password');
+
+        if (!account) {
+            res.status(404).send()
+        }
+
+        const passwordMatch = await bcrypt.compare(confirmedPassword, account.password)
+
+        if (!passwordMatch) {
+            return res.status(401).send({ message: false })
+        }
+        res.status(200).send({ message: true })
+
+    } catch (error) {
+        res.status(500).send(error)
+    }
+})
+
+router.post("/account/logoutAll", async (req, res) => {
+
+    try {
+        const refreshToken = req.cookies.jwt;
+        res.clearCookie('jwt', { httpOnly: true });
+        if (!refreshToken) {
+            return res.status(400).send({ error: 'Refresh token is required' });
+        }
+        const decoded = jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET);
+        const user = await Account.findOne({ _id: decoded._id });
+        user.tokens = []
+        if (!user) {
+            throw new Error();
+        }
+        await user.save();
+        res.send({ status: true });
+    } catch (error) {
+        res.status(500).send(error)
+    }
+})
+
 router.post("/account/logout", async (req, res) => {
     try {
         const refreshToken = req.cookies.jwt;
@@ -161,17 +208,7 @@ router.patch("/account/update", async (req, res) => {
     try {
         if (updates[0] === "profilePicture") {
             try {
-                const imageURL = req.body.profilePicture;
-                const imageResponse = await axios.get(imageURL, {
-                    responseType: "arraybuffer",
-                });
-                if (!imageResponse.data) {
-                    throw new Error("Image data not found in the response");
-                }
-                const buffer = await sharp(imageResponse.data)
-                    .resize({ width: 250, height: 250 })
-                    .png()
-                    .toBuffer();
+                const buffer = await converImgToBuffer(req.body.profilePicture);
                 req.body.profilePicture = buffer;
             } catch (error) {
                 console.error("Error fetching or processing image:", error);
@@ -187,6 +224,20 @@ router.patch("/account/update", async (req, res) => {
         res.send(user);
     } catch (error) {
         res.status(400).send(error);
+    }
+})
+
+router.delete("/account/delete", async (req, res) => {
+    try {
+        const { userName } = req.body
+        const account = await Account.findOneAndDelete({ userName })
+
+        if (!account) {
+            res.status(400).send()
+        }
+        res.status(200).send(account)
+    } catch (error) {
+        res.status(500).send(error)
     }
 })
 

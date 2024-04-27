@@ -9,6 +9,7 @@
         "signUp": "SignUp",
         "profile": "profile",
         "settings": "settings",
+        "lists" : "lists",
         "logout": "logout",
         "arabic": "العربية",
         "english": "English",
@@ -91,7 +92,8 @@
         "follow": "follow",
         "unfollow": "unfollow",
         "message": "message",
-        "Unblock": "Unblock"
+        "Unblock": "Unblock",
+        "save":"Save"
     },
     "Settings": {
         "settings": "Settings",
@@ -113,7 +115,12 @@
         "edit": "Edit",
         "password": "Password",
         "save": "Save",
-        "description": "Description"
+        "description": "Description",
+        "delete_account": "Delete Account",
+        "confirm_password": "Please confirm your password",
+        "delete_account_header": "Are you sure you want to delete your account?",
+        "confirm": "Confirm",
+        "cancel": "Cancel"
     },
     "StoryCard": {
         "show_more": "Show more"
@@ -133,32 +140,64 @@
         "select_one": "select one",
         "language": "Language",
         "name": "Name",
-        "untitled": "Untitled"
+        "untitled": "Untitled",
+        "title-error": "Story title required",
+        "language-error": "language required",
+        "description-error": "description required",
+        "category-error": "category required",
+        "target-audience-error": "Target Audience required",
+        "uploaded-image-url-error": "image required"
     },
     "Logout": {
         "text1": "You have successfully logged out.",
         "text2": "Click here to return to the home page."
     },
-    "Comments": {
-        "Comments": "Comments",
-        "Reply": "reply",
-        "edit": "edit",
-        "delete": "delete",
-        "save": "save",
-        "cancel": "cancel"
+    "Comments" : {
+        "Comments" : "Comments",
+        "Reply" : "reply",
+        "edit" : "edit",
+        "delete" : "delete",
+        "save" : "save",
+        "cancel" : "cancel",
+        "no-comments" : "be the first to comment on this story",
+        "write-something" : "write something..."
     },
-    "SaveTo": {
-        "SaveTo": "save story to...",
-        "createNewList": "create a new list",
-        "save": "save",
-        "create": "create a new reading list",
-        "Name": "name",
-        "createAndSave": "create and save",
-        "cancel": "cancel",
-        "addToReadingList": "add to reading list"
+    "SaveTo" : {
+        "save-to" : "save story to...",
+        "create-a-new-list" : "create a new list",
+        "save" : "save",
+        "create-reading-list-popop" : "create a new reading list",
+        "Name" : "name",
+        "create-and-save" : "create and save",
+        "cancel" : "cancel",
+        "add-to-reading-list" : "add to reading list"
+    },
+    "Rate" : {
+        "msg1" : "Rate this story",
+        "msg2" : "You rated this story ",
+        "header" : "Rate",
+        "save" : "save",
+        "update" : "update",
+        "cancel" : "cancel"
     },
     "ReadingPage": {
         "like": "LIke",
         "comment": "Comment"
+    },
+    "Lists" : {
+        "reading-lists" : "'s Reading Lists",
+        "edit" : "edit",
+        "delete" : "delete",
+        "list-name" : "list name",
+        "edit-privacy" : "edit privacy",
+        "public" : "public",
+        "private" : "private",
+        "save" : "save",
+        "cancel" : "cancel",
+        "yes" : "yes",
+        "do-you-want-to-delete-this-list" : "do you want to delete this list?",
+        "do-you-want-to-copy-this-list" : "do you want to copy this list?",
+        "this-user-may-not-have-one-public-list-at-least" : "this user may not have one public list at least",
+        "loading" : "loading..."
     }
 }
