@@ -2,7 +2,7 @@ import Story from '../models/story.js'
 
 const defaultValue = "";
 
-async function findDocument(id) {
+const findDocument = async (id) => {
     if (id == null) return;
 
     let document = await Story.findById(id);
@@ -13,7 +13,7 @@ async function findDocument(id) {
     return document;
 }
 
-async function applyChangesAndBroadcast(socket, documentId, delta) {
+const applyChangesAndBroadcast = async (socket, documentId, delta) => {
     try {
         const document = await Story.findById(documentId);
         document.slide += delta;

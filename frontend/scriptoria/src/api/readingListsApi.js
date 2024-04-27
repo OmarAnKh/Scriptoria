@@ -1,10 +1,11 @@
 import axios from 'axios'
 import {findAccount} from './accountApi'
-const getReadingLists = async (userName) => {    
+import { getWriters } from './writers'
+
+const getReadingLists = async (userName, all) => {   
     try {
         const account = await findAccount({ userName })
-        console.log(account);
-
+        console.log(account)
         const response = await axios({
             url: "http://localhost:5000/readingLists",
             method: "GET",
@@ -12,7 +13,7 @@ const getReadingLists = async (userName) => {
             headers: {
                 "Content-Type": "application/json",
             },
-            params : { accountId : account._id }
+            params : { accountId : account._id, all }
         });
         return response.data; 
     } catch (error) {
@@ -38,18 +39,18 @@ const createReadingList = async (list, token) => {
     }
 }
 
-const getStoriesFromRL = async (_id, token) => {
+const getListWithStories = async (userName,listId) => {
+    const account = await findAccount({ userName })
     try {
         const response = await axios({
-            url: "http://localhost:5000/readingLists/" + _id,
+            url: "http://localhost:5000/lists/" + account._id + "/" + listId,
             method: "GET",
             withCredentials: true,
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": 'Bearer ' + token,
             },
             params: {
-                _id
+                listId
             }
         });
         return response;
@@ -58,59 +59,86 @@ const getStoriesFromRL = async (_id, token) => {
     }
 }
 
+const getValidStoriesFrom = async (owner, listId, myId )=>{
+    try {
+        const notFilteredList = (await getListWithStories(owner, listId)).data
+        const stories = await Promise.all(
+        notFilteredList.stories.map(async (story) => {
+            if(story.publishStatus) {
+                return story
+            } 
+            else if (!story.publishStatus) {
+                const response = await getWriters(story._id)
+                const writers = response.state ? response.users : []
+                if(writers.length>0){
+                const found = writers.find(writer => writer.AccountId === myId)
+                if(found) return story
+                }
+            }
+            })
+        )
+        const list = {...notFilteredList, stories}
+        return list
+        } catch (error) {
+        console.log(error)
+        }
+}
+
 const updateList = async (list, token) => {
+    
     try {
         await axios({
-            url: "http://localhost:5000/readingLists/" + list.id,
+            url: "http://localhost:5000/readingLists/" + list._id,
             method: "PATCH",
             withCredentials: true,
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": 'Bearer ' + token,
             },
-            data: list
-        })
+            data: { 
+                stories: list.stories,
+                name: list.name,
+                privacy: list.privacy
+            }
+        });
     } catch (error) {
         console.log(error)
     }
 }
 
-const updateReadingLists = async (storyId, checkedLists, token) => {
 
-    const lists = await getReadingLists(token);
-
-    if (!lists) {
-        console.error('getReadingLists did not return expected data');
-        return;
-    }
-
+const updateReadingLists = async (storyId, checkedLists, userName ,token) => {
     try {
+        const lists = await getReadingLists(userName, true);
+        if(lists){
         await Promise.all(
             lists.map(async (list) => {
-                let stories = list.stories
+                let stories = list.stories;
                 if (checkedLists.includes(list._id)) {
                     if (!stories.includes(storyId)) {
-                        stories.push(storyId)
-                        await updateList(list, token)
+                        stories.push(storyId);
+                        await updateList(list, token);
                     }
                 } else {
                     if (stories.includes(storyId)) {
-                        stories = stories.filter(story => story !== storyId)
+                        stories = stories.filter(story => story !== storyId);
                         const editedList = {
-                            id : list._id,
-                            name : list.name,
-                            accountId : list.accountId,
+                            _id: list._id,
+                            name: list.name,
+                            accountId: list.accountId,
+                            privacy: list.privacy,
                             stories
-                        }
-                        await updateList(editedList, token)
+                        };
+                        await updateList(editedList, token);
                     }
                 }
             })
-        );
+        );}
     } catch (error) {
         console.error(error);
     }
 }
+
 
 const deleteReadingList = async(id, token) =>{
     try {
@@ -133,8 +161,9 @@ export {
     getReadingLists,
     createReadingList,
     updateReadingLists,
-    getStoriesFromRL,
+    getListWithStories,
     deleteReadingList,
-    updateList
+    updateList,
+    getValidStoriesFrom
 }
 

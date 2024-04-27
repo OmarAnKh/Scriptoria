@@ -25,6 +25,7 @@ import RequireAuth from './components/require-auth/RequireAuth.js';
 import ServersErrorPage from './components/server-error-page/ServersErrorPage.js';
 import StoryErrorsPage from './components/server-error-page/StoryErrorsPage.js';
 import AllListsPage from './components/all-lists-page/AllListsPage.js'
+import ListPage from './components/list-page/ListPage.js'
 
 
 function App() {
@@ -54,13 +55,14 @@ function App() {
             <Route path='book' element={<BookToDisplay />} />
             <Route path='stories/:id' element={<StoryHeader />} />
             <Route path='settings/:id' element={<Settings />} />
-            <Route path=':userName/lists' element={<AllListsPage />} />
+            <Route path='profile/:userName/lists' element={<AllListsPage />} />
+            <Route path='profile/:userName/lists/:id' element={<ListPage />} />
             <Route path='story/:id' element={<StoryHeader />} />
             <Route element={<RequireAuth />}>
-              <Route path='StoryDetails' element={<StoryDetails />} />
               <Route path='WritingPage/:id' element={<WritingPage />} />
+              <Route path='StoryDetails' element={<StoryDetails />} />
+              <Route path='StoryDetails/:id' element={<StoryDetails />} />
               <Route path='settings/:id' element={<Settings />} />
-
             </Route>
           </Route>
           {/*catch all*/}

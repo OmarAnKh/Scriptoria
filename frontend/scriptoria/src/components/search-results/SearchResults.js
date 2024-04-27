@@ -32,7 +32,7 @@ const SearchResultsPage = () => {
 
         <>
             <Navbar />
-            <div className="container-fluid d-flex justify-content-center align-items-center vh-100" >
+            <div className="container-fluid d-flex justify-content-center align-items-center my-3" >
                 <div className="row">
                     <div className="col text-center">
                         <div className="Search-container">

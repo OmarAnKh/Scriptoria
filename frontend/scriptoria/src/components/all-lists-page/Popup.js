@@ -2,57 +2,54 @@ import React, { useState } from 'react';
 import useAuth from '../../hooks/useAuth';
 import { createReadingList, deleteReadingList, updateList } from '../../api/readingListsApi';
 import { toast } from 'react-hot-toast';
+import { useTranslation } from 'react-i18next';
 
-const Popup = ({ list, update, name ,setName }) => {
+const Popup = ({ page, list, update}) => {
   const { auth } = useAuth();
+  const {t} = useTranslation()
   const [type, setType] = useState('');
+  const [name, setName] = useState(list.name)
 
   const handleList = async () => {
     try {
       if (type === 'copy') {
         const newList = {
           name: list.name,
-          stories: [...list.stories]
+          stories: [...list.stories],
+          privacy : list.privacy
         };
-        await toast.promise(createReadingList(newList, auth.token), {
-          loading: 'Creating list...',
-          success: 'List created successfully.',
-          error: 'Failed to create list. Please try again later.'
-        });
+        await createReadingList(newList, auth?.token)
+        toast.success("you have copied this list successfully")
       } else if (type === 'delete') {
-        await toast.promise(deleteReadingList(list._id, auth.token), {
-          loading: 'delete list...',
-          success: 'List deleted successfully.',
-          error: 'Failed to delete list. Please try again later.'
-        });
+        await deleteReadingList(list._id, auth?.token)
+        toast.success("you have deleted this list successfully")
+        window.location.reload()
       } else if (type === 'edit') {
+        const stories = page==="list"? list.stories.map((story)=> story._id) : list.stories
         const editedList = {
           name: name,
-          stories: [...list.stories],
+          stories,
           accountId: list.accountId,
-          id : list._id
+          privacy : list.privacy,
+          _id : list._id
         };
-        await toast.promise(updateList(editedList, auth.token), {
-          loading: 'updating list...',
-          success: 'List updated successfully.',
-          error: 'Failed to update list. Please try again later.'
-        });
+        await updateList(editedList, auth?.token)
+        toast.success("you have deleted this list successfully")
       }
       update();
-    } catch (error) {}
+    } catch (error) {
+      console.log(error)
+      toast.error("looks like theres an error, try again please")
+    }
   };
 
-  const handleDeleteClick = (event) => {
-    event.stopPropagation(); // Stop propagation to parent container
-    setType('delete');
-  };
 
   return (
     <div>
-      {auth.userName ? (
+      {auth?.userName && page ==="allLists" ? (
         <>
           <div className="list-btns text-light">
-            {auth.userInfo._id === list.accountId ? (
+            {auth?.userInfo._id === list.accountId ? (
               <>
                 <i className="edit-list">
                   <a
@@ -62,7 +59,7 @@ const Popup = ({ list, update, name ,setName }) => {
                     onClick={() => setType('edit')}
                     style={{ cursor: 'pointer' }}
                   >
-                    edit
+                    {t("Lists.edit")}
                   </a>
                 </i>
                 <i className="delete-list">
@@ -70,10 +67,10 @@ const Popup = ({ list, update, name ,setName }) => {
                     className="m-1 text-decoration-none text-light"
                     data-bs-toggle="modal"
                     data-bs-target={`#list-btns-modal-${type}-${list._id}`}
-                    onClick={handleDeleteClick}
+                    onClick = {()=>setType('delete')}
                     style={{ cursor: 'pointer' }}
                   >
-                    delete
+                    {t("Lists.delete")}
                   </a>
                 </i>
               </>
@@ -86,16 +83,61 @@ const Popup = ({ list, update, name ,setName }) => {
                   onClick={() => setType('copy')}
                   style={{ cursor: 'pointer' }}
                 >
-                  copy
+                  {t("Lists.copy")}
                 </a>
               </i>
+            )}
+          </div>
+        </>
+      ) : auth?.userName && page==="list" ? (
+        <>
+          <div>
+            {auth?.userInfo._id === list.accountId ? (
+              <div className='container mt-2'>
+                <i>
+                  <button
+                    className="btn btn-secondary popup-edit-btn m-1 text-decoration-none"
+                    data-bs-toggle="modal"
+                    data-bs-target={`#list-btns-modal-${type}-${list._id}`}
+                    onClick={() => setType("edit")}
+                    style={{ cursor: "pointer" }}
+                  >
+                    {t("Lists.edit")}
+                  </button>
+                </i>
+                <i>
+                  <button
+                    className="btn btn-danger popup-delete-btn m-1 text-decoration-none"
+                    data-bs-toggle="modal"
+                    data-bs-target={`#list-btns-modal-${type}-${list._id}`}
+                    onClick={() => setType("delete")}
+                    style={{ cursor: "pointer" }}
+                  >
+                    {t("Lists.delete")}
+                  </button>
+                </i>
+              </div>
+            ) : (
+              
+              <div className='container mt-2'>
+              <i>
+                <button
+                  className="btn btn-secondary popup-copy-btn m-1 text-decoration-none"
+                  data-bs-toggle="modal"
+                  data-bs-target={`#list-btns-modal-${type}-${list._id}`}
+                  onClick={() => setType("copy")}
+                  style={{ cursor: "pointer" }}
+                >
+                  {t("Lists.copy")}
+                </button>
+              </i>
+              </div>
             )}
           </div>
         </>
       ) : (
         <></>
       )}
-      {console.log(type)}
       <div className="modal fade d-normal" id={`list-btns-modal-${type}-${list._id}`} tabIndex={-1} aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div className="modal-dialog modal-dialog-centered">
           <div className="modal-content">
@@ -104,41 +146,35 @@ const Popup = ({ list, update, name ,setName }) => {
             </div>
             <div className="modal-body container fs-1">
               <div className='row p-2 fs-5 justify-content-center text-secondary'>
-                {/* do whatever u need here, if u want to change anything change the classNames */}
                 {
                   type==="delete"? <>
-                  do you want to delete this list?
+                  {t("Lists.do-you-want-to-delete-this-list")}
                   </> : type==="copy" ? <>
-                  do you want to copy this list?
+                  {t("Lists.do-you-want-to-copy-this-list")}
                   </> : <>
                   <div className="form">
-                     <div className="mb-3">
-                          <label htmlFor="new-name" className="form-label">list name</label>
+                      <div className="mb-3">
+                          <label htmlFor="new-name" className="form-label">{t("Lists.list-name")}</label>
                           <input type="text" className="form-control" id="new-name"  value={name} onChange={(e) => setName(e.target.value)}/>
                       </div>
                       <div className="mb-3">
-                          <label htmlFor="list-privacy" className="form-label">edit privacy</label>
-                      <select className="form-select form-select-lg mb-3" id="list-privacy" aria-label="Large select example">
-                      <option value={1}>public</option>
-                      <option value={0}>private</option>
+                          <label htmlFor="list-privacy" className="form-label">{t("Lists.edit-privacy")}</label>
+                      <select className="form-select form-select-lg mb-3" id="list-privacy" aria-label="Large select example" defaultValue={list.privacy}>
+                      <option value={true}>{t("Lists.public")}</option>
+                      <option value={false}>{t("Lists.private")}</option>
                       </select>
-
                       </div>
                   </div>
                   </>
                 }
-              
-                
                 <div >
                 </div>
               </div>
             </div>
             <div className="container gap-2 btn-group mb-2">
-              {/* the first one so u can send the invitation, the second one to cancel and close the modal */}
-              <button type="button" className="btn btn-primary rounded" onClick={handleList} data-bs-dismiss="modal" >{type==="edit" ? "save" : "yes" }</button>
-              <button type="button" className="btn btn-secondary rounded" data-bs-dismiss="modal">cancel</button>
+              <button type="button" className="btn btn-primary rounded" onClick={handleList} data-bs-dismiss="modal" >{type==="edit" ? t("Lists.save") : t("Lists.yes") }</button>
+              <button type="button" className="btn btn-secondary rounded" data-bs-dismiss="modal">{t("Lists.cancel")}</button>
             </div>
-
           </div>
         </div>
       </div>

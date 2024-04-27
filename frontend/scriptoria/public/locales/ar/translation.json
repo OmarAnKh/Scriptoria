@@ -9,6 +9,7 @@
         "signUp": "انشاء حساب",
         "profile": "الملف الشخصي",
         "settings": "الاعدادات",
+        "lists" : "قوائم القراءة",
         "logout": "تسجيل الخروج",
         "arabic": "العربية",
         "english": "English",
@@ -178,5 +179,21 @@
         "save" : "حفظ",
         "update" : "تحديث",
         "cancel" : "الغاء"
+    },
+    "Lists" : {
+        "reading-lists" : "قوائم التشغيل الخاصة بـ",
+        "edit" : "تعديل",
+        "delete" :"حذف",
+        "list-name" : "اسم القائمة",
+        "edit-privacy" : "تعديل الخصوصية",
+        "public" : "عام",
+        "private" : "خاص",
+        "save" : "حفظ",
+        "cancel" : "الغاء",
+        "yes" : "نعم",
+        "do-you-want-to-delete-this-list" : "هل تريد حذف هذه القائمة؟",
+        "do-you-want-to-copy-this-list" : "هل تريد نسخ هذه القائمة؟",
+        "this-user-may-not-have-one-public-list-at-least" : "هذا المستخدم لا يملك قائمة عامة على اللأقل",
+        "loading" : "يتم التحميل"
     }
 }

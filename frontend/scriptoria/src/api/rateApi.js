@@ -56,6 +56,7 @@ const getStoryRates = async (point, storyId) => {
 }
 
 const updateRate = async (rate, token) => {
+
     try {
         await axios({
             url: "http://localhost:5000/rate/" + rate.StoryId,

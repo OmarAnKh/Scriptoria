@@ -145,6 +145,19 @@ const WpNavBar = ({ setMode, data, setData, setState }) => {
   }
 
   const handelPublich = async () => {
+    const userExists = users?.some(writer => {
+      if (writer.AccountId === auth?.userInfo._id) {
+        setSignedInUser(writer)
+        if (writer.rule === "owner") {
+          return true
+        }
+        return false
+      }
+    });
+    if (!userExists) {
+      toast.error('you can\'t publish this story because you aren\'t the owner of the story');
+      return;
+    }
     const document = {
       id: id,
       publishStatus: !publishStatus
@@ -258,9 +271,6 @@ const WpNavBar = ({ setMode, data, setData, setState }) => {
 
         <div className="collapse navbar-collapse text-center order-2 order-lg-1" id="navbarNavDropdown">
           <ol className="navbar-nav mx-auto">
-            <li className="nav-item">
-              <Buttons btnCN="saveBtn" method={saveData} name="Save" />
-            </li>
             <li className="nav-item">
               {/* <Buttons btnCN="FocusMode" method={handleMode} name="Focus Mode" /> */}
               <Buttons btnCN="FocusMode" name="Focus Mode" />

@@ -46,7 +46,7 @@ const Card = ({ data }) => {
     }
 
     return (
-        <div className="card mb-3 mt-4 col-lg-12" style={{ minHeight: '200px', width: 750, maxHeight: '100%', height: 250, backgroundColor: data.backgroundColor }}>
+        <div className="carousel-card mb-3 mt-4 col-lg-12" style={{ minHeight: '200px', width: 750, maxHeight: '100%', height: 250, backgroundColor: data.backgroundColor }}>
             <div className="row g-0">
                 <div className="col-md-4">
                     <img src={`data:image/png;base64,${Buffer.from(data.coverPhoto).toString('base64')}`} className="cover-img img-fluid rounded-start" alt="..." style={{ maxWidth: '100%', maxHeight: '100%', minHeight: '200px', width: '200px', height: '250px' }} />
