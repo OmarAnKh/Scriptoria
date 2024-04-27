@@ -21,7 +21,7 @@ const Lists = ({ userName }) => {
       }
     };
     fetchData();
-  }, []);
+  }, [userName, auth?.userInfo?._id]);
 
   const update = async () => {
     try {

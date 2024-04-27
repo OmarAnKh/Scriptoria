@@ -21,24 +21,44 @@ const Comment = ({
   const { t } = useTranslation();
   const token = auth.token;
   const [like, setLike] = useState(false);
-  const [signedIn, setSignedIn] = useState(false);
+  const [commentlikes, setCommentLikes] = useState(likes.length)
   const [imageUrl, setImageURL] = useState(logo);
   const [edit, setEdit] = useState(false);
   const [editedText, setEditedText] = useState(text);
   const editDelete = userId === account._id ? true : false;
 
-  const likeHandler = () => {
+  useEffect(() => {
+    setImageURL(`data:image/png;base64,${account.profilePicture}`);
+    setEditedText(text);
+    setLike(likes.includes(auth?.userInfo?._id))
+  }, [text, auth?.userInfo?._id]);
+
+  console.log(like)
+
+  const likeHandler = async () => {
     setLike(!like);
+    let updatedLikes = [...likes];
+  if (like) {
+    if(!likes?.includes(auth?.userInfo?._id))
+    updatedLikes.push(auth.userInfo._id);
+  } else {
+    if(likes?.includes(auth?.userInfo?._id))
+    updatedLikes = likes.filter(person => person !== auth.userInfo._id);
+  }
+    const comment = {
+      text: editedText,
+      _id: commentId,
+      likes: updatedLikes,
+      accountId: account._id
+    };
+    setCommentLikes(updatedLikes.length)
+    await editComment(comment, token);
   };
 
   const handleComment = async (status) => {
     try {
       if (status === 0) {
-        await toast.promise(
-          Promise.all([
-            await deleteComment(commentId, token),
-            await updateComments(),
-          ]),
+        await toast.promise(deleteComment(commentId, token),
           {
             loading: "Deleting comment...",
             success: "Comment deleted successfully",
@@ -46,13 +66,15 @@ const Comment = ({
           }
         );
       }
-
       if (status === 1) {
+        const comment = {
+          text : editedText,
+          _id : commentId,
+          likes : like? likes : likes.filter((person)=>person!==account._id),
+          accountId : account._id
+        }
         await toast.promise(
-          Promise.all([
-            await editComment(commentId, editedText, token),
-            await updateComments(),
-          ]),
+          editComment(comment, token),
           {
             loading: "Editing comment...",
             success: "Comment edited successfully",
@@ -60,17 +82,12 @@ const Comment = ({
           }
         );
       }
+      await updateComments()
     } catch (error) {
       console.log(error);
     }
   };
 
-  useEffect(() => {
-    const userName = auth.userName;
-    userName !== undefined ? setSignedIn(true) : setSignedIn(false);
-    setImageURL(`data:image/png;base64,${account.profilePicture}`);
-    setEditedText(text);
-  }, [text]);
 
   const handleCloseModal = () => {
     const modal = document.getElementById("staticBackdrop");
@@ -82,7 +99,7 @@ const Comment = ({
   };
 
   return (
-    <div className="comment h6 d-flex flex-row bg-light p-2 w-100 rounded m-0">
+    <div className="comment m-2 h6 d-flex flex-row bg-light p-2 w-100 rounded-2">
       <div className="bd-highlight">
         <img
           className="rounded-circle"
@@ -180,9 +197,10 @@ const Comment = ({
                 </div>
               </div>
               <div className="col-3 px-2 comment-like-btn text-end">
+                {commentlikes}
                 <a
-                  className={`comment-like-btn text-decoration-none bi bi-heart-fill text-${like ? "danger" : "secondary"
-                    }`}
+                  className={` mx-1 comment-like-btn text-decoration-none bi ${like ? "bi-heart-fill text-danger" : "bi-heart text-secondary"}
+                    `}
                   onClick={likeHandler}
                 ></a>
               </div>
