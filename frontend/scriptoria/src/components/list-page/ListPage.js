@@ -16,16 +16,15 @@ const ListPage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const tempList = await getValidStoriesFrom(userName, id, auth?.userInfo?._id)
-        setList({...tempList, stories : tempList.stories.filter((story)=> story!==undefined)})
-        setName(tempList.name)
+        const tempList = await getValidStoriesFrom(userName, id, auth?.userInfo?._id);
+        setList({ ...tempList, stories : tempList.stories.filter((story) => story !== undefined) });
+        setName(tempList.name);
       } catch (error) {
-        console.log(error)
+        console.log(error);
       }
-    }
-    fetchData()
-
-  }, [])
+    };
+    fetchData();
+  }, [userName, id, auth?.userInfo?._id]);
 
 const update = async ()=>{
   try{

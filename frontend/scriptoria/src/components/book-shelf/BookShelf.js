@@ -35,7 +35,6 @@ const responsive = {
 const BookShelf = (props) => {
   const {auth} = useAuth()
   const [works, setWorks] = useState([])
-  const [lists, setLists ] = useState([])
   const [covers, setCovers] = useState([])
   const { t } = useTranslation()
   useEffect(() => {
@@ -43,25 +42,22 @@ const BookShelf = (props) => {
       const res = await getStories(props.userId)
       setWorks(res.stories)
 
-      const tempLists = await getReadingLists(props.username, auth?.userName===props.username)
-      setLists(tempLists)
-      await Promise.all( lists.map(async(list,index)=>{
-        let data = await getValidStoriesFrom(props.userName, list._id, auth?.userInfo?._id)
+      const response = await getReadingLists(props.username, auth?.userName===props.username)
+      const coverPormises = response.map(async(list)=>{
+        const data = await getValidStoriesFrom(props.username, list._id, auth?.userInfo?._id)
         const stories = data?.stories?.filter((story)=> story!==undefined)
-      let cover 
-      console.log(data)
-      if(stories?.length > 0){
-        cover = `data:image/png;base64,${Buffer.from(stories[0]?.coverPhoto).toString('base64')}`
-      } else {
-        cover = logo
-      }
-      setCovers(prevCovers => [...prevCovers, cover])
+        let cover = logo
+        if(stories.length){
+          cover = `data:image/png;base64,${Buffer.from(stories[0]?.coverPhoto).toString('base64')}`
+        }
+        return cover
       })
 
-      )
+      const allCovers = await Promise.all(coverPormises)
+      setCovers(allCovers)
     }
     fetchWrokes()
-  }, [works,covers])
+  }, [])
   const CustomLeftArrow = ({ onClick }) => (
     <button className="custom-arrow custom-left-arrow" onClick={onClick}>
       &lt; {/* left arrow symbol */}
