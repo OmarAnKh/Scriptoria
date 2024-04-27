@@ -29,6 +29,7 @@ const Comment = ({
 
   const likeHandler = () => {
     setLike(!like);
+    handleComment(1)
   };
 
   const handleComment = async (status) => {
@@ -48,9 +49,15 @@ const Comment = ({
       }
 
       if (status === 1) {
+        const comment = {
+          text : editedText,
+          _id : commentId,
+          likes : like? likes : likes.filter((person)=>person!==account._id),
+          accountId : account._id
+        }
         await toast.promise(
           Promise.all([
-            await editComment(commentId, editedText, token),
+            await editComment(comment, token),
             await updateComments(),
           ]),
           {
@@ -70,6 +77,7 @@ const Comment = ({
     userName !== undefined ? setSignedIn(true) : setSignedIn(false);
     setImageURL(`data:image/png;base64,${account.profilePicture}`);
     setEditedText(text);
+    setLike(likes.includes(auth?.userInfo?.Id))
   }, [text]);
 
   const handleCloseModal = () => {
@@ -181,7 +189,7 @@ const Comment = ({
               </div>
               <div className="col-3 px-2 comment-like-btn text-end">
                 <a
-                  className={`comment-like-btn text-decoration-none bi bi-heart-fill text-${like ? "danger" : "secondary"
+                  className={`comment-like-btn text-decoration-none bi bi-heart text-${like ? "danger" : "secondary"
                     }`}
                   onClick={likeHandler}
                 ></a>

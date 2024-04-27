@@ -82,7 +82,7 @@ const Comments = ({ id }) => {
                         text={comment.text}
                         time={getDateStringDifference(new Date(), new Date(comment.createdAt))}
                         updateComments={updateComments}
-                        likes="1"
+                        likes={comment.likes}
                       />
                     );
                   })

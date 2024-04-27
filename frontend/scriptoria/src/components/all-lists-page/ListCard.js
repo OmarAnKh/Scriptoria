@@ -17,7 +17,6 @@ const ListCard = ({userName, list, update}) => {
     const fetchData = async ()=>{
       const data = await getValidStoriesFrom(userName, list._id, auth?.userInfo?._id)
       const stories = data.stories.filter((story)=> story!==undefined)
-      console.log(data)
       if(stories.length > 0){
         setColor(stories[0]?.backgroundColor)
         setCover(`data:image/png;base64,${Buffer.from(stories[0]?.coverPhoto).toString('base64')}`)

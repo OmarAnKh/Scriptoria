@@ -67,7 +67,10 @@ const accountSchema = new mongoose.Schema({
     }],
     profilePicture: {
         type: Buffer
-    }
+    },
+    likedStories : [{
+        
+    }]
 }, {
     timestamps: true
 });

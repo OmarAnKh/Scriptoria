@@ -12,6 +12,10 @@ const commentSchema = new Schema({
         ref: 'Story'
     },
     text: { type: String },
+    likes : [{
+        type: Schema.Types.ObjectId,
+        ref: 'Account'
+    }]
 }, {
     timestamps: true,
 });
