@@ -53,7 +53,7 @@ function App() {
             <Route path='settings/:id' element={<Settings />} />
             <Route path=':userName/lists' element={<AllListsPage />} />
             <Route path='story/:id' element={<StoryHeader />} />
-            
+
             <Route element={<RequireAuth />}>
             <Route path='MyWorks/:id' element={<MyWorks />} />
               <Route path='WritingPage/:id' element={<WritingPage />} />

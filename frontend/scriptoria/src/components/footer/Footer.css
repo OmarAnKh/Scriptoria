@@ -31,7 +31,7 @@ footer {
     position: relative;
     color: var(--text-Color);
     left: 2%;
-    margin-top: 5%;
+    opacity: .5;
 }
 
 @media only screen and (max-width: 988px) {

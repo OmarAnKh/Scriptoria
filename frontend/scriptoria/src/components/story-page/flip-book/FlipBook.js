@@ -9,25 +9,124 @@ import { getstory } from "../../../api/storyAPI.js"
 import Navbar from "../../navbar/Navbar";
 
 
-function splitStringIntoChunks(text, Words) { // Function to split a string into smaller strings chunkSize = 150 = how many words for each string
-    const words = text.split(/\s+/);
-    const chunks = [];
-    let currentChunk = [];
+// function splitStringIntoChunks(text, Words) {
+//     const words = text.split(/\s+/);
+//     const chunks = [];
+//     let currentChunk = [];
 
-    for (const word of words) {
-        currentChunk.push(word);
-        if (currentChunk.length >= Words) {
-            chunks.push(currentChunk.join(' '));
-            currentChunk = [];
+//     for (const word of words) {
+//         if (word === "<b>" || "<u>" || "<i>")
+//             currentChunk.push(word);
+//         if (currentChunk.length >= Words) {
+//             chunks.push(currentChunk.join(' '));
+//             currentChunk = [];
+//         }
+//     }
+
+//     if (currentChunk.length > 0) {
+//         chunks.push(currentChunk.join(' '));
+//     }
+//     return chunks;
+// }
+
+const formatText = (object) => {
+    let formattedArray = [];
+
+    for (let key in object) {
+        if (typeof object[key] === 'string') {
+            let tempString = '';
+            if (object.attributes) {
+                const { bold, italic, underline } = object.attributes;
+                if (bold) {
+                    tempString += '<b>';
+                }
+                if (italic) {
+                    tempString += '<i>';
+                }
+                if (underline) {
+                    tempString += '<u>';
+                }
+            }
+            tempString += object[key];
+            if (object.attributes) {
+                const { bold, italic, underline } = object.attributes;
+                if (bold) {
+                    tempString += '</b>';
+                }
+                if (italic) {
+                    tempString += '</i>';
+                }
+                if (underline) {
+                    tempString += '</u>';
+                }
+            }
+            formattedArray.push(tempString);
+        } else if (typeof object[key] === 'object') {
+            formattedArray = formattedArray.concat(formatText(object[key]));
         }
     }
+    return formattedArray;
+};
 
-    if (currentChunk.length > 0) {
-        chunks.push(currentChunk.join(' '));
+const splitText = (object, characters) => {
+    let tempArray = [];
+    let tempstring = '';
+
+    let size = characters;
+
+
+    for (let i = 0; i < object.length; i++) {
+        if (object[i].includes('\n')) {
+            object[i] = object[i].replaceAll('\n', '')
+        }
+    }
+    for (let key in object) {
+        if (object.hasOwnProperty(key)) {
+            if (object[key].length <= size) {
+
+                tempstring += object[key];
+                size -= object[key].length;
+
+            } else {
+                tempArray.push(tempstring);
+                tempstring = '';
+
+                if (object[key].length > characters) {
+                    tempArray.push(object[key]);
+                } else {
+                    tempstring = object[key];
+                    size = characters - object[key].length;
+                }
+            }
+        }
+    }
+    if (tempstring !== '') {
+        tempArray.push(tempstring);
     }
 
-    return chunks;
+    return tempArray;
 }
+const countcharacters = (text) => {
+    return text.length
+}
+
+// const splitIntoSubArrays = (object, words) => {
+//     let tempArray = [];
+//     let tempText = ''
+//     let size = words
+//     for (let i = 0; i < object.length; i++) {
+//         if (countcharacters(object[i]) < size) {
+//             tempText+=object[i]
+//             size -= object[i].length
+//         }
+//         else{
+//             tempArray.push(tempText)
+//         }
+//     }
+//     return tempArray
+// }
+
+
 
 function StoryPage(props) {
     const [displayButton, setDisplayButton] = useState(false);
@@ -36,9 +135,11 @@ function StoryPage(props) {
     const [storyData, setStoryData] = useState(null);
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
     const [bookWidth, setBookWidth] = useState(400);
-    const [howManyWords, setHowManyWords] = useState(10)
+    const [howManyWords, setHowManyWords] = useState(2500)
     const [data, setData] = useState({})
     const [counts, setCounts] = useState({})
+    const [formattedText, setFormattedText] = useState('');
+    const [splittext, setSplitText] = useState([])
 
     useEffect(() => {
         const handleResize = () => {
@@ -55,10 +156,10 @@ function StoryPage(props) {
     useEffect(() => {
         if (windowWidth > 900) {
             setBookWidth(windowWidth - 800);
-            setHowManyWords(windowWidth / 8 - 40)
+            // setHowManyWords(windowWidth - 40)
         } else {
             setBookWidth(0);
-            setHowManyWords(65)
+            // setHowManyWords(windowWidth - 1000)
         }
     }, [windowWidth]);
 
@@ -69,6 +170,9 @@ function StoryPage(props) {
                 const story = await getstory(id);
                 setStoryData(story);
                 setCounts(story.counts)
+                const temptext = formatText(story?.story?.slide?.ops);
+                setFormattedText(temptext);
+
             } catch (error) {
                 console.error("Error fetching story:", error);
             }
@@ -98,19 +202,24 @@ function StoryPage(props) {
         }, 1000);
     };
 
-    const totalPage = () => {
+
+    const totalpages = () => {
         return flipBookRef.current?.pageFlip()?.getPageCount();
     };
+
 
     const getpageindex = () => {
         return flipBookRef.current?.pageFlip()?.getCurrentPageIndex();
     };
-    const staticData = "StoryPage d-flex flex-column align-items-center justify-content-center vh-100 StoryPage d-flex flex-column align-items-center justify-content-center vh-100 StoryPage d-flex flex-column align-items-center justify-content-center vh-100 StoryPage d-flex flex-column align-items-center justify-content-center vh-100 StoryPage d-flex flex-column align-items-center justify-content-center vh-100 StoryPage d-flex flex-column align-items-center justify-content-center vh-100 StoryPage d-flex flex-column align-items-center justify-content-center vh-100 StoryPage d-flex flex-column align-items-center justify-content-center vh-100 StoryPage d-flex flex-column align-items-center justify-content-center vh-100 StoryPage d-flex flex-column align-items-center justify-content-center vh-100 StoryPage d-flex flex-column align-items-center justify-content-center vh-100 StoryPage d-flex flex-column align-items-center justify-content-center vh-100 StoryPage d-flex flex-column align-items-center justify-content-center vh-100 StoryPage d-flex flex-column align-items-center justify-content-center vh-100 StoryPage d-flex flex-column align-items-center justify-content-center vh-100 StoryPage d-flex flex-column align-items-center justify-content-center vh-100 StoryPage d-flex flex-column align-items-center justify-content-center vh-100 StoryPage d-flex flex-column align-items-center justify-content-center vh-100 StoryPage d-flex flex-column align-items-center justify-content-center vh-100 StoryPage d-flex flex-column align-items-center justify-content-center vh-100 StoryPage d-flex flex-column align-items-center justify-content-center vh-100 StoryPage d-flex flex-column align-items-center justify-content-center vh-100 StoryPage d-flex flex-column align-items-center justify-content-center vh-100 StoryPage d-flex flex-column align-items-center justify-content-center vh-100 StoryPage d-flex flex-column align-items-center justify-content-center vh-100 StoryPage d-flex flex-column align-items-center justify-content-center vh-100 StoryPage d-flex flex-column align-items-center justify-content-center vh-100 StoryPage d-flex flex-column align-items-center justify-content-center vh-100 StoryPage d-flex flex-column align-items-center justify-content-center vh-100 StoryPage d-flex flex-column align-items-center justify-content-center vh-100 StoryPage d-flex flex-column align-items-center justify-content-center vh-100 StoryPage d-flex flex-column align-items-center just "
+
+    const formattedTextArray = splitText(formattedText, howManyWords)
+
+    // console.log(splitIntoSubArrays(formattedTextArray, howManyWords), howManyWords)
+
     return (
         <>
             <Navbar />
             <div className="StoryPage d-flex flex-column align-items-center justify-content-center vh-100">
-
                 <HTMLFlipBook
                     width={400 + bookWidth / 2 - 50}
                     height={600}
@@ -118,11 +227,15 @@ function StoryPage(props) {
                     mobileScrollSupport={true}
                     onFlip={handlePageTurn}
                     ref={flipBookRef}
+
                 >
-                    {storyData && splitStringIntoChunks(staticData, howManyWords).map((text, index) => ( // here to put the data.slide
-                        <Page key={index} number={index + 1}>{text}</Page>
+                    {formattedTextArray && formattedTextArray.map((text, index) => (
+                        <Page>
+                            <div key={index} dangerouslySetInnerHTML={{ __html: text }}></div>
+                        </Page>
                     ))}
                 </HTMLFlipBook>
+
                 <div className="justify-content-center mt-4">
                     <button
                         type="button"
@@ -132,7 +245,7 @@ function StoryPage(props) {
                     >
                         <i className="bi bi-arrow-bar-left h3"></i> Previous page
                     </button>
-                    [<span>{getpageindex() + 1 || 1}</span> of <span>{totalPage() || "..."}</span>]
+                    [<span>{getpageindex() + 1 || 1}</span> of <span>{totalpages() || "..."}</span>]
                     <button
                         type="button"
                         className="btn-info btn-sm btn-style "
@@ -143,11 +256,11 @@ function StoryPage(props) {
                     </button>
 
                 </div>
-                <div style={{ backgroundColor: storyData?.story.backgroundColor, borderRadius: "5px" }} > 
+                <div style={{ backgroundColor: storyData?.story.backgroundColor, borderRadius: "5px" }} >
                     <Icons data={counts} id={id} counts={counts} setData={setData} />
                 </div>
 
-            </div>
+            </div >
         </>
     );
 }

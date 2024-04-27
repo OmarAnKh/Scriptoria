@@ -2,11 +2,10 @@
   display: flex;
   row-gap: 20px;
   column-gap: 25px;
-  width: 80vw;
   flex-wrap: nowrap;
   position: relative;
   top: 25%;
-  left: 5%;
+  margin-left: 50px;
 }
 
 .moveitmoveit {
@@ -21,6 +20,7 @@
   justify-content: space-around;
   height: 400px;
   width: inherit;
+  margin-right: 50px;
 }
 
 .custom-card-container1 {
@@ -126,6 +126,14 @@
   margin-right: 20px;
 }
 
+@media screen and (max-width: 950px) {
+  .custom-card-container {
+      flex-direction: column-reverse;
+  }
+  .top5col{
+    align-items: center;
+  }
+}
 
 
 @keyframes show-data {
@@ -178,4 +186,8 @@
     width: 100%;
     padding: 1rem;
   }
+}
+
+@media screen and (max-width: 1148px) {
+  .custom-card-container {}
 }

@@ -17,7 +17,6 @@ const MyWorks = () => {
             try {
                 const storiesObject = await writerStory("/MyWorks", userId);
                 setStories(storiesObject.Stories);
-                console.log(storiesObject.Stories)
             } catch (error) {
                 console.error("Error fetching stories:", error);
             }
@@ -30,7 +29,6 @@ const MyWorks = () => {
         const fetchUser = async () => {
             try {
                 const user = await findAccount(userId)
-                console.log(user)
                 setCurrentUser(user.user);
 
             } catch (error) {
@@ -44,8 +42,8 @@ const MyWorks = () => {
     const top5 = stories.slice(0, 5);
     return (
         <div className='custom-card-container mt-5'>
-            <div className="container col">
-                <h2 className='moveitmoveit'>Stories By {currentUser?.userName} </h2>
+            <div className="container">
+                <h2 className='moveitmoveit'>Stories By {currentUser?.userName}</h2>
                 <h4 className='moveitmoveit'>{stories.length} Stories</h4>
                 <div className="custom-card-container custom-card-container1">
                     {stories.map((story, index) => {
@@ -56,28 +54,27 @@ const MyWorks = () => {
                                     storytitle={story.title}
                                     key={index}
                                 />
-                            </React.Fragment >
+                            </React.Fragment>
                         )
-                    })
-                    }
+                    })}
                 </div>
-            </div >
-            <div className='top5col mt-5'>
+            </div>
+            <div className='top5col mt-5 col-lg-4'>
                 <h4>Top Stories</h4>
                 {top5.map((top5, index) => {
                     return (
-                        < React.Fragment key={index} >
+                        <React.Fragment key={index}>
                             <TopCard
                                 index={index + 1}
                                 photo={`data:image/png;base64,${Buffer.from(top5.coverPhoto.data).toString('base64')}`}
                                 storytitle={top5.title}
                                 key={index}
                             />
-                        </React.Fragment >)
-                })
-                }
+                        </React.Fragment>)
+                })}
             </div>
-        </div >
+        </div>
+
     );
 };
 
