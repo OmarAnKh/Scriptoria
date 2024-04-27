@@ -164,9 +164,7 @@ router.patch('/stories/update', async (req, res) => {
     }
 });
 
-
-
-router.get('/storiess/:genre', async (req, res) => {
+router.get('/storiesGenre/:genre', async (req, res) => {
     const { genre } = req.params;
     try {
         let stories;

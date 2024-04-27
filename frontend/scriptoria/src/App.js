@@ -18,10 +18,11 @@ import AllMembers from './components/team-members/AllMembers.js';
 import BookToDisplay from './components/book-holder/book-to-display/BookToDisplay.js';
 import StoryHeader from './components/story-header/StoryHeader.js';
 import LogedOut from './components/loged-out/LogedOut.js'
-import StoryCard from "./components/story-overview/StoryPage.js"
+import StoryCard from "./components/story-card/StoryCard.js"
 import Layout from './components/layout/Layout.js';
 import PersistLogin from './components/persist-login/PersistLogin.js';
 import RequireAuth from './components/require-auth/RequireAuth.js';
+import StoryPreview from './components/story-overview/StoryPage.js';
 
 function App() {
 
@@ -29,7 +30,6 @@ function App() {
     <div className="App">
       <Routes>
         <Route path='/' element={<Layout />}>
-          {/*public routes*/}
           <Route path="SignIn" element={<SignIn />} />
           <Route path="SignUp" element={<SingUp />} />
           <Route path='SignUpVerificationCode' element={<SignUpVerificationCode />} />
@@ -38,7 +38,7 @@ function App() {
           <Route path='ResetPassword' element={<ResetPassword />} />
           <Route path='logout' element={<LogedOut />} />
           <Route path='/test/:id' element={<StoryCard />} />
-          {/*we want to protect these routes*/}
+        
           <Route element={<PersistLogin />}>
             <Route path='/' element={<HomePage />} />
             <Route path="profile/:username" element={<Profile />} />
@@ -46,14 +46,15 @@ function App() {
             <Route path='StoryPage' element={<StoryPage />} />
             <Route path='TeamMembers' element={<AllMembers />} />
             <Route path='book' element={<BookToDisplay />} />
-            <Route path='stories/:id' element={<StoryHeader />} />
+            <Route path='stories/:id' element={<StoryPreview/>} />
+
             <Route element={<RequireAuth />}>
               <Route path='WritingPage/:id' element={<WritingPage />} />
               <Route path='StoryDetails' element={<StoryDetails />} />
               <Route path='settings/:id' element={<Settings />} />
             </Route>
           </Route>
-          {/*catch all*/}
+          
           <Route path='*' element={<ErrorPage />} />
         </Route>
       </Routes>

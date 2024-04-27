@@ -3,8 +3,9 @@ import './StoryCard.css'
 import StarRating from '../star-rating/StarRating';
 import { useTranslation } from 'react-i18next';
 import { Buffer } from 'buffer';
+import {getGenrestory } from '../../api/storyAPI';
 
-const StoryCard = ({ selectedTab }) => {
+const StoryCard = ({selectedTab}) => {
     const { t } = useTranslation()
     const [visiblestory, setVisiblestory] = useState(3);
     const loadMoreCards = () => {
@@ -13,23 +14,15 @@ const StoryCard = ({ selectedTab }) => {
     const [storyData, setStoryData] = useState([]);
 
 
-  useEffect(() => {
-    console.log(selectedTab);
-    const fetchStoriesByGenre = async () => {
-      try {
-        const response = await fetch(`/storiesGenre/${selectedTab}`);
-        if (response.ok) {
-            const data = await response.json();
-            console.log( data);
-            setStoryData(data || []);
-        } else {
-          throw new Error('Failed to fetch stories');
-        }
-      } catch (error) {
-        console.error('Error fetching stories:', error);
-      }
-    };
-
+    useEffect(() => {
+        const fetchStoriesByGenre = async () => {
+            try {
+                const data = await getGenrestory(selectedTab);
+                setStoryData(data || []);
+            } catch (error) {
+                console.error('Error fetching stories:', error);
+            }
+        };
         fetchStoriesByGenre();
     }, [selectedTab]);
 
