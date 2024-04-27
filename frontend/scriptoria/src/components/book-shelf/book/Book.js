@@ -5,7 +5,7 @@ const Book = ({ data, id }) => {
     return (
         <div className="book">
             <Link
-                to={`/stories/${id}`}>
+                to={`/story/${id}`}>
                 <img src={data} alt="Book cover" /></Link>
         </div>
     );

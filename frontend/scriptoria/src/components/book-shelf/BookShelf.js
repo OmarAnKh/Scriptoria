@@ -40,7 +40,7 @@ const BookShelf = (props) => {
   const { t } = useTranslation()
   useEffect(() => {
     const fetchWroks = async () => {
-      if (auth?.userInfo._id == props.userId) {
+      if (auth?.userInfo._id === props.userId) {
         const res = await getStories(props.userId, false)
         setWorks(res.stories)
       } else {
@@ -48,6 +48,9 @@ const BookShelf = (props) => {
         setWorks(res.stories)
       }
 
+    };
+
+    const fetchReadingList = async () => {
       const listsRes = await getReadingLists(props.username, auth?.userName === props.username);
       setLists(listsRes);
       const coverPromises = listsRes.map(async (list) => {
@@ -61,8 +64,8 @@ const BookShelf = (props) => {
       });
       const covers = await Promise.all(coverPromises);
       setCovers(covers);
-    };
-
+    }
+    fetchReadingList()
     fetchWroks();
   }, [])
   const CustomLeftArrow = ({ onClick }) => (
@@ -107,7 +110,6 @@ const BookShelf = (props) => {
             return (
               <div className="row justify-content-center" key={idx}>
                 <div className="col-lg-12">
-
                   <Book data={`data:image/png;base64,${Buffer.from(book.coverPhoto).toString('base64')}`} id={book._id} />
                 </div>
               </div>

@@ -1,8 +1,7 @@
 import express from "express";
 import Writers from "../models/writers.js";
 import Account from "../models/account.js";
-import Story from "../models/story.js";
-
+import Story from "../models/story.js"
 const router = express.Router();
 
 router.get("/find/writers/:id", async (req, res) => {
@@ -38,9 +37,11 @@ router.get("/find/writers/:id", async (req, res) => {
     }
 });
 
+
+
 router.get("/find/stories/:id/:flag", async (req, res) => {
     const AccountId = req.params.id
-    const flag = req.params.flag
+    const flag = req.params.flag == "true"
     try {
         const users = await Writers.find({ AccountId });
         if (!users || users.length === 0) {
@@ -49,8 +50,10 @@ router.get("/find/stories/:id/:flag", async (req, res) => {
         const storiesID = users.map(writer => writer.StoryId);
         let stories
         if (flag) {
+
             stories = await Story.find({ _id: { $in: storiesID }, publishStatus: true });
         } else {
+
             stories = await Story.find({ _id: { $in: storiesID } });
         }
         if (stories.length === 0) {

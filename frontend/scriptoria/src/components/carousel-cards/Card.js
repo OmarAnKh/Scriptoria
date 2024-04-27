@@ -46,7 +46,8 @@ const Card = ({ data }) => {
     }
 
     return (
-        <div className="carousel-card mb-3 mt-4 col-lg-12" style={{ minHeight: '200px', width: 750, maxHeight: '100%', height: 250, backgroundColor: data.backgroundColor }}>
+
+        <div className={`CarouselCards mb-3  mt-4 col-lg-12`} style={{ backgroundColor: `${data.backgroundColor}`, width: 750, maxHeight: '100%', height: 250 }}>
             <div className="row g-0">
                 <div className="col-md-4">
                     <Link to={`/story/${data._id}`}>
@@ -54,18 +55,14 @@ const Card = ({ data }) => {
                     </Link>
                 </div>
                 <div className="col-md-8 d-none d-md-block my-3">
-                    <div className="card-body">
-                        <h4 className="card-title">{data.title}</h4>
-                        <h6 className="author-name">
-                            {writers.map((writer, idx) => {
-                                return <span key={idx}>{writer.displayName}</span>;
-                            })}
-                        </h6>
+                    <div className={`CarouselCards-body ${data.textColor}`}>
+                        <h4 className="CarouselCards-title">{data.title}</h4>
+                        <h6 className="author-name">{data.author}</h6>
                         <span className="d-flex">
                             <StarRating rating={ratings} />  &emsp; {votes} votes
                         </span>
-                        <p className="card-text text-sm">{data.description}</p>
-                        <button type="button" onClick={() => handleReadStory(data._id)} className="btn btn-light rounded-4 px-5 fw-bold read-btn">{t("CarouselCards.read_the_book")}</button>
+                        <p className="CarouselCards-text text-sm">{data.description}</p>
+                        <button type="button" className="btn btn-light rounded-4 px-5 fw-bold read-btn">{t("CarouselCards.read_the_book")}</button>
                     </div>
                 </div>
             </div>
