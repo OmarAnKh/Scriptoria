@@ -62,7 +62,7 @@ const Navbar = () => {
             }
         }
         setHasAccount({})
-        // clearAllCookies();
+        clearAllCookies();
     }
 
     const accountDropDown = [

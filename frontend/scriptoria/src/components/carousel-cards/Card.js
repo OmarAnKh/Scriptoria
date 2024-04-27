@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { getWriters } from '../../api/writers';
 import { useEffect, useState } from 'react';
 import { getStoryRates } from '../../api/rateApi';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Card = ({ data }) => {
     const { t } = useTranslation();
@@ -46,20 +46,22 @@ const Card = ({ data }) => {
     }
 
     return (
-        <div className={`CarouselCards mb-3 ${data.bgColor} mt-4 col-lg-12`} style={{ width: 750, maxHeight: '100%', height: 250 }}>
 
+        <div className={`CarouselCards mb-3  mt-4 col-lg-12`} style={{ backgroundColor: `${data.backgroundColor}`, width: 750, maxHeight: '100%', height: 250 }}>
             <div className="row g-0">
                 <div className="col-md-4">
-                    <img src={`data:image/png;base64,${Buffer.from(data.coverPhoto).toString('base64')}`} className="cover-img img-fluid rounded-start" alt="..." style={{ maxWidth: '100%', maxHeight: '100%', minHeight: '200px', width: '200px', height: '250px' }} />
+                    <Link to={`/story/${data._id}`}>
+                        <img src={`data:image/png;base64,${Buffer.from(data.coverPhoto).toString('base64')}`} className="cover-img img-fluid rounded-start" alt="..." style={{ maxWidth: '100%', maxHeight: '100%', minHeight: '200px', width: '200px', height: '250px' }} />
+                    </Link>
                 </div>
-                <div className="col-md-8 d-none d-md-block">
- <div className={`CarouselCards-body ${data.textColor}`}>
+                <div className="col-md-8 d-none d-md-block my-3">
+                    <div className={`CarouselCards-body ${data.textColor}`}>
                         <h4 className="CarouselCards-title">{data.title}</h4>
                         <h6 className="author-name">{data.author}</h6>
                         <span className="d-flex">
                             <StarRating rating={ratings} />  &emsp; {votes} votes
                         </span>
-  <p className="CarouselCards-text text-sm">{data.description}</p>
+                        <p className="CarouselCards-text text-sm">{data.description}</p>
                         <button type="button" className="btn btn-light rounded-4 px-5 fw-bold read-btn">{t("CarouselCards.read_the_book")}</button>
                     </div>
                 </div>

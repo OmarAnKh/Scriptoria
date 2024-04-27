@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./ProfileCard.css";
-import { getWriters } from "../../api/writers";
-import { follows, unfollow, followers ,followings } from "../../api/follow";
+import { findWriters } from "../../api/writers";
+import { follows, unfollow, followers, followings } from "../../api/follow";
 import useAuth from "../../hooks/useAuth";
 import { findAccount } from "../../api/accountApi";
 import { saveDocument } from "../../api/API's";
@@ -9,7 +9,7 @@ import { toast } from 'react-hot-toast';
 import { useNavigate } from "react-router-dom";
 
 const ProfileCard = (props) => {
-  
+
   const { auth } = useAuth();
   const navigate = useNavigate()
 
@@ -28,7 +28,7 @@ const ProfileCard = (props) => {
 
     const fetchUserData = async () => {
       try {
-        const response = await getWriters(props.storyId);
+        const response = await findWriters(props.storyId);
 
         if (response.state) {
           setUserData(response.users);
@@ -36,10 +36,10 @@ const ProfileCard = (props) => {
           setWorksCount(response.count);
           fetchfollowers(response.users[0]._id);
           fetchfollowings(response.users[0]._id);
-          
+
         }
         fetchAccountData(response.users[0]._id);
-        
+
       } catch (error) {
         console.log(error)
       }
@@ -47,12 +47,12 @@ const ProfileCard = (props) => {
 
     fetchUserData();
   }, [flag]);
-  
+
 
   const fetchfollowers = async (id) => {
     try {
       const response = await followers("/followers", id);
-      console.log("Follower Count Response:", response); 
+      console.log("Follower Count Response:", response);
       setFollowersData(response.followerCount);
 
     } catch (error) {
@@ -64,7 +64,7 @@ const ProfileCard = (props) => {
   const fetchfollowings = async (id) => {
     try {
       const response = await followings(id);
-      console.log("Follower Count Response:", response); 
+      console.log("Follower Count Response:", response);
       setFollowingData(response.followingsNumber);
 
     } catch (error) {
@@ -75,52 +75,52 @@ const ProfileCard = (props) => {
 
   const fetchAccountData = async (id) => {
     if (Object.keys(auth).length !== 0) {
-      
+
       try {
 
         const account = await findAccount({ userName: auth.userName });
         setYourId(account._id);
 
-        if(account.message) {
+        if (account.message) {
 
-          setAuthorized(true) 
+          setAuthorized(true)
           const following = await follows("following", id, account._id);
           setIsFollowing(following.status);
 
         } else {
-          setAuthorized(false) 
+          setAuthorized(false)
           return
         }
       } catch (error) {
         console.log(error)
       }
-  }
-};
+    }
+  };
 
   const handleFollowClick = async () => {
-    
+
     if (authorized) {
 
-      if(writerId === yourId) {
+      if (writerId === yourId) {
         toast.error('you cannot follow yourself!');
       } else {
 
-        if (isFollowing) { 
+        if (isFollowing) {
 
           setIsFollowing(false);
           await unfollow("unfollow", { account: writerId, follow: yourId });
-      } else {
+        } else {
 
           setIsFollowing(true);
           await saveDocument("follow", { account: writerId, follow: yourId });
-      }
+        }
 
-      setFlag(!flag)
+        setFlag(!flag)
       }
-    } else { 
-        toast.error('You must be logged in to follow this user!');
+    } else {
+      toast.error('You must be logged in to follow this user!');
     }
-};
+  };
 
   const handleArrowLeftClick = () => {
     props.onHideProfile();
@@ -128,12 +128,13 @@ const ProfileCard = (props) => {
 
   const handleViewProfile = (userName) => {
     navigate(`/profile/${userName}`);
-}
+  }
 
   return (
     <div className="container mt-5">
-      <div className="row">
-        {userData.map((user, index) => (
+      {userData.map((user, index) => (
+        <div className="row">
+
           <div className="col-md-6" key={index}>
             <div className="card slide-from-right" style={{ width: "350px", height: "400px" }}>
               <i
@@ -187,8 +188,8 @@ const ProfileCard = (props) => {
               </div>
             </div>
           </div>
-        ))}
-      </div>
+        </div>
+      ))}
     </div>
   );
 };

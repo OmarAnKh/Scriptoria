@@ -2,11 +2,11 @@ import React from 'react';
 import './DiscoverTable.css';
 import { useTranslation } from 'react-i18next';
 
-const DiscoverTable = ({ select, onSelect }) => { 
+const DiscoverTable = ({ select, onSelect }) => {
   const { t } = useTranslation();
 
   const handleTabClick = (tabName) => {
-    onSelect(tabName); 
+    onSelect(tabName);
   };
 
   return (

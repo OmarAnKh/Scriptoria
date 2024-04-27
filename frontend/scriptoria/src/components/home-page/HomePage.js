@@ -9,7 +9,7 @@ import useAuth from "../../hooks/useAuth";
 
 const HomePage = () => {
     const [alert, setAlert] = useState(false);
-    const [selectedTab, setSelectedTab] = useState('all'); 
+    const [selectedTab, setSelectedTab] = useState('all');
     const { auth } = useAuth();
 
     useEffect(() => {
@@ -19,23 +19,23 @@ const HomePage = () => {
         }
     }, []);
 
-    
+
     const handleTabSelect = (tabName) => {
         setSelectedTab(tabName);
         // console.log(tabName);
     };
-    
+
 
     return (
         <>
             <Navbar />
             <CarouselCards />
-            <DiscoverTable select={selectedTab} onSelect={handleTabSelect} /> 
+            <DiscoverTable select={selectedTab} onSelect={handleTabSelect} />
             <StoryCard selectedTab={selectedTab} />
             <Footer />
         </>
     );
 }
-  
+
 
 export default HomePage;
