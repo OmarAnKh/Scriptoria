@@ -12,9 +12,9 @@ const getWriters = async (findCriteria) => {
         return error;
     }
 }
-const getStories = async (findCriteria) => {
+const getStories = async (findCriteria, flag) => {
     try {
-        const response = await fetch(`http://localhost:5000/find/stories/${findCriteria}`, {
+        const response = await fetch(`http://localhost:5000/find/stories/${findCriteria}/${flag}`, {
             method: "GET",
             credentials: "include",
             headers: {

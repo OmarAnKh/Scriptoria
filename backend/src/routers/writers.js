@@ -38,16 +38,21 @@ router.get("/find/writers/:id", async (req, res) => {
     }
 });
 
-router.get("/find/stories/:id", async (req, res) => {
+router.get("/find/stories/:id/:flag", async (req, res) => {
     const AccountId = req.params.id
-
+    const flag = req.params.flag
     try {
         const users = await Writers.find({ AccountId });
         if (!users || users.length === 0) {
             return res.status(404).send({ state: false, error: "Could not find any writer" });
         }
         const storiesID = users.map(writer => writer.StoryId);
-        const stories = await Story.find({ _id: { $in: storiesID } });
+        let stories
+        if (flag) {
+            stories = await Story.find({ _id: { $in: storiesID }, publishStatus: true });
+        } else {
+            stories = await Story.find({ _id: { $in: storiesID } });
+        }
         if (stories.length === 0) {
             return res.status(404).send({ state: false, error: "Could not find any story" });
         }

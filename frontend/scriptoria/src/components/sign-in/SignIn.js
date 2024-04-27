@@ -2,14 +2,14 @@ import logo from "../../img/scriptoria-logo.png";
 import JoinInput from "../join-input/JoinInput";
 import validator from "validator";
 import "./SignIn.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { saveDocument } from "../../api/API's";
 import useAuth from "../../hooks/useAuth";
+import Cookies from "js-cookie"
 const SignIn = () => {
 
-    const { setAuth } = useAuth();
-
+    const { auth, setAuth } = useAuth();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [emailValid, setEmailValid] = useState("rgb(33,33,33)");
@@ -17,6 +17,13 @@ const SignIn = () => {
     const [credentialsValidation, setCredentialsValidation] = useState("")
     const navigate = useNavigate()
     let user = {}
+
+    useEffect(() => {
+        if (Cookies.get('flag')) {
+            navigate('/')
+        }
+    }, []);
+
     const signInHandler = async () => {
         if (!validator.isEmail(email) && password === "") {
             setPasswordValid("red");
@@ -54,6 +61,7 @@ const SignIn = () => {
         const token = res.token
         const userName = res.user.userName
         setAuth({ userName, token, userInfo: res.user })
+        Cookies.set('flag', true)
         navigate("/")
     }
 

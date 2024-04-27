@@ -6,9 +6,9 @@ import DiscoverTable from '../discover-tab/DiscoverTable';
 import { Link } from 'react-router-dom';
 const StoryCard = () => {
     const { t } = useTranslation()
-    const [visiblestory, setVisiblestory] = useState(3);
+    const [visiblestory, setVisiblestory] = useState(6);
     const loadMoreCards = () => {
-        setVisiblestory((prevCount) => prevCount + 3);
+        setVisiblestory((prevCount) => prevCount + 6);
     };
     const storyData = [
         {

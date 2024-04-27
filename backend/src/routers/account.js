@@ -37,6 +37,7 @@ router.post('/signIn', async (req, res) => {
 router.get("/refresh", async (req, res) => {
     const refreshToken = req.cookies.jwt;
     res.clearCookie('jwt', { httpOnly: true });
+    res.clearCookie('flag');
     if (!refreshToken) {
         return res.status(400).send({ error: 'Refresh token is required' });
     }
@@ -58,6 +59,7 @@ router.get("/refresh", async (req, res) => {
         user.tokens = user.tokens.concat({ token: newRefreshToken });
         await user.save();
         res.cookie('jwt', newRefreshToken, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000 });
+        res.cookie('flag', true);
         res.send({ accessToken, userName: user.userName, refreshToken: newRefreshToken, userInfo: user });
     } catch (error) {
         res.status(401).send({ error: 'Invalid refresh token' });

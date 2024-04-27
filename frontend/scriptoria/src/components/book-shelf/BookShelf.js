@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 import { getStories } from "../../api/writers.js";
 import { Buffer } from "buffer";
 import useAuth from "../../hooks/useAuth.js";
-import {getReadingLists,getValidStoriesFrom } from "../../api/readingListsApi.js";
+import { getReadingLists, getValidStoriesFrom } from "../../api/readingListsApi.js";
 import logo from './../../img/scriptoria-logo-black.png'
 
 
@@ -33,35 +33,38 @@ const responsive = {
 };
 
 const BookShelf = (props) => {
-  const {auth} = useAuth()
+  const { auth } = useAuth()
   const [works, setWorks] = useState([])
-  const [lists, setLists ] = useState([])
+  const [lists, setLists] = useState([])
   const [covers, setCovers] = useState([])
   const { t } = useTranslation()
   useEffect(() => {
-    const fetchWrokes = async () => {
-      const res = await getStories(props.userId)
-      setWorks(res.stories)
-
-      const tempLists = await getReadingLists(props.username, auth?.userName===props.username)
-      setLists(tempLists)
-      await Promise.all( lists.map(async(list,index)=>{
-        let data = await getValidStoriesFrom(props.userName, list._id, auth?.userInfo?._id)
-        const stories = data?.stories?.filter((story)=> story!==undefined)
-      let cover 
-      console.log(data)
-      if(stories?.length > 0){
-        cover = `data:image/png;base64,${Buffer.from(stories[0]?.coverPhoto).toString('base64')}`
+    const fetchWroks = async () => {
+      if (auth?.userInfo._id == props.userId) {
+        const res = await getStories(props.userId, false)
+        setWorks(res.stories)
       } else {
-        cover = logo
+        const res = await getStories(props.userId, true)
+        setWorks(res.stories)
       }
-      setCovers(prevCovers => [...prevCovers, cover])
-      })
 
-      )
-    }
-    fetchWrokes()
-  }, [works,covers])
+      const listsRes = await getReadingLists(props.username, auth?.userName === props.username);
+      setLists(listsRes);
+      const coverPromises = listsRes.map(async (list) => {
+        const data = await getValidStoriesFrom(props.userName, list._id, auth?.userInfo?._id);
+        const stories = data?.stories?.filter((story) => story !== undefined);
+        let cover = logo;
+        if (stories?.length > 0) {
+          cover = `data:image/png;base64,${Buffer.from(stories[0]?.coverPhoto).toString('base64')}`;
+        }
+        return cover;
+      });
+      const covers = await Promise.all(coverPromises);
+      setCovers(covers);
+    };
+
+    fetchWroks();
+  }, [])
   const CustomLeftArrow = ({ onClick }) => (
     <button className="custom-arrow custom-left-arrow" onClick={onClick}>
       &lt; {/* left arrow symbol */}
@@ -104,7 +107,8 @@ const BookShelf = (props) => {
             return (
               <div className="row justify-content-center" key={idx}>
                 <div className="col-lg-12">
-                  <Book data={`data:image/png;base64,${Buffer.from(book.coverPhoto).toString('base64')}`} />
+
+                  <Book data={`data:image/png;base64,${Buffer.from(book.coverPhoto).toString('base64')}`} id={book._id} />
                 </div>
               </div>
             )
@@ -115,10 +119,10 @@ const BookShelf = (props) => {
       </div>
       <Shelf />
 
-        {
-          covers?.length? 
+      {
+        covers?.length ?
           <div className="carousel-container reading-list-books my-5" style={{}}>
-          <ShelfHeader title={t("BookShelf.reading_list")} btnTitle={t("BookShelf.all_reading_list")} state={covers?.length} link={`/profile/${props.username}/lists`} />
+            <ShelfHeader title={t("BookShelf.reading_list")} btnTitle={t("BookShelf.all_reading_list")} state={covers?.length} link={`/profile/${props.username}/lists`} />
             <Carousel
               responsive={responsive}
               containerClass="custom-carousel"
@@ -142,20 +146,20 @@ const BookShelf = (props) => {
               customLeftArrow={<CustomLeftArrow />}
             >
               {covers.map((cover, idx) => {
-                console.log(cover,10)
+                console.log(cover, 10)
                 return (
                   <div className="row justify-content-center" key={idx}>
-                    <div className="col-lg-12"> 
-                      { cover? <Book data={cover} /> : <></>}
+                    <div className="col-lg-12">
+                      {cover ? <Book data={cover} /> : <></>}
                     </div>
                   </div>
                 )
               })}
             </Carousel>
-        </div>
-          : 
+          </div>
+          :
           <></>
-        }
+      }
 
 
       <Shelf />
