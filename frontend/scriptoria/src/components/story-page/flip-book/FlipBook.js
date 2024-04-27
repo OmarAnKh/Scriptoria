@@ -7,124 +7,105 @@ import Sound from './../../../audio/PageTurn.mp3';
 import Icons from "../../story-header/icons/Icons.js"
 import { getstory } from "../../../api/storyAPI.js"
 import Navbar from "../../navbar/Navbar";
+import useSlide from "../../../hooks/useSlide.js"
 
+// const formatText = (object) => {
+//     let formattedArray = [];
 
-// function splitStringIntoChunks(text, Words) {
-//     const words = text.split(/\s+/);
-//     const chunks = [];
-//     let currentChunk = [];
-
-//     for (const word of words) {
-//         if (word === "<b>" || "<u>" || "<i>")
-//             currentChunk.push(word);
-//         if (currentChunk.length >= Words) {
-//             chunks.push(currentChunk.join(' '));
-//             currentChunk = [];
+//     for (let key in object) {
+//         if (typeof object[key] === 'string') {
+//             let tempString = '';
+//             if (object.attributes) {
+//                 const { bold, italic, underline } = object.attributes;
+//                 if (bold) {
+//                     tempString += '<b>';
+//                 }
+//                 if (italic) {
+//                     tempString += '<i>';
+//                 }
+//                 if (underline) {
+//                     tempString += '<u>';
+//                 }
+//             }
+//             tempString += object[key];
+//             if (object.attributes) {
+//                 const { bold, italic, underline } = object.attributes;
+//                 if (bold) {
+//                     tempString += '</b>';
+//                 }
+//                 if (italic) {
+//                     tempString += '</i>';
+//                 }
+//                 if (underline) {
+//                     tempString += '</u>';
+//                 }
+//             }
+//             formattedArray.push(tempString);
+//         } else if (typeof object[key] === 'object') {
+//             formattedArray = formattedArray.concat(formatText(object[key]));
 //         }
 //     }
+//     return formattedArray;
+// };
 
-//     if (currentChunk.length > 0) {
-//         chunks.push(currentChunk.join(' '));
-//     }
-//     return chunks;
-// }
-
-const formatText = (object) => {
-    let formattedArray = [];
-
-    for (let key in object) {
-        if (typeof object[key] === 'string') {
-            let tempString = '';
-            if (object.attributes) {
-                const { bold, italic, underline } = object.attributes;
-                if (bold) {
-                    tempString += '<b>';
-                }
-                if (italic) {
-                    tempString += '<i>';
-                }
-                if (underline) {
-                    tempString += '<u>';
-                }
-            }
-            tempString += object[key];
-            if (object.attributes) {
-                const { bold, italic, underline } = object.attributes;
-                if (bold) {
-                    tempString += '</b>';
-                }
-                if (italic) {
-                    tempString += '</i>';
-                }
-                if (underline) {
-                    tempString += '</u>';
-                }
-            }
-            formattedArray.push(tempString);
-        } else if (typeof object[key] === 'object') {
-            formattedArray = formattedArray.concat(formatText(object[key]));
-        }
-    }
-    return formattedArray;
-};
-
-const splitText = (object, characters) => {
-    let tempArray = [];
-    let tempstring = '';
-
-    let size = characters;
-
-
-    for (let i = 0; i < object.length; i++) {
-        if (object[i].includes('\n')) {
-            object[i] = object[i].replaceAll('\n', '')
-        }
-    }
-    for (let key in object) {
-        if (object.hasOwnProperty(key)) {
-            if (object[key].length <= size) {
-
-                tempstring += object[key];
-                size -= object[key].length;
-
-            } else {
-                tempArray.push(tempstring);
-                tempstring = '';
-
-                if (object[key].length > characters) {
-                    tempArray.push(object[key]);
-                } else {
-                    tempstring = object[key];
-                    size = characters - object[key].length;
-                }
-            }
-        }
-    }
-    if (tempstring !== '') {
-        tempArray.push(tempstring);
-    }
-
-    return tempArray;
-}
-const countcharacters = (text) => {
-    return text.length
-}
-
-// const splitIntoSubArrays = (object, words) => {
+// const splitText = (object, characters) => {
 //     let tempArray = [];
-//     let tempText = ''
-//     let size = words
+//     let tempstring = '';
+
+//     let size = characters;
+
+
 //     for (let i = 0; i < object.length; i++) {
-//         if (countcharacters(object[i]) < size) {
-//             tempText+=object[i]
-//             size -= object[i].length
-//         }
-//         else{
-//             tempArray.push(tempText)
+//         if (object[i].includes('\n')) {
+//             object[i] = object[i].replaceAll('\n', '')
 //         }
 //     }
-//     return tempArray
+//     for (let key in object) {
+//         if (object.hasOwnProperty(key)) {
+//             if (object[key].length <= size) {
+
+//                 tempstring += object[key];
+//                 size -= object[key].length;
+
+//             } else {
+//                 tempArray.push(tempstring);
+//                 tempstring = '';
+
+//                 if (object[key].length > characters) {
+//                     tempArray.push(object[key]);
+//                 } else {
+//                     tempstring = object[key];
+//                     size = characters - object[key].length;
+//                 }
+//             }
+//         }
+//     }
+//     if (tempstring !== '') {
+//         tempArray.push(tempstring);
+//     }
+
+//     return tempArray;
 // }
+
+// const divIntoSubArrays = (object, characters) => {
+
+//     let slides = []
+//     let tempstring = ''
+//     for (let textIndex = 0; textIndex < object.length; textIndex++) {
+//         if (tempstring.length < characters) {
+//             tempstring += object[textIndex]
+//             console.log(tempstring, 5000 ,tempstring.length)
+//         }
+//         if (tempstring.length > characters) {
+//             console.log(tempstring, 1000)
+//             slides.push(tempstring)
+//             tempstring = ''
+//         }
+//     }
+//     console.log(slides)
+//     return slides
+// }
+
 
 
 
@@ -135,11 +116,13 @@ function StoryPage(props) {
     const [storyData, setStoryData] = useState(null);
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
     const [bookWidth, setBookWidth] = useState(400);
-    const [howManyWords, setHowManyWords] = useState(2500)
+    const [howManyWords, setHowManyWords] = useState(500)
+    const [howManycharacters, setWowManycharacters] = useState(1000)
     const [data, setData] = useState({})
     const [counts, setCounts] = useState({})
     const [formattedText, setFormattedText] = useState('');
     const [splittext, setSplitText] = useState([])
+    const slide = useSlide(formattedText, howManycharacters)
 
     useEffect(() => {
         const handleResize = () => {
@@ -159,7 +142,7 @@ function StoryPage(props) {
             // setHowManyWords(windowWidth - 40)
         } else {
             setBookWidth(0);
-            // setHowManyWords(windowWidth - 1000)
+            // setHowManyWords(65)
         }
     }, [windowWidth]);
 
@@ -213,9 +196,8 @@ function StoryPage(props) {
     };
 
     const formattedTextArray = splitText(formattedText, howManyWords)
-
-    // console.log(splitIntoSubArrays(formattedTextArray, howManyWords), howManyWords)
-
+    divIntoSubArrays(formattedTextArray, howManycharacters)
+    console.log(formattedTextArray)
     return (
         <>
             <Navbar />
