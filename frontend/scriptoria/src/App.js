@@ -18,15 +18,16 @@ import AllMembers from './components/team-members/AllMembers.js';
 import BookToDisplay from './components/book-holder/book-to-display/BookToDisplay.js';
 import StoryHeader from './components/story-header/StoryHeader.js';
 import LogedOut from './components/loged-out/LogedOut.js'
-import StoryCard from "./components/story-overview/StoryPage.js"
+import StoryCard from "./components/story-card/StoryCard.js"
 import Layout from './components/layout/Layout.js';
 import PersistLogin from './components/persist-login/PersistLogin.js';
 import RequireAuth from './components/require-auth/RequireAuth.js';
+
+import StoryPreview from './components/story-overview/StoryPage.js';
 import ServersErrorPage from './components/server-error-page/ServersErrorPage.js';
 import StoryErrorsPage from './components/server-error-page/StoryErrorsPage.js';
 import AllListsPage from './components/all-lists-page/AllListsPage.js'
 import ListPage from './components/list-page/ListPage.js'
-
 
 function App() {
 
@@ -45,7 +46,7 @@ function App() {
           <Route path='ResetPassword' element={<ResetPassword />} />
           <Route path='logout' element={<LogedOut />} />
           <Route path='/test/:id' element={<StoryCard />} />
-          {/*we want to protect these routes*/}
+        
           <Route element={<PersistLogin />}>
             <Route path='/' element={<HomePage />} />
             <Route path="profile/:username" element={<Profile />} />
@@ -65,7 +66,7 @@ function App() {
               <Route path='settings/:id' element={<Settings />} />
             </Route>
           </Route>
-          {/*catch all*/}
+          
           <Route path='*' element={<ErrorPage />} />
         </Route>
       </Routes>

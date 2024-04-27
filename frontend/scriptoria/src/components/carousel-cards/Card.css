@@ -34,26 +34,26 @@
     transition: all 0.2s ease-in-out;
 }
 
-.card-text {
+.CarouselCards-text {
     overflow: hidden;
     display: -webkit-box;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
 }
 
-.card-text,
+.CarouselCards-text,
 .author-name,
 .read-btn {
     font-family: 'Lilita One';
 }
 
-.card-title {
+.CarouselCards-title {
     font-family: 'Righteous';
 }
 
 
 @media (max-width: 991px) {
-    .carousel-card {
+CarouselCards
         width: 100%;
     }
 
@@ -64,7 +64,7 @@
 }
 
 @media (max-width: 767px) {
-    .carousel-card {
+CarouselCards
         background: none !important;
         border-style: none;
     }
