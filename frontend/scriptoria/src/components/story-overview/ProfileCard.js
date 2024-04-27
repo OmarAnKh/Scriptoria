@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./ProfileCard.css";
-import { getWriters } from "../../api/writers";
+import { findWriters } from "../../api/writers";
 import { follows, unfollow, followers, followings } from "../../api/follow";
 import useAuth from "../../hooks/useAuth";
 import { findAccount } from "../../api/accountApi";
@@ -28,7 +28,7 @@ const ProfileCard = (props) => {
 
     const fetchUserData = async () => {
       try {
-        const response = await getWriters(props.storyId);
+        const response = await findWriters(props.storyId);
 
         if (response.state) {
           setUserData(response.users);
