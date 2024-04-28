@@ -111,11 +111,24 @@ const getstory = async (id) => {
     }
 }
 
+const getGenrestory = async (selectedTab) => {
+    try {
+        const response = await fetch(`http://localhost:5000/storiesGenre/${selectedTab}`);
+        if (response.ok) {
+            return response.json();
+        }
+        return response;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 export {
     story,
     writerStory,
     findStory,
     getStories,
     getStory,
-    getstory
+    getstory,
+    getGenrestory
 }

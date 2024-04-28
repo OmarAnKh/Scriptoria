@@ -1,14 +1,12 @@
 import Story from "../models/story.js";
 import Writers from "../models/writers.js";
 import authentication from "../middleware/authentication.js";
-
 import express from "express";
-import sharp from "sharp";
-import axios from "axios";
 import Account from "../models/account.js";
 import Like from "../models/like.js";
 import Comment from "../models/comment.js";
 import Rating from "../models/rating.js";
+import { converImgToBuffer } from "../utils/image.js";
 
 const router = new express.Router();
 
@@ -23,6 +21,7 @@ router.post(
                 responseType: "arraybuffer",
             });
             const buffer = await sharp(imageResponse.data)
+                .resize({ width: 250, height: 250 })
                 .png()
                 .toBuffer();
 
@@ -32,7 +31,6 @@ router.post(
             const writers = new Writers({
                 AccountId: req.user._id,
                 StoryId: story._id,
-                rule: "owner"
             });
             await writers.save();
             res.status(201).send({ story, writers });
@@ -44,11 +42,42 @@ router.post(
     }
 );
 
+router.post("/story", authentication, async (req, res) => {
+    try {
+        const buffer = await converImgToBuffer(req.body.coverPhoto);
+        const story = new Story(req.body);
+        story.coverPhoto = buffer;
+        await story.save();
+        const writers = new Writers({
+            AccountId: req.user._id,
+            StoryId: story._id,
+            rule: "owner"
+        });
+        await writers.save();
+        res.status(201).send({ story, writers });
+    } catch (error) {
+        res
+            .status(500)
+            .send({ error: "An error occurred while processing your request" });
+    }
+}
+);
+
 router.get("/MyWorks/:id", async (req, res) => {
     try {
-        
+
         const Stories = await Story.find({ AccountId: req.body._id });
         res.status(200).send({ Stories });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Internal Server Error");
+    }
+});
+
+router.get("/story/:id", async (req, res) => {
+    try {
+        const story = await Story.findById(req.params.id);
+        res.status(200).send(story);
     } catch (error) {
         console.error(error);
         res.status(500).send("Internal Server Error");
@@ -157,7 +186,10 @@ router.get('/stories/:id', async (req, res) => {
 
 
 router.patch('/stories/update', async (req, res) => {
-
+    if (req.body.coverPhoto) {
+        const buffer = await converImgToBuffer(req.body.coverPhoto)
+        req.body.coverPhoto = buffer;
+    }
     try {
         const updatedStory = await Story.findByIdAndUpdate(req.body.id, req.body, { new: true, runValidators: true });
 
@@ -172,21 +204,51 @@ router.patch('/stories/update', async (req, res) => {
     }
 });
 
-// router.patch('/stories/update', async (req, res) => {
-//     const _id = req.body._id;
-//     delete req.body._id;
-//     try {
-//         const updatedStory = await Story.findByIdAndUpdate(_id, req.body);
+router.get('/storiesGenre/:genre', async (req, res) => {
+    const { genre } = req.params;
+    try {
+        let stories;
+        if (genre.toLowerCase() === 'all') {
+            stories = await Story.find({ publishStatus: true });
+        } else {
+            stories = await Story.find({ genres: genre, publishStatus: true });
+        }
 
-//         if (!updatedStory) {
-//             res.status(404).send()
-//         }
+        const storiesWithDetails = [];
+        for (const story of stories) {
+            const writers = await Writers.find({ StoryId: story._id });
 
-//         res.status(200).send(updatedStory);
+            if (!writers) {
+                return res.status(404).send();
+            }
 
-//     } catch (error) {
-//         res.status(500).send(error.message);
-//     }
-// });
+            const accounts = [];
+            for (const writer of writers) {
+                const account = await Account.findById(writer.AccountId);
+
+                if (!account) {
+                    return res.status(404).send();
+                }
+
+                accounts.push(account);
+            }
+            const countRates = await Rating.countDocuments({ StoryId: story._id });
+            const result = await Rating.aggregate([
+                { $match: { StoryId: story._id } },
+                { $group: { _id: null, averageRate: { $avg: "$rating" } } }
+            ]);
+            const averageRating = result.length > 0 ? result[0].averageRate : 0;
+            storiesWithDetails.push({
+                story: story,
+                accounts: accounts,
+                counts: { rates: countRates, avg: averageRating }
+            });
+        }
+        res.send(storiesWithDetails);
+    } catch (error) {
+        res.status(500).send(error);
+    }
+});
+
 
 export default router;

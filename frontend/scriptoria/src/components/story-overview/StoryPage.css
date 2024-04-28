@@ -18,8 +18,8 @@
     right: 10px;
     display: flex;
     flex-direction: column;
-    z-index: 1;
 }
+
 .btn-right {
     font-size: 24px;
     cursor: pointer; 
@@ -32,7 +32,6 @@
     height: 30px;
     margin-bottom: 5px;
     border: 1px solid black;
-
 }
 
 .btnwhite {
@@ -80,22 +79,112 @@
     margin:30px auto 0;
     text-align: left;
 }
+.story-prev {
+    width: 800px;
+    flex: 0 0 75%; 
+    max-width: 75%; 
+    flex: 1;
+    min-Width: 600px;
+    height: 600px;
+}
 
+.prof-card {
+    flex: 0 0 25%; 
+    max-width: 25%; 
+    margin-Left: -100px;
+}
+
+.profileCard{
+    margin-Left: -200px ;
+     transform: translateY(-10%)
+}
+.container-details {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100% ;
+}
+  
+.row-details {
+    display: flex;
+    justify-content: space-between;
+    width: 1000px;
+     height: 600px;
+}
+
+
+.card-title {
+    color: black;
+}
+
+.card-text {
+    color: black;
+}
+
+.card-title.white-bg,
+.card-text.white-bg {
+    color: black;
+}
+
+.card-title.black-bg,
+.card-text.black-bg {
+    color: white; 
+}
+.card-title.beige-bg,
+.card-text.beige-bg {
+    color: black; 
+}
 
 @media (max-width: 992px) {
-    .card {
-        max-width: 300px; 
+    .story-prev  {
+        max-width: 400px;
+        justify-content: space-between; 
+    }
+
+    .prof-card {
+        width: 50px;
+        justify-content: space-between;
+    }
+
+    .container-details {
+        display: flex;
+    }
+      
+    .row-details {
+        display: block;
+        justify-content: space-between;
     }
 }
 
 @media (max-width: 768px) {
-    .card {
-        max-width: 200px; 
+    .story-prev  {
+        max-width: 300px; 
+        justify-content: space-between;
+    }
+
+    .prof-card {
+        justify-content: space-between;
+    }
+
+    .container-details {
+        display: flex;
+    }
+      
+    .row-details {
+        display: block;
+        justify-content: space-between;
     }
 }
 
 @media (max-width: 576px) {
-    .card {
-        max-width: 150px; 
+    .story-prev  {
+        max-width: 200px; 
+        
     }
+
+    .container-details {
+        display: flex;
+    }
+      
+  
 }

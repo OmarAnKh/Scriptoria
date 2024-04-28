@@ -9,6 +9,7 @@
         "signUp": "S'inscrire",
         "profile": "Profil",
         "settings": "Paramètres",
+        "lists" : "listes",
         "logout": "Déconnexion",
         "arabic": "العربية",
         "english": "English",
@@ -178,5 +179,21 @@
         "save" : "enregistrer",
         "update" : "mettre à jour",
         "cancel" : "annuler"
-    }
+    },
+    "Lists" : {
+        "reading-lists" : "Listes de lecture de ",
+        "edit" : "modifier",
+        "delete" : "supprimer",
+        "list-name" : "nom de la liste",
+        "edit-privacy" : "modifier la confidentialité",
+        "public" : "public",
+        "private" : "privé",
+        "save" : "enregistrer",
+        "cancel" : "annuler",
+        "yes" : "oui",
+        "do-you-want-to-delete-this-list" : "Voulez-vous supprimer cette liste ?",
+        "do-you-want-to-copy-this-list" : "Voulez-vous copier cette liste ?",
+        "this-user-may-not-have-one-public-list-at-least" : "Cet utilisateur doit avoir au moins une liste publique",
+        "loading" : "chargement..."
+    }    
 }
