@@ -27,6 +27,8 @@ import StoryErrorsPage from './components/server-error-page/StoryErrorsPage.js';
 import AllListsPage from './components/all-lists-page/AllListsPage.js'
 import ListPage from './components/list-page/ListPage.js'
 import StoryPage from './components/story-page/StoryPage.js';
+import StoryHeader from './components/story-header/StoryHeader.js';
+import ReadingPage from './components/reading-page/flip-book/FlipBook.js'
 
 function App() {
 
@@ -43,6 +45,7 @@ function App() {
           <Route path='GetEmail' element={<GettingEmail />} />
           <Route path='EmailVerifing/:email' element={<EmailVerifing />} />
           <Route path='ResetPassword' element={<ResetPassword />} />
+          <Route path='ReadingPage/:id' element={<ReadingPage />} />
 
           <Route path='logout' element={<LogedOut />} />
 
@@ -60,7 +63,7 @@ function App() {
             <Route path='profile/:userName/lists/:id' element={<ListPage />} />
             <Route path='story/:id' element={<StoryPage />} />
             <Route element={<RequireAuth />}>
-            <Route path='MyWorks/:id' element={<MyWorks />} />
+              <Route path='MyWorks/:id' element={<MyWorks />} />
               <Route path='WritingPage/:id' element={<WritingPage />} />
               <Route path='StoryDetails' element={<StoryDetails />} />
               <Route path='StoryDetails/:id' element={<StoryDetails />} />

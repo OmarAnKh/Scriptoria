@@ -9,6 +9,97 @@ import { getstory } from "../../../api/storyAPI.js"
 import Navbar from "../../navbar/Navbar";
 import useSlide from "../../../hooks/useSlide.js"
 
+const formatText = (object) => {
+    let formattedArray = [];
+    for (let key in object) {
+        if (typeof object[key] === 'string') {
+            let tempString = '';
+            if (object.attributes) {
+                const { bold, italic, underline } = object.attributes;
+                if (bold) {
+                    tempString += '<b>';
+                }
+                if (italic) {
+                    tempString += '<i>';
+                }
+                if (underline) {
+                    tempString += '<u>';
+                }
+            }
+            tempString += object[key];
+            if (object.attributes) {
+                const { bold, italic, underline } = object.attributes;
+                if (bold) {
+                    tempString += '</b>';
+                }
+                if (italic) {
+                    tempString += '</i>';
+                }
+                if (underline) {
+                    tempString += '</u>';
+                }
+            }
+
+            formattedArray.push(tempString);
+        } else if (typeof object[key] === 'object') {
+            formattedArray = formattedArray.concat(formatText(object[key]));
+        }
+    }
+    return formattedArray;
+};
+
+
+
+
+function splitString(str, size) {
+    const substrings = [];
+    let start = 0;
+
+    while (start < str.length) {
+        let end = start + size;
+
+        // Check if the end position is within the string length
+        if (end >= str.length) {
+            substrings.push(str.slice(start)); // Push the remaining part of the string
+            break;
+        }
+
+        // Find the nearest space character from the end position
+        while (str[end] !== ' ' && end > start) {
+            end--;
+        }
+
+        if (end === start) {
+            // If no space found, split at the end position
+            substrings.push(str.slice(start, start + size));
+            start += size;
+        } else {
+            // Split at the nearest space character
+            substrings.push(str.slice(start, end));
+            start = end + 1; // Move start position after the space
+        }
+    }
+
+    return substrings;
+}
+const splitBigArrays = (object, characters) => {
+    let tempArray = []
+    let tempstring = ''
+    let tempsubstring = ''
+    for (let i = 0; i < object.length; i++) {
+        if (object[i].includes('<b>') || object[i].includes('<u>') || object[i].includes('<i>')) {
+            tempArray.push(object[i])
+        } else {
+            tempsubstring = splitString(object[i], characters)
+            for (let i = 0; i < tempsubstring.length; i++) {
+                tempArray.push(tempsubstring[i])
+            }
+        }
+    }
+    console.log(tempArray)
+    return tempArray
+}
+
 // const formatText = (object) => {
 //     let formattedArray = [];
 
@@ -42,7 +133,7 @@ import useSlide from "../../../hooks/useSlide.js"
 //             }
 //             formattedArray.push(tempString);
 //         } else if (typeof object[key] === 'object') {
-//             formattedArray = formattedArray.concat(formatText(object[key]));
+//            
 //         }
 //     }
 //     return formattedArray;
@@ -122,7 +213,7 @@ function StoryPage(props) {
     const [counts, setCounts] = useState({})
     const [formattedText, setFormattedText] = useState('');
     const [splittext, setSplitText] = useState([])
-    const slide = useSlide(formattedText, howManycharacters)
+    // const slide = useSlide(formattedText, howManycharacters)
 
     useEffect(() => {
         const handleResize = () => {
@@ -154,7 +245,16 @@ function StoryPage(props) {
                 setStoryData(story);
                 setCounts(story.counts)
                 const temptext = formatText(story?.story?.slide?.ops);
-                setFormattedText(temptext);
+                for (let i = 0; i < temptext.length; i++) {
+                    if (typeof temptext[i] === 'string' && temptext[i].includes('\n')) {
+                        temptext[i] = temptext[i].replaceAll('\n', '');
+                    }
+                }
+
+                setFormattedText(splitBigArrays(temptext, 100));
+                console.log(formattedText)
+
+
 
             } catch (error) {
                 console.error("Error fetching story:", error);
@@ -195,9 +295,9 @@ function StoryPage(props) {
         return flipBookRef.current?.pageFlip()?.getCurrentPageIndex();
     };
 
-    const formattedTextArray = splitText(formattedText, howManyWords)
-    divIntoSubArrays(formattedTextArray, howManycharacters)
-    console.log(formattedTextArray)
+    // const formattedTextArray = splitText(formattedText, howManyWords)
+    // divIntoSubArrays(formattedTextArray, howManycharacters)
+    // console.log(formattedTextArray)
     return (
         <>
             <Navbar />
@@ -211,11 +311,11 @@ function StoryPage(props) {
                     ref={flipBookRef}
 
                 >
-                    {formattedTextArray && formattedTextArray.map((text, index) => (
+                    {/* {formattedTextArray && formattedTextArray.map((text, index) => (
                         <Page>
                             <div key={index} dangerouslySetInnerHTML={{ __html: text }}></div>
                         </Page>
-                    ))}
+                    ))} */}
                 </HTMLFlipBook>
 
                 <div className="justify-content-center mt-4">
