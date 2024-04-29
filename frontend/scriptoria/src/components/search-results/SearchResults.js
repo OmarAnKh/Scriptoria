@@ -45,6 +45,7 @@ const SearchResultsPage = () => {
                                             imgURL={book.coverPhoto.data}
                                             description={book.description}
                                             name={book.title}
+                                            rate={book.rate}
                                             key={index}
                                         />
                                     </React.Fragment >)
