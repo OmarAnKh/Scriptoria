@@ -11,7 +11,36 @@ import { converImgToBuffer } from "../utils/image.js";
 const router = new express.Router();
 
 
+router.post(
+    "/story",
+    authentication,
+    async (req, res) => {
+        try {
+            const imageURL = req.body.coverPhoto;
+            const imageResponse = await axios.get(imageURL, {
+                responseType: "arraybuffer",
+            });
+            const buffer = await sharp(imageResponse.data)
+                .resize({ width: 250, height: 250 })
+                .png()
+                .toBuffer();
 
+            const story = new Story(req.body);
+            story.coverPhoto = buffer;
+            await story.save();
+            const writers = new Writers({
+                AccountId: req.user._id,
+                StoryId: story._id,
+            });
+            await writers.save();
+            res.status(201).send({ story, writers });
+        } catch (error) {
+            res
+                .status(500)
+                .send({ error: "An error occurred while processing your request" });
+        }
+    }
+);
 
 router.post("/story", authentication, async (req, res) => {
     try {
@@ -33,6 +62,17 @@ router.post("/story", authentication, async (req, res) => {
     }
 }
 );
+
+router.get("/MyWorks/:id", async (req, res) => {
+    try {
+
+        const Stories = await Story.find({ AccountId: req.body._id });
+        res.status(200).send({ Stories });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Internal Server Error");
+    }
+});
 
 router.get("/story/:id", async (req, res) => {
     try {
@@ -169,9 +209,9 @@ router.get('/storiesGenre/:genre', async (req, res) => {
     try {
         let stories;
         if (genre.toLowerCase() === 'all') {
-            stories = await Story.find({publishStatus : true });
+            stories = await Story.find({ publishStatus: true });
         } else {
-            stories = await Story.find({ genres: genre, publishStatus : true });
+            stories = await Story.find({ genres: genre, publishStatus: true });
         }
 
         const storiesWithDetails = [];
@@ -201,7 +241,7 @@ router.get('/storiesGenre/:genre', async (req, res) => {
             storiesWithDetails.push({
                 story: story,
                 accounts: accounts,
-                counts: {  rates: countRates, avg: averageRating }
+                counts: { rates: countRates, avg: averageRating }
             });
         }
         res.send(storiesWithDetails);
