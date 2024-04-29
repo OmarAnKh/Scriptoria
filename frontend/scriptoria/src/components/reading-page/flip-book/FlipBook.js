@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom'; // Import useParams
+import { useParams } from 'react-router-dom';
 import HTMLFlipBook from 'react-pageflip';
 import './FlipBook.css';
 import Page from './Page.js';
@@ -9,211 +9,20 @@ import { getstory } from "../../../api/storyAPI.js"
 import Navbar from "../../navbar/Navbar";
 import useSlide from "../../../hooks/useSlide.js"
 
-const formatText = (object) => {
-    let formattedArray = [];
-    for (let key in object) {
-        if (typeof object[key] === 'string') {
-            let tempString = '';
-            if (object.attributes) {
-                const { bold, italic, underline } = object.attributes;
-                if (bold) {
-                    tempString += '<b>';
-                }
-                if (italic) {
-                    tempString += '<i>';
-                }
-                if (underline) {
-                    tempString += '<u>';
-                }
-            }
-            tempString += object[key];
-            if (object.attributes) {
-                const { bold, italic, underline } = object.attributes;
-                if (bold) {
-                    tempString += '</b>';
-                }
-                if (italic) {
-                    tempString += '</i>';
-                }
-                if (underline) {
-                    tempString += '</u>';
-                }
-            }
-
-            formattedArray.push(tempString);
-        } else if (typeof object[key] === 'object') {
-            formattedArray = formattedArray.concat(formatText(object[key]));
-        }
-    }
-    return formattedArray;
-};
-
-
-
-
-function splitString(str, size) {
-    const substrings = [];
-    let start = 0;
-
-    while (start < str.length) {
-        let end = start + size;
-
-        // Check if the end position is within the string length
-        if (end >= str.length) {
-            substrings.push(str.slice(start)); // Push the remaining part of the string
-            break;
-        }
-
-        // Find the nearest space character from the end position
-        while (str[end] !== ' ' && end > start) {
-            end--;
-        }
-
-        if (end === start) {
-            // If no space found, split at the end position
-            substrings.push(str.slice(start, start + size));
-            start += size;
-        } else {
-            // Split at the nearest space character
-            substrings.push(str.slice(start, end));
-            start = end + 1; // Move start position after the space
-        }
-    }
-
-    return substrings;
-}
-const splitBigArrays = (object, characters) => {
-    let tempArray = []
-    let tempstring = ''
-    let tempsubstring = ''
-    for (let i = 0; i < object.length; i++) {
-        if (object[i].includes('<b>') || object[i].includes('<u>') || object[i].includes('<i>')) {
-            tempArray.push(object[i])
-        } else {
-            tempsubstring = splitString(object[i], characters)
-            for (let i = 0; i < tempsubstring.length; i++) {
-                tempArray.push(tempsubstring[i])
-            }
-        }
-    }
-    console.log(tempArray)
-    return tempArray
-}
-
-// const formatText = (object) => {
-//     let formattedArray = [];
-
-//     for (let key in object) {
-//         if (typeof object[key] === 'string') {
-//             let tempString = '';
-//             if (object.attributes) {
-//                 const { bold, italic, underline } = object.attributes;
-//                 if (bold) {
-//                     tempString += '<b>';
-//                 }
-//                 if (italic) {
-//                     tempString += '<i>';
-//                 }
-//                 if (underline) {
-//                     tempString += '<u>';
-//                 }
-//             }
-//             tempString += object[key];
-//             if (object.attributes) {
-//                 const { bold, italic, underline } = object.attributes;
-//                 if (bold) {
-//                     tempString += '</b>';
-//                 }
-//                 if (italic) {
-//                     tempString += '</i>';
-//                 }
-//                 if (underline) {
-//                     tempString += '</u>';
-//                 }
-//             }
-//             formattedArray.push(tempString);
-//         } else if (typeof object[key] === 'object') {
-//            
-//         }
-//     }
-//     return formattedArray;
-// };
-
-// const splitText = (object, characters) => {
-//     let tempArray = [];
-//     let tempstring = '';
-
-//     let size = characters;
-
-
-//     for (let i = 0; i < object.length; i++) {
-//         if (object[i].includes('\n')) {
-//             object[i] = object[i].replaceAll('\n', '')
-//         }
-//     }
-//     for (let key in object) {
-//         if (object.hasOwnProperty(key)) {
-//             if (object[key].length <= size) {
-
-//                 tempstring += object[key];
-//                 size -= object[key].length;
-
-//             } else {
-//                 tempArray.push(tempstring);
-//                 tempstring = '';
-
-//                 if (object[key].length > characters) {
-//                     tempArray.push(object[key]);
-//                 } else {
-//                     tempstring = object[key];
-//                     size = characters - object[key].length;
-//                 }
-//             }
-//         }
-//     }
-//     if (tempstring !== '') {
-//         tempArray.push(tempstring);
-//     }
-
-//     return tempArray;
-// }
-
-// const divIntoSubArrays = (object, characters) => {
-
-//     let slides = []
-//     let tempstring = ''
-//     for (let textIndex = 0; textIndex < object.length; textIndex++) {
-//         if (tempstring.length < characters) {
-//             tempstring += object[textIndex]
-//             console.log(tempstring, 5000 ,tempstring.length)
-//         }
-//         if (tempstring.length > characters) {
-//             console.log(tempstring, 1000)
-//             slides.push(tempstring)
-//             tempstring = ''
-//         }
-//     }
-//     console.log(slides)
-//     return slides
-// }
-
-
-
-
 function StoryPage(props) {
     const [displayButton, setDisplayButton] = useState(false);
     const flipBookRef = useRef(null);
+    const howManycharacters = useRef(0); // Using useRef instead of useState
     const { id } = useParams();
     const [storyData, setStoryData] = useState(null);
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
     const [bookWidth, setBookWidth] = useState(400);
-    const [howManyWords, setHowManyWords] = useState(500)
-    const [howManycharacters, setWowManycharacters] = useState(1000)
     const [data, setData] = useState({})
     const [counts, setCounts] = useState({})
     const [formattedText, setFormattedText] = useState('');
     const [splittext, setSplitText] = useState([])
-    // const slide = useSlide(formattedText, howManycharacters)
+    const [slide, setSlide] = useState([])
+    const getSlides = useSlide()
 
     useEffect(() => {
         const handleResize = () => {
@@ -230,13 +39,12 @@ function StoryPage(props) {
     useEffect(() => {
         if (windowWidth > 900) {
             setBookWidth(windowWidth - 800);
-            // setHowManyWords(windowWidth - 40)
+            howManycharacters.current = windowWidth * 1.3;
         } else {
             setBookWidth(0);
-            // setHowManyWords(65)
+            howManycharacters.current = 1000;
         }
     }, [windowWidth]);
-
 
     useEffect(() => {
         const fetchData = async () => {
@@ -244,17 +52,7 @@ function StoryPage(props) {
                 const story = await getstory(id);
                 setStoryData(story);
                 setCounts(story.counts)
-                const temptext = formatText(story?.story?.slide?.ops);
-                for (let i = 0; i < temptext.length; i++) {
-                    if (typeof temptext[i] === 'string' && temptext[i].includes('\n')) {
-                        temptext[i] = temptext[i].replaceAll('\n', '');
-                    }
-                }
-
-                setFormattedText(splitBigArrays(temptext, 100));
-                console.log(formattedText)
-
-
+                setSlide(getSlides(story?.story?.slide?.ops, howManycharacters.current))
 
             } catch (error) {
                 console.error("Error fetching story:", error);
@@ -295,9 +93,6 @@ function StoryPage(props) {
         return flipBookRef.current?.pageFlip()?.getCurrentPageIndex();
     };
 
-    // const formattedTextArray = splitText(formattedText, howManyWords)
-    // divIntoSubArrays(formattedTextArray, howManycharacters)
-    // console.log(formattedTextArray)
     return (
         <>
             <Navbar />
@@ -311,11 +106,11 @@ function StoryPage(props) {
                     ref={flipBookRef}
 
                 >
-                    {/* {formattedTextArray && formattedTextArray.map((text, index) => (
-                        <Page>
+                    {slide && slide.map((text, index) => (
+                        <Page key={index}>
                             <div key={index} dangerouslySetInnerHTML={{ __html: text }}></div>
                         </Page>
-                    ))} */}
+                    ))}
                 </HTMLFlipBook>
 
                 <div className="justify-content-center mt-4">

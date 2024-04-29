@@ -1,14 +1,12 @@
 
-const useSlide = (slideObject, characters) => {
-
-    const formatText = () => {
+const useSlide = () => {
+    const formatText = (object) => {
         let formattedArray = [];
-
-        for (let key in slideObject) {
-            if (typeof slideObject[key] === 'string') {
+        for (let key in object) {
+            if (typeof object[key] === 'string') {
                 let tempString = '';
-                if (slideObject.attributes) {
-                    const { bold, italic, underline } = slideObject.attributes;
+                if (object.attributes) {
+                    const { bold, italic, underline } = object.attributes;
                     if (bold) {
                         tempString += '<b>';
                     }
@@ -19,9 +17,9 @@ const useSlide = (slideObject, characters) => {
                         tempString += '<u>';
                     }
                 }
-                tempString += slideObject[key];
-                if (slideObject.attributes) {
-                    const { bold, italic, underline } = slideObject.attributes;
+                tempString += object[key];
+                if (object.attributes) {
+                    const { bold, italic, underline } = object.attributes;
                     if (bold) {
                         tempString += '</b>';
                     }
@@ -32,74 +30,93 @@ const useSlide = (slideObject, characters) => {
                         tempString += '</u>';
                     }
                 }
+
                 formattedArray.push(tempString);
-            } else if (typeof slideObject[key] === 'slideObject') {
-                formattedArray = formattedArray.concat(formatText(slideObject[key]));
+            } else if (typeof object[key] === 'object') {
+                formattedArray = formattedArray.concat(formatText(object[key]));
             }
         }
         return formattedArray;
     };
 
-
-
-    const splitText = () => {
-        const formattedArray = formatText();
-        let tempArray = [];
-        let tempstring = '';
-
-        let size = characters;
-
-
-        for (let i = 0; i < formattedArray.length; i++) {
-            if (formattedArray[i].includes('\n')) {
-                formattedArray[i] = formattedArray[i].replaceAll('\n', '')
+    const removeNewLines = (texts) => {
+        for (let i = 0; i < texts.length; i++) {
+            if (typeof texts[i] === 'string' && texts[i].includes('\n')) {
+                texts[i] = texts[i].replaceAll('\n', '');
             }
         }
-        for (let key in formattedArray) {
-            if (formattedArray.hasOwnProperty(key)) {
-                if (formattedArray[key].length <= size) {
+        return texts
+    }
 
-                    tempstring += formattedArray[key];
-                    size -= formattedArray[key].length;
+    const splitString = (str, size) => {
+        const substrings = [];
+        let start = 0;
+        while (start < str.length) {
+            let end = start + size;
+            if (end >= str.length) {
+                substrings.push(str.slice(start));
+                break;
+            }
+            while (str[end] !== ' ' && end > start) {
+                end--;
+            }
 
-                } else {
-                    tempArray.push(tempstring);
-                    tempstring = '';
+            if (end === start) {
+                substrings.push(str.slice(start, start + size));
+                start += size;
+            } else {
+                substrings.push(str.slice(start, end));
+                start = end + 1;
+            }
+        }
 
-                    if (formattedArray[key].length > characters) {
-                        tempArray.push(formattedArray[key]);
-                    } else {
-                        tempstring = formattedArray[key];
-                        size = characters - formattedArray[key].length;
-                    }
+        return substrings;
+    }
+
+    const splitBigArrays = (object, characters) => {
+        let tempArray = []
+        let tempstring = ''
+        let tempsubstring = ''
+        for (let i = 0; i < object.length; i++) {
+            if (object[i].includes('<b>') || object[i].includes('<u>') || object[i].includes('<i>')) {
+                tempArray.push(object[i])
+            } else {
+                tempsubstring = splitString(object[i], characters)
+                for (let i = 0; i < tempsubstring.length; i++) {
+                    tempArray.push(tempsubstring[i])
                 }
             }
         }
-        if (tempstring !== '') {
-            tempArray.push(tempstring);
-        }
-
-        return tempArray;
+        return tempArray
     }
 
-    const divIntoSubArrays = () => {
-        const sploitTextArray = splitText();
-        let slides = []
+    const sumUparrays = (object, characters) => {
+        let tempArray = []
         let tempstring = ''
-        for (let textIndex = 0; textIndex < sploitTextArray.length; textIndex++) {
-            if (tempstring.length < characters) {
-                tempstring += sploitTextArray[textIndex]
-                console.log(tempstring, 5000, tempstring.length)
-            }
-            if (tempstring.length > characters) {
-                console.log(tempstring, 1000)
-                slides.push(tempstring)
+        let size = characters;
+        for (let i = 0; i < object.length; i++) {
+            if (object[i].length < size) {
+                tempstring += object[i];
+                size -= object[i].length;
+            } else if (object[i].length > size) {
+                tempArray.push(tempstring)
                 tempstring = ''
+                size = characters
+                tempstring += object[i];
+                size -= object[i].length
+
             }
         }
-        console.log(slides)
+        tempArray.push(tempstring)
+        return tempArray
+    }
+    const getSlides = (texts, characters) => {
+        const res = formatText(texts)
+        const withoutNewlines = removeNewLines(res)
+        const splitArrays = splitBigArrays(withoutNewlines, 100)
+        const slides = sumUparrays(splitArrays, characters)
         return slides
     }
-    return divIntoSubArrays
+    return getSlides
 }
 export default useSlide;
