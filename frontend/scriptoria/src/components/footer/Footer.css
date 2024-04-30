@@ -16,6 +16,7 @@ footer {
 
 .fitcon {
     font-size: x-large;
+    color: var(--text-Color);
 }
 
 .NeedHelpText {
@@ -39,6 +40,9 @@ footer {
 }
 .flipitupside{
     rotate: 180deg;
+}
+.iconsrow {
+    color: var(--text-Color);
 }
 
 @media only screen and (max-width: 988px) {

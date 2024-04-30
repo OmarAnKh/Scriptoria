@@ -46,11 +46,13 @@
 .DescTitle {
     font-size: x-large;
     padding-bottom: 1.5rem;
+    color: var(--text-Color);
 }
 
 .DescTitlep {
     font-size: small;
     text-align: center;
+    color: var(--text-Color);
 }
 
 .WaveTopStyle {
@@ -63,7 +65,7 @@
     border: none;
     outline: none;
     background-color: var(--primary-Color);
-    color: #000000;
+    color: var(--text-Color);
     border-radius: 7px;
     font-weight: 600;
     cursor: pointer;

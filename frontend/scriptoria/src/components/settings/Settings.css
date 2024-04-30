@@ -17,17 +17,19 @@
 }
 
 .settings-page-header {
-    background: #f8f9fb;
+    background: var(--accent-Color);
+    color: var(--text-Color);
     display: flex;
     align-items: center;
     border-radius: 10px;
-    
+    justify-content: center;
+
 }
 
 .edit-profile-text {
     font-weight: bold;
     font-size: 30px;
-    
+
 }
 
 .link-settings-button {
@@ -40,6 +42,7 @@
 
 .settings-info-body {
     text-align: start;
+    color: var(--text-Color);
 }
 
 .image-card-body {
@@ -68,6 +71,8 @@
 
 .card-body-settings {
     border-radius: 10px;
+    background-color: var(--accent-Color);
+    color: var(--text-Color);
 }
 
 .sttings-edit-button {
@@ -79,9 +84,6 @@
     margin: 5px;
 }
 
-/* .settings-card-input {
-    border: none;
-} */
 
 .description-top-text {
     font-weight: bold;
@@ -101,3 +103,9 @@
     border: none;
     background: transparent;
 }
+
+.active {
+    background-color: var(--accent-Color) !important;
+
+}
+

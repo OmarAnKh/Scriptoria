@@ -97,7 +97,10 @@
         margin-right: 0;
     }
 }
+.navbar-button {
+    color: var(--text-Color);
 
+}
 .navbar-button :hover {
     background: #ffffff;
 
