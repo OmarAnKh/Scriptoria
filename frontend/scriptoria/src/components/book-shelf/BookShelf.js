@@ -84,7 +84,7 @@ const BookShelf = (props) => {
   return (
     <div className="mx-5 my-5 book-shelf ">
       <div className="carousel-container works-books my-5">
-        <ShelfHeader title={t("BookShelf.works")} btnTitle={t("BookShelf.see_all_works")} state={works?.length} />
+        <ShelfHeader link={`/MyWorks/${props.userId}`} title={t("BookShelf.works")} btnTitle={t("BookShelf.see_all_works")} state={works?.length} />
         {works?.length ? <Carousel
           responsive={responsive}
           containerClass="custom-carousel hide-arrows"

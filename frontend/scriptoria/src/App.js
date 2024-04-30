@@ -25,7 +25,6 @@ import StoryErrorsPage from './components/server-error-page/StoryErrorsPage.js';
 import AllListsPage from './components/all-lists-page/AllListsPage.js'
 import ListPage from './components/list-page/ListPage.js'
 import StoryPage from './components/story-page/StoryPage.js';
-import StoryHeader from './components/story-header/StoryHeader.js';
 import ReadingPage from './components/reading-page/flip-book/FlipBook.js'
 
 function App() {
@@ -35,8 +34,13 @@ function App() {
       <Routes>
         <Route path='/' element={<Layout />}>
           {/*public routes*/}
+          {/* error pages  */}
           <Route path='ServersErrorPage' element={<ServersErrorPage />} />
           <Route path='StoryErrorsPage' element={<StoryErrorsPage />} />
+          <Route path='logout' element={<LogedOut />} />
+
+
+          {/* registration pages */}
           <Route path="SignIn" element={<SignIn />} />
           <Route path="SignUp" element={<SingUp />} />
           <Route path='SignUpVerificationCode' element={<SignUpVerificationCode />} />
@@ -44,18 +48,14 @@ function App() {
           <Route path='EmailVerifing/:email' element={<EmailVerifing />} />
           <Route path='ResetPassword' element={<ResetPassword />} />
 
-      
-          <Route path='logout' element={<LogedOut />} />
-
+          {/* refresh pages && protected routers */}
           <Route element={<PersistLogin />}>
             <Route path='/' element={<HomePage />} />
             <Route path="profile/:username" element={<Profile />} />
             <Route path='Search/:criteria' element={<SearchResultsPage />} />
-            <Route path='ReadingPage/:id' element={<ReadingPage />} />
             <Route path='TeamMembers' element={<AllMembers />} />
             <Route path='book' element={<BookToDisplay />} />
             <Route path='settings/:id' element={<Settings />} />
-            <Route path=':userName/lists' element={<AllListsPage />} />
             <Route path='profile/:userName/lists' element={<AllListsPage />} />
             <Route path='profile/:userName/lists/:id' element={<ListPage />} />
             <Route path='story/:id' element={<StoryPage />} />
