@@ -1,11 +1,13 @@
 .tab-home-bar {
     background-color: var(--accent-Color);
+    border: 1px solid var(--primary-Color);
     border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+    filter: drop-shadow(10px 5px 10px rgba(0, 0, 0, 0.3));
     width: 30%;
     margin-left: 5%;
     margin-top: 1%;
     margin-bottom: 1%;
+
 }
 
 .nav-tabs-bar {

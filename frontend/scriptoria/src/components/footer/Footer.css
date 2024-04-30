@@ -20,11 +20,15 @@ footer {
 
 .NeedHelpText {
     color: var(--text-Color);
+    filter: drop-shadow(10px 5px 10px rgba(0, 0, 0, 0.3));
+    justify-content: center;
+    display: flex;
 }
 
 .SupportImg {
     width: 400px;
     height: auto;
+    filter: drop-shadow(10px 5px 10px rgba(0, 0, 0, 0.3));
 }
 
 .footerplace {
@@ -32,6 +36,9 @@ footer {
     color: var(--text-Color);
     left: 2%;
     opacity: .5;
+}
+.flipitupside{
+    rotate: 180deg;
 }
 
 @media only screen and (max-width: 988px) {
