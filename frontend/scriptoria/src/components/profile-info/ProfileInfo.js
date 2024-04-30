@@ -2,17 +2,20 @@ import React, { useEffect, useState } from 'react';
 import './ProfileInfo.css'
 import InfoButton from './Card.js'
 import ActionButton from './ButtonCard.js'
-import { follows, unfollow, followers, followingCount } from "../../api/follow.js"
-import { useNavigate } from "react-router-dom"
+import { follows, unfollow } from "../../api/follow.js"
+import { useNavigate, useParams } from "react-router-dom"
 import logo from "../../img/content.png";
 import { saveDocument, updateDocument } from '../../api/API\'s.js';
-import { writerStory } from '../../api/storyAPI.js'
 import { useTranslation } from 'react-i18next';
 import useAuth from '../../hooks/useAuth.js';
+import useFollow from '../../hooks/useFollow.js';
+import useAccount from '../../hooks/useAccount.js';
 
 const ProfileInfo = (props) => {
 
     const { auth } = useAuth();
+
+    const { getAccountByUserName } = useAccount();
 
     const { t } = useTranslation()
     const data = props.user;
@@ -25,13 +28,17 @@ const ProfileInfo = (props) => {
     const [editAbout, setEditAbout] = useState(false);
     const [editedDescription, setEditedDescription] = useState(data.description);
 
+    const { userName } = useParams()
+
+    const { setFollow, unFollow, getFollowerCount, isFollowing } = useFollow();
+
     const editAboutHandler = async () => {
         setEditAbout(true);
 
     }
     const saveAboutHandler = async () => {
         const document = {
-            _id: auth.userInfo._id,
+            _id: auth?.userInfo?._id,
             description: editedDescription
         }
         const res = await updateDocument('account', document)
@@ -41,10 +48,10 @@ const ProfileInfo = (props) => {
     }
     const followHandler = async () => {
         const following = {
-            account: user._id,
+            account: auth?.userInfo?._id,
             follow: follow_id._id
         }
-        const res = await saveDocument("follow", following)
+        setFollow(following)
         setFollowing(true)
     }
 
@@ -55,16 +62,16 @@ const ProfileInfo = (props) => {
 
     const blockHandler = async () => {
         const block = {
-            account: user._id,
-            block: follow_id._id
+            account: follow_id._id,
+            block: auth?.userInfo?._id
         }
         const res = await saveDocument("block", block)
         window.location.reload();
     }
     const unblockHandler = async () => {
         const unblock = {
-            account: user._id,
-            block: follow_id._id
+            account: follow_id._id,
+            block: auth?.userInfo?._id
         }
         const res = await unfollow("unblock", unblock)
 
@@ -73,21 +80,22 @@ const ProfileInfo = (props) => {
 
     const unfollowHandler = async () => {
         const unfollowObj = {
-            account: user._id,
+            account: auth?.userInfo?._id,
             follow: follow_id._id
         }
-        const res = await unfollow("unfollow", unfollowObj)
+        unFollow(unfollowObj)
         setFollowing(false)
     }
 
 
     const settingsHandler = async () => {
-        navigate(`/settings/${auth?.userInfo._id}`)
+        navigate(`/settings/${auth?.userInfo?._id}`)
     }
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const followerCount = await followers("/followers", props.user._id);
+                const _id = (await getAccountByUserName(userName))._id
+                const followerCount = await getFollowerCount(_id)
                 setFollowerCount(followerCount);
             } catch (error) {
                 console.error("Error fetching followers:", error);
@@ -99,7 +107,7 @@ const ProfileInfo = (props) => {
             setFollow_id(followId);
 
             if (account) {
-                const res = await follows("following", account._id, followId._id)
+                const res = await isFollowing(auth?.userInfo?._id, followId?._id)
                 setFollowing(res.status)
             }
             if (data.profilePicture) {
@@ -143,7 +151,7 @@ const ProfileInfo = (props) => {
                     <div className="buttons">
                         {props.userStatus ? (
                             <>
-                                {!auth.userName ? (<>
+                                {!auth?.userName ? (<>
                                     <ActionButton
                                         label={t("ProfileInfo.follow")}
                                         className="thebtn buttonstyle icon"
@@ -249,7 +257,7 @@ const ProfileInfo = (props) => {
                                     viewBox="0 0 16 16"
                                     method={!editAbout ? editAboutHandler : saveAboutHandler}
                                 />
-                                
+
                                 {!editAbout ?
                                     <ActionButton
                                         label={t("ProfileInfo.settings")}
@@ -276,7 +284,7 @@ const ProfileInfo = (props) => {
                         </div>
                         <div className="">
                             <div className="buttons1">
-                                <InfoButton text={t("ProfileInfo.followers")} value={followerCount.followerCount} />
+                                <InfoButton text={t("ProfileInfo.followers")} value={followerCount?.followerCount} />
                                 <InfoButton text={t("ProfileInfo.works")} value="21" />
                                 <InfoButton text={t("ProfileInfo.following")} value="356" />
                             </div>

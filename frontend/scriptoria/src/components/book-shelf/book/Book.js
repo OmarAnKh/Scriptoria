@@ -1,11 +1,11 @@
 import { Link } from 'react-router-dom';
 import './Book.css'
 
-const Book = ({ data, id }) => {
+const Book = ({ data, id,to }) => {
     return (
         <div className="book">
             <Link
-                to={`/story/${id}`}>
+                to={to}>
                 <img src={data} alt="Book cover" /></Link>
         </div>
     );
