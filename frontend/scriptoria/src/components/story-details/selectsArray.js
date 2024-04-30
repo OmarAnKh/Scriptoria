@@ -89,6 +89,19 @@ const targetAudiences = [
     "Adult (25+ years of age)"
 ];
 
+const colors = [
+    "#F8C9A6",
+    "#BFD9CC",
+    "#F5D9E4",
+    "#A6C6E1",
+    "#F0E1B8",
+    '#E1BFD1',
+    "#B8D0F0",
+    "#E1D1B8",
+    "#CCE1B8",
+    "#E1C5B8",
+]
+
 export {
-    categorys, languages, targetAudiences
+    categorys, languages, targetAudiences, colors
 }

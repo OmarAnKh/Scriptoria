@@ -1,115 +1,45 @@
 import "./Footer.css"
-import logo from "../../img/scriptoria-logo.png";
-import FooterLink from "./FooterLink";
-import ActionButton from "../profile-info/ButtonCard";
+import SupportImg from "../../img/ContactUs.png"
+
 import React from "react";
 import { useTranslation } from 'react-i18next';
-const actionButtonsData = [
-    {
-        className: "facebook btn btn-outline-dark rounded-5 m-2",
-        width: "16",
-        height: "16",
-        svgClassName: "bi bi-facebook",
-        viewBox: "0 0 16 16",
-        path1: "M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951"
-    },
-    {
-        className: "whatsapp btn btn-outline-dark rounded-5 m-2",
-        width: "16",
-        height: "16",
-        svgClassName: "bi bi-whatsapp",
-        viewBox: "0 0 16 16",
-        path1: "M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326zM7.994 14.521a6.6 6.6 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.56 6.56 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592m3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.73.73 0 0 0-.529.247c-.182.198-.691.677-.691 1.654s.71 1.916.81 2.049c.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232"
-    },
-    {
-        className: "insta btn btn-outline-dark rounded-5 m-2",
-        width: "16",
-        height: "16",
-        svgClassName: "bi bi-instagram",
-        viewBox: "0 0 16 16",
-        path1: "M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.9 3.9 0 0 0-1.417.923A3.9 3.9 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.9 3.9 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.9 3.9 0 0 0-.923-1.417A3.9 3.9 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599s.453.546.598.92c.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.5 2.5 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.5 2.5 0 0 1-.92-.598 2.5 2.5 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233s.008-2.388.046-3.231c.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92s.546-.453.92-.598c.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92m-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217m0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334"
-    },
-    {
-        className: "twitter btn btn-outline-dark rounded-5 m-2",
-        width: "16",
-        height: "16",
-        svgClassName: "bi bi-twitter-x",
-        viewBox: "0 0 16 16",
-        path1: "M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75Zm-.86 13.028h1.36L4.323 2.145H2.865z"
-    }
-];
 
 const Footer = () => {
-    const { t } = useTranslation()
     return (
-        <footer>
-            <section className="top mt-3">
-                <ul>
-                    <li className="logo-footer">
-                        <img src={logo} alt="Scriptoria Logo" />
-                        <div className="d-none d-md-block">
-                            <span className="Scriptoria ourbtn fs-2 py-0 px-0">Scriptoria</span>
+        <>
+            <svg className="WaveTopStyle img-fluid flipitupside" width="1440" height="88" viewBox="0 0 1440 88" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0 88L12 87.2C24 86.3 48 84.7 72 80.7C96 76.7 120 70.3 144 66.7C168 63 192 62 216 62.3C240 62.7 264 64.3 288 66C312 67.7 336 69.3 360 67.5C384 65.7 408 60.3 432 57.8C456 55.3 480 55.7 504 56.3C528 57 552 58 576 59.2C600 60.3 624 61.7 648 62.3C672 63 696 63 720 61.2C744 59.3 768 55.7 792 55.2C816 54.7 840 57.3 864 63.2C888 69 912 78 936 76.7C960 75.3 984 63.7 1008 63.3C1032 63 1056 74 1080 76.3C1104 78.7 1128 72.3 1152 72.8C1176 73.3 1200 80.7 1224 79.8C1248 79 1272 70 1296 64.7C1320 59.3 1344 57.7 1368 60.5C1392 63.3 1416 70.7 1428 74.3L1440 78V0H1428C1416 0 1392 0 1368 0C1344 0 1320 0 1296 0C1272 0 1248 0 1224 0C1200 0 1176 0 1152 0C1128 0 1104 0 1080 0C1056 0 1032 0 1008 0C984 0 960 0 936 0C912 0 888 0 864 0C840 0 816 0 792 0C768 0 744 0 720 0C696 0 672 0 648 0C624 0 600 0 576 0C552 0 528 0 504 0C480 0 456 0 432 0C408 0 384 0 360 0C336 0 312 0 288 0C264 0 240 0 216 0C192 0 168 0 144 0C120 0 96 0 72 0C48 0 24 0 12 0H0V88Z" />
+            </svg>
+            <footer>
+                <div className="container">
+                    <div className="row pt-5">
+                        <div className="col firstCol">
+                            <div className="SupportText">
+                                <h1 className="NeedHelpText">Need help?! Reach out!</h1>
+                                <div className="container-fluid">
+                                    <div className="row">
+                                        <div className="d-flex iconsrow justify-content-center">
+                                            <div className="icon px-3 pt-5 pb-5"><i className="bi bi-youtube h1"></i></div>
+                                            <div className="icon px-3 pt-5 pb-5"><i className="bi bi-facebook h1"></i></div>
+                                            <div className="icon px-3 pt-5 pb-5"><i className="bi bi-twitter-x h1"></i></div>
+                                            <div className="icon px-3 pt-5 pb-5"><i className="bi bi-envelope-at h1"></i></div>
+                                            <div className="icon px-3 pt-5 pb-5"><i className="bi bi-instagram h1"></i></div>
+                                        </div>
+                                        <div className="fitcon">For business inquiries, please reach out to us via email.</div>
+                                        <div className="col SupportImgDiv">
+                                            <img src={SupportImg} alt="SupportImg" className="SupportImg" />
+                                        </div>
+                                        <div className="footerplace">
+                                            <div>© Scriptoria 2024 </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </li>
-                    <FooterLink
-                        title={t("Footer.product")}
-                        firstLinkName={t("Footer.features")}
-                        secoundLinkName={t("Footer.copy_Rights")}
-                        firstLink={`/features`}
-                        secoundLink={`/copy-rights`} />
-
-                    <FooterLink
-                        title={t("Footer.resources")}
-                        firstLinkName={t("Footer.blog")}
-                        secoundLinkName={t("Footer.user_guides")}
-                        firstLink={`/blog`}
-                        secoundLink={`/user-guides`} />
-
-                    <FooterLink
-                        title={t("Footer.community")}
-                        firstLinkName={t("Footer.developers")}
-                        secoundLinkName={t("Footer.users")}
-                        firstLink={`/developers`}
-                        secoundLink={`/users`} />
-
-                    <FooterLink
-                        title={t("Footer.company")}
-                        firstLinkName={t("Footer.about")}
-                        secoundLinkName={t("Footer.join_us")}
-                        firstLink={`/about`}
-                        secoundLink={`/join-us`} />
-
-                    <FooterLink
-                        title={t("Footer.support")}
-                        firstLinkName={t("Footer.help_center")}
-                        secoundLinkName={t("Footer.chat_support")}
-                        firstLink={`/help-center`}
-                        secoundLink={`/chat-support`} />
-                </ul>
-            </section>
-            <section className="bottom">
-                <div className="ico-button">
-                    {
-                        actionButtonsData.map((info, idx) => {
-                            return (
-                                <React.Fragment key={idx}>
-                                    <ActionButton
-                                        className={info.className}
-                                        width={info.width}
-                                        height={info.height}
-                                        svgClassName={info.svgClassName}
-                                        viewBox={info.viewBox}
-                                        path1={info.path1}
-                                    />
-                                </React.Fragment>
-                            )
-                        })
-                    }
+                    </div>
                 </div>
-                <div className="footer-buttom">© 2024 Scriptoria</div>
-            </section>
-        </footer>
-
+            </footer >
+        </>
     );
 }
 

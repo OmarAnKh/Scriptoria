@@ -9,7 +9,7 @@
         "signUp": "انشاء حساب",
         "profile": "الملف الشخصي",
         "settings": "الاعدادات",
-        "lists" : "قوائم القراءة",
+        "lists": "قوائم القراءة",
         "logout": "تسجيل الخروج",
         "arabic": "العربية",
         "english": "English",
@@ -54,7 +54,7 @@
         "chat_support": "دردشة المساعدة"
     },
     "FriendsList": {
-        "friends_List": "الأصدقاء المقترحين",
+        "friends_List": "الأصدقاء",
         "show_More": "عرض المزيد"
     },
     "GettingEmail": {
@@ -148,52 +148,52 @@
         "target-audience-error": "يرجى اختيار جمهور",
         "uploaded-image-url-error": "يرجى إدخال صورة غلاف"
     },
-  "Logout" : {
-        "text1" : ".لقد تم تسجيل خروجك بنجاح",
-        "text2" : ".اضغط هنا للعودة للصفحة الرئيسية"
+    "Logout": {
+        "text1": ".لقد تم تسجيل خروجك بنجاح",
+        "text2": ".اضغط هنا للعودة للصفحة الرئيسية"
     },
-   "Comments" : {
-        "Comments" : "التعليقات",
-        "Reply" : "الرد",
-        "edit" : "تعديل",
-        "delete" : "حذف",
-        "save" : "حفظ",
-        "cancel" : "الغاء",
-        "no-comments" : "كن أول المعلقين على هذه القصة",
-        "write-something" : "اكتب شيء ..."
+    "Comments": {
+        "Comments": "التعليقات",
+        "Reply": "الرد",
+        "edit": "تعديل",
+        "delete": "حذف",
+        "save": "حفظ",
+        "cancel": "الغاء",
+        "no-comments": "كن أول المعلقين على هذه القصة",
+        "write-something": "اكتب شيء ..."
     },
-   "SaveTo" : {
-        "save-to" : "حفظ القصة في",
-        "create-a-new-list" : "أنشئ قائمة جديدة",
-        "save" : "حفظ",
-        "create-reading-list-popop" : "أنشئ قائمة قراءة جديدة",
-        "Name" : "الاسم",
-        "create-and-save" : "انشاء وحفظ",
-        "cancel" : "الغاء",
-        "add-to-reading-list" : "اضافة الى قائمة قراءة"
+    "SaveTo": {
+        "save-to": "حفظ القصة في",
+        "create-a-new-list": "أنشئ قائمة جديدة",
+        "save": "حفظ",
+        "create-reading-list-popop": "أنشئ قائمة قراءة جديدة",
+        "Name": "الاسم",
+        "create-and-save": "انشاء وحفظ",
+        "cancel": "الغاء",
+        "add-to-reading-list": "اضافة الى قائمة قراءة"
     },
-    "Rate" : {
-        "msg1" : "قم بتقييم هذه القصة",
-        "msg2" : "تقييمك لهذه القصة هو ",
-        "header" : "تقييم",
-        "save" : "حفظ",
-        "update" : "تحديث",
-        "cancel" : "الغاء"
+    "Rate": {
+        "msg1": "قم بتقييم هذه القصة",
+        "msg2": "تقييمك لهذه القصة هو ",
+        "header": "تقييم",
+        "save": "حفظ",
+        "update": "تحديث",
+        "cancel": "الغاء"
     },
-    "Lists" : {
-        "reading-lists" : "قوائم التشغيل الخاصة بـ",
-        "edit" : "تعديل",
-        "delete" :"حذف",
-        "list-name" : "اسم القائمة",
-        "edit-privacy" : "تعديل الخصوصية",
-        "public" : "عام",
-        "private" : "خاص",
-        "save" : "حفظ",
-        "cancel" : "الغاء",
-        "yes" : "نعم",
-        "do-you-want-to-delete-this-list" : "هل تريد حذف هذه القائمة؟",
-        "do-you-want-to-copy-this-list" : "هل تريد نسخ هذه القائمة؟",
-        "this-user-may-not-have-one-public-list-at-least" : "هذا المستخدم لا يملك قائمة عامة على اللأقل",
-        "loading" : "يتم التحميل"
+    "Lists": {
+        "reading-lists": "قوائم التشغيل الخاصة بـ",
+        "edit": "تعديل",
+        "delete": "حذف",
+        "list-name": "اسم القائمة",
+        "edit-privacy": "تعديل الخصوصية",
+        "public": "عام",
+        "private": "خاص",
+        "save": "حفظ",
+        "cancel": "الغاء",
+        "yes": "نعم",
+        "do-you-want-to-delete-this-list": "هل تريد حذف هذه القائمة؟",
+        "do-you-want-to-copy-this-list": "هل تريد نسخ هذه القائمة؟",
+        "this-user-may-not-have-one-public-list-at-least": "هذا المستخدم لا يملك قائمة عامة على اللأقل",
+        "loading": "يتم التحميل"
     }
 }

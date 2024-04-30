@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react';
 import BookCard from "./BookCard";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { findStory } from "../../api/storyAPI";
-import { Buffer } from 'buffer';
 import Footer from "../footer/Footer";
 import Navbar from "../navbar/Navbar";
 const SearchResultsPage = () => {
@@ -20,10 +19,10 @@ const SearchResultsPage = () => {
                     setBooks(res.stories)
                     return
                 }
-                navigate('*')
+                navigate('/StoryErrorsPage')
                 return
             } catch (error) {
-                navigate('*')
+                navigate('/ServersErrorPage')
                 return
             }
         }
@@ -40,12 +39,13 @@ const SearchResultsPage = () => {
                             {books.map((book, index) => {
                                 return (
                                     <React.Fragment key={index}>
-                                    
+
                                         <BookCard
                                             storyId={book._id}
                                             imgURL={book.coverPhoto.data}
                                             description={book.description}
                                             name={book.title}
+                                            rate={book.rate}
                                             key={index}
                                         />
                                     </React.Fragment >)
@@ -59,6 +59,7 @@ const SearchResultsPage = () => {
             <Footer />
         </>
     );
+
 };
 
 export default SearchResultsPage;

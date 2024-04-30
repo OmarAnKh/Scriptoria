@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 import { getStories } from "../../api/writers.js";
 import { Buffer } from "buffer";
 import useAuth from "../../hooks/useAuth.js";
-import {getReadingLists,getValidStoriesFrom } from "../../api/readingListsApi.js";
+import { getReadingLists, getValidStoriesFrom } from "../../api/readingListsApi.js";
 import logo from './../../img/scriptoria-logo-black.png'
 
 
@@ -33,30 +33,41 @@ const responsive = {
 };
 
 const BookShelf = (props) => {
-  const {auth} = useAuth()
+  const { auth } = useAuth()
   const [works, setWorks] = useState([])
+  const [lists, setLists] = useState([])
   const [covers, setCovers] = useState([])
   const { t } = useTranslation()
   useEffect(() => {
-    const fetchWrokes = async () => {
-      const res = await getStories(props.userId)
-      setWorks(res.stories)
+    const fetchWroks = async () => {
+      if (auth?.userInfo?._id === props.userId) {
+        const res = await getStories(props.userId, false)
+        setWorks(res.stories)
+      } else {
+        const res = await getStories(props.userId, true)
+        setWorks(res.stories)
+      }
 
-      const response = await getReadingLists(props.username, auth?.userName===props.username)
-      const coverPormises = response.map(async(list)=>{
-        const data = await getValidStoriesFrom(props.username, list._id, auth?.userInfo?._id)
-        const stories = data?.stories?.filter((story)=> story!==undefined)
-        let cover = logo
-        if(stories.length){
-          cover = `data:image/png;base64,${Buffer.from(stories[0]?.coverPhoto).toString('base64')}`
+    };
+
+    const fetchReadingList = async () => {
+      const listsRes = await getReadingLists(props.username, auth?.userName === props.username);
+      setLists(listsRes);
+      const coverPromises = listsRes.map(async (list) => {
+        const data = await getValidStoriesFrom(props.userName, list._id, auth?.userInfo?._id);
+        const stories = data?.stories?.filter((story) => story !== undefined);
+        let cover = logo;
+        let id = list._id
+        if (stories?.length > 0) {
+          cover = `data:image/png;base64,${Buffer.from(stories[0]?.coverPhoto).toString('base64')}`;
         }
-        return cover
-      })
-
-      const allCovers = await Promise.all(coverPormises)
-      setCovers(allCovers)
+        return { cover, id };
+      });
+      const covers = await Promise.all(coverPromises);
+      setCovers(covers);
     }
-    fetchWrokes()
+    fetchReadingList()
+    fetchWroks();
   }, [])
   const CustomLeftArrow = ({ onClick }) => (
     <button className="custom-arrow custom-left-arrow" onClick={onClick}>
@@ -73,7 +84,7 @@ const BookShelf = (props) => {
   return (
     <div className="mx-5 my-5 book-shelf ">
       <div className="carousel-container works-books my-5">
-        <ShelfHeader title={t("BookShelf.works")} btnTitle={t("BookShelf.see_all_works")} state={works?.length} />
+        <ShelfHeader link={`/MyWorks/${props.userId}`} title={t("BookShelf.works")} btnTitle={t("BookShelf.see_all_works")} state={works?.length} />
         {works?.length ? <Carousel
           responsive={responsive}
           containerClass="custom-carousel hide-arrows"
@@ -100,7 +111,7 @@ const BookShelf = (props) => {
             return (
               <div className="row justify-content-center" key={idx}>
                 <div className="col-lg-12">
-                  <Book data={`data:image/png;base64,${Buffer.from(book.coverPhoto).toString('base64')}`} />
+                  <Book data={`data:image/png;base64,${Buffer.from(book.coverPhoto).toString('base64')}`} to={`/story/${book._id}`} />
                 </div>
               </div>
             )
@@ -111,10 +122,10 @@ const BookShelf = (props) => {
       </div>
       <Shelf />
 
-        {
-          covers?.length? 
+      {
+        covers?.length ?
           <div className="carousel-container reading-list-books my-5" style={{}}>
-          <ShelfHeader title={t("BookShelf.reading_list")} btnTitle={t("BookShelf.all_reading_list")} state={covers?.length} link={`/profile/${props.username}/lists`} />
+            <ShelfHeader title={t("BookShelf.reading_list")} btnTitle={t("BookShelf.all_reading_list")} state={covers?.length} link={`/profile/${props.username}/lists`} />
             <Carousel
               responsive={responsive}
               containerClass="custom-carousel"
@@ -138,20 +149,19 @@ const BookShelf = (props) => {
               customLeftArrow={<CustomLeftArrow />}
             >
               {covers.map((cover, idx) => {
-                console.log(cover,10)
                 return (
                   <div className="row justify-content-center" key={idx}>
-                    <div className="col-lg-12"> 
-                      { cover? <Book data={cover} /> : <></>}
+                    <div className="col-lg-12">
+                      {cover ? <Book data={cover.cover} to={`/profile/${props.username}/lists/${cover.id}`} /> : <></>}
                     </div>
                   </div>
                 )
               })}
             </Carousel>
-        </div>
-          : 
+          </div>
+          :
           <></>
-        }
+      }
 
 
       <Shelf />

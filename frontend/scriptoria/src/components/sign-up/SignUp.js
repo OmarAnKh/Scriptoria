@@ -1,12 +1,12 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ConnectButton from "../connect-button/ConnectButton";
 import JoinInput from "../join-input/JoinInput";
 import validator from "validator";
 import "./SignUp.css"
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import SignUpInfo from "../sign-up-info/SignUpInfo";
 import { findAccount } from "../../api/accountApi";
-
+import Cookies from "js-cookie"
 const SignUp = () => {
     const [userName, setUserName] = useState("");
     const [email, setEmail] = useState("");
@@ -16,6 +16,12 @@ const SignUp = () => {
     const [emailError, setEmailError] = useState("rgb(33,33,33)")
     const [user, setUser] = useState({})
     const [goToInfo, setGoToInfo] = useState(false)
+    const navigate = useNavigate()
+    useEffect(() => {
+        if (Cookies.get('flag')) {
+            navigate('/')
+        }
+    }, []);
 
     const signUpHandler = async () => {
 

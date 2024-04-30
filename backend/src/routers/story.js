@@ -11,8 +11,6 @@ import { converImgToBuffer } from "../utils/image.js";
 const router = new express.Router();
 
 
-
-
 router.post("/story", authentication, async (req, res) => {
     try {
         const buffer = await converImgToBuffer(req.body.coverPhoto);
@@ -34,15 +32,26 @@ router.post("/story", authentication, async (req, res) => {
 }
 );
 
+router.get("/MyWorks/:id", async (req, res) => {
+    try {
+        const storiesObject = await Writers.find({ AccountId: req.params.id });
+        res.status(200).send(storiesObject);
+    } catch (error) {
+        res.status(500).send("Internal Server Error");
+    }
+});
+
+
 router.get("/story/:id", async (req, res) => {
     try {
-        const story = await Story.findById(req.params.id);
-        res.status(200).send(story);
+        const stories = await Story.findById(req.params.id);
+        res.status(200).send(stories);
     } catch (error) {
         console.error(error);
         res.status(500).send("Internal Server Error");
     }
 });
+
 
 
 
@@ -86,6 +95,22 @@ router.get("/search/:criteria", async (req, res) => {
     }
 })
 
+router.get('/stories', async (req, res) => {
+
+    const limit = req.query.limit ? parseInt(req.query.limit, 10) : 7;
+
+    try {
+        const stories = await Story.find({ publishStatus: true }).limit(limit);
+
+        if (!stories) {
+            res.status(404).send();
+        }
+        res.status(200).send(stories);
+
+    } catch (error) {
+        res.status(500).send();
+    }
+})
 router.get('/stories', async (req, res) => {
 
     const limit = req.query.limit ? parseInt(req.query.limit, 10) : 7;
@@ -164,21 +189,51 @@ router.patch('/stories/update', async (req, res) => {
     }
 });
 
-// router.patch('/stories/update', async (req, res) => {
-//     const _id = req.body._id;
-//     delete req.body._id;
-//     try {
-//         const updatedStory = await Story.findByIdAndUpdate(_id, req.body);
+router.get('/storiesGenre/:genre', async (req, res) => {
+    const { genre } = req.params;
+    try {
+        let stories;
+        if (genre.toLowerCase() === 'all') {
+            stories = await Story.find({ publishStatus: true });
+        } else {
+            stories = await Story.find({ genres: genre, publishStatus: true });
+        }
 
-//         if (!updatedStory) {
-//             res.status(404).send()
-//         }
+        const storiesWithDetails = [];
+        for (const story of stories) {
+            const writers = await Writers.find({ StoryId: story._id });
 
-//         res.status(200).send(updatedStory);
+            if (!writers) {
+                return res.status(404).send();
+            }
 
-//     } catch (error) {
-//         res.status(500).send(error.message);
-//     }
-// });
+            const accounts = [];
+            for (const writer of writers) {
+                const account = await Account.findById(writer.AccountId);
+
+                if (!account) {
+                    return res.status(404).send();
+                }
+
+                accounts.push(account);
+            }
+            const countRates = await Rating.countDocuments({ StoryId: story._id });
+            const result = await Rating.aggregate([
+                { $match: { StoryId: story._id } },
+                { $group: { _id: null, averageRate: { $avg: "$rating" } } }
+            ]);
+            const averageRating = result.length > 0 ? result[0].averageRate : 0;
+            storiesWithDetails.push({
+                story: story,
+                accounts: accounts,
+                counts: { rates: countRates, avg: averageRating }
+            });
+        }
+        res.send(storiesWithDetails);
+    } catch (error) {
+        res.status(500).send(error);
+    }
+});
+
 
 export default router;

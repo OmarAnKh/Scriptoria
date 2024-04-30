@@ -3,7 +3,7 @@ import Navbar from '../navbar/Navbar';
 import "./StoryDetails.css";
 import { UploadButton } from 'react-uploader';
 import { Uploader } from "uploader";
-import { targetAudiences, languages, categorys } from "./selectsArray"
+import { targetAudiences, languages, categorys, colors } from "./selectsArray"
 import { story } from "../../api/storyAPI";
 import { useNavigate, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
@@ -12,24 +12,31 @@ import { getDocumentByUsingParams, updateDocument } from '../../api/API\'s';
 import { Buffer } from 'buffer';
 
 
-const StoryDetailsOption = ({ options, title, method, disabled, value, error }) => {
+const StoryDetailsOption = ({ options, title, method, disabled, value, error, type }) => {
   const handleChange = (event) => {
     method(event.target.value)
   }
+  const style = type === "color" ?
+    {
+      colors: "white",
+      background: value
+    } : {}
   return (
     <div className="col row">
       <div className="col">
         <label >{title}</label>
-        <select className="form-control story-details-card-input" onChange={(event) => handleChange(event)} value={value} disabled={disabled}>
+        <select className="form-control story-details-card-input" style={style} onChange={(event) => handleChange(event)} value={value} disabled={disabled}>
           {options.map(option => {
             return (
-              <option value={option} key={option}>{option}</option>
+              type === "color" ?
+                <option value={option} key={option} style={{ background: option }}> {option}</option> :
+                <option value={option} key={option} > {option}</option>
             );
           })}
         </select>
         <p className='story-details-error'>{error}</p>
       </div>
-    </div>
+    </div >
   )
 }
 
@@ -63,7 +70,7 @@ const StoryDetails = () => {
   const [language, setLanguage] = useState("");
   const [description, setDescription] = useState("");
   const [mainCharacters, setMainCharacters] = useState([]);
-  const [backgroundColor, setBackgroundColor] = useState("#6C5DA7");
+  const [backgroundColor, setBackgroundColor] = useState("#F8C9A6");
   const [category, setCategory] = useState([]);
   const [targetAudience, setTargetAudience] = useState("")
   const [mainCharactersHelper, setMainCharactersHelper] = useState("");
@@ -214,7 +221,8 @@ const StoryDetails = () => {
       mainCharacters: mainCharacters
     };
     const res = await story("story", storyData, auth.token);
-    navigate(`/WritingPage/${res.story._id}`);
+    console.log(res)
+    navigate(`/WritingPage/${res?.story?._id}`);
   }
 
   const handelCancel = () => {
@@ -241,6 +249,7 @@ const StoryDetails = () => {
                     method={setLanguage}
                     value={language}
                     error={languageError}
+                    type="language"
                   />
                 </div>
               </div>
@@ -263,12 +272,11 @@ const StoryDetails = () => {
                     <div className="col-md-4 align-self-center mx-2 my-4">
                       <button className='btn btn-primary ml-2' style={{ backgroundColor: "#AC967F" }} onClick={() => handaleMainCharacters(mainCharactersHelper)}>+</button>
                     </div>
-                    <StoryDetailsInput className="col-md-4 d-flex align-items-center "
-                      title={t("StoryDetails.background")} type="color"
-                      style={{ width: '30px', height: '30px', padding: '0' }}
+                    <StoryDetailsOption title={t("StoryDetails.background")}
+                      options={colors}
                       method={setBackgroundColor}
-                      name="character-background-color"
-                      defaultValue={"#6C5DA7"}
+                      value={backgroundColor}
+                      type="color"
                     />
                   </div>
                 </div>
@@ -294,6 +302,7 @@ const StoryDetails = () => {
                     value={""}
                     method={handalCategory}
                     error={categoryError}
+                    type="category"
                   />
                   <p className='settings-error'></p>
                 </div>
@@ -303,6 +312,7 @@ const StoryDetails = () => {
                     method={setTargetAudience}
                     value={targetAudience}
                     error={targetAudienceError}
+                    type='target'
                   />
                   <p className='settings-error'></p>
                 </div>

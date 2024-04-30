@@ -34,10 +34,8 @@ const writerStory = async (point, UserId) => {
         if (response.ok) {
             return response.json();
         }
-        throw new Error("Failed to fetch stories: " + response.status);
     } catch (error) {
-        console.log(error);
-        throw error;
+        console.log(error)
     }
 }
 
@@ -74,7 +72,7 @@ const getStories = async (point, limit) => {
             return response.json()
         }
         return response
-        
+
     } catch (error) {
         console.log(error)
     }
@@ -82,17 +80,17 @@ const getStories = async (point, limit) => {
 
 const getStory = async (id, point) => {
     try {
-        if(id){
+        if (id) {
             const response = await fetch("http://localhost:5000/" + point + "/" + id, {
-            credentials: "include"
-        })
-        if (response.ok) {
-            return response.json()
-        }
+                credentials: "include"
+            })
+            if (response.ok) {
+                return response.json()
+            }
 
-        return response
+            return response
         } else {
-            return ({error : "no story to be found"})
+            return ({ error: "no story to be found" })
         }
     } catch (error) {
         console.log(error)
@@ -111,11 +109,24 @@ const getstory = async (id) => {
     }
 }
 
+const getGenrestory = async (selectedTab) => {
+    try {
+        const response = await fetch(`http://localhost:5000/storiesGenre/${selectedTab}`);
+        if (response.ok) {
+            return response.json();
+        }
+        return response;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 export {
     story,
     writerStory,
     findStory,
     getStories,
     getStory,
-    getstory
+    getstory,
+    getGenrestory
 }

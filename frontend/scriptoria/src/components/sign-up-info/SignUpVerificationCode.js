@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { sendEmail } from "../../api/API's";
 import { saveDocument } from "../../api/API's";
 import useAuth from "../../hooks/useAuth"
-
+import Cookies from "js-cookie"
 const SignUpVerificationCode = () => {
     const { setAuth } = useAuth();
     const [code, setCode] = useState("");
@@ -50,7 +50,7 @@ const SignUpVerificationCode = () => {
             const token = response.token;
 
             setAuth({ userName, token, userInfo: user })
-
+            Cookies.set('flag', true)
             navigate(`/`);
         }
     };

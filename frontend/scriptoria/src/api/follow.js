@@ -50,9 +50,30 @@ const followers = async (point, user) => {
     }
 };
 
+const followings = async (userId) => {
+    try {
+        const response = await fetch(`http://localhost:5000/users/${userId}/followings`, {
+            method: "GET",
+            credentials: "include",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+        if (response.ok) {
+            return response.json();
+        } else {
+            throw new Error("Failed to fetch followings");
+        }
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+};
+
 
 export {
     follows,
     unfollow,
-    followers
+    followers,
+    followings
 }

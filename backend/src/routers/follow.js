@@ -12,6 +12,7 @@ router.post("/follow", async (req, res) => {
     }
 })
 
+
 router.get("/following/:user/:follow", async (req, res) => {
 
     try {
@@ -24,6 +25,9 @@ router.get("/following/:user/:follow", async (req, res) => {
         return res.status(500).send({ status: error })
     }
 })
+
+
+
 
 router.delete("/unfollow", async (req, res) => {
     try {
@@ -41,7 +45,7 @@ router.delete("/unfollow", async (req, res) => {
 
 router.get("/followers/:user", async (req, res) => {
     try {
-        const user = await Follow.countDocuments({ follow: req.params.user });
+        const user = await Follow.countDocuments({ account: req.params.user });
 
         res.status(200).send({ followerCount: user });
     } catch (error) {
@@ -49,5 +53,20 @@ router.get("/followers/:user", async (req, res) => {
         res.status(500).send("Internal Server Error");
     }
 })
+
+router.get("/users/:userId/followings", async (req, res) => {
+    try {
+        const account = req.params.userId;
+
+        const followingsNumber = await Follow.countDocuments({ follow: account });
+
+        res.status(200).send({ followingsNumber: followingsNumber });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Internal Server Error");
+    }
+})
+
+
 
 export default router;

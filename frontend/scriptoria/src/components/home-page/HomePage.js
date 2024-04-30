@@ -6,10 +6,11 @@ import Navbar from "../navbar/Navbar";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import useAuth from "../../hooks/useAuth";
+import WelcomeCard from "../welcome-card/WelcomeCard.js";
 
 const HomePage = () => {
     const [alert, setAlert] = useState(false);
-
+    const [selectedTab, setSelectedTab] = useState('all');
     const { auth } = useAuth();
 
     useEffect(() => {
@@ -19,14 +20,24 @@ const HomePage = () => {
         }
     }, []);
 
+
+    const handleTabSelect = (tabName) => {
+        setSelectedTab(tabName);
+        // console.log(tabName);
+    };
+
+
     return (
         <>
             <Navbar />
+            {!auth.userName ? <WelcomeCard /> : <></>}
             <CarouselCards />
-            <StoryCard />
+            <DiscoverTable select={selectedTab} onSelect={handleTabSelect} />
+            <StoryCard selectedTab={selectedTab} />
             <Footer />
         </>
     );
 }
+
 
 export default HomePage;

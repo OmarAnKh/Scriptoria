@@ -29,12 +29,12 @@ const StoryHeader = () => {
             try {
                 const response = await getStory(id, 'stories');
 
-                setAuthors(response.accounts);
-                setData(response.story);
-                setCounts(response.counts);
-                setGenres(response.story.genres);
+                setAuthors(response?.accounts);
+                setData(response?.story);
+                setCounts(response?.counts);
+                setGenres(response?.story?.genres);
 
-                const cover = Buffer.from(response.story.coverPhoto).toString('base64');
+                const cover = Buffer.from(response?.story?.coverPhoto).toString('base64');
                 setCoverPhoto(`data:image/png;base64,${cover}`);
 
             } catch (error) {
@@ -52,7 +52,7 @@ const StoryHeader = () => {
             setShowReadMore(textRef.current.scrollHeight > textRef.current.clientHeight);
         }
 
-    }, [data.description]);
+    }, [data?.description]);
 
     const textStyle = isExpanded ? {
         overflow: 'visible',
@@ -66,7 +66,7 @@ const StoryHeader = () => {
 
 
     return (
-        <div className="col-lg-12 details-card" style={{ background: `linear-gradient(to bottom, ${data.backgroundColor}, white)` }}>
+        <div className="col-lg-12 details-card" style={{ background: `linear-gradient(to bottom, ${data?.backgroundColor}, white)` }}>
             <div className="row g-0">
                 <div className="col-md-2">
                     <img src={coverPhoto} className="img-fluid rounded-start details-img" alt="..." />
@@ -74,20 +74,20 @@ const StoryHeader = () => {
                 <div className="details-container col-md-10 d-md-block px-4">
                     <div className="card-body details text-white">
                         <div className="header-details">
-                            <h3 className="card-title mb-2 fs-1">{data.title}</h3>
+                            <h3 className="card-title mb-2 fs-1">{data?.title}</h3>
                             <p className="author-name mb-0 fs-5">
 
-                                {authors.map((author, idx) => {
-                                    return <span key={idx}>{author.displayName}</span>;
+                                {authors?.map((author, idx) => {
+                                    return <span key={idx}>{author?.displayName}</span>;
                                 })}
 
                             </p>
-                            <p className="mb-1">{data.language}</p>
+                            <p className="mb-1">{data?.language}</p>
                         </div>
 
                         <div className="description-card" style={isExpanded ? null : { display: 'flex', alignItems: 'flex-end' }}>
                             <p ref={textRef} style={textStyle} className="story-description card-text text-sm text-black fw-bold">
-                                {data.description}
+                                {data?.description}
                             </p>
                             {showReadMore && (
                                 <button className="btn btn-link text-decoration-none text-white p-1" onClick={() => setIsExpanded(!isExpanded)} style={isExpanded ? null : { whiteSpace: 'nowrap', marginBottom: '10px' }}>
@@ -99,7 +99,7 @@ const StoryHeader = () => {
                     </div>
                     <div className='genres'>
 
-                        {genres.map((genre, idx) => {
+                        {genres?.map((genre, idx) => {
                             return <Genre name={genre} key={idx} />
                         })}
 

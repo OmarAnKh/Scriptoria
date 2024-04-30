@@ -21,9 +21,7 @@ router.post('/readingLists', authentication, async (req, res) => {
 
 router.get('/readingLists',  async (req, res) => {
     const accountId = req.query.accountId;
-    console.log(accountId)
     const all = req.query.all === "true"
-    console.log(all)
     try {
         const lists = all? await ReadingList.find({accountId}) : await ReadingList.find({accountId, privacy : true})
         if (!lists) return res.send();

@@ -1,11 +1,14 @@
 import React from 'react';
-
-const FriendsListBtn = () => {
+import { useNavigate } from 'react-router-dom';
+const FriendsListBtn = (props) => {
+    const navigate = useNavigate()
+    const visitAccountHandler = () => {
+        navigate(`/profile/${props.userName}`)
+        window.location.reload();
+    }
     return (
         <div className="button-container">
-            <button className="button-icon "><i className="bi bi-person-plus"></i></button>
-            <button className="button-icon "><i className="bi bi-card-text"></i></button>
-            <button className="button-icon"><i className="bi bi-three-dots-vertical"></i></button>
+            <button className="button-icon " onClick={visitAccountHandler} >visit profile</button>
         </div>
     );
 }

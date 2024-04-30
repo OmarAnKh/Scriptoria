@@ -34,7 +34,7 @@
 
 body {
   font-family: Fibre Vintage;
-  background-color:var(--background-Color);
+  /* background-color:var(--background-Color); */
   
 }
 
@@ -46,6 +46,7 @@ body {
   --text-Color: #000000;
   --background-Color: #ECECEC;
   --primary-Color: #AC967F;
+  --darker--primary-Color: #564B40;
   --accent-Color: #E1D8D1;
 }
 
