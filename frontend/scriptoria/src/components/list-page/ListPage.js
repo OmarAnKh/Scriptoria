@@ -5,6 +5,8 @@ import useAuth from '../../hooks/useAuth'
 import { getValidStoriesFrom } from '../../api/readingListsApi'
 import Popup from '../all-lists-page/Popup'
 import { useTranslation } from 'react-i18next';
+import PrivateList from '../no-access-pages/PrivateList'
+import EmptyList from '../empty-pages/EmptyList'
 
 const ListPage = () => {
   const { auth } = useAuth()
@@ -39,15 +41,18 @@ const update = async ()=>{
   return (
     <>
       <Navbar />
-      <div className='container'>
+      {
+        userName!==auth?.userName && list.privacy===false ? <PrivateList/> : 
+        <div className='container'>
         <div className='row py-4 justify-content-between'>
-        {list?.name? <>
+        {list?.name && list.stories.length ?  <>
           <div className='col-md-6 col-sm-12 display-2 text-md-start text-sm-center'>{list.name}</div>
         <div className='col-md-4 col-sm-12 text-md-end text-sm-center'>
           <Popup page="list" list={list} name={name} setName={setName} update={update} />
-        </div></> : <div className='justify-content-center align-items-center'><h1>{t("Lists.loading")}</h1></div>}
+        </div></> : <EmptyList/>}
         </div>
-      </div>
+      </div>  
+      }
     </>
   )
 }

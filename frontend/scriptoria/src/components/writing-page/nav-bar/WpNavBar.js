@@ -14,7 +14,7 @@ import useAuth from "../../../hooks/useAuth";
 import { getstory } from "../../../api/storyAPI";
 import toast from "react-hot-toast";
 
-const WpNavBar = ({ setMode, data, setData, setState }) => {
+const WpNavBar = ({ setMode,  setState }) => {
   const navigate = useNavigate()
   const { auth } = useAuth()
   const { id } = useParams()
@@ -34,7 +34,7 @@ const WpNavBar = ({ setMode, data, setData, setState }) => {
       const res = await getstory(id)
       setPublishStatus(res?.story.publishStatus);
       if (res?.status) {
-        navigate('/')
+        navigate('/NoAccessPage')
         return
       }
     }
@@ -52,7 +52,7 @@ const WpNavBar = ({ setMode, data, setData, setState }) => {
       });
 
       if (!userExists) {
-        navigate('/')
+        navigate('/NoAccessPage')
         return
       }
     }
@@ -62,9 +62,6 @@ const WpNavBar = ({ setMode, data, setData, setState }) => {
   }, [ruleState, removeState, addUserState])
 
 
-  const saveData = () => {
-    console.log(localStorage.getItem('story'))
-  }
   const handleMode = () => {
     setMode();
   };
@@ -168,7 +165,7 @@ const WpNavBar = ({ setMode, data, setData, setState }) => {
 
   return (
 
-    <nav className="navbar navbar-expand-lg WpNavBar py-1" id="WpNavBar">
+    <nav className="navbar navbar-expand-lg WpNavBar py-1 fixed-top" id="WpNavBar">
       <div className="container-fluid d-flex justify-content-between">
         <Link to={`/`} className="card-text d-flex align-items-center" target="">
           <img className="logo-size" src={Logo} alt="no"></img>
@@ -272,8 +269,7 @@ const WpNavBar = ({ setMode, data, setData, setState }) => {
         <div className="collapse navbar-collapse text-center order-2 order-lg-1" id="navbarNavDropdown">
           <ol className="navbar-nav mx-auto">
             <li className="nav-item">
-              {/* <Buttons btnCN="FocusMode" method={handleMode} name="Focus Mode" /> */}
-              <Buttons btnCN="FocusMode" name="Focus Mode" />
+              <Buttons btnCN="FocusMode" name="Focus Mode" method={handleMode}/>
             </li>
             <li className="nav-item">
               <button type="button" className="btn btn-outline-dark rounded-5 m-2" onClick={handelPublich}>

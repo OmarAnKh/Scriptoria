@@ -17,18 +17,16 @@ const Comments = ({ id }) => {
   useEffect(() => {
     const userName = auth.userName;
     const fetchData = async () => {
+      const value = await getComments(id);
+      if (value !== undefined) {
+        setComments(value.data);
+      }
       if (userName !== undefined) {
         setSignedIn(true);
-        const value = await getComments(id);
-        if (value !== undefined) {
-          setComments(value.data);
-        }
         const data = await findAccount({ userName });
         if (data.message) {
           setUser(data.user);
         }
-      } else {
-        setSignedIn(false);
       }
     };
     fetchData();

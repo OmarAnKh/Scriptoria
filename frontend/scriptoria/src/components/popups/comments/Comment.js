@@ -197,12 +197,17 @@ const Comment = ({
                 </div>
               </div>
               <div className="col-3 px-2 comment-like-btn text-end">
-                {commentlikes}
-                <a
+                {
+                  auth?.userName ? 
+                  <>
+                  {commentlikes}
+                  <a
                   className={` mx-1 comment-like-btn text-decoration-none bi ${like ? "bi-heart-fill text-danger" : "bi-heart text-secondary"}
                     `}
                   onClick={likeHandler}
                 ></a>
+                  </> : <>{commentlikes} likes</> 
+                }
               </div>
             </div>
           </>
