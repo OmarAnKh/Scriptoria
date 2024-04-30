@@ -5,7 +5,6 @@ import { getWriters } from './writers'
 const getReadingLists = async (userName, all) => {   
     try {
         const account = await findAccount({ userName })
-        console.log(account)
         const response = await axios({
             url: "http://localhost:5000/readingLists",
             method: "GET",

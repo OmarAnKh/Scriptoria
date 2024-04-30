@@ -33,18 +33,16 @@ const Comment = ({
     setLike(likes.includes(auth?.userInfo?._id))
   }, [text, auth?.userInfo?._id]);
 
-  console.log(like)
-
   const likeHandler = async () => {
     setLike(!like);
     let updatedLikes = [...likes];
-  if (like) {
-    if(!likes?.includes(auth?.userInfo?._id))
-    updatedLikes.push(auth.userInfo._id);
-  } else {
-    if(likes?.includes(auth?.userInfo?._id))
-    updatedLikes = likes.filter(person => person !== auth.userInfo._id);
-  }
+    if (like) {
+      if (!likes?.includes(auth?.userInfo?._id))
+        updatedLikes.push(auth.userInfo._id);
+    } else {
+      if (likes?.includes(auth?.userInfo?._id))
+        updatedLikes = likes.filter(person => person !== auth.userInfo._id);
+    }
     const comment = {
       text: editedText,
       _id: commentId,
@@ -68,10 +66,10 @@ const Comment = ({
       }
       if (status === 1) {
         const comment = {
-          text : editedText,
-          _id : commentId,
-          likes : like? likes : likes.filter((person)=>person!==account._id),
-          accountId : account._id
+          text: editedText,
+          _id: commentId,
+          likes: like ? likes : likes.filter((person) => person !== account._id),
+          accountId: account._id
         }
         await toast.promise(
           editComment(comment, token),
@@ -198,11 +196,11 @@ const Comment = ({
               </div>
               <div className="col-3 px-2 comment-like-btn text-end">
                 {commentlikes}
-                <a
+                {auth?.userInfo ? <a
                   className={` mx-1 comment-like-btn text-decoration-none bi ${like ? "bi-heart-fill text-danger" : "bi-heart text-secondary"}
                     `}
                   onClick={likeHandler}
-                ></a>
+                ></a> : <> likes</>}
               </div>
             </div>
           </>
