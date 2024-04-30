@@ -16,12 +16,9 @@ import Profile from './components/profile-page/Profile.js';
 import AllMembers from './components/team-members/AllMembers.js';
 import BookToDisplay from './components/book-holder/book-to-display/BookToDisplay.js';
 import LogedOut from './components/loged-out/LogedOut.js'
-import StoryCard from "./components/story-card/StoryCard.js"
 import Layout from './components/layout/Layout.js';
 import PersistLogin from './components/persist-login/PersistLogin.js';
 import RequireAuth from './components/require-auth/RequireAuth.js';
-
-import StoryPreview from './components/story-overview/StoryOverview.js';
 import ServersErrorPage from './components/server-error-page/ServersErrorPage.js';
 import StoryErrorsPage from './components/server-error-page/StoryErrorsPage.js';
 import AllListsPage from './components/all-lists-page/AllListsPage.js'

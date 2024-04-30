@@ -49,7 +49,7 @@ router.get("/followers/:user", async (req, res) => {
 
         res.status(200).send({ followerCount: user });
     } catch (error) {
-        console.error(error); 
+        console.error(error);
         res.status(500).send("Internal Server Error");
     }
 })
@@ -58,14 +58,14 @@ router.get("/users/:userId/followings", async (req, res) => {
     try {
         const account = req.params.userId;
 
-        const followingsNumber = await Follow.countDocuments({follow : account });
+        const followingsNumber = await Follow.countDocuments({ follow: account });
 
         res.status(200).send({ followingsNumber: followingsNumber });
     } catch (error) {
         console.error(error);
         res.status(500).send("Internal Server Error");
     }
-  })
+})
 
 
 

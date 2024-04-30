@@ -2,13 +2,14 @@ import React, { useEffect, useState } from 'react';
 import './ProfileInfo.css'
 import InfoButton from './Card.js'
 import ActionButton from './ButtonCard.js'
-import { follows, unfollow, followers, followingCount } from "../../api/follow.js"
+import { follows, unfollow } from "../../api/follow.js"
 import { useNavigate } from "react-router-dom"
 import logo from "../../img/content.png";
 import { saveDocument, updateDocument } from '../../api/API\'s.js';
 import { writerStory } from '../../api/storyAPI.js'
 import { useTranslation } from 'react-i18next';
 import useAuth from '../../hooks/useAuth.js';
+import useFollow from '../../hooks/useFollow.js';
 
 const ProfileInfo = (props) => {
 
@@ -24,6 +25,8 @@ const ProfileInfo = (props) => {
     const [followerCount, setFollowerCount] = useState(0);
     const [editAbout, setEditAbout] = useState(false);
     const [editedDescription, setEditedDescription] = useState(data.description);
+
+    const { setFollow, unFollow, getFollowerCount } = useFollow();
 
     const editAboutHandler = async () => {
         setEditAbout(true);
@@ -41,10 +44,10 @@ const ProfileInfo = (props) => {
     }
     const followHandler = async () => {
         const following = {
-            account: user._id,
+            account: auth.userInfo._id,
             follow: follow_id._id
         }
-        const res = await saveDocument("follow", following)
+        setFollow(following)
         setFollowing(true)
     }
 
@@ -55,16 +58,16 @@ const ProfileInfo = (props) => {
 
     const blockHandler = async () => {
         const block = {
-            account: user._id,
-            block: follow_id._id
+            account: follow_id._id,
+            block: auth.userInfo._id
         }
         const res = await saveDocument("block", block)
         window.location.reload();
     }
     const unblockHandler = async () => {
         const unblock = {
-            account: user._id,
-            block: follow_id._id
+            account: follow_id._id,
+            block: auth.userInfo._id
         }
         const res = await unfollow("unblock", unblock)
 
@@ -73,10 +76,10 @@ const ProfileInfo = (props) => {
 
     const unfollowHandler = async () => {
         const unfollowObj = {
-            account: user._id,
+            account: auth.userInfo._id,
             follow: follow_id._id
         }
-        const res = await unfollow("unfollow", unfollowObj)
+        unFollow(unfollowObj)
         setFollowing(false)
     }
 
@@ -87,7 +90,7 @@ const ProfileInfo = (props) => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const followerCount = await followers("/followers", props.user._id);
+                const followerCount = await getFollowerCount(auth.userInfo._id)
                 setFollowerCount(followerCount);
             } catch (error) {
                 console.error("Error fetching followers:", error);
@@ -105,7 +108,7 @@ const ProfileInfo = (props) => {
             setFollow_id(followId);
 
             if (account) {
-                const res = await follows("following", account._id, followId._id)
+                const res = await follows("following", auth.userInfo._id, followId._id)
                 setFollowing(res.status)
             }
             if (data.profilePicture) {
@@ -255,7 +258,7 @@ const ProfileInfo = (props) => {
                                     viewBox="0 0 16 16"
                                     method={!editAbout ? editAboutHandler : saveAboutHandler}
                                 />
-                                
+
                                 {!editAbout ?
                                     <ActionButton
                                         label={t("ProfileInfo.settings")}

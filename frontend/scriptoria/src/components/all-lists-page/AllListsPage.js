@@ -5,18 +5,18 @@ import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 const ListPage = () => {
-   const {userName} = useParams()
-   const {t} = useTranslation()
+  const { userName } = useParams()
+  const { t } = useTranslation()
   return (
     <>
-    <Navbar/>
-    <div className='container display-4'>
+      <Navbar />
+      <div className='container display-4'>
         {userName}{t("Lists.reading-lists")}
-    </div>
-    <div className='row justify-content-center'>
-    <Lists userName={userName}/>
-    </div>
-</>
+      </div>
+      <div className='row justify-content-center'>
+        <Lists userName={userName} />
+      </div>
+    </>
   )
 }
 
