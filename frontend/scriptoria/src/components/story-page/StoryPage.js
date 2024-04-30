@@ -10,7 +10,6 @@ const StoryPage = () => {
             <Navbar />
             <StoryHeader />
             <StoryCard />
-            <Footer />
         </div>
     )
 }

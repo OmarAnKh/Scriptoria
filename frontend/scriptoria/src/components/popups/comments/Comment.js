@@ -33,8 +33,6 @@ const Comment = ({
     setLike(likes.includes(auth?.userInfo?._id))
   }, [text, auth?.userInfo?._id]);
 
-  console.log(like)
-
   const likeHandler = async () => {
     setLike(!like);
     let updatedLikes = [...likes];

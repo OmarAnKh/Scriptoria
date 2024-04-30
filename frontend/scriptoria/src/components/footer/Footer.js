@@ -8,13 +8,13 @@ const Footer = () => {
     // const { t } = useTranslation()
     return (
         <footer>
-            <div class="container">
-                <div class="row pt-5">
-                    <div class="col firstCol">
+            <div className="container">
+                <div className="row pt-5">
+                    <div className="col firstCol">
                         <div className="SupportText">
                             <h1 className="NeedHelpText">Need help?! Reach out!</h1>
-                            <div class="container-fluid">
-                                <div class="row">
+                            <div className="container-fluid">
+                                <div className="row">
                                     <div class="d-flex iconsrow">
                                         <div className="icon px-3 pt-5 pb-5"><i className="bi bi-youtube h1"></i></div>
                                         <div className="icon px-3 pt-5 pb-5"><i className="bi bi-facebook h1"></i></div>
@@ -27,7 +27,7 @@ const Footer = () => {
                             </div>
                         </div>
                     </div>
-                    <div class="col SupportImgDiv">
+                    <div className="col SupportImgDiv">
                         <img src={SupportImg} alt="SupportImg" className="SupportImg" />
                     </div>
 
