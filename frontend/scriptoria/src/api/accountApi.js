@@ -67,7 +67,7 @@ const confirmPassword = async (point, accountDetails) => {
             },
             body: JSON.stringify(accountDetails)
         })
-        if(response.ok) {
+        if (response.ok) {
             return response.json();
         }
         return response;
@@ -136,6 +136,24 @@ const deleteAccount = async (point, document) => {
     }
 }
 
+const getFriends = async (userId) => {
+    try {
+        const response = await fetch(`http://localhost:5000/getFriends/${userId}`, {
+            method: "GET",
+            credentials: "include",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        })
+        if (response.ok) {
+            return response.json();
+        }
+        return response;
+
+    } catch (error) {
+        console.log(error)
+    }
+}
 export {
     sendEmail,
     editPassword,
@@ -143,6 +161,7 @@ export {
     logoutAccount,
     confirmPassword,
     logoutAll,
-    deleteAccount
+    deleteAccount,
+    getFriends
 }
 
