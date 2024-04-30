@@ -45,7 +45,7 @@ function App() {
           <Route path='GetEmail' element={<GettingEmail />} />
           <Route path='EmailVerifing/:email' element={<EmailVerifing />} />
           <Route path='ResetPassword' element={<ResetPassword />} />
-          <Route path='ReadingPage/:id' element={<ReadingPage />} />
+          
 
           <Route path='logout' element={<LogedOut />} />
 
@@ -53,7 +53,7 @@ function App() {
             <Route path='/' element={<HomePage />} />
             <Route path="profile/:username" element={<Profile />} />
             <Route path='Search/:criteria' element={<SearchResultsPage />} />
-            <Route path='StoryPage/:id' element={<StoryPage />} />
+            <Route path='ReadingPage/:id' element={<ReadingPage />} />
             <Route path='TeamMembers' element={<AllMembers />} />
             <Route path='book' element={<BookToDisplay />} />
             <Route path='settings/:id' element={<Settings />} />
@@ -62,8 +62,8 @@ function App() {
             <Route path='profile/:userName/lists' element={<AllListsPage />} />
             <Route path='profile/:userName/lists/:id' element={<ListPage />} />
             <Route path='story/:id' element={<StoryPage />} />
+            <Route path='MyWorks/:id' element={<MyWorks />} />
             <Route element={<RequireAuth />}>
-              <Route path='MyWorks/:id' element={<MyWorks />} />
               <Route path='WritingPage/:id' element={<WritingPage />} />
               <Route path='StoryDetails' element={<StoryDetails />} />
               <Route path='StoryDetails/:id' element={<StoryDetails />} />
