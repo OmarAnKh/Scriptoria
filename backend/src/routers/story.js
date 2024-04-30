@@ -11,37 +11,6 @@ import { converImgToBuffer } from "../utils/image.js";
 const router = new express.Router();
 
 
-router.post(
-    "/story",
-    authentication,
-    async (req, res) => {
-        try {
-            const imageURL = req.body.coverPhoto;
-            const imageResponse = await axios.get(imageURL, {
-                responseType: "arraybuffer",
-            });
-            const buffer = await sharp(imageResponse.data)
-                .resize({ width: 250, height: 250 })
-                .png()
-                .toBuffer();
-
-            const story = new Story(req.body);
-            story.coverPhoto = buffer;
-            await story.save();
-            const writers = new Writers({
-                AccountId: req.user._id,
-                StoryId: story._id,
-            });
-            await writers.save();
-            res.status(201).send({ story, writers });
-        } catch (error) {
-            res
-                .status(500)
-                .send({ error: "An error occurred while processing your request" });
-        }
-    }
-);
-
 router.post("/story", authentication, async (req, res) => {
     try {
         const buffer = await converImgToBuffer(req.body.coverPhoto);

@@ -221,7 +221,8 @@ const StoryDetails = () => {
       mainCharacters: mainCharacters
     };
     const res = await story("story", storyData, auth.token);
-    navigate(`/WritingPage/${res.story._id}`);
+    console.log(res)
+    navigate(`/WritingPage/${res?.story?._id}`);
   }
 
   const handelCancel = () => {

@@ -63,9 +63,7 @@ const WpNavBar = ({ setMode, data, setData, setState }) => {
   }, [ruleState, removeState, addUserState])
 
 
-  const saveData = () => {
-    console.log(localStorage.getItem('story'))
-  }
+
   const handleMode = () => {
     setMode();
   };

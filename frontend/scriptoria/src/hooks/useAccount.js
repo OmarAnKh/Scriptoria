@@ -1,4 +1,5 @@
 import { findAccount } from "../api/accountApi";
+import { getStories } from "../api/writers";
 
 const useAccount = () => {
     const getAccountByUserName = async (userName) => {
@@ -25,7 +26,16 @@ const useAccount = () => {
             console.log(error);
         }
     }
-    return { getAccountByUserName, getAccountByEmail, getAccountById };
+
+    const getAccountWork = async (id, flag) => {
+        try {
+            const works = await getStories(id, flag);
+            return works;
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    return { getAccountByUserName, getAccountByEmail, getAccountById, getAccountWork };
 }
 
 export default useAccount;

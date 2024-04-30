@@ -1,4 +1,5 @@
-.list-card i, .list-card .list-btns i {
+.list-card i,
+.list-card .list-btns i {
   opacity: 0;
   font-size: 18px;
   color: #fff;
@@ -8,6 +9,7 @@
   -webkit-transition: all 0.2s ease;
   transition: all 0.2s ease;
 }
+
 .list-card {
   position: relative;
   width: 25em;
@@ -15,6 +17,7 @@
   background-color: #fff !important;
   overflow: hidden;
 }
+
 .list-card .list-name {
   z-index: 99;
   position: absolute;
@@ -22,6 +25,7 @@
   right: 130px;
   color: #fff;
 }
+
 .list-card .bi-arrow-right-short {
   z-index: 100;
   position: absolute;
@@ -30,6 +34,7 @@
   font-size: 70px;
   cursor: pointer;
 }
+
 .list-card p {
   z-index: 99;
   position: absolute;
@@ -43,6 +48,7 @@
   -webkit-transition: all 0.2s ease;
   transition: all 0.2s ease;
 }
+
 .list-card .list-pic {
   z-index: 100;
   width: 18.75em;
@@ -52,6 +58,7 @@
   filter: brightness(50%) grayscale(50%);
   transition: all 0.1s ease;
 }
+
 .list-card .list-btns {
   position: absolute;
   left: 60px;
@@ -68,19 +75,28 @@
   height: 64px;
   border-radius: 80px;
 }
+
 .list-card .list-btns i:nth-of-type(1) {
   -webkit-transition-delay: 0.2s;
   transition-delay: 0.2s;
 }
+
 .list-card .list-btns i:nth-of-type(2) {
   -webkit-transition-delay: 0.1s;
   transition-delay: 0.1s;
 }
+
+.list-card .list-btns i:nth-of-type(3) {
+  -webkit-transition-delay: 0.1s;
+  transition-delay: 0.1s;
+}
+
 .list-card:hover i {
   opacity: 1;
   -webkit-transform: scale(1);
   transform: scale(1);
 }
+
 .list-card .list-ball {
   position: absolute;
   right: 14px;
@@ -92,27 +108,35 @@
   cursor: pointer;
   outline: none;
   transition: all 0.3s ease;
-  mix-blend-mode : multiply;
+  mix-blend-mode: multiply;
 }
+
 .list-card button i {
   font-size: 3rem;
 }
+
 .list-card:hover .list-ball {
   transform: scale(16.5);
 }
+
 .list-card:hover p {
   color: #fff;
 }
+
 .list-card:hover .list-pic {
   filter: brightness(85%) grayscale(0);
 }
-.list-name{
+
+.list-name {
   text-shadow: 4px 4px 16px #000000;
-  display : -webkit-box;
+  display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
 }
-.edit-list, .delete-list{
+
+.edit-list,
+.delete-list,
+.share-list {
   text-shadow: 2px 2px 8px #000000;
   font-weight: bold;
   -webkit-text-stroke-width: 0.2px;
@@ -120,7 +144,7 @@
   z-index: 100;
 }
 
-.list-cards{
+.list-cards {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -129,45 +153,52 @@
   column-gap: 25px;
 }
 
-.popup-edit-btn, .popup-copy-btn{
+.popup-edit-btn,
+.popup-copy-btn {
   background-color: var(--primary-Color);
 }
 
 @media (max-width: 410px) {
   .list-card {
-      width : 250px;
-      height : 120px;
+    width: 250px;
+    height: 120px;
   }
-  .list-card .list-pic{
-    width : 200px;
-    height : 120px;
+
+  .list-card .list-pic {
+    width: 200px;
+    height: 120px;
   }
-  .list-card .list-name{
-    padding-left : 4px;
+
+  .list-card .list-name {
+    padding-left: 4px;
   }
+
   .list-card .list-btns {
     left: 12px;
     top: 0;
     width: 120px;
     height: 40px;
   }
+
   .list-card p {
     top: 10px;
     right: 30px;
     font-size: 8px;
   }
+
   .list-card .bi-arrow-right-short {
     right: 30px;
     bottom: -10px;
     font-size: 40px;
   }
+
   .list-card .list-ball {
     right: 8px;
     bottom: 8px;
     width: 30px;
   }
+
   .list-card:hover .list-ball {
     transform: scale(8);
   }
 }
-

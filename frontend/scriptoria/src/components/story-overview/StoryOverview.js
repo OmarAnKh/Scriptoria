@@ -58,7 +58,6 @@ const StoryCard = () => {
             }
         };
         fetchProfile();
-        console.log(slide, 100)
     }, []);
 
     return (
@@ -90,7 +89,7 @@ const StoryCard = () => {
                         {stories &&
                             <div>
                                 <h5 className={`card-title story-name ${backgroundColor === 'white' ? 'white-bg' : (backgroundColor === 'beige' ? 'beige-bg' : 'black-bg')}`}>{stories.title}</h5>
-                                <p className={`card-text story-description ${backgroundColor === 'white' ? 'white-bg' : (backgroundColor === 'beige' ? 'beige-bg' : 'black-bg')}`}>{slide}...</p>
+                                <p className={`card-text story-description ${backgroundColor === 'white' ? 'white-bg' : (backgroundColor === 'beige' ? 'beige-bg' : 'black-bg')}`} dangerouslySetInnerHTML={{ __html: slide + "..." }}></p>
                             </div>
                         }
                         <button className="btn btn-primary btn-Start-Reading" onClick={handleStartReading} style={{ backgroundColor: stories && stories.backgroundColor }}>Start Reading...</button>
