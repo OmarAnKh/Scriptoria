@@ -6,6 +6,7 @@ import Navbar from "../navbar/Navbar";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import useAuth from "../../hooks/useAuth";
+import WelcomeCard from "../welcome-card/WelcomeCard.js";
 
 const HomePage = () => {
     const [alert, setAlert] = useState(false);
@@ -29,6 +30,7 @@ const HomePage = () => {
     return (
         <>
             <Navbar />
+            {!auth.userName ? <WelcomeCard /> : <></>}
             <CarouselCards />
             <DiscoverTable select={selectedTab} onSelect={handleTabSelect} />
             <StoryCard selectedTab={selectedTab} />

@@ -1,0 +1,134 @@
+.levimg {
+    width: 450px;
+    position: absolute;
+    top: 18%;
+    z-index: 2;
+    margin-left: 10px;
+    animation: hover 3s ease-in-out infinite;
+    filter: drop-shadow(0px 25px 10px rgba(0, 0, 0, 0.5));
+}
+
+.book-img {
+    left: 0;
+}
+
+.loop-img {
+    width: 500px;
+    height: 500px;
+    position: relative;
+    z-index: 1;
+    animation: rotate 16s ease infinite;
+}
+
+.welcomecard {
+    position: relative;
+    background-color: var(--accent-Color);
+    border-top: 2px solid rgba(0, 0, 0, 0.322);
+}
+
+.borderrss {
+    border: 1px solid rgba(0, 0, 0, 0.322);
+}
+
+.WelcomeText {
+    font-size: 32px;
+    display: flex;
+    justify-content: center;
+    padding-top: 3rem;
+}
+
+.WelcomeText p {
+    font-family: Brasika;
+    color: var(--darker--primary-Color);
+    padding-left: 10px;
+}
+
+.DescTitle {
+    font-size: x-large;
+    padding-bottom: 1.5rem;
+}
+
+.DescTitlep {
+    font-size: small;
+    text-align: center;
+}
+
+.WaveTopStyle {
+    width: 100vw;
+    fill: var(--accent-Color);
+}
+
+.sginbutton {
+    padding: 12px 20px;
+    border: none;
+    outline: none;
+    background-color: var(--primary-Color);
+    color: #000000;
+    border-radius: 7px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.25s ease-out;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-weight: 700;
+    width: 130px;
+    height: 50px;
+    margin: 15px 15px 5px 0px;
+    text-decoration: none;
+    text-align: center;
+    filter: drop-shadow(10px 5px 10px rgba(0, 0, 0, 0.3));
+}
+
+.sginbutton:hover {
+    transform: translateY(-3px);
+}
+
+@media only screen and (max-width: 981px) {
+    .DisplayNoneCol {
+        display: none;
+    }
+
+    .DescTitle {
+        font-size: large;
+        padding-bottom: 1.5rem;
+    }
+}
+
+@font-face {
+    font-family: 'Brasika';
+    src: url('../../fonts/BrasikaDisplay.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Poppins';
+    src: url('../../fonts/Poppins-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes hover {
+    0% {
+        transform: translate(0, 0px);
+    }
+
+    50% {
+        transform: translate(0, 15px);
+    }
+
+    100% {
+        transform: translate(0, -0px);
+    }
+}

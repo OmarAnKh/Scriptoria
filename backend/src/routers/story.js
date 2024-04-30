@@ -34,24 +34,24 @@ router.post("/story", authentication, async (req, res) => {
 
 router.get("/MyWorks/:id", async (req, res) => {
     try {
-
-        const Stories = await Story.find({ AccountId: req.body._id });
-        res.status(200).send({ Stories });
+        const storiesObject = await Writers.find({ AccountId: req.params.id });
+        res.status(200).send(storiesObject);
     } catch (error) {
-        console.error(error);
         res.status(500).send("Internal Server Error");
     }
 });
+
 
 router.get("/story/:id", async (req, res) => {
     try {
-        const story = await Story.findById(req.params.id);
-        res.status(200).send(story);
+        const stories = await Story.findById(req.params.id);
+        res.status(200).send(stories);
     } catch (error) {
         console.error(error);
         res.status(500).send("Internal Server Error");
     }
 });
+
 
 
 
@@ -95,6 +95,22 @@ router.get("/search/:criteria", async (req, res) => {
     }
 })
 
+router.get('/stories', async (req, res) => {
+
+    const limit = req.query.limit ? parseInt(req.query.limit, 10) : 7;
+
+    try {
+        const stories = await Story.find({ publishStatus: true }).limit(limit);
+
+        if (!stories) {
+            res.status(404).send();
+        }
+        res.status(200).send(stories);
+
+    } catch (error) {
+        res.status(500).send();
+    }
+})
 router.get('/stories', async (req, res) => {
 
     const limit = req.query.limit ? parseInt(req.query.limit, 10) : 7;
