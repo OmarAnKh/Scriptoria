@@ -1,14 +1,14 @@
 @font-face {
     font-family: 'Poppins';
     src: url('../../fonts/Poppins-Light.ttf') format('truetype');
-    font-weight: bold; 
+    font-weight: bold;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'Lilita One';
     src: url('../../fonts/Righteous-Regular.ttf') format('truetype');
-    font-weight: bold; 
+    font-weight: bold;
     font-style: normal;
 }
 
@@ -22,8 +22,9 @@
 
 .btn-right {
     font-size: 24px;
-    cursor: pointer; 
+    cursor: pointer;
 }
+
 .btnwhite,
 .btnbeige,
 .btnblack {
@@ -71,45 +72,48 @@
     background-color: rgb(153, 153, 157);
     border: none;
 }
-.story-description{
+
+.story-description {
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 20;
     overflow: hidden;
-    margin:30px auto 0;
+    margin: 30px auto 0;
     text-align: left;
 }
+
 .story-prev {
     width: 800px;
-    flex: 0 0 75%; 
-    max-width: 75%; 
+    flex: 0 0 75%;
+    max-width: 75%;
     flex: 1;
     min-Width: 600px;
     height: 600px;
 }
 
 .prof-card {
-    flex: 0 0 25%; 
-    max-width: 25%; 
+    flex: 0 0 25%;
+    max-width: 25%;
     margin-Left: -100px;
 }
 
-.profileCard{
-    margin-Left: -200px ;
-     transform: translateY(-10%)
+.profileCard {
+    margin-Left: -200px;
+    transform: translateY(-10%)
 }
+
 .container-details {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 100% ;
+    width: 100%;
 }
-  
+
 .row-details {
     display: flex;
     justify-content: space-between;
     width: 1000px;
-     height: 600px;
+    height: 600px;
 }
 
 
@@ -128,17 +132,18 @@
 
 .card-title.black-bg,
 .card-text.black-bg {
-    color: white; 
+    color: white;
 }
+
 .card-title.beige-bg,
 .card-text.beige-bg {
-    color: black; 
+    color: black;
 }
 
 @media (max-width: 992px) {
-    .story-prev  {
+    .story-prev {
         max-width: 400px;
-        justify-content: space-between; 
+        justify-content: space-between;
     }
 
     .prof-card {
@@ -149,7 +154,7 @@
     .container-details {
         display: flex;
     }
-      
+
     .row-details {
         display: block;
         justify-content: space-between;
@@ -157,8 +162,8 @@
 }
 
 @media (max-width: 768px) {
-    .story-prev  {
-        max-width: 300px; 
+    .story-prev {
+        max-width: 300px;
         justify-content: space-between;
     }
 
@@ -169,7 +174,7 @@
     .container-details {
         display: flex;
     }
-      
+
     .row-details {
         display: block;
         justify-content: space-between;
@@ -177,14 +182,14 @@
 }
 
 @media (max-width: 576px) {
-    .story-prev  {
-        max-width: 200px; 
-        
+    .story-prev {
+        max-width: 200px;
+
     }
 
     .container-details {
         display: flex;
     }
-      
-  
+
+
 }

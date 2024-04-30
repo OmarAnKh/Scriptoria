@@ -33,8 +33,8 @@ const FriendsList = () => {
                             </button>
                             <img src={friend.imageUrl} alt="Profile" className="rounded-circle  imgprofile img-fluid" />
                             <div>
-                                <h5 className=" card-title friends-name ">{friend.name}</h5>
-                                <p className="card-text friends-username mb-2 text-muted  ">@{friend.username}</p>
+                                <h5 className=" friends-name ">{friend.name}</h5>
+                                <p className="friends-username mb-2  ">@{friend.username}</p>
                             </div>
                         </div>
                         <FriendsListBtn />

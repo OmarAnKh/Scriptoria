@@ -269,7 +269,7 @@ const StoryDetails = () => {
                   <div className="d-flex">
                     <StoryDetailsInput className="col-md-4" title={t("StoryDetails.characters")} defaultValue={""} type="text" method={setMainCharactersHelper} error={mainCharactersError} />
                     <div className="col-md-4 align-self-center mx-2 my-4">
-                      <button className='btn btn-primary ml-2' style={{ backgroundColor: "#AC967F" }} onClick={() => handaleMainCharacters(mainCharactersHelper)}>+</button>
+                      <button className='btn btn-primary ml-2' style={{ backgroundColor: "var(--background-Color)", color: "var(--text-Color)", borderColor: "var(--accent-Color)" }} onClick={() => handaleMainCharacters(mainCharactersHelper)}>+</button>
                     </div>
                     <StoryDetailsOption title={t("StoryDetails.background")}
                       options={colors}
@@ -286,8 +286,8 @@ const StoryDetails = () => {
                     mainCharacters.map((mainCharacter, idx) => {
                       return (
                         <div key={idx} className="d-flex align-items-center rounded p-1">
-                          <li className='list-group-item' style={{ width: "200px", wordBreak: "break-word" }}>{mainCharacter}</li>
-                          <button className='btn mx-1 py-1' style={{ backgroundColor: "#AC967F" }} onClick={() => handelDelete(setMainCharacters, idx)}>X</button>
+                          <li className='list-group-item' style={{ width: "200px", wordBreak: "break-word", backgroundColor: "var(--primary-Color)", color: "var(--text-Color)", border:"var(--primary-Color)", borderRadius: "5px" }}>{mainCharacter}</li>
+                          <button className='mx-1 py-1 btn btn-primary ml-2' style={{ backgroundColor: "var(--primary-Color)", color: "var(--text-Color)", border:"var(--primary-Color)" }} onClick={() => handelDelete(setMainCharacters, idx)}>X</button>
                         </div>
                       )
                     })
@@ -341,7 +341,7 @@ const StoryDetails = () => {
                       }}
                     >
                       {({ onClick }) => (
-                        <button type="button" className='btn btn-secondary' onClick={onClick} style={{ backgroundColor: "#AC967F" }}>
+                        <button type="button" className='btn btn-secondary' onClick={onClick} style={{ backgroundColor: "var(--primary-Color)", color: "var(--text-Color)", border: "var(--primary-Color)" }}>
                           {t("StoryDetails.add_cover")} *
                         </button>
                       )}
@@ -355,8 +355,8 @@ const StoryDetails = () => {
               </div>
               <div className='row justify-content-end my-5'>
                 <div className="col-auto">
-                  <button className='btn btn-secondary mx-2' style={{ backgroundColor: "#AC967F" }} onClick={handalStartWriting}>{t("StoryDetails.start")}</button>
-                  <button className='btn btn-secondary' style={{ backgroundColor: "#E1D8D1" }} onClick={handelCancel}>{t("StoryDetails.cancel")}</button>
+                  <button className='btn btn-secondary mx-2' style={{ backgroundColor: "var(--primary-Color)", color: "var(--text-Color)", border: "var(--primary-Color)" }} onClick={handalStartWriting}>{t("StoryDetails.start")}</button>
+                  <button className='btn btn-secondary' style={{ backgroundColor: "var(--primary-Color)", color: "var(--text-Color)", border: "var(--primary-Color)" }} onClick={handelCancel}>{t("StoryDetails.cancel")}</button>
                 </div>
               </div>
             </div>

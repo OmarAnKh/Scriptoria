@@ -14,7 +14,6 @@ import SearchResultsPage from './components/search-results/SearchResults.js'
 import Settings from './components/settings/Settings.js';
 import Profile from './components/profile-page/Profile.js';
 import AllMembers from './components/team-members/AllMembers.js';
-import BookToDisplay from './components/book-holder/book-to-display/BookToDisplay.js';
 import LogedOut from './components/loged-out/LogedOut.js'
 import Layout from './components/layout/Layout.js';
 import PersistLogin from './components/persist-login/PersistLogin.js';
@@ -53,7 +52,6 @@ function App() {
             <Route path='Search/:criteria' element={<SearchResultsPage />} />
             <Route path='ReadingPage/:id' element={<ReadingPage />} />
             <Route path='TeamMembers' element={<AllMembers />} />
-            <Route path='book' element={<BookToDisplay />} />
             <Route path='settings/:id' element={<Settings />} />
             <Route path=':userName/lists' element={<AllListsPage />} />
             <Route path='profile/:userName/lists' element={<AllListsPage />} />

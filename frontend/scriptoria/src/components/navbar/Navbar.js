@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Logo from "../../img/scriptoria-logo.png"
+import Logo from "../../img/scriptoria-logo-black.png"
 import "./Navbar.css";
 import NavHomeButton from "./NavbarButton";
 import { findAccount } from "../../api/accountApi";
 import { useTranslation } from 'react-i18next';
 import useLogout from "../../hooks/useLogout";
 import useAuth from "../../hooks/useAuth";
+import ThemeToggle from "../theme-toggle/ThemeToggle.js"
 
 const NavHomeLink = ({ to, children }) => (
     <Link className="nav-link" to={to}>{children}</Link>
@@ -163,16 +164,17 @@ const Navbar = () => {
                                 <NavHomeButton iclassName="bi bi-search search-icon" className="input-group rounded" buttonClassName="input-group-text border-0 button-search" method={searchHandel}>
                                     <input type="search" className="form-control rounded search-navbar-input" placeholder={t("Navbar.search")} aria-label="Search" aria-describedby="search-addon" onChange={(event) => { setSearchCriteria(event.target.value) }} />
                                 </NavHomeButton>
+                                <ThemeToggle />
                             </div>
                             <div className="right-side">
                                 {
                                     hasAccount.token ? <><Link type="button" className="addstory btn btn-outline-dark rounded-5 m-2" to={`/StoryDetails`}>
                                         {t("Navbar.add_a_story")}
                                     </Link>
-                                        <NavHomeButton iclassName="bi bi-globe2" className="navbar-button" buttonClassName="btn btn rounded-5 m-2" isDropDown={true} accountDropDown={languageDropDown} />
-                                        <NavHomeButton iclassName="bi bi-inbox" className="navbar-button" buttonClassName="btn btn rounded-5 m-2" method={noHandel} />
-                                        <NavHomeButton iclassName="bi bi-bell" className="navbar-button" buttonClassName="btn btn rounded-5 m-2" method={noHandel} />
-                                        <NavHomeButton iclassName="bi bi-person-circle" className="navbar-button" buttonClassName="btn btn rounded-5 m-2" isDropDown={true} accountDropDown={accountDropDown} />
+                                        <NavHomeButton iclassName="bi bi-globe2 navbar-button" className="navbar-button" buttonClassName="btn btn rounded-5 m-2" isDropDown={true} accountDropDown={languageDropDown} />
+                                        <NavHomeButton iclassName="bi bi-inbox navbar-button" className="navbar-button" buttonClassName="btn btn rounded-5 m-2" method={noHandel} />
+                                        <NavHomeButton iclassName="bi bi-bell navbar-button" className="navbar-button" buttonClassName="btn btn rounded-5 m-2" method={noHandel} />
+                                        <NavHomeButton iclassName="bi bi-person-circle navbar-button" className="navbar-button" buttonClassName="btn btn rounded-5 m-2" isDropDown={true} accountDropDown={accountDropDown} />
                                     </> : <><Link type="button" className="addstory btn btn-outline-dark rounded-5 m-2" to={`/SignIn`}>
                                         {t("Navbar.signIn")}
                                     </Link>
