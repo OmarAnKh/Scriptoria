@@ -3,11 +3,13 @@ import useFollow from '../../hooks/useFollow';
 import useAuth from '../../hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
+import useAccount from '../../hooks/useAccount';
 
 const WriterCard = ({ handleArrowLeftClick, user }) => {
 
     const { setFollow, unFollow, getFollowerCount, isFollowing, getfollowingCount } = useFollow();
     const { auth } = useAuth();
+    const { getAccountWork } = useAccount();
 
     const [followersData, setFollowersData] = useState(0);
     const [followingData, setFollowingData] = useState(0);
@@ -26,6 +28,8 @@ const WriterCard = ({ handleArrowLeftClick, user }) => {
             setFollowersData(followerCount.followerCount);
             const followingCount = await getfollowingCount(user?._id);
             setFollowingData(followingCount.followingsNumber);
+            const accountWorks = await getAccountWork(user?._id, false);
+            setWorksCount(accountWorks?.stories?.length);
         }
         getIsFollowing();
     }, [flag])

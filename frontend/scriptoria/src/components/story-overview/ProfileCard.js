@@ -34,7 +34,6 @@ const ProfileCard = (props) => {
   return (
     <div className="container mt-5">
       {userData.map((user, idx) => {
-        console.log(idx)
         return (
           <div key={idx} className="mb-3">
             <WriterCard handleArrowLeftClick={handleArrowLeftClick} user={user} worksCount={worksCount} />
