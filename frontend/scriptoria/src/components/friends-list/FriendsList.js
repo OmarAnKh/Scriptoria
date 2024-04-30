@@ -1,26 +1,36 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './FriendsList.css';
 import FriendsListBtn from './FriendsListBtn';
 import { useTranslation } from 'react-i18next';
+import { getFriends } from '../../api/accountApi';
 
-const friendsinfo = [
-    { name: 'Omar Khalili', username: 'Omarkhalili', imageUrl: 'https://assets.website-files.com/6214e7d4ee77846c19ee2dab/64789b44f257164ca2906859_Profile%20Placeholder.png', icon: 'https://d3k81ch9hvuctc.cloudfront.net/company/Wi8qPx/images/f12b4ab0-e38b-4baa-9f5f-1f61586750ad.png' },
-    { name: 'Amjad Awad', username: 'AmjadAwad', imageUrl: 'https://assets.website-files.com/6214e7d4ee77846c19ee2dab/64789b44f257164ca2906859_Profile%20Placeholder.png', icon: 'https://png.pngtree.com/png-clipart/20230410/original/pngtree-blogging-line-icon-png-image_9042396.png' },
-    { name: 'Abood Jbr', username: 'AboodJbr', imageUrl: 'https://assets.website-files.com/6214e7d4ee77846c19ee2dab/64789b44f257164ca2906859_Profile%20Placeholder.png', icon: 'https://maplibre.org/roadmap/documentation/image.png' },
-    { name: 'Mohmmad Ali', username: 'MohmmadAli', imageUrl: 'https://assets.website-files.com/6214e7d4ee77846c19ee2dab/64789b44f257164ca2906859_Profile%20Placeholder.png', icon: 'https://maplibre.org/roadmap/documentation/image.png' },
-    { name: 'Ahmad Iyrot alt', username: 'AhmadIyrotalt', imageUrl: 'https://assets.website-files.com/6214e7d4ee77846c19ee2dab/64789b44f257164ca2906859_Profile%20Placeholder.png', icon: 'https://png.pngtree.com/png-clipart/20230410/original/pngtree-blogging-line-icon-png-image_9042396.png' },
-    { name: 'Areen Abudayeh', username: 'AreenAbudayeh', imageUrl: 'https://assets.website-files.com/6214e7d4ee77846c19ee2dab/64789b44f257164ca2906859_Profile%20Placeholder.png', icon: 'https://maplibre.org/roadmap/documentation/image.png' },
-    { name: 'Lama Shraim', username: 'LamaShrim', imageUrl: 'https://assets.website-files.com/6214e7d4ee77846c19ee2dab/64789b44f257164ca2906859_Profile%20Placeholder.png', icon: 'https://maplibre.org/roadmap/documentation/image.png' },
-    { name: 'Noor', username: 'Noor', imageUrl: 'https://assets.website-files.com/6214e7d4ee77846c19ee2dab/64789b44f257164ca2906859_Profile%20Placeholder.png', icon: 'https://maplibre.org/roadmap/documentation/image.png' },
-];
+// const friendsinfo = [
+//     { name: 'Omar Khalili', username: 'Omarkhalili', imageUrl: 'https://assets.website-files.com/6214e7d4ee77846c19ee2dab/64789b44f257164ca2906859_Profile%20Placeholder.png', icon: 'https://d3k81ch9hvuctc.cloudfront.net/company/Wi8qPx/images/f12b4ab0-e38b-4baa-9f5f-1f61586750ad.png' },
+//     { name: 'Amjad Awad', username: 'AmjadAwad', imageUrl: 'https://assets.website-files.com/6214e7d4ee77846c19ee2dab/64789b44f257164ca2906859_Profile%20Placeholder.png', icon: 'https://png.pngtree.com/png-clipart/20230410/original/pngtree-blogging-line-icon-png-image_9042396.png' },
+//     { name: 'Abood Jbr', username: 'AboodJbr', imageUrl: 'https://assets.website-files.com/6214e7d4ee77846c19ee2dab/64789b44f257164ca2906859_Profile%20Placeholder.png', icon: 'https://maplibre.org/roadmap/documentation/image.png' },
+//     { name: 'Mohmmad Ali', username: 'MohmmadAli', imageUrl: 'https://assets.website-files.com/6214e7d4ee77846c19ee2dab/64789b44f257164ca2906859_Profile%20Placeholder.png', icon: 'https://maplibre.org/roadmap/documentation/image.png' },
+//     { name: 'Ahmad Iyrot alt', username: 'AhmadIyrotalt', imageUrl: 'https://assets.website-files.com/6214e7d4ee77846c19ee2dab/64789b44f257164ca2906859_Profile%20Placeholder.png', icon: 'https://png.pngtree.com/png-clipart/20230410/original/pngtree-blogging-line-icon-png-image_9042396.png' },
+//     { name: 'Areen Abudayeh', username: 'AreenAbudayeh', imageUrl: 'https://assets.website-files.com/6214e7d4ee77846c19ee2dab/64789b44f257164ca2906859_Profile%20Placeholder.png', icon: 'https://maplibre.org/roadmap/documentation/image.png' },
+//     { name: 'Lama Shraim', username: 'LamaShrim', imageUrl: 'https://assets.website-files.com/6214e7d4ee77846c19ee2dab/64789b44f257164ca2906859_Profile%20Placeholder.png', icon: 'https://maplibre.org/roadmap/documentation/image.png' },
+//     { name: 'Noor', username: 'Noor', imageUrl: 'https://assets.website-files.com/6214e7d4ee77846c19ee2dab/64789b44f257164ca2906859_Profile%20Placeholder.png', icon: 'https://maplibre.org/roadmap/documentation/image.png' },
+// ];
 
 const FriendsList = () => {
     const { t } = useTranslation();
     const [showAll, setShowAll] = useState(false);
+    const [friendsinfo, setFriendsInfo] = useState([])
     const toggleShowAll = () => {
         setShowAll(!showAll);
     };
 
+    useEffect(() => {
+
+        const fetchUsers = async () => {
+            const res = await getFriends()
+        }
+
+        fetchUsers();
+    }, [])
     return (
         <div className="container">
             <h2 className="title-friends-list ">{t("FriendsList.friends_List")}</h2>

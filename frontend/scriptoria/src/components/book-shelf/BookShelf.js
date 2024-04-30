@@ -40,7 +40,7 @@ const BookShelf = (props) => {
   const { t } = useTranslation()
   useEffect(() => {
     const fetchWroks = async () => {
-      if (auth?.userInfo._id === props.userId) {
+      if (auth?.userInfo?._id === props.userId) {
         const res = await getStories(props.userId, false)
         setWorks(res.stories)
       } else {

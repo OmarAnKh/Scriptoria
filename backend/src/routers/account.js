@@ -5,6 +5,7 @@ import authentication from "../middleware/authentication.js";
 import axios from "axios";
 import sharp from "sharp";
 import jwt from "jsonwebtoken"
+import Follow from "../models/follow.js";
 import bcrypt from 'bcryptjs'
 import { converImgToBuffer } from "../utils/image.js";
 
@@ -240,6 +241,22 @@ router.delete("/account/delete", async (req, res) => {
         res.status(200).send(account)
     } catch (error) {
         res.status(500).send(error)
+    }
+})
+router.get('/getFriends/:userId', async (req, res) => {
+    const userId = req.params.userId
+    try {
+        const myfollowing = await Follow.find({ account: userId })
+         if (myfollowing.length > 0) {
+            const myfollowingId = myfollowing.map(following => { return following.follow });
+            const users = await Follow.find({ account: { $in: myfollowingId }, follow: userId })
+            const usersId = users.map(following => { return following.account });
+            const friends = await Account.find({ _id: { $in: usersId } })
+            return res.status(200).send({ message: true, friends })
+        }
+        return res.status(400).send({ message: false })
+    } catch (error) {
+        return res.status(500).send({ message: false, error })
     }
 })
 
