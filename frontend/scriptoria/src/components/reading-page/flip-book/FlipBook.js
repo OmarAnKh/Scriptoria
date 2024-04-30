@@ -96,7 +96,7 @@ function StoryPage(props) {
     return (
         <>
             <Navbar />
-            <div className="StoryPage d-flex flex-column align-items-center justify-content-center vh-100">
+            <div className="StoryPage d-flex flex-column align-items-center justify-content-center my-3">
                 <HTMLFlipBook
                     width={400 + bookWidth / 2 - 50}
                     height={600}
@@ -104,7 +104,6 @@ function StoryPage(props) {
                     mobileScrollSupport={true}
                     onFlip={handlePageTurn}
                     ref={flipBookRef}
-
                 >
                     {slide && slide.map((text, index) => (
                         <Page key={index}>
