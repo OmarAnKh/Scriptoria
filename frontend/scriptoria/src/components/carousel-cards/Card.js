@@ -62,7 +62,7 @@ const Card = ({ data }) => {
                             <StarRating rating={ratings} />  &emsp; {votes} votes
                         </span>
                         <p className="CarouselCards-text text-sm">{data.description}</p>
-                        <button type="button" className="btn btn-light rounded-4 px-5 fw-bold read-btn" onClick={() => handleReadStory(data._id)}>{t("CarouselCards.read_the_book")}</button>
+                        <Link to={`/story/${data._id}`}><button type="button" className="btn btn-light rounded-4 px-5 fw-bold read-btn">{t("CarouselCards.read_the_book")}</button></Link>
                     </div>
                 </div>
             </div>

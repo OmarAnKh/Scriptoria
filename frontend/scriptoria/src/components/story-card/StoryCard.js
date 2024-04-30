@@ -53,6 +53,7 @@ const StoryCard = ({ selectedTab }) => {
                                             <div className='voters text-white'>{story?.counts?.rates} votes</div>
                                         </div>
                                         <p className="card-text description-story text-white">{story?.story?.description}</p>
+                                        <Link to={`/story/${story?.story?._id}`}><button type="button" className="btn btn-light rounded-4 px-5 fw-bold read-btn">{t("CarouselCards.read_the_book")}</button></Link>
                                     </div>
                                 </div>
                             </div>

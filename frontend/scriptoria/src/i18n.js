@@ -12,9 +12,6 @@ i18n
     returnEmptyString: false,
     debug: true,
     fallbackLng: 'en',
-    detection: {
-      order: ['cookie', 'path', 'htmlTag'],
-    },
     backend: {
       loadPath: '/locales/{{lng}}/{{ns}}.json',
     },

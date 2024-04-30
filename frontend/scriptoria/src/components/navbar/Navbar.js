@@ -76,6 +76,10 @@ const Navbar = () => {
             title: t("Navbar.lists"),
             to: accountUserName + "/lists",
             method: noHandel
+        }, {
+            title: "My works",
+            to: `/MyWorks/${auth?.userInfo?._id}`,
+            method: noHandel
         },
         {
             title: t("Navbar.settings"),

@@ -17,7 +17,7 @@ const ProfileBooks = (props) => {
                     <BookShelf username={props.username} userId={props.userId} />
                 </div>
                 <div className="col-md-4">
-                    <FriendsList username={props.username} />
+                    <FriendsList username={props.username} userId={props.userId} />
                 </div>
             </div>
         </>
