@@ -80,8 +80,6 @@
 
 .button-icon {
     margin-right: 10px;
-    width: 27px;
-    height: 27px;
     background-color: var(--accent-Color);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
     border-radius: 5px;

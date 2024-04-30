@@ -32,7 +32,7 @@ const StoryCard = ({ selectedTab }) => {
         <div>
             <div className="d-flex flex-wrap">
                 {storyData.map((story, index) => (
-                    <div key={story.id} className={`col-md-4 mb-3 ${index >= visiblestory ? 'd-none' : ''} my-5`}>
+                    <div key={index} className={`col-md-4 mb-3 ${index >= visiblestory ? 'd-none' : ''} my-5`}>
                         <div className={`card mb-1`} style={{ width: '95%', height: '100%', margin: '0 10px', minHeight: '200px', backgroundColor: story?.story?.backgroundColor }}>
                             <div className="row no-gutters">
                                 <div className="col-md-4">

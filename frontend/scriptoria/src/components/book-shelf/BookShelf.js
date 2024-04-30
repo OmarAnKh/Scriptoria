@@ -57,10 +57,11 @@ const BookShelf = (props) => {
         const data = await getValidStoriesFrom(props.userName, list._id, auth?.userInfo?._id);
         const stories = data?.stories?.filter((story) => story !== undefined);
         let cover = logo;
+        let id = list._id
         if (stories?.length > 0) {
           cover = `data:image/png;base64,${Buffer.from(stories[0]?.coverPhoto).toString('base64')}`;
         }
-        return cover;
+        return { cover, id };
       });
       const covers = await Promise.all(coverPromises);
       setCovers(covers);
@@ -110,7 +111,7 @@ const BookShelf = (props) => {
             return (
               <div className="row justify-content-center" key={idx}>
                 <div className="col-lg-12">
-                  <Book data={`data:image/png;base64,${Buffer.from(book.coverPhoto).toString('base64')}`} id={book._id} />
+                  <Book data={`data:image/png;base64,${Buffer.from(book.coverPhoto).toString('base64')}`} to={`/story/${book._id}`} />
                 </div>
               </div>
             )
@@ -148,11 +149,10 @@ const BookShelf = (props) => {
               customLeftArrow={<CustomLeftArrow />}
             >
               {covers.map((cover, idx) => {
-                console.log(cover, 10)
                 return (
                   <div className="row justify-content-center" key={idx}>
                     <div className="col-lg-12">
-                      {cover ? <Book data={cover} /> : <></>}
+                      {cover ? <Book data={cover.cover} to={`/profile/${props.username}/lists/${cover.id}`} /> : <></>}
                     </div>
                   </div>
                 )

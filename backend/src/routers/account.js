@@ -247,7 +247,7 @@ router.get('/getFriends/:userId', async (req, res) => {
     const userId = req.params.userId
     try {
         const myfollowing = await Follow.find({ account: userId })
-         if (myfollowing.length > 0) {
+        if (myfollowing.length > 0) {
             const myfollowingId = myfollowing.map(following => { return following.follow });
             const users = await Follow.find({ account: { $in: myfollowingId }, follow: userId })
             const usersId = users.map(following => { return following.account });
