@@ -1,5 +1,4 @@
 import "./Navbar.css"
-import "./Navbar.css"
 import React, { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import { FaBars, FaTimes } from "react-icons/fa";
@@ -48,7 +47,6 @@ const NavBar = () => {
     const noHandel = () => { }
     const translationHandler = (lang) => {
         i18n.changeLanguage(lang)
-        localStorage.setItem('i18nextLng', lang)
         return
     }
     const logoutHandel = async () => {
@@ -139,7 +137,7 @@ const NavBar = () => {
     return (
         <header>
             <div>
-                <div className="NavLogo mx-2"/>
+                <div className="NavLogo mx-2" />
                 <Link to={'/'} className="ScriptoriaName">Scriptoria</Link>
             </div>
 
@@ -156,26 +154,34 @@ const NavBar = () => {
             </nav>
 
             <nav className="hello">
-            
+
                 {
                     auth.userName ? <>
                         <Link type="button" className="addstory btn rounded-5 m-2" to={`/StoryDetails`}>
                             {t("Navbar.add_a_story")}
                         </Link>
+                        <div className="wrapper">
+                            <input
+                                type="checkbox"
+                                name="checkbox"
+                                className="switch"
+                                onChange={toggleTheme}
+                            />
+                        </div>
                         <NavHomeButton iclassName="bi bi-globe2 navbar-button" className="navbar-button" buttonClassName="btn btn rounded-5 m-2" isDropDown={true} accountDropDown={languageDropDown} />
-                        <NavHomeButton iclassName="bi bi-moon-stars navbar-button" className="navbar-button" buttonClassName="btn btn rounded-5 m-2" method={toggleTheme} />
-                        <NavHomeButton iclassName="bi bi-bell navbar-button" className="navbar-button" buttonClassName="btn btn rounded-5 m-2" method={noHandel} />
-                        <NavHomeButton iclassName="bi bi-person-circle navbar-button" className="navbar-button" buttonClassName="btn btn rounded-5 m-2" isDropDown={true} accountDropDown={accountDropDown} />
-                    </> : <></>}
-                <NavHomeButton iclassName="bi bi-globe2 navbar-button" className="navbar-button" buttonClassName="btn btn rounded-5 m-2" isDropDown={true} accountDropDown={languageDropDown} />
-                <div className="wrapper">
-                    <input
-                        type="checkbox"
-                        name="checkbox"
-                        className="switch"
-                        onChange={toggleTheme}
-                    />
-                </div>
+                        {/* <NavHomeButton iclassName="bi bi-bell navbar-button" className="navbar-button" buttonClassName="btn btn rounded-5 m-2" method={noHandel} /> */}
+                        <NavHomeButton pfp={true} className="navbar-button" buttonClassName="btn btn rounded-5 m-2" isDropDown={true} accountDropDown={accountDropDown} />
+                    </> : <>
+                        <NavHomeButton iclassName="bi bi-globe2 navbar-button" className="navbar-button" buttonClassName="btn btn rounded-5 m-2" isDropDown={true} accountDropDown={languageDropDown} />
+                        <div className="wrapper">
+                            <input
+                                type="checkbox"
+                                name="checkbox"
+                                className="switch"
+                                onChange={toggleTheme}
+                            />
+                        </div>
+                    </>}
             </nav>
             <button
                 className="nav-btn"
