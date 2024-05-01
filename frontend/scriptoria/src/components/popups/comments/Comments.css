@@ -12,5 +12,9 @@
     min-height: 300px; 
 }
 
+.comment-icon{
+    color : var(--text-Color)
+}
+
 
 

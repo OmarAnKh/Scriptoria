@@ -48,7 +48,6 @@ const editComment = async (comment, token) =>{
             },
             data : comment 
         })
-        console.log(res)
         return res
     } catch(error){
         console.log(error)
@@ -69,7 +68,6 @@ const deleteComment = async (id, token) => {
         return response.data;
     } catch (error) {
         console.error("error :", error);
-        throw error;
     }
 };
 

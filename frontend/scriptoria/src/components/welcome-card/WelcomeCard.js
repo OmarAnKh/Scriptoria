@@ -3,8 +3,10 @@ import BookImg from '../../img/Book.png'
 import LoopImg from '../../img/Loop.png'
 import AuthButtons from './AuthButtons.js'
 import useAuth from '../../hooks/useAuth.js'
+import { useTranslation } from 'react-i18next';
 
 const WelcomeCard = () => {
+    const { t } = useTranslation();
     const { auth } = useAuth();
     
     return (
@@ -17,26 +19,21 @@ const WelcomeCard = () => {
                             <img src={LoopImg} className='loop-img' />
                         </div>
                         <div className="col pt-5">
-                            <p className='WelcomeText'>We Are <p> Scriptoria</p></p>
+                            <p className='WelcomeText'>{t("WelcomeCard.we-are")}<p> {t("WelcomeCard.scriptoria")}</p></p>
                             <div>
-                                <p className='DescTitle d-flex justify-content-center'> Scriptoria is not just another comic-based website</p>
+                                <p className='DescTitle d-flex justify-content-center'>{t("WelcomeCard.desc-title")}</p>
                                 <p className='DescTitlep'>
-                                    it's a vibrant hub for storytellers and creators alike. At Scriptoria, we offer a dynamic platform where individuals can engage in collaborative
-                                    writing ventures, weaving narratives together in an immersive and creative environment. Whether you're a seasoned writer or a budding talent,
-                                    Scriptoria provides a space to publish your original stories, allowing them to flourish and reach a wider audience. But we don't stop there.
-                                    We aspire to be a launchpad for aspiring writers, offering opportunities to be discovered and possibly even assigned into the industry. With
-                                    Scriptoria, the journey from imagination to realization is boundless, and we invite you to join us in crafting the next chapter of storytelling
-                                    excellence.
+                                    {t("WelcomeCard.desc")}
                                 </p>
                             </div>
                             <div className='d-flex justify-content-end'>
                                 <AuthButtons
-                                    title="Sign In"
+                                    title={t("WelcomeCard.sign-in")}
                                     herf="/SignIn"
 
                                 />
                                 <AuthButtons
-                                    title="Sign Up"
+                                    title={t("WelcomeCard.sign-up")}
                                     herf="/SignUp"
                                 />
                             </div>

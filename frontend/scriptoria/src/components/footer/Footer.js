@@ -5,7 +5,7 @@ import React from "react";
 import { useTranslation } from 'react-i18next';
 
 const Footer = () => {
-    // const { t } = useTranslation()
+    const { t } = useTranslation()
     return (
         <>
             <svg className="WaveTopStyle img-fluid flipitupside" width="1440" height="88" viewBox="0 0 1440 88" xmlns="http://www.w3.org/2000/svg">
@@ -16,7 +16,7 @@ const Footer = () => {
                     <div className="row pt-5">
                         <div className="col firstCol">
                             <div className="SupportText">
-                                <h1 className="NeedHelpText">Need help?! Reach out!</h1>
+                                <h1 className="NeedHelpText">{t("Footer.need-help-reach-out")}</h1>
                                 <div className="container-fluid">
                                     <div className="row">
                                         <div className="d-flex iconsrow justify-content-center">
@@ -26,7 +26,7 @@ const Footer = () => {
                                             <div className="icon px-3 pt-5 pb-5"><i className="bi bi-envelope-at h1"></i></div>
                                             <div className="icon px-3 pt-5 pb-5"><i className="bi bi-instagram h1"></i></div>
                                         </div>
-                                        <div className="fitcon">For business inquiries, please reach out to us via email.</div>
+                                        <div className="fitcon">{t("Footer.reach-out-via-email")}</div>
                                     </div>
                                 </div>
                             </div>

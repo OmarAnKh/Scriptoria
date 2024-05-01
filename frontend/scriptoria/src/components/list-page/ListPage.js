@@ -13,7 +13,6 @@ import './ListPage.css'
 
 const ListPage = () => {
   const { auth } = useAuth()
-  const {t} = useTranslation()
   const { userName, id } = useParams()
   const [list, setList] = useState({})
   const [name, setName] = useState("");
@@ -29,7 +28,6 @@ const ListPage = () => {
       }
     };
     fetchData();
-    console.log(list?.stories)
   }, [userName, id, auth?.userInfo?._id]);
 
 const update = async ()=>{
@@ -60,7 +58,6 @@ const update = async ()=>{
                     {list?.stories && list?.stories.map((story, index) => {
                         return (
                             <React.Fragment key={index}>
-                                {console.log(story)}
                                 <MyCard
                                     photo={`data:image/png;base64,${Buffer.from(story?.coverPhoto).toString('base64')}`}
                                     storytitle={story.title}

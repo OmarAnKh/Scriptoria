@@ -66,7 +66,7 @@ const StoryHeader = () => {
 
 
     return (
-        <div className="col-lg-12 details-card" style={{ background: `linear-gradient(to bottom, ${data?.backgroundColor}, white)` }}>
+        <div className="col-lg-12 details-card" style={{ background: `linear-gradient(to bottom, ${data?.backgroundColor}, rgba(255,0,0,0))` }}>
             <div className="row g-0">
                 <div className="col-md-2">
                     <img src={coverPhoto} className="img-fluid rounded-start details-img" alt="..." />

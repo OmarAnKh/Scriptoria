@@ -1,6 +1,9 @@
 import { Link } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
 
 const NavHomeButton = (props) => {
+    const {auth} = useAuth()
+    const cover = `data:image/png;base64,${auth?.userInfo?.profilePicture}`
     if (!props.isDropDown) {
         return (
             <div className={props.className}>
@@ -11,9 +14,13 @@ const NavHomeButton = (props) => {
     }
     return (
         <div className={props.className}>
-            <button type="button" className={props.buttonClassName} data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {
+                props.pfp? <button type="button" className="btn p-0 rounded-5 border border-2 border-white" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <img src={cover} className="img-fluid object-fit-cover rounded-5" width="35"></img>
+            </button> : <button type="button" className={props.buttonClassName} data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i className={props.iclassName}></i>
             </button>
+            }
             <div className="dropdown-menu dropdown-menu-end dropdown-menu-right">
                 {
                     props.accountDropDown.map((accountInfo, idx) => {

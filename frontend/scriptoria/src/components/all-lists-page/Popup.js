@@ -27,11 +27,11 @@ const Popup = ({ page, list, update }) => {
           stories: [...list.stories],
           privacy: list.privacy
         };
-        await createReadingList(newList, auth?.token)
-        toast.success("you have copied this list successfully")
+        const res = await createReadingList(newList, auth?.token)
+        if(res.statusText==='OK') toast.success("you have copied this list successfully")
       } else if (type === 'delete') {
-        await deleteReadingList(list._id, auth?.token)
-        toast.success("you have deleted this list successfully")
+        const res = await deleteReadingList(list._id, auth?.token)
+        if(res.statusText==='OK') toast.success("you have deleted this list successfully")
         window.location.reload()
       } else if (type === 'edit') {
         const stories = page === "list" ? list.stories.map((story) => story._id) : list.stories
@@ -39,11 +39,11 @@ const Popup = ({ page, list, update }) => {
           name: name,
           stories,
           accountId: list.accountId,
-          privacy: list.privacy,
+          privacy: document.getElementById('list-privacy').value,
           _id: list._id
         };
-        await updateList(editedList, auth?.token)
-        toast.success("you have deleted this list successfully")
+        const res = await updateList(editedList, auth?.token)
+        if(res.statusText==='OK') toast.success("you have edited this list successfully")
       }
       update();
     } catch (error) {

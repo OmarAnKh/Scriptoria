@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const sendRate = async (rate, token) => {
     try {
-        await axios({
+        const res = await axios({
             url: "http://localhost:5000/rate",
             method: "POST",
             headers: {
@@ -12,6 +12,7 @@ const sendRate = async (rate, token) => {
             withCredentials: true,
             data: rate
         });
+        return res
     } catch (error) {
         console.log(error);
     }
@@ -58,7 +59,7 @@ const getStoryRates = async (point, storyId) => {
 const updateRate = async (rate, token) => {
 
     try {
-        await axios({
+        const res = await axios({
             url: "http://localhost:5000/rate/" + rate.StoryId,
             method: "PATCH",
             headers: {
@@ -68,6 +69,7 @@ const updateRate = async (rate, token) => {
             withCredentials: true,
             data: rate
         });
+        return res
     } catch (error) {
         console.log(error);
     }

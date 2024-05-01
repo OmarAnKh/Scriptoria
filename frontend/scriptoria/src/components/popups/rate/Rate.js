@@ -42,17 +42,14 @@ const Rate = ({id}) => {
             rating: value
         };
         try {
-            await toast.promise(
-                isRated ? updateRate(rate, token) : sendRate(rate, token),
-                {
-                    loading: 'Submitting rating...',
-                    success: isRated ? 'Your rating has been updated successfully.' : 'Thank you for rating!',
-                    error: 'Failed to save your rating.',
-                }
-            );
+           
+        const res = isRated ? await updateRate(rate, token) : await sendRate(rate, token)
+            if(res.statusText==='OK') 
+            toast.success('you have rated this story succesfully')
             setIsRated(true);
         } catch (error) {
             console.error('Rating error:', error);
+            toast.error('it looks like theres an error, try again later')
         }
     };
 

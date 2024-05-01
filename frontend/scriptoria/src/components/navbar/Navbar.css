@@ -10,6 +10,9 @@ header {
 
 .NavLogo {
     width: 70px;
+    height: 70px;
+    background: var(--logo) no-repeat center center;
+    background-size: contain;
 }
 
 .addstory {
@@ -35,10 +38,18 @@ header {
     font-size: xx-large;
 }
 
+.nav-link-color{
+    color: var(--text-Color);
+}
+
 nav a {
     margin: 0 1rem;
     color: var(--textColor);
     text-decoration: none;
+}
+
+.navbar-button{
+    color : var(--text-Color)
 }
 
 nav a:hover {

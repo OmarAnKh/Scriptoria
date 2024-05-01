@@ -43,12 +43,7 @@ const Lists = ({ storyId }) => {
 
   const updateData = async () => {
     try {
-        await toast.promise(updateReadingLists(storyId, checkedLists, userName, token), {
-          loading: 'Saving data...',
-          success: 'Data saved successfully.',
-          error: 'Failed to save data.',
-        });
-      
+        await updateReadingLists(storyId, checkedLists, userName, token)
     } catch (error) {
       console.error("Error saving data:", error);
       toast.error("Failed to save data.");
@@ -68,11 +63,8 @@ const Lists = ({ storyId }) => {
         stories: [storyId],
         privacy : document.getElementById("list-privacy").value
       };
-      await toast.promise(createReadingList(newList, token), {
-        loading: 'Creating list...',
-        success: 'List created successfully.',
-        error: 'Failed to create list.',
-      });
+      const res  = await createReadingList(newList, token)
+      if(res.statusText==='OK') toast.success('you have created a new list successfully')
       const updatedLists = await getReadingLists(userName,true);
       if (updatedLists) {
         setLists(updatedLists);
@@ -138,7 +130,7 @@ const Lists = ({ storyId }) => {
                   );
                 }) : <div className="d-flex justify-content-center align-items-center" style={{height : '480px'}}>
                 <div className="text-center text-secondary h6">
-                  you have no lists, create one to save the story
+                {t("SaveTo.you-have-no-lists-create-one-to-save-the-story")}
                 </div>
               </div>}
               </div>

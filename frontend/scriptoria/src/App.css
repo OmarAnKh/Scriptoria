@@ -47,5 +47,6 @@ body {
   --primary-Color: #AC967F;
   --darker--primary-Color: #564B40;
   --accent-Color: #E1D8D1;
+  --logo: url('./img/scriptoria-logo-black.png')
 }
 

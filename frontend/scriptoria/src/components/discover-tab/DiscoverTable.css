@@ -14,8 +14,9 @@
     border-bottom: none;
 }
 
+
 .nav-link-bar {
-    color: var(--text-color);
+    color: var(--text-Color);
     background-color: transparent;
     border: none;
     margin-right: 15px;
@@ -27,7 +28,7 @@
 
 .nav-link-bar:hover {
     background-color: #e9ecef;
-    color: var(--text-color);
+    color: var(--text-Color);
 }
 
 .nav-link-bar.active {
