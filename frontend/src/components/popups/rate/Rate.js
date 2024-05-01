@@ -6,9 +6,9 @@ import { toast } from 'react-hot-toast';
 import useAuth from '../../../hooks/useAuth';
 import { useTranslation } from 'react-i18next';
 
-const Rate = ({id}) => {
+const Rate = ({ id }) => {
 
-    const {t} = useTranslation()
+    const { t } = useTranslation()
     const { auth } = useAuth();
     const [value, setValue] = useState(0);
     const [isRated, setIsRated] = useState(false);
@@ -22,11 +22,11 @@ const Rate = ({id}) => {
         const fetchData = async () => {
             if (user) {
                 setSignedIn(true)
-                const rating = await getRate(id, token );
+                const rating = await getRate(id, token);
                 if (rating !== undefined) {
                     setValue(rating);
                     setButton(t("Rate.update"))
-                    setIsRated(true); 
+                    setIsRated(true);
                 }
             }
         };
@@ -42,10 +42,10 @@ const Rate = ({id}) => {
             rating: value
         };
         try {
-           
-        const res = isRated ? await updateRate(rate, token) : await sendRate(rate, token)
-            if(res.statusText==='OK') 
-            toast.success('you have rated this story succesfully')
+
+            const res = isRated ? await updateRate(rate, token) : await sendRate(rate, token)
+            if (res.statusText === 'OK')
+                toast.success('you have rated this story succesfully')
             setIsRated(true);
         } catch (error) {
             console.error('Rating error:', error);
@@ -56,7 +56,7 @@ const Rate = ({id}) => {
     return (
         <div>
             <div>
-                <h4 className="my-0 mx-2" style={{color: 'white', cursor: 'pointer', justifySelf: 'center'}} data-bs-toggle={auth?.userName ? "modal" : ""}  data-bs-target={auth?.userName? "#rateModal" : ""} onClick={()=>{ if(!auth?.userName) toast.error('you must be logged in to rate this story')}}>{t("Rate.header")}</h4>
+                <h4 className="my-0 mx-2" style={{ color: 'white', cursor: 'pointer', justifySelf: 'center' }} data-bs-toggle={auth?.userName ? "modal" : ""} data-bs-target={auth?.userName ? "#rateModal" : ""} onClick={() => { if (!auth?.userName) toast.error('you must be logged in to rate this story') }}>{t("Rate.header")}</h4>
                 <div className="modal fade" id="rateModal" tabIndex={-1} aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div className="modal-dialog modal-dialog-centered">
                         <div className="modal-content">
