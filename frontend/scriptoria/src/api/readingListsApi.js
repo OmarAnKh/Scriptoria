@@ -23,7 +23,7 @@ const getReadingLists = async (userName, all) => {
 
 const createReadingList = async (list, token) => {
     try {
-        await axios({
+        const res = await axios({
             url: "http://localhost:5000/readingLists",
             method: "POST",
             withCredentials: true,
@@ -33,6 +33,7 @@ const createReadingList = async (list, token) => {
             },
             data: list
         })
+        return res
     } catch (error) {
         console.log(error)
     }
@@ -86,7 +87,7 @@ const getValidStoriesFrom = async (owner, listId, myId )=>{
 const updateList = async (list, token) => {
     
     try {
-        await axios({
+        const res = await axios({
             url: "http://localhost:5000/readingLists/" + list._id,
             method: "PATCH",
             withCredentials: true,
@@ -100,6 +101,8 @@ const updateList = async (list, token) => {
                 privacy: list.privacy
             }
         });
+        console.log(res)
+        return res;
     } catch (error) {
         console.log(error)
     }

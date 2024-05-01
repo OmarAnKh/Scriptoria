@@ -8,39 +8,38 @@ const WritingPage = () => {
   const [data, setData] = useState('');
   const [state, setState] = useState(false)
 
-  // const setMode = () => {
-  //   setZen(!zen);
-  //   document.getElementsByClassName("WpNavBar")[0].style = {
-  //     backgroundColor: zen ? "black" : "#DEE2FF",
-  //   };
-  // };
+  const setMode = () => {
+    setZen(!zen);
+    document.getElementsByClassName("WpNavBar")[0].style = {
+      backgroundColor: zen ? "black" : "#DEE2FF",
+    };
+  };
 
   const [model, setModel] = useState(() => {
     const data = localStorage.getItem("savedHtml");
     return data;
   });
 
-  // const body = document.body;
-  // const html = document.documentElement;
-  // const height = Math.max(
-  //   body.scrollHeight,
-  //   body.offsetHeight,
-  //   html.clientHeight,
-  //   html.scrollHeight,
-  //   html.offsetHeight
-  // );
+  const body = document.body;
+  const html = document.documentElement;
+  const height = Math.max(
+    body.scrollHeight,
+    body.offsetHeight,
+    html.clientHeight,
+    html.scrollHeight,
+    html.offsetHeight
+  );
 
 
   return (
     <div className="WP">
-      {/* <WpNavBar setMode={setMode} data={data} setData={setData} /> */}
-      <WpNavBar data={data} setData={setData} setState={setState} />
+      <WpNavBar data={data} setMode={setMode} setData={setData} setState={setState} />
       <div
 
         className="focus"
         style={{
-          // backgroundColor: zen ? "#25252585" : "#F6F9FE",
-          // height,
+          backgroundColor: zen ? "#25252585" : "#F6F9FE",
+          height,
           transition: "all 0.3s ease-in",
         }}
       >

@@ -1,10 +1,12 @@
+import { useTranslation } from 'react-i18next';
 import './SearchBar.css'
 const SearchBar = () => {
+    const {t} = useTranslation()
     return (
         <div className="search">
             <div className="search-box">
                 <div className="search-field">
-                    <input placeholder="Search..." className="input" type="text" />
+                    <input placeholder={`${t("Navbar.search")}...`} className="input" type="text" />
                     <div className="search-box-icon">
                         <button className="btn-icon-content">
                             <i className="search-icon">

@@ -38,7 +38,7 @@ const getComments = async (storyId) =>{
 
 const editComment = async (comment, token) =>{
     try {
-        await axios({
+        const res = await axios({
             url : "http://localhost:5000/comments/" + comment._id,
             method : "PATCH",
             withCredentials: true,
@@ -48,6 +48,7 @@ const editComment = async (comment, token) =>{
             },
             data : comment 
         })
+        return res
     } catch(error){
         console.log(error)
     }
@@ -67,7 +68,6 @@ const deleteComment = async (id, token) => {
         return response.data;
     } catch (error) {
         console.error("error :", error);
-        throw error;
     }
 };
 

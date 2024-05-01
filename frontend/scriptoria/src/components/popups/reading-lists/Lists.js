@@ -43,15 +43,10 @@ const Lists = ({ storyId }) => {
 
   const updateData = async () => {
     try {
-        await toast.promise(updateReadingLists(storyId, checkedLists, userName, token), {
-          loading: 'Saving data...',
-          success: 'Data saved successfully.',
-          error: 'Failed to save data. Please try again later.',
-        });
-      
+        await updateReadingLists(storyId, checkedLists, userName, token)
     } catch (error) {
       console.error("Error saving data:", error);
-      toast.error("Failed to save data. Please try again later.");
+      toast.error("Failed to save data.");
     }
   };
 
@@ -68,11 +63,8 @@ const Lists = ({ storyId }) => {
         stories: [storyId],
         privacy : document.getElementById("list-privacy").value
       };
-      await toast.promise(createReadingList(newList, token), {
-        loading: 'Creating list...',
-        success: 'List created successfully.',
-        error: 'Failed to create list. Please try again later.',
-      });
+      const res  = await createReadingList(newList, token)
+      if(res.statusText==='OK') toast.success('you have created a new list successfully')
       const updatedLists = await getReadingLists(userName,true);
       if (updatedLists) {
         setLists(updatedLists);
@@ -138,7 +130,7 @@ const Lists = ({ storyId }) => {
                   );
                 }) : <div className="d-flex justify-content-center align-items-center" style={{height : '480px'}}>
                 <div className="text-center text-secondary h6">
-                  you have no lists, create one to save the story
+                {t("SaveTo.you-have-no-lists-create-one-to-save-the-story")}
                 </div>
               </div>}
               </div>
@@ -196,11 +188,6 @@ const Lists = ({ storyId }) => {
                       placeholder="my list"
                       aria-describedby = "new-name-validation"
                     />
-                    {
-                        valid? <></>
-                        : <div id="new-name-validation" className="invalid-feedback">
-                        list already exists
-                      </div> }
                   </div>
                   <div className="mb-3">
                   <label htmlFor="list-privacy" className="form-label">privacy</label>
@@ -234,6 +221,9 @@ const Lists = ({ storyId }) => {
         <i className="bi bi-plus-lg"
           data-bs-target="#addToList"
           data-bs-toggle={signedIn ? "modal" : ""}
+          onClick={()=>{
+            if(!signedIn) toast.error('you must be logged in to save this story')
+          }}
           style={{ color: 'white', cursor: 'pointer', fontSize: '2.5rem', justifySelf: 'center' }}></i>
       </div>
     </div >

@@ -11,12 +11,7 @@
         "settings": "settings",
         "lists": "lists",
         "logout": "logout",
-        "arabic": "العربية",
-        "english": "English",
-        "mandarin": "Mandarin",
-        "hindi": "Hindi",
-        "spanish": "Spanish",
-        "french": "French"
+        "works" : "my works"
     },
     "BookShelf": {
         "see_all_works": "See all works",
@@ -126,6 +121,9 @@
         "show_more": "Show more"
     },
     "StoryDetails": {
+        "Story-Details" : "Story Details",
+        "Create-a-story" : "Create a story",
+        "Update-a-story" : "Update a story",
         "title": "Title",
         "number": "Number of slides",
         "description": "description (300 word max)",
@@ -170,7 +168,8 @@
         "Name": "name",
         "create-and-save": "create and save",
         "cancel": "cancel",
-        "add-to-reading-list": "add to reading list"
+        "add-to-reading-list": "add to reading list",
+        "you-have-no-lists-create-one-to-save-the-story": "You have no lists, create one to save the story"
     },
     "Rate": {
         "msg1": "Rate this story",
@@ -188,6 +187,8 @@
         "reading-lists": "'s Reading Lists",
         "edit": "edit",
         "delete": "delete",
+        "share" : "share",
+        "copy" : "copy",
         "list-name": "list name",
         "edit-privacy": "edit privacy",
         "public": "public",
@@ -199,5 +200,24 @@
         "do-you-want-to-copy-this-list": "do you want to copy this list?",
         "this-user-may-not-have-one-public-list-at-least": "this user may not have one public list at least",
         "loading": "loading..."
+    },
+    "ErrorPages" : {
+        "this-list-may-not-contain-one-story-at-least" : "this list may not contain one story at least",
+        "this-user-may-not-have-one-public-list-at-least" : "this user may not have one public list at least",
+        "you-have-no-access-to-reach-this-page" : "you have no access to reach this page",
+        "Access-Denied" : "Access Denied",
+        "return-to-home-page" : "return to home page"
+    },
+    "Footer" : {
+        "need-help-reach-out" : "Need help?! Reach out!",
+        "reach-out-via-email" : "For business inquiries, please reach out to us via email."
+    },
+    "WelcomeCard" : {
+        "we-are" : "We Are",
+        "scriptoria" : "Scriptoria",
+        "desc-title" : "Scriptoria is not just another comic-based website",
+        "sign-in" : "Sign in",
+        "sign-up" : "Sign up",
+        "desc": "it's a vibrant hub for storytellers and creators alike. At Scriptoria, we offer a dynamic platform where individuals can engage in collaborative writing ventures, weaving narratives together in an immersive and creative environment. Whether you're a seasoned writer or a budding talent, Scriptoria provides a space to publish your original stories, allowing them to flourish and reach a wider audience. But we don't stop there. We aspire to be a launchpad for aspiring writers, offering opportunities to be discovered and possibly even assigned into the industry. With Scriptoria, the journey from imagination to realization is boundless, and we invite you to join us in crafting the next chapter of storytelling excellence."  
     }
 }

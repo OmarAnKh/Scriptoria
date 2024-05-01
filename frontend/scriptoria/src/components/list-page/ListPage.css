@@ -1,0 +1,18 @@
+.custom-card-container {
+    display: flex;
+    row-gap: 20px;
+    column-gap: 25px;
+    flex-wrap: nowrap;
+    position: relative;
+    top: 25%;
+    margin-left: 50px;
+  }
+
+  .list-story-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    row-gap: 20px;
+    column-gap: 25px;
+  }

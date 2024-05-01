@@ -14,7 +14,7 @@ import useAuth from "../../../hooks/useAuth";
 import { getstory } from "../../../api/storyAPI";
 import toast from "react-hot-toast";
 
-const WpNavBar = ({ setMode, data, setData, setState }) => {
+const WpNavBar = ({ setMode,  setState }) => {
   const navigate = useNavigate()
   const { auth } = useAuth()
   const { id } = useParams()
@@ -34,7 +34,7 @@ const WpNavBar = ({ setMode, data, setData, setState }) => {
       const res = await getstory(id)
       setPublishStatus(res?.story.publishStatus);
       if (res?.status) {
-        navigate('/')
+        navigate('/NoAccessPage')
         return
       }
     }
@@ -53,7 +53,7 @@ const WpNavBar = ({ setMode, data, setData, setState }) => {
       });
 
       if (!userExists) {
-        navigate('/')
+        navigate('/NoAccessPage')
         return
       }
     }
@@ -61,7 +61,6 @@ const WpNavBar = ({ setMode, data, setData, setState }) => {
     fetchUsers()
 
   }, [ruleState, removeState, addUserState])
-
 
 
   const handleMode = () => {
@@ -207,7 +206,7 @@ const WpNavBar = ({ setMode, data, setData, setState }) => {
                         <div className="row star-widget row-cols-auto justify-content-center">
 
                         </div>
-                        <div className='row rate-msg fs-5 justify-content-center text-secondary'>
+                        <div className='row rate-msg fs-5 justify-content-center text-secondary p-2'>
                           <input type="text" id='invitaionId' className="form-control" aria-describedby="emailHelp" placeholder="Please enter the user Email or Username" onChange={event => inivateInputHandler(event)} ></input>
                           <div >
                             <span style={{ color: "red", display: invitationError }}>Please provide the user email or username</span>
@@ -271,8 +270,7 @@ const WpNavBar = ({ setMode, data, setData, setState }) => {
         <div className="collapse navbar-collapse text-center order-2 order-lg-1" id="navbarNavDropdown">
           <ol className="navbar-nav mx-auto">
             <li className="nav-item">
-              {/* <Buttons btnCN="FocusMode" method={handleMode} name="Focus Mode" /> */}
-              <Buttons btnCN="FocusMode" name="Focus Mode" />
+              <Buttons btnCN="FocusMode" name="Focus Mode" method={handleMode}/>
             </li>
             <li className="nav-item">
               <button type="button" className="btn btn-outline-dark rounded-5 m-2" onClick={handelPublich}>

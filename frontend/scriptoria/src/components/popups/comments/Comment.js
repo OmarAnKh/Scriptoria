@@ -20,8 +20,8 @@ const Comment = ({
   const { auth } = useAuth();
   const { t } = useTranslation();
   const token = auth.token;
-  const [like, setLike] = useState(false);
-  const [commentlikes, setCommentLikes] = useState(likes.length)
+  const [commentLikes, setCommentLikes] = useState([...likes])
+  const [like, setLike] = useState(commentLikes.includes(auth?.userInfo?._id));
   const [imageUrl, setImageURL] = useState(logo);
   const [edit, setEdit] = useState(false);
   const [editedText, setEditedText] = useState(text);
@@ -33,25 +33,30 @@ const Comment = ({
     setLike(likes.includes(auth?.userInfo?._id))
   }, [text, auth?.userInfo?._id]);
 
+
   const likeHandler = async () => {
-    setLike(!like);
-    let updatedLikes = [...likes];
+    let updatedLikes;
     if (like) {
-      if (!likes?.includes(auth?.userInfo?._id))
-        updatedLikes.push(auth.userInfo._id);
+      updatedLikes = commentLikes.filter((person) => person !== auth?.userInfo?._id);
     } else {
-      if (likes?.includes(auth?.userInfo?._id))
-        updatedLikes = likes.filter(person => person !== auth.userInfo._id);
+      updatedLikes = [...commentLikes, auth?.userInfo?._id];
     }
+  
     const comment = {
-      text: editedText,
+      text,
       _id: commentId,
       likes: updatedLikes,
       accountId: account._id
     };
-    setCommentLikes(updatedLikes.length)
-    await editComment(comment, token);
+  
+    const res = await editComment(comment, token);
+    if (res.statusText === "OK") {
+      setCommentLikes(updatedLikes);
+      setLike(!like);
+    }
   };
+  
+
 
   const handleComment = async (status) => {
     try {
@@ -195,12 +200,17 @@ const Comment = ({
                 </div>
               </div>
               <div className="col-3 px-2 comment-like-btn text-end">
-                {commentlikes}
-                {auth?.userInfo ? <a
+                {
+                  auth?.userName ? 
+                  <>
+                  {commentLikes.length}
+                  <a
                   className={` mx-1 comment-like-btn text-decoration-none bi ${like ? "bi-heart-fill text-danger" : "bi-heart text-secondary"}
                     `}
                   onClick={likeHandler}
-                ></a> : <> likes</>}
+                ></a>
+                  </> : <>{commentLikes.length} likes</> 
+                }
               </div>
             </div>
           </>
