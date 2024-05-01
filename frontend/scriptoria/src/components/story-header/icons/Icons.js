@@ -11,11 +11,11 @@ const Icons = ({ data, id, counts, setData }) => {
 
     return (
         <div className='icons my-2 mx-5 d-flex gap-1 justify-content-center align-items-center' style={{ display: 'flex', alignItems: 'center', borderRadius: '10px' }}>
-            <Heart num={data?.likes} storyId={id} setData={setData} />
-            <Comment id={id} num={counts?.comments} />
-            <Rates id={id} num={counts?.rates} avg={counts?.avg} />
-            <Plus id={id} />
-            <Share />
+            <Heart className="icons-header" num={data?.likes} storyId={id} setData={setData} />
+            <Comment className="icons-header" id={id} num={counts?.comments} />
+            <Rates className="icons-header" id={id} num={counts?.rates} avg={counts?.avg} />
+            <Plus className="icons-header" id={id} />
+            <Share className="icons-header" />
         </div>
     );
 }

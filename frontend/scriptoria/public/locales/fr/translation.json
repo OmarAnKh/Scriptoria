@@ -11,12 +11,7 @@
         "settings": "Paramètres",
         "lists" : "listes",
         "logout": "Déconnexion",
-        "arabic": "العربية",
-        "english": "English",
-        "mandarin": "Mandarin",
-        "hindi": "Hindi",
-        "spanish": "Spanish",
-        "french": "French"
+        "works": "mes œuvres"
     },
     "BookShelf": {
         "see_all_works": "Voir tous les travaux",
@@ -126,6 +121,9 @@
         "show_more": "Afficher plus"
     },
     "StoryDetails": {
+        "Story-Details" : "Détails de l'histoire",
+        "Create-a-story" : "Créer une histoire",
+        "Update-a-story" : "Mettre à jour une histoire",
         "title": "Titre",
         "number": "Nombre de diapositives",
         "description": "Description (maximum 300 mots)",
@@ -170,7 +168,8 @@
         "Name" : "nom",
         "create-and-save" : "créer et enregistrer",
         "cancel" : "annuler",
-        "add-to-reading-list" : "ajouter à la liste de lecture"
+        "add-to-reading-list" : "ajouter à la liste de lecture",
+        "you-have-no-lists-create-one-to-save-the-story": "Vous n'avez pas de listes, créez-en une pour enregistrer l'histoire"
     },
     "Rate" : {
         "msg1" : "Évaluez cette histoire",
@@ -184,6 +183,8 @@
         "reading-lists" : "Listes de lecture de ",
         "edit" : "modifier",
         "delete" : "supprimer",
+        "share" : "Partager",
+        "copy": "copier",
         "list-name" : "nom de la liste",
         "edit-privacy" : "modifier la confidentialité",
         "public" : "public",
@@ -195,5 +196,24 @@
         "do-you-want-to-copy-this-list" : "Voulez-vous copier cette liste ?",
         "this-user-may-not-have-one-public-list-at-least" : "Cet utilisateur doit avoir au moins une liste publique",
         "loading" : "chargement..."
-    }    
+    },
+    "ErrorPages" : {
+        "this-list-may-not-contain-one-story-at-least" : "cette liste ne peut pas contenir au moins une histoire",
+        "this-user-may-not-have-one-public-list-at-least" : "cet utilisateur peut ne pas avoir au moins une liste publique",
+        "you-have-no-access-to-reach-this-page" : "vous n'avez pas accès à cette page",
+        "Access-Denied" : "Accès refusé",
+        "return-to-home-page" : "retour à la page d'accueil"
+    },
+    "Footer" : {
+        "need-help-reach-out" : "Besoin d'aide ?! Contactez-nous !",
+        "reach-out-via-email" : "Pour toute demande commerciale, veuillez nous contacter par e-mail."
+    },
+    "WelcomeCard" : {
+        "we-are" : "Nous sommes",
+        "scriptoria" : "Scriptoria",
+        "desc-title" : "Scriptoria n'est pas juste un autre site web basé sur les bandes dessinées",
+        "sign-in" : "Se connecter",
+        "sign-up" : "S'inscrire",
+        "desc": "C'est un centre dynamique pour les conteurs et les créateurs. À Scriptoria, nous proposons une plateforme dynamique où les individus peuvent s'engager dans des projets d'écriture collaborative, tissant des récits ensemble dans un environnement immersif et créatif. Que vous soyez un écrivain chevronné ou un talent émergent, Scriptoria offre un espace pour publier vos histoires originales, leur permettant de s'épanouir et d'atteindre un public plus large. Mais nous ne nous arrêtons pas là. Nous aspirons à être un tremplin pour les écrivains en herbe, offrant des opportunités pour être découvert et éventuellement même intégré à l'industrie. Avec Scriptoria, le voyage de l'imagination à la réalisation est sans limites, et nous vous invitons à nous rejoindre pour façonner le prochain chapitre de l'excellence narrative."
+    }             
 }

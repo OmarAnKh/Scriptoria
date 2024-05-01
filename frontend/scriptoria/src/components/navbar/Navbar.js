@@ -1,8 +1,8 @@
 import "./Navbar.css"
+import "./Navbar.css"
 import React, { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import { FaBars, FaTimes } from "react-icons/fa";
-import Logo from "../../img/scriptoria-logo-black.png"
 import SearchBar from "./SearchBar.js"
 import NavHomeButton from "./NavbarButton";
 import useAuth from "../../hooks/useAuth.js";
@@ -77,7 +77,7 @@ const NavBar = () => {
             to: accountUserName + "/lists",
             method: noHandel
         }, {
-            title: "My works",
+            title: t("Navbar.works"),
             to: `/MyWorks/${auth?.userInfo?._id}`,
             method: noHandel
         },
@@ -98,33 +98,33 @@ const NavBar = () => {
 
     const languageDropDown = [
         {
-            title: t("Navbar.arabic"),
+            title: "العربية",
             to: "",
             method: () => { translationHandler('ar') }
         },
         {
-            title: t("Navbar.english"),
+            title: "English",
             to: "",
             method: () => { translationHandler('en') }
         },
         {
-            title: t("Navbar.mandarin"),
+            title: "中文",
             to: "",
             method: () => { translationHandler('zh') }
         },
         {
-            title: t("Navbar.hindi"),
+            title: "हिन्दी",
             to: "",
             method: () => { translationHandler('hin') }
         },
         {
-            title: t("Navbar.spanish"),
+            title: "Español",
             to: "",
             method: () => { translationHandler('es') }
         }
         ,
         {
-            title: t("Navbar.french"),
+            title: "Français",
             to: "",
             method: () => { translationHandler('fr') }
         }
@@ -139,14 +139,14 @@ const NavBar = () => {
     return (
         <header>
             <div>
-                <img className="NavLogo" src={Logo} />
-                <Link href="/" className="ScriptoriaName">Scriptoria</Link>
+                <div className="NavLogo mx-2"/>
+                <Link to={'/'} className="ScriptoriaName">Scriptoria</Link>
             </div>
 
             <nav ref={navRef}>
-                <Link to="/">Home</Link>
-                <Link to="/browse">browse</Link>
-                <Link to="/TeamMembers">Team Members</Link>
+                <Link className="nav-link-color" to="/">{t("Navbar.home")}</Link>
+                <Link className="nav-link-color" to="/browse">{t("Navbar.browse")}</Link>
+                <Link className="nav-link-color" to="/TeamMembers">{t("Navbar.teamMembers")}</Link>
                 <button
                     className="nav-btn nav-close-btn"
                     onClick={showNavbar}>
@@ -156,11 +156,14 @@ const NavBar = () => {
             </nav>
 
             <nav className="hello">
+            
                 {
                     auth.userName ? <>
                         <Link type="button" className="addstory btn rounded-5 m-2" to={`/StoryDetails`}>
                             {t("Navbar.add_a_story")}
                         </Link>
+                        <NavHomeButton iclassName="bi bi-globe2 navbar-button" className="navbar-button" buttonClassName="btn btn rounded-5 m-2" isDropDown={true} accountDropDown={languageDropDown} />
+                        <NavHomeButton iclassName="bi bi-moon-stars navbar-button" className="navbar-button" buttonClassName="btn btn rounded-5 m-2" method={toggleTheme} />
                         <NavHomeButton iclassName="bi bi-bell navbar-button" className="navbar-button" buttonClassName="btn btn rounded-5 m-2" method={noHandel} />
                         <NavHomeButton iclassName="bi bi-person-circle navbar-button" className="navbar-button" buttonClassName="btn btn rounded-5 m-2" isDropDown={true} accountDropDown={accountDropDown} />
                     </> : <></>}

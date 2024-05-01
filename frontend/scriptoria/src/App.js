@@ -23,6 +23,7 @@ import ServersErrorPage from './components/server-error-page/ServersErrorPage.js
 import StoryErrorsPage from './components/server-error-page/StoryErrorsPage.js';
 import AllListsPage from './components/all-lists-page/AllListsPage.js'
 import ListPage from './components/list-page/ListPage.js'
+import NoAccessPage from './components/no-access-pages/NoAccessPage.js';
 import StoryPage from './components/story-page/StoryPage.js';
 import ReadingPage from './components/reading-page/flip-book/FlipBook.js'
 
@@ -32,8 +33,8 @@ function App() {
     <div className="App">
       <Routes>
         <Route path='/' element={<Layout />}>
-          {/*public routes*/}
           {/* error pages  */}
+          <Route path="NoAccessPage" element={<NoAccessPage/>}/>
           <Route path='ServersErrorPage' element={<ServersErrorPage />} />
           <Route path='StoryErrorsPage' element={<StoryErrorsPage />} />
           <Route path='logout' element={<LogedOut />} />

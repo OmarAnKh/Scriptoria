@@ -97,7 +97,7 @@ export default function TextEditor({ state }) {
       <br></br>
       <br></br>
       <TEInstructions />
-      <div className='TextEditorSize container justify-content-center align-items-center bg-light p-0 rounded-4 border-none' style={{ position: 'relative' }} id="hello">
+      <div className='TextEditorSize container justify-content-center align-items-center bg-light p-0 rounded-3 border-none' style={{ position: 'relative' }} id="hello">
         {state ? <div style={{
           position: 'absolute',
           top: 0,
@@ -106,7 +106,7 @@ export default function TextEditor({ state }) {
           bottom: 0,
           zIndex: 1000,
           backgroundColor: 'rgba(255, 255, 255, 0.5)',
-          cursor: 'not-allowed'
+          cursor: 'not-allowed',
         }}></div> : <></>}
 
         <div ref={wrapperRef} className=""></div>
