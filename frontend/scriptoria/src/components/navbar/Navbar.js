@@ -1,30 +1,27 @@
-import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import Logo from "../../img/scriptoria-logo.png"
-import "./Navbar.css";
+import "./NavBar.css"
+import React, { useEffect, useState, useRef } from "react";
+import { Link } from "react-router-dom";
+import { FaBars, FaTimes } from "react-icons/fa";
+import Logo from "../../img/scriptoria-logo-black.png"
+import SearchBar from "./SearchBar.js"
 import NavHomeButton from "./NavbarButton";
-import { findAccount } from "../../api/accountApi";
+import useAuth from "../../hooks/useAuth.js";
 import { useTranslation } from 'react-i18next';
-import useLogout from "../../hooks/useLogout";
-import useAuth from "../../hooks/useAuth";
+import { findAccount } from "../../api/accountApi.js";
+import useLogout from "../../hooks/useLogout.js";
+import useThemeToggle from "../theme-toggle/ThemeToggle.js"
 
-const NavHomeLink = ({ to, children }) => (
-    <Link className="nav-link" to={to}>{children}</Link>
-);
 
-const Navbar = () => {
 
-    const logout = useLogout();
+const NavBar = () => {
+    const navRef = useRef();
     const { auth } = useAuth();
-
-    const [hasAccount, setHasAccount] = useState(auth)
-    const [accountId, setAccountId] = useState("*");
-    const [accountUserName, setAccountUserName] = useState("*")
     const { t, i18n } = useTranslation()
-
-    const [searchCriteria, setSearchCriteria] = useState("");
-
-    const navigate = useNavigate();
+    const [accountUserName, setAccountUserName] = useState("*")
+    const [hasAccount, setHasAccount] = useState(auth)
+    const logout = useLogout();
+    const [accountId, setAccountId] = useState("*");
+    const toggleTheme = useThemeToggle();
 
     useEffect(() => {
         const fetchData = async () => {
@@ -42,9 +39,13 @@ const Navbar = () => {
 
         return () => { };
     }, []);
+    const showNavbar = () => {
+        navRef.current.classList.toggle(
+            "responsive_nav"
+        );
+    };
 
     const noHandel = () => { }
-
     const translationHandler = (lang) => {
         i18n.changeLanguage(lang)
         return
@@ -64,7 +65,6 @@ const Navbar = () => {
         setHasAccount({})
         clearAllCookies();
     }
-
     const accountDropDown = [
         {
             title: t("Navbar.profile"),
@@ -135,64 +135,44 @@ const Navbar = () => {
         }
     ]
 
-    const searchHandel = () => {
-        if (searchCriteria === "") {
-            return;
-        }
-        navigate(`/Search/${searchCriteria}`);
-        window.location.reload();
-    }
-
     return (
-        <nav className="navbar navbar-expand-lg">
-            <div className="container-fluid ">
-                <Link to="/" className="card-text d-flex align-items-center">
-                    <img className="logo-size" src={Logo} alt="Scriptoria Logo" />
-                    <div className="d-none d-md-block">
-                        <span className="Scriptoria ourbtn fs-2 py-0 px-0">Scriptoria</span>
-                    </div>
-                </Link>
-                <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                    <span className="navbar-toggler-icon"></span>
-                </button>
-                <div className="nav-links-container">
-                    <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
-                        <div className="navbar-nav">
-                            <div className="nav-home-link">
-                                <NavHomeLink to="/">{t("Navbar.home")}</NavHomeLink>
-                                <NavHomeLink to="/browse">{t("Navbar.browse")}</NavHomeLink>
-                                <NavHomeLink to="/TeamMembers">{t("Navbar.teamMembers")}</NavHomeLink>
-                            </div>
-                            <div className="d-flex" role="search">
-                                <NavHomeButton iclassName="bi bi-search search-icon" className="input-group rounded" buttonClassName="input-group-text border-0 button-search" method={searchHandel}>
-                                    <input type="search" className="form-control rounded search-navbar-input" placeholder={t("Navbar.search")} aria-label="Search" aria-describedby="search-addon" onChange={(event) => { setSearchCriteria(event.target.value) }} />
-                                </NavHomeButton>
-                            </div>
-                            <div className="right-side">
-                                {
-                                    hasAccount.token ? <><Link type="button" className="addstory btn btn-outline-dark rounded-5 m-2" to={`/StoryDetails`}>
-                                        {t("Navbar.add_a_story")}
-                                    </Link>
-                                        <NavHomeButton iclassName="bi bi-globe2" className="navbar-button" buttonClassName="btn btn rounded-5 m-2" isDropDown={true} accountDropDown={languageDropDown} />
-                                        <NavHomeButton iclassName="bi bi-inbox" className="navbar-button" buttonClassName="btn btn rounded-5 m-2" method={noHandel} />
-                                        <NavHomeButton iclassName="bi bi-bell" className="navbar-button" buttonClassName="btn btn rounded-5 m-2" method={noHandel} />
-                                        <NavHomeButton iclassName="bi bi-person-circle" className="navbar-button" buttonClassName="btn btn rounded-5 m-2" isDropDown={true} accountDropDown={accountDropDown} />
-                                    </> : <><Link type="button" className="addstory btn btn-outline-dark rounded-5 m-2" to={`/SignIn`}>
-                                        {t("Navbar.signIn")}
-                                    </Link>
-                                        <Link type="button" className="addstory btn btn-outline-dark rounded-5 m-2" to={`/SignUp`}>
-                                            {t("Navbar.signUp")}
-                                        </Link>
-                                    </>
-                                }
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        <header>
+            <div>
+                <img className="NavLogo" src={Logo} />
+                <Link href="/" className="ScriptoriaName">Scriptoria</Link>
             </div>
-        </nav>
+
+            <nav ref={navRef}>
+                <Link to="/">Home</Link>
+                <Link to="/browse">browse</Link>
+                <Link to="/TeamMembers">Team Members</Link>
+                <button
+                    className="nav-btn nav-close-btn"
+                    onClick={showNavbar}>
+                    <FaTimes />
+                </button>
+                <SearchBar />
+            </nav>
+
+            <nav className="hello">
+                {
+                    auth.userName ? <>
+                        <Link type="button" className="addstory btn rounded-5 m-2" to={`/StoryDetails`}>
+                            {t("Navbar.add_a_story")}
+                        </Link>
+                        <NavHomeButton iclassName="bi bi-bell navbar-button" className="navbar-button" buttonClassName="btn btn rounded-5 m-2" method={noHandel} />
+                        <NavHomeButton iclassName="bi bi-person-circle navbar-button" className="navbar-button" buttonClassName="btn btn rounded-5 m-2" isDropDown={true} accountDropDown={accountDropDown} />
+                    </> : <></>}
+                <NavHomeButton iclassName="bi bi-globe2 navbar-button" className="navbar-button" buttonClassName="btn btn rounded-5 m-2" isDropDown={true} accountDropDown={languageDropDown} />
+                <NavHomeButton iclassName="bi bi-moon-stars navbar-button" className="navbar-button" buttonClassName="btn btn rounded-5 m-2" method={toggleTheme} />
+            </nav>
+            <button
+                className="nav-btn"
+                onClick={showNavbar}>
+                <FaBars />
+            </button>
+        </header>
     );
-};
 
-
-export default Navbar
+}
+export default NavBar

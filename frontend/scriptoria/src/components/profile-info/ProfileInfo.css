@@ -33,6 +33,7 @@
     font-family: Lilta One;
     font-size: 48px;
     filter: drop-shadow(2px 2px 2px #0000006b);
+    color: var(--text-Color);
 }
 
 .AboutMe {
@@ -41,6 +42,7 @@
     font-size: 24px;
     filter: drop-shadow(2px 2px 2px #0000006b);
     padding-right: calc(var(--bs-gutter-x) * .5);
+    color: var(--text-Color);
 }
 
 .Username {
@@ -71,6 +73,7 @@
     color: var(--text-color);
     background-color: var(--primary-Color);
     font-size: 0.7rem;
+    
 }
 
 .buttonstyle .bi1 {
@@ -98,7 +101,7 @@
     font-family: Lilta One;
     font-weight: var(--bs-btn-font-weight);
     line-height: var(--bs-btn-line-height);
-    color: var(--bs-btn-color);
+    color: var(--text-Color);
     text-align: center;
     text-decoration: none;
     cursor: pointer;
@@ -126,7 +129,7 @@
     font-family: Lilta One;
     font-weight: var(--bs-btn-font-weight);
     line-height: var(--bs-btn-line-height);
-    color: var(--bs-btn-color);
+    color: var(--text-Color);
     text-align: center;
     text-decoration: none;
     cursor: pointer;
