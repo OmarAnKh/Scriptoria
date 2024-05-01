@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
-const ThemeToggle = () => {
+const useThemeToggle = () => {
     const [isDarkTheme, setIsDarkTheme] = useState(false);
 
     useEffect(() => {
@@ -9,7 +9,7 @@ const ThemeToggle = () => {
             applyDarkTheme();
             setIsDarkTheme(true);
         }
-    }, []); // Run once on component mount to check if a theme is stored
+    }, []);
 
     const applyLightTheme = () => {
         document.documentElement.style.setProperty('--accent-Color', '#E1D8D1');
@@ -37,11 +37,7 @@ const ThemeToggle = () => {
         }
     };
 
-    return (
-        <div className="App">
-            <button onClick={toggleTheme}>Toggle Theme</button>
-        </div>
-    );
+    return toggleTheme;
 };
 
-export default ThemeToggle;
+export default useThemeToggle;
