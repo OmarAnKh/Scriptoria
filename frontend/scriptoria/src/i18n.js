@@ -12,6 +12,10 @@ i18n
     returnEmptyString: false,
     debug: true,
     fallbackLng: 'en',
+    detection: {
+      order: ['localStorage', 'path', 'htmlTag'],
+      caches: ['coockie'],
+    },
     backend: {
       loadPath: '/locales/{{lng}}/{{ns}}.json',
     },
