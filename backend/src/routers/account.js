@@ -6,9 +6,14 @@ import axios from "axios";
 import sharp from "sharp";
 import jwt from "jsonwebtoken"
 import Follow from "../models/follow.js";
+import Like from "../models/like.js";
+import Comment from '../models/comment.js'
 import bcrypt from 'bcryptjs'
 import { converImgToBuffer } from "../utils/image.js";
-
+import Rating from "../models/rating.js";
+import ReadingList from "../models/readingList.js";
+import Story from "../models/story.js";
+import Writers from "../models/writers.js";
 
 const router = new express.Router()
 
@@ -233,7 +238,28 @@ router.patch("/account/update", async (req, res) => {
 router.delete("/account/delete", async (req, res) => {
     try {
         const { userName } = req.body
-        const account = await Account.findOneAndDelete({ userName })
+        const id = await Account.findOne({ userName })
+
+        await Like.deleteMany({ AccountId: id });
+        await Comment.deleteMany({ accountId: id });
+        await Rating.deleteMany({ AccountId: id });
+        await ReadingList.deleteMany({ accountId: id });
+        await Follow.deleteMany({ account: id });
+        await Follow.deleteMany({ follow: id });
+
+
+        const writers = await Writers.find({ AccountId: id });
+        for (const writer of writers) {
+            const count = await Writers.countDocuments({StoryId: writer.StoryId})
+
+            if(count === 1) {
+                await Story.findByIdAndDelete(writer.StoryId)
+            } 
+
+            await Writers.findByIdAndDelete(writer._id)
+        }
+
+        const account = await Account.findOneAndDelete(id)
 
         if (!account) {
             res.status(400).send()

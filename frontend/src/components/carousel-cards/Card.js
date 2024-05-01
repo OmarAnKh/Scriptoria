@@ -30,7 +30,7 @@ const Card = ({ data }) => {
                 const response = await getStoryRates('rates', data._id);
                 setRatings(response.counts.avg);
                 setVotes(response.counts.rates);
-
+console.log(response.counts.avg, response.counts.rates)
             } catch (error) {
                 console.log(error)
             }
@@ -47,19 +47,25 @@ const Card = ({ data }) => {
 
     return (
 
-        <div className={`CarouselCards mb-3  mt-4 col-lg-12`} style={{ backgroundColor: `${data.backgroundColor}`, width: 750, maxHeight: '100%', height: 250 }}>
+        <div className={`CarouselCards mb-3 rounded mt-4 col-lg-12`} style={{ backgroundColor: `${data.backgroundColor}` }}>
             <div className="row g-0">
                 <div className="col-md-4">
+                    {data.coverPhoto && (
                     <Link to={`/story/${data._id}`}>
-                        <img src={`data:image/png;base64,${Buffer.from(data.coverPhoto).toString('base64')}`} className="cover-img img-fluid rounded-start" alt="..." style={{ maxWidth: '100%', maxHeight: '100%', minHeight: '200px', width: '200px', height: '250px' }} />
+                        <img src={`data:image/png;base64,${Buffer.from(data.coverPhoto).toString('base64')}`} className="cover-img img-fluid rounded-start" alt="..."/>
                     </Link>
+                    )}
                 </div>
-                <div className="col-md-8 d-none d-md-block my-3">
+                <div className="col-md-8 my-3">
                     <div className={`CarouselCards-body ${data.textColor}`}>
                         <h4 className="CarouselCards-title">{data.title}</h4>
-                        <h6 className="author-name">{data.author}</h6>
+                        <h6 className="author-name">
+                            {writers.map((writer, idx) => {
+                                    return <span key={idx}>{writer.displayName} <br/> </span>;
+                            })}
+                        </h6>
                         <span className="d-flex">
-                            <StarRating rating={ratings} />  &emsp; {votes} votes
+                            <StarRating rating={ratings} />  &emsp; {votes} {t("CarouselCards.votes")} {ratings}
                         </span>
                         <p className="CarouselCards-text text-sm">{data.description}</p>
                         <Link to={`/story/${data._id}`}><button type="button" className="btn btn-light rounded-4 px-5 fw-bold read-btn">{t("CarouselCards.read_the_book")}</button></Link>

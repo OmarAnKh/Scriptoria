@@ -5,7 +5,7 @@ import useAuth from "../../../hooks/useAuth";
 import { findAccount } from "../../../api/accountApi";
 import { toast } from 'react-hot-toast';
 
-const Heart = ({ num, storyId, setData }) => {
+const Heart = ({ num, storyId, setData, t }) => {
 
     const { auth } = useAuth();
 
@@ -72,9 +72,8 @@ const Heart = ({ num, storyId, setData }) => {
             }
             ChangeIconColor()
         } else {
-            toast.error('You must be logged in to like this story!');
+            toast.error(`${t("StoryHeader.must_login")}`);
         }
-
     }
 
 
@@ -83,7 +82,7 @@ const Heart = ({ num, storyId, setData }) => {
             <span className={`px-2 rounded ${heartIcon} heading ms-auto d-flex flex-column align-items-center`}>
                 <i className="bi bi-heart-fill" style={{ color: heartIcon, cursor: 'pointer', justifySelf: 'center', fontSize: '2rem' }} onClick={handleClick}></i>
             </span>
-            <h6 className="text-white"> {num}<span className="icon-title"> likes</span></h6>
+            <h6 className="text-white"> {num}<span className="icon-title"> {t("StoryHeader.Likes")}</span></h6>
         </span>
     );
 } 

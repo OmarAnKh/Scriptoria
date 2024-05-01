@@ -20,7 +20,8 @@
         "reading_list": "قائمة القراءة"
     },
     "CarouselCards": {
-        "read_the_book": "ابدأ القراءة"
+        "read_the_book": "ابدأ القراءة",
+        "votes": "صوت"
     },
     "DiscoverTable": {
         "all_genres": "جميع الفئات",
@@ -146,9 +147,29 @@
         "target-audience-error": "يرجى اختيار جمهور",
         "uploaded-image-url-error": "يرجى إدخال صورة غلاف"
     },
-    "Logout": {
-        "text1": ".لقد تم تسجيل خروجك بنجاح",
-        "text2": ".اضغط هنا للعودة للصفحة الرئيسية"
+    "StoryHeader": {
+        "Likes": "إعجابات",
+        "must_login": "الرجاء تسجيل الدخول",
+        "Comments": "تعليقات",
+        "Rate": "تقييم",
+        "votes": "صوت",
+        "Add_to_reading_list": "إضافة إلى قائمة القراءة",
+        "Share": "مشاركة",
+        "read_more": "اقرأ المزيد", 
+        "read_less": "اقرأ أقل"
+    },
+    "StoryOverview": {
+        "following": "يتابع",
+        "followers": "المتابعون",
+        "works": "أعمال",
+        "view_profile": "الملف الشخصي",
+        "follow": "متابعة",
+        "unfollow": "إلغاء المتابعة",
+        "start_reading": "بدء القراءة..."
+    },
+    "Logout" : {
+        "text1" : ".لقد تم تسجيل خروجك بنجاح",
+        "text2" : ".اضغط هنا للعودة للصفحة الرئيسية"
     },
     "Comments": {
         "Comments": "التعليقات",

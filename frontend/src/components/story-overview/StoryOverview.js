@@ -4,7 +4,10 @@ import ProfileCard from './ProfileCard';
 import './StoryPage.css';
 import { getStory } from '../../api/storyAPI';
 import useSlide from '../../hooks/useSlide';
+import { useTranslation } from 'react-i18next';
+
 const StoryCard = () => {
+    const { t } = useTranslation();
 
     const { id } = useParams();
     const navigate = useNavigate()
@@ -92,7 +95,7 @@ const StoryCard = () => {
                                 <p className={`card-text story-description ${backgroundColor === 'white' ? 'white-bg' : (backgroundColor === 'beige' ? 'beige-bg' : 'black-bg')}`} dangerouslySetInnerHTML={{ __html: slide + "..." }}></p>
                             </div>
                         }
-                        <button className="btn btn-primary btn-Start-Reading" onClick={handleStartReading} style={{ backgroundColor: stories && stories.backgroundColor }}>Start Reading...</button>
+                        <button className="btn btn-primary btn-Start-Reading" onClick={handleStartReading} style={{ backgroundColor: stories && stories.backgroundColor }}>{t("StoryOverview.start_reading")}</button>
                     </div>
                 </div>
             </div>

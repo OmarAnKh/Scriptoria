@@ -20,7 +20,8 @@
         "reading_list": "Liste de lecture"
     },
     "CarouselCards": {
-        "read_the_book": "Lire le livre"
+        "read_the_book": "Lire le livre",
+        "votes": "voix"
     },
     "DiscoverTable": {
         "all_genres": "Tous les genres",
@@ -146,6 +147,25 @@
         "target-audience-error": "Public cible requis",
         "uploaded-image-url-error": "Image requise"
     },
+    "StoryHeader": {
+        "Likes": "J'aime",
+        "Comments": "Commentaires",
+        "Rate": "Évaluer",
+        "votes": "votes",
+        "Add_to_reading_list": "Ajouter à la liste de lecture",
+        "Share": "Partager",
+        "read_more": "Lire la suite", 
+        "read_less": "Lire moins"
+    },  
+    "StoryOverview": {
+        "following": "Suivants",
+        "followers": "Abonnés",
+        "works": "Œuvres",
+        "view_profile": "Voir le profil",
+        "follow": "Suivre",
+        "unfollow": "Ne plus suivre",
+        "start_reading": "Commencer la lecture..."
+    },  
     "Logout": {
         "text1": "Vous avez été déconnecté avec succès.",
         "text2": "Cliquez ici pour retourner à la page d'accueil."

@@ -20,7 +20,8 @@
         "reading_list": "Lista de lectura"
     },
     "CarouselCards": {
-        "read_the_book": "Leer el libro"
+        "read_the_book": "Leer el libro",
+        "votes": "votos"
     },
     "DiscoverTable": {
         "all_genres": "Todos los géneros",
@@ -147,6 +148,25 @@
         "target-audience-error": "Público objetivo requerido",
         "uploaded-image-url-error": "Imagen requerida"
     },
+    "StoryHeader": {
+        "Likes": "Me gusta",
+        "Comments": "Comentarios",
+        "Rate": "Calificar",
+        "votes": "votos",
+        "Add_to_reading_list": "Agregar a lista de lectura",
+        "Share": "Compartir",
+        "read_more": "Leer más", 
+        "read_less": "Leer menos"
+    }, 
+    "StoryOverview": {
+        "following": "Siguiendo",
+        "followers": "Seguidores",
+        "works": "Obras",
+        "view_profile": "Ver perfil",
+        "follow": "Seguir",
+        "unfollow": "Dejar de seguir",
+        "start_reading": "Comenzar a leer..."
+        },   
     "Logout": {
         "text1": "Has cerrado sesión exitosamente.",
         "text2": "Haz clic aquí para volver a la página de inicio."

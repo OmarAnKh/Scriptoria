@@ -34,12 +34,13 @@ router.get('/rate/:id', authentication, async (req, res)=>{
 });
 
 router.get('/rates/:id', async (req, res) => {
-  const _id = req.params.id
+  const { id } = req.params
 
   try {
-    const countRates = await Rating.countDocuments({ StoryId: _id });
+    const countRates = await Rating.countDocuments({ StoryId: id });
     const result = await Rating.aggregate([
-        { $group: { _id: _id, averageRate: { $avg: "$rating" } } }
+      { $match: { StoryId: id } },
+      { $group: { _id: null, averageRate: { $avg: "$rating" } } }
     ]);
 
     const averageRating = result[0]?.averageRate;

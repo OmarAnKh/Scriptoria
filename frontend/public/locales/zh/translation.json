@@ -20,7 +20,8 @@
         "reading_list": "阅读列表"
     },
     "CarouselCards": {
-        "read_the_book": "阅读书籍"
+        "read_the_book": "阅读书籍",
+        "votes": "投票"
     },
     "DiscoverTable": {
         "all_genres": "所有类型",
@@ -145,6 +146,25 @@
         "category-error": "类别是必填项",
         "target-audience-error": "目标受众是必填项",
         "uploaded-image-url-error": "图片是必填项"
+    },
+    "StoryHeader": {
+        "Likes": "喜欢",
+        "Comments": "评论",
+        "Rate": "评分",
+        "votes": "投票",
+        "Add_to_reading_list": "加入阅读列表",
+        "Share": "分享"
+    },    
+    "StoryOverview": {
+        "following": "关注",
+        "followers": "粉丝",
+        "works": "作品",
+        "view_profile": "查看个人资料",
+        "follow": "关注",
+        "unfollow": "取消关注",
+        "start_reading": "开始阅读...",
+        "read_more": "阅读更多", 
+        "read_less": "阅读更少"
     },
     "Logout": {
         "text1": "您已成功登出。",

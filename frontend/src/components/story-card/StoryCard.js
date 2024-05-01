@@ -30,8 +30,9 @@ const StoryCard = ({ selectedTab }) => {
 
     return (
         <div>
+            {storyData?.length ?
             <div className="d-flex flex-wrap">
-                {storyData.map((story, index) => (
+                {storyData?.map((story, index) => (
                     <div key={index} className={`col-md-4 mb-3 ${index >= visiblestory ? 'd-none' : ''} my-5`}>
                         <div className={`card mb-1`} style={{ width: '95%', height: '100%', margin: '0 10px', minHeight: '200px', backgroundColor: story?.story?.backgroundColor }}>
                             <div className="row no-gutters">
@@ -47,7 +48,12 @@ const StoryCard = ({ selectedTab }) => {
                                 <div className="col-md-8">
                                     <div className="card-body">
                                         <h5 className="card-title story-title text-white">{story?.story?.title}</h5>
-                                        <h6 className="author text-white">{story?.accounts[0]?.displayName}</h6>
+                                        <h6 className="author text-white">
+                                            {/* {story?.accounts[0]?.displayName} */}
+                                            {story?.accounts?.map((author, idx) => {
+                                                return <span key={idx}>{author?.displayName} <br/> </span>;
+                                            })}
+                                        </h6>
                                         <div className="d-flex">
                                             <StarRating rating={story?.counts?.avg} />
                                             <div className='voters text-white'>{story?.counts?.rates} votes</div>
@@ -60,7 +66,7 @@ const StoryCard = ({ selectedTab }) => {
                         </div>
                     </div>
                 ))}
-            </div>
+            </div> : <></> }
             {
                 visiblestory < storyData.length && (
                     <div className="text-center">
