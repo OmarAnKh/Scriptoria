@@ -64,7 +64,7 @@ const Popup = ({ page, list, update }) => {
                 onClick={shareHandler}
                 style={{ cursor: 'pointer' }}
               >
-                share
+                {t("Lists.share")}
               </a>
             </i>
             {auth?.userInfo._id === list.accountId ? (
@@ -118,7 +118,8 @@ const Popup = ({ page, list, update }) => {
                     onClick={shareHandler}
                     style={{ cursor: "pointer" }}
                   >
-                    share
+                    <i className="bi bi-share-fill mx-1" />
+                    {t("Lists.share")}
                   </button>
                 </i>
                 <i>
@@ -129,6 +130,7 @@ const Popup = ({ page, list, update }) => {
                     onClick={() => setType("edit")}
                     style={{ cursor: "pointer" }}
                   >
+                    <i className="bi bi-pencil-square mx-1" />
                     {t("Lists.edit")}
                   </button>
                 </i>
@@ -140,6 +142,7 @@ const Popup = ({ page, list, update }) => {
                     onClick={() => setType("delete")}
                     style={{ cursor: "pointer" }}
                   >
+                    <i className="bi bi-trash3-fill mx-1" />
                     {t("Lists.delete")}
                   </button>
                 </i>
@@ -179,7 +182,7 @@ const Popup = ({ page, list, update }) => {
                   </> : type === "copy" ? <>
                     {t("Lists.do-you-want-to-copy-this-list")}
                   </> : <>
-                    <div className="form">
+                    <div className="form text-start">
                       <div className="mb-3">
                         <label htmlFor="new-name" className="form-label">{t("Lists.list-name")}</label>
                         <input type="text" className="form-control" id="new-name" value={name} onChange={(e) => setName(e.target.value)} />

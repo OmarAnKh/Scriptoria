@@ -122,10 +122,11 @@ const BookShelf = (props) => {
       </div>
       <Shelf />
 
-      {
-        covers?.length ?
+      
           <div className="carousel-container reading-list-books my-5" style={{}}>
             <ShelfHeader title={t("BookShelf.reading_list")} btnTitle={t("BookShelf.all_reading_list")} state={covers?.length} link={`/profile/${props.username}/lists`} />
+            {
+            covers?.length ?
             <Carousel
               responsive={responsive}
               containerClass="custom-carousel"
@@ -157,13 +158,10 @@ const BookShelf = (props) => {
                   </div>
                 )
               })}
-            </Carousel>
-          </div>
-          :
+            </Carousel>  :
           <></>
-      }
-
-
+          }
+          </div>
       <Shelf />
 
     </div>

@@ -126,6 +126,9 @@
         "show_more": "عرض المزيد"
     },
     "StoryDetails": {
+        "Story-Details" : "تفاصيل القصة",
+        "Create-a-story" : "إنشاء قصة",
+        "Update-a-story" : "تحديث القصة",
         "title": "العنوان",
         "number": "عدد الصفحات",
         "description": "الوصف (300 كلمة كحد اقصى)",
@@ -184,6 +187,7 @@
         "reading-lists": "قوائم التشغيل الخاصة بـ",
         "edit": "تعديل",
         "delete": "حذف",
+        "share" : "مشاركة",
         "list-name": "اسم القائمة",
         "edit-privacy": "تعديل الخصوصية",
         "public": "عام",
@@ -195,5 +199,12 @@
         "do-you-want-to-copy-this-list": "هل تريد نسخ هذه القائمة؟",
         "this-user-may-not-have-one-public-list-at-least": "هذا المستخدم لا يملك قائمة عامة على اللأقل",
         "loading": "يتم التحميل"
+    },
+    "ErrorPages" : {
+        "this-list-may-not-contain-one-story-at-least" : "هذه القائمة لا تحتوي على قصة واحدة عامة على الأقل",
+        "this-user-may-not-have-one-public-list-at-least" : "هذا المستخدم لا يملك قائمة واحدة عامة على الأقل",
+        "you-have-no-access-to-reach-this-page" : "لا تملك أي صلاحية للوصول لهذه الصفحة",
+        "Access-Denied" : "لا يمكن الوصول",
+        "return-to-home-page" : "عد للصفحة الرئيسية"
     }
 }

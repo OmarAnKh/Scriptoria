@@ -166,7 +166,7 @@ const WpNavBar = ({ setMode,  setState }) => {
 
   return (
 
-    <nav className="navbar navbar-expand-lg WpNavBar py-1 fixed-top" id="WpNavBar">
+    <nav className="navbar navbar-expand-lg WpNavBar py-1" id="WpNavBar">
       <div className="container-fluid d-flex justify-content-between">
         <Link to={`/`} className="card-text d-flex align-items-center" target="">
           <img className="logo-size" src={Logo} alt="no"></img>
@@ -206,7 +206,7 @@ const WpNavBar = ({ setMode,  setState }) => {
                         <div className="row star-widget row-cols-auto justify-content-center">
 
                         </div>
-                        <div className='row rate-msg fs-5 justify-content-center text-secondary'>
+                        <div className='row rate-msg fs-5 justify-content-center text-secondary p-2'>
                           <input type="text" id='invitaionId' className="form-control" aria-describedby="emailHelp" placeholder="Please enter the user Email or Username" onChange={event => inivateInputHandler(event)} ></input>
                           <div >
                             <span style={{ color: "red", display: invitationError }}>Please provide the user email or username</span>

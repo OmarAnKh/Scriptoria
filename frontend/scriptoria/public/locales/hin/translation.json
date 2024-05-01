@@ -127,6 +127,9 @@
         "show_more": "और दिखाएं"
     },
     "StoryDetails": {
+        "Story-Details" : "कहानी का विवरण",
+        "Create-a-story" : "कहानी बनाएं",
+        "Update-a-story" : "कहानी अपडेट करें",
         "title": "शीर्षक",
         "number": "स्लाइड की संख्या",
         "description": "विवरण (300 शब्द अधिकतम)",
@@ -185,6 +188,7 @@
         "reading-lists" : "की पढ़ने की सूचियाँ",
         "edit" : "संपादित करें",
         "delete" : "हटाएँ",
+        "share" : "साझा करें",
         "list-name" : "सूची का नाम",
         "edit-privacy" : "गोपनीयता संपादित करें",
         "public" : "सार्वजनिक",
@@ -196,5 +200,13 @@
         "do-you-want-to-copy-this-list" : "क्या आप इस सूची को कॉपी करना चाहते हैं?",
         "this-user-may-not-have-one-public-list-at-least" : "इस उपयोगकर्ता के पास कम से कम एक सार्वजनिक सूची होनी चाहिए",
         "loading" : "लोड हो रहा है..."
-    }    
+    },
+    "ErrorPages" : {
+        "this-list-may-not-contain-one-story-at-least" : "इस सूची में कम से कम एक कहानी नहीं हो सकती है",
+        "this-user-may-not-have-one-public-list-at-least" : "इस उपयोगकर्ता के पास कम से कम एक सार्वजनिक सूची नहीं हो सकती",
+        "you-have-no-access-to-reach-this-page" : "आपके पास इस पृष्ठ तक पहुँचने का कोई अधिकार नहीं है",
+        "Access-Denied" : "पहुँच निषेधित",
+        "return-to-home-page" : "होम पेज पर वापस जाएं"
+    }
+        
 }

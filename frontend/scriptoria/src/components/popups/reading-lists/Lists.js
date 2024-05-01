@@ -46,12 +46,12 @@ const Lists = ({ storyId }) => {
         await toast.promise(updateReadingLists(storyId, checkedLists, userName, token), {
           loading: 'Saving data...',
           success: 'Data saved successfully.',
-          error: 'Failed to save data. Please try again later.',
+          error: 'Failed to save data.',
         });
       
     } catch (error) {
       console.error("Error saving data:", error);
-      toast.error("Failed to save data. Please try again later.");
+      toast.error("Failed to save data.");
     }
   };
 
@@ -71,7 +71,7 @@ const Lists = ({ storyId }) => {
       await toast.promise(createReadingList(newList, token), {
         loading: 'Creating list...',
         success: 'List created successfully.',
-        error: 'Failed to create list. Please try again later.',
+        error: 'Failed to create list.',
       });
       const updatedLists = await getReadingLists(userName,true);
       if (updatedLists) {
@@ -196,11 +196,6 @@ const Lists = ({ storyId }) => {
                       placeholder="my list"
                       aria-describedby = "new-name-validation"
                     />
-                    {
-                        valid? <></>
-                        : <div id="new-name-validation" className="invalid-feedback">
-                        list already exists
-                      </div> }
                   </div>
                   <div className="mb-3">
                   <label htmlFor="list-privacy" className="form-label">privacy</label>
@@ -234,6 +229,9 @@ const Lists = ({ storyId }) => {
         <i className="bi bi-plus-lg"
           data-bs-target="#addToList"
           data-bs-toggle={signedIn ? "modal" : ""}
+          onClick={()=>{
+            if(!signedIn) toast.error('you must be logged in to save this story')
+          }}
           style={{ color: 'white', cursor: 'pointer', fontSize: '2.5rem', justifySelf: 'center' }}></i>
       </div>
     </div >

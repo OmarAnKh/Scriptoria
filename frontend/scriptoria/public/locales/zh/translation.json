@@ -126,6 +126,9 @@
         "show_more": "显示更多"
     },
     "StoryDetails": {
+        "Story-Details" : "故事详情",
+        "Create-a-story" : "创建故事",
+        "Update-a-story" : "更新故事",
         "title": "标题",
         "number": "幻灯片数量",
         "description": "描述（最多300字）",
@@ -184,6 +187,7 @@
         "reading-lists" : "的阅读列表",
         "edit" : "编辑",
         "delete" : "删除",
+        "share" : "分享",
         "list-name" : "清单名称",
         "edit-privacy" : "编辑隐私",
         "public" : "公开",
@@ -195,5 +199,12 @@
         "do-you-want-to-copy-this-list" : "您要复制此列表吗？",
         "this-user-may-not-have-one-public-list-at-least" : "此用户至少必须拥有一个公共列表",
         "loading" : "载入中..."
-    }    
+    },
+    "ErrorPages" : {
+        "this-list-may-not-contain-one-story-at-least" : "此列表可能至少不包含一個故事",
+        "this-user-may-not-have-one-public-list-at-least" : "此用户可能至少没有一个公共列表",
+        "you-have-no-access-to-reach-this-page" : "您无权访问此页面",
+        "Access-Denied" : "访问被拒绝",
+        "return-to-home-page" : "返回首页"
+    }     
 }

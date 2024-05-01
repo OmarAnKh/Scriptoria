@@ -238,7 +238,7 @@ const StoryDetails = () => {
         <div className="row">
           <div className="col-md-8 mx-auto">
             <div className="story-details-header text-center">
-              <span className="story-details-title text-center">Story Details:{!id ? "Create a story" : "Update a story"}</span>
+              <span className="story-details-title text-center">{t("StoryDetails.Story-Details")} : {!id ? t("StoryDetails.Create-a-story") : t("StoryDetails.Update-a-story")}</span>
             </div>
             <div className='story-details-inner-body p-5'>
               <div className="row">

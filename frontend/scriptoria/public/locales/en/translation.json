@@ -126,6 +126,9 @@
         "show_more": "Show more"
     },
     "StoryDetails": {
+        "Story-Details" : "Story Details",
+        "Create-a-story" : "Create a story",
+        "Update-a-story" : "Update a story",
         "title": "Title",
         "number": "Number of slides",
         "description": "description (300 word max)",
@@ -188,6 +191,7 @@
         "reading-lists": "'s Reading Lists",
         "edit": "edit",
         "delete": "delete",
+        "share" : "share",
         "list-name": "list name",
         "edit-privacy": "edit privacy",
         "public": "public",
@@ -199,5 +203,12 @@
         "do-you-want-to-copy-this-list": "do you want to copy this list?",
         "this-user-may-not-have-one-public-list-at-least": "this user may not have one public list at least",
         "loading": "loading..."
+    },
+    "ErrorPages" : {
+        "this-list-may-not-contain-one-story-at-least" : "this list may not contain one story at least",
+        "this-user-may-not-have-one-public-list-at-least" : "this user may not have one public list at least",
+        "you-have-no-access-to-reach-this-page" : "you have no access to reach this page",
+        "Access-Denied" : "Access Denied",
+        "return-to-home-page" : "return to home page"
     }
 }

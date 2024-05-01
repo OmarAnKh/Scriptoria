@@ -126,6 +126,9 @@
         "show_more": "Afficher plus"
     },
     "StoryDetails": {
+        "Story-Details" : "Détails de l'histoire",
+        "Create-a-story" : "Créer une histoire",
+        "Update-a-story" : "Mettre à jour une histoire",
         "title": "Titre",
         "number": "Nombre de diapositives",
         "description": "Description (maximum 300 mots)",
@@ -184,6 +187,7 @@
         "reading-lists" : "Listes de lecture de ",
         "edit" : "modifier",
         "delete" : "supprimer",
+        "share" : "Partager",
         "list-name" : "nom de la liste",
         "edit-privacy" : "modifier la confidentialité",
         "public" : "public",
@@ -195,5 +199,12 @@
         "do-you-want-to-copy-this-list" : "Voulez-vous copier cette liste ?",
         "this-user-may-not-have-one-public-list-at-least" : "Cet utilisateur doit avoir au moins une liste publique",
         "loading" : "chargement..."
-    }    
+    },
+    "ErrorPages" : {
+        "this-list-may-not-contain-one-story-at-least" : "cette liste ne peut pas contenir au moins une histoire",
+        "this-user-may-not-have-one-public-list-at-least" : "cet utilisateur peut ne pas avoir au moins une liste publique",
+        "you-have-no-access-to-reach-this-page" : "vous n'avez pas accès à cette page",
+        "Access-Denied" : "Accès refusé",
+        "return-to-home-page" : "retour à la page d'accueil"
+    }        
 }
