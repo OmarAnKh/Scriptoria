@@ -20,7 +20,8 @@
         "reading_list": "Reading list"
     },
     "CarouselCards": {
-        "read_the_book": "Read the book"
+        "read_the_book": "Read the book",
+        "votes": "votes"
     },
     "DiscoverTable": {
         "all_genres": "All genres",
@@ -145,6 +146,26 @@
         "category-error": "category required",
         "target-audience-error": "Target Audience required",
         "uploaded-image-url-error": "image required"
+    },
+    "StoryHeader": {
+        "Likes": "Likes",
+        "must_login": "You must be logged in to like this story!",
+        "Comments": "Comments",
+        "Rate": "Rate",
+        "votes": "votes",
+        "Add_to_reading_list": "Add to reading list",
+        "Share": "Share",
+        "read_more": "Read more",
+        "read_less": "Read less"
+    },
+    "StoryOverview": {
+        "following": "Following",
+        "followers": "Followers",
+        "works": "Works",
+        "view_profile": "View profile",
+        "follow": "Follow",
+        "unfollow": "Unfollow",
+        "start_reading": "Start Reading..."
     },
     "Logout": {
         "text1": "You have successfully logged out.",

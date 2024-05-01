@@ -354,7 +354,7 @@ const Settings = () => {
                                         {t("Settings.privacy")}
 
                                         <CardSettingsInfo cardBodyClassName="d-flex align-items-end">
-                                            <div className="d-flex align-items-start px-5">
+                                            <div className="d-flex align-items-start" style={{paddingLeft: '1em'}}>
                                                 <UploadButton uploader={uploader}
                                                     options={options}
                                                     onComplete={files => setImgURL(files.map(x => x.fileUrl).join("\n"))}>

@@ -9,7 +9,6 @@ const StoryPage = () => {
         <div>
             <Navbar />
             <StoryHeader />
-            <StoryCard />
         </div>
     )
 }

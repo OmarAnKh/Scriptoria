@@ -140,6 +140,12 @@
     color: black;
 }
 
+@media (max-width: 1500px) {
+    .prof-card {
+        margin-left: 5em !important;
+    }
+}
+
 @media (max-width: 992px) {
     .story-prev {
         max-width: 400px;
@@ -183,13 +189,22 @@
 
 @media (max-width: 576px) {
     .story-prev {
-        max-width: 200px;
-
+        min-width: 200px;
+        max-height: 400px;
+        margin-right: 2em;
     }
 
     .container-details {
         display: flex;
+        margin-left: 3em !important;
+        margin-right: 5em;
     }
 
+    .prof-card {
+        margin-left: 10em !important;
+    }
 
+    .profileCard {
+        height: inherit;
+    }
 }

@@ -20,7 +20,8 @@
         "reading_list": "पढ़ने की सूची"
     },
     "CarouselCards": {
-        "read_the_book": "किताब पढ़ें"
+        "read_the_book": "किताब पढ़ें",
+        "votes": "वोट"
     },
     "DiscoverTable": {
         "all_genres": "सभी शैलियाँ",
@@ -147,6 +148,25 @@
         "target-audience-error": "लक्ष्य दर्शक आवश्यक है",
         "uploaded-image-url-error": "छवि आवश्यक है"
     },
+    "StoryHeader": {
+        "Likes": "पसंद",
+        "Comments": "टिप्पणियाँ",
+        "Rate": "रेटिंग",
+        "votes": "वोट",
+        "Add_to_reading_list": "पढ़ने की सूची में जोड़ें",
+        "Share": "शेयर",
+        "read_more": "अधिक पढ़ें", 
+        "read_less": "कम पढ़ें"
+    }, 
+    "StoryOverview": {
+        "following": "फॉलोइंग",
+        "followers": "फॉलोवर्स",
+        "works": "काम",
+        "view_profile": "प्रोफाइल देखें",
+        "follow": "फॉलो करें",
+        "unfollow": "फॉलो करना बंद करें",
+        "start_reading": "पढ़ाई शुरू करें..."
+    },   
     "Logout": {
         "text1": "आप सफलतापूर्वक लॉग आउट हो गए हैं।",
         "text2": "होम पेज पर वापस जाने के लिए यहाँ क्लिक करें।"

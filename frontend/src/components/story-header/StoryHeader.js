@@ -5,9 +5,13 @@ import Icons from './icons/Icons';
 import { useParams } from 'react-router-dom';
 import { Buffer } from 'buffer';
 import { getStory } from '../../api/storyAPI';
+import StoryCard from '../story-overview/StoryOverview';
+import { useTranslation } from 'react-i18next';
 
 
 const StoryHeader = () => {
+
+    const { t } = useTranslation();
 
     const { id } = useParams()
 
@@ -90,8 +94,8 @@ const StoryHeader = () => {
                                 {data?.description}
                             </p>
                             {showReadMore && (
-                                <button className="btn btn-link text-decoration-none text-white p-1" onClick={() => setIsExpanded(!isExpanded)} style={isExpanded ? null : { whiteSpace: 'nowrap', marginBottom: '10px' }}>
-                                    {isExpanded ? 'Read Less' : 'Read More'}
+                                <button className="btn btn-link text-decoration-none text-white p-1" onClick={() => setIsExpanded(!isExpanded)} style={isExpanded ? null : { whiteSpace: 'nowrap'}}>
+                                    {isExpanded ? `${t("StoryHeader.read_less")}` : `${t("StoryHeader.read_more")}`}
                                 </button>
                             )}
                         </div>
@@ -105,6 +109,9 @@ const StoryHeader = () => {
 
                     </div>
                     <Icons data={data} id={id} counts={counts} setData={setData} />
+                </div>
+                <div className='my-5'>
+                    <StoryCard/>
                 </div>
             </div>
         </div>

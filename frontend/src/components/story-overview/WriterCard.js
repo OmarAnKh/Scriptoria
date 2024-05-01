@@ -4,8 +4,11 @@ import useAuth from '../../hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import useAccount from '../../hooks/useAccount';
+import { useTranslation } from 'react-i18next';
 
 const WriterCard = ({ handleArrowLeftClick, user }) => {
+
+    const { t } = useTranslation();
 
     const { setFollow, unFollow, getFollowerCount, isFollowing, getfollowingCount } = useFollow();
     const { auth } = useAuth();
@@ -76,15 +79,15 @@ const WriterCard = ({ handleArrowLeftClick, user }) => {
                         <p className="card-text text-muted profile-username">@{user?.displayName}</p>
                         <div className="row textf">
                             <div className="col-4 text-muted mt-2">
-                                <p className="titleFW">Following</p>
+                                <p className="titleFW">{t("StoryOverview.following")}</p>
                                 <h6 className="numberFW">{followingData}</h6>
                             </div>
                             <div className="col-4 text-muted mt-2">
-                                <p className="titleFW">Followers</p>
+                                <p className="titleFW">{t("StoryOverview.followers")}</p>
                                 <h6 className="numberFW">{followersData}</h6>
                             </div>
                             <div className="col-4 text-muted mt-2">
-                                <p className="titleFW">Work</p>
+                                <p className="titleFW">{t("StoryOverview.works")}</p>
                                 <h6 className="numberFW">{worksCount}</h6>
                             </div>
                         </div>
@@ -107,10 +110,10 @@ const WriterCard = ({ handleArrowLeftClick, user }) => {
                     <div className="mt-4 buttonfolowandview ">
                         {auth?.userName && <>
                             <button className="btn btn-social btnfollowandviewprofile" onClick={handleFollowClick}>
-                                {isFollowingAccount ? "Unfollow" : "Follow"} <i className="bi bi-person-add"></i>
+                                {isFollowingAccount ? `${t("StoryOverview.unfollow")}` : `${t("StoryOverview.follow")}`} <i className="bi bi-person-add"></i>
                             </button>
                         </>}
-                        <button className="btn btn-social btnfollowandviewprofile" onClick={() => handleViewProfile(user.userName)}>View Profile</button>
+                        <button className="btn btn-social btnfollowandviewprofile" onClick={() => handleViewProfile(user.userName)}>{t("StoryOverview.view_profile")}</button>
                     </div>
                 </div>
             </div>
