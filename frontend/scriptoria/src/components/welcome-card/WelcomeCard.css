@@ -38,7 +38,7 @@
     color : var(--text-Color)
 }
 
-.WelcomeText p {
+.WelcomeText span {
     font-family: Brasika;
     color: var(--darker--primary-Color);
     padding-left: 10px;

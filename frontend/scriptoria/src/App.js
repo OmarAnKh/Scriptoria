@@ -1,7 +1,6 @@
 import './App.css';
-import SignIn from './components/sign-in/SignIn';
+import 'bootstrap-icons/font/bootstrap-icons.css';
 import { Route, Routes } from 'react-router-dom';
-import SingUp from "./components/sign-up/SignUp";
 import HomePage from './components/home-page/HomePage';
 import WritingPage from './components/writing-page/WrtitingPage';
 import StoryDetails from './components/story-details/StoryDetails';
@@ -26,6 +25,8 @@ import ListPage from './components/list-page/ListPage.js'
 import NoAccessPage from './components/no-access-pages/NoAccessPage.js';
 import StoryPage from './components/story-page/StoryPage.js';
 import ReadingPage from './components/reading-page/flip-book/FlipBook.js'
+import Registration from './components/sign-in/Registration.js';
+import SignUpInfo from './components/sign-up-info/SignUpInfo.js';
 
 function App() {
 
@@ -34,15 +35,17 @@ function App() {
       <Routes>
         <Route path='/' element={<Layout />}>
           {/* error pages  */}
-          <Route path="NoAccessPage" element={<NoAccessPage/>}/>
+          <Route path="NoAccessPage" element={<NoAccessPage />} />
           <Route path='ServersErrorPage' element={<ServersErrorPage />} />
           <Route path='StoryErrorsPage' element={<StoryErrorsPage />} />
           <Route path='logout' element={<LogedOut />} />
 
 
           {/* registration pages */}
-          <Route path="SignIn" element={<SignIn />} />
-          <Route path="SignUp" element={<SingUp />} />
+          {/* <Route path="SignIn" element={<SignIn />} />
+          <Route path="SignUp" element={<SingUp />} /> */}
+          <Route path='registration' element={<Registration />} />
+          <Route path='registration/info' element={<SignUpInfo />} />
           <Route path='SignUpVerificationCode' element={<SignUpVerificationCode />} />
           <Route path='GetEmail' element={<GettingEmail />} />
           <Route path='EmailVerifing/:email' element={<EmailVerifing />} />

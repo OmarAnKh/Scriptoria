@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next';
 const WelcomeCard = () => {
     const { t } = useTranslation();
     const { auth } = useAuth();
-    
+
     return (
         <>
             <div className="welcomecard">
@@ -19,7 +19,7 @@ const WelcomeCard = () => {
                             <img src={LoopImg} className='loop-img' />
                         </div>
                         <div className="col pt-5">
-                            <p className='WelcomeText'>{t("WelcomeCard.we-are")}<p> {t("WelcomeCard.scriptoria")}</p></p>
+                            <p className='WelcomeText'>{t("WelcomeCard.we-are")}<span> {t("WelcomeCard.scriptoria")}</span></p>
                             <div>
                                 <p className='DescTitle d-flex justify-content-center'>{t("WelcomeCard.desc-title")}</p>
                                 <p className='DescTitlep'>
@@ -29,12 +29,12 @@ const WelcomeCard = () => {
                             <div className='d-flex justify-content-end'>
                                 <AuthButtons
                                     title={t("WelcomeCard.sign-in")}
-                                    herf="/SignIn"
+                                    herf="/registration"
 
                                 />
                                 <AuthButtons
                                     title={t("WelcomeCard.sign-up")}
-                                    herf="/SignUp"
+                                    herf="/registration"
                                 />
                             </div>
                         </div>

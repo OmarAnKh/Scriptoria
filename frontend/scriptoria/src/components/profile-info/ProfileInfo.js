@@ -56,7 +56,7 @@ const ProfileInfo = (props) => {
     }
 
     const signInHandler = () => {
-        navigate('/SignIn')
+        navigate('/registration')
 
     }
 

@@ -13,7 +13,7 @@ const SignUpVerificationCode = () => {
     const [inputError, setInputError] = useState("")
     const location = useLocation();
     const navigate = useNavigate();
-    const { user } = location.state || {};
+    const { accountInfo } = location.state || {};
 
     useEffect(() => {
         const generateCode = () => {
@@ -31,7 +31,7 @@ const SignUpVerificationCode = () => {
         };
         generateCode();
         const emailDetails = {
-            email: user.email,
+            email: accountInfo.email,
             codeGenerated: correctCode
         };
         if (correctCode) {
@@ -41,15 +41,15 @@ const SignUpVerificationCode = () => {
 
     const clickHandler = async () => {
         if (correctCode === code) {
-            const response = await saveDocument("SignUp", user);
+            const response = await saveDocument("SignUp", accountInfo);
             if (response.status === 400) {
                 navigate(`/SignUp`);
                 return console.log(response);
             }
-            const userName = user.userName;
+            const userName = accountInfo.userName;
             const token = response.token;
 
-            setAuth({ userName, token, userInfo: user })
+            setAuth({ userName, token, userInfo: accountInfo })
             Cookies.set('flag', true)
             navigate(`/`);
         }
@@ -59,7 +59,7 @@ const SignUpVerificationCode = () => {
         <>
             <EmailVerification
                 cardType="Email Verification"
-                text={`An email with Verification code was just send to ${user.email}`}
+                text={`An email with Verification code was just send to ${accountInfo.email}`}
                 type="text"
                 inputPlaceholder="Enter code"
                 buttonTitle="Next"
