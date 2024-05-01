@@ -16,6 +16,7 @@
 .title-friends-list {
     font-family: 'Poppins';
     font-weight: bold;
+    color: var(--text-Color);
 }
 
 .scrollspy {
@@ -63,12 +64,15 @@
     font-size: medium;
     text-shadow: 0px 1px 1px #000000;
     font-weight: bold;
+    color: var(--text-Color);
 }
 
 .friends-username {
     font-family: 'Lilita One';
     margin-top: -10px;
     font-size: small;
+    color: var(--text-Color);
+    opacity: .5;
 }
 
 .button-container {
@@ -84,6 +88,7 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
     border-radius: 5px;
     border: none;
+    color:var(--text-Color);
 }
 
 .show-more-friend {
@@ -98,6 +103,7 @@
     height: 33px;
     font-size: 15px;
     font-weight: bold;
+    color: var(--text-Color);
 }
 
 .show-more-friend:hover,

@@ -1,7 +1,7 @@
 .view-button {
     border-color: var(--primary-Color);
     background-color: transparent;
-    color: black !important;
+    color: var(--text-Color) !important;
     font-family: 'Righteous';
     font-weight: bold;
     width: 120px;
@@ -20,4 +20,5 @@
     font-family: 'Righteous';
     font-weight: bold;
     font-size: 24px;
+    color: var(--text-Color)
 }
