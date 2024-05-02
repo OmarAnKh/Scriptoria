@@ -30,7 +30,6 @@ const Card = ({ data }) => {
                 const response = await getStoryRates('rates', data._id);
                 setRatings(response.counts.avg);
                 setVotes(response.counts.rates);
-console.log(response.counts.avg, response.counts.rates)
             } catch (error) {
                 console.log(error)
             }
@@ -52,7 +51,7 @@ console.log(response.counts.avg, response.counts.rates)
                 <div className="col-md-4">
                     {data.coverPhoto && (
                     <Link to={`/story/${data._id}`}>
-                        <img src={`data:image/png;base64,${Buffer.from(data.coverPhoto).toString('base64')}`} className="cover-img img-fluid rounded-start" alt="..."/>
+                        <img src={`data:image/png;base64,${Buffer.from(data.coverPhoto).toString('base64')}`} className="cover-img img-fluid rounded" alt="..."/>
                     </Link>
                     )}
                 </div>
@@ -65,7 +64,7 @@ console.log(response.counts.avg, response.counts.rates)
                             })}
                         </h6>
                         <span className="d-flex">
-                            <StarRating rating={ratings} />  &emsp; {votes} {t("CarouselCards.votes")} {ratings}
+                            <StarRating rating={ratings} />  &emsp; {votes} {t("CarouselCards.votes")}
                         </span>
                         <p className="CarouselCards-text text-sm">{data.description}</p>
                         <Link to={`/story/${data._id}`}><button type="button" className="btn btn-light rounded-4 px-5 fw-bold read-btn">{t("CarouselCards.read_the_book")}</button></Link>

@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import useAuth from "../../../hooks/useAuth"
 
 
-const AddComment = ({ storyId, signedIn, updateComments }) => {
+const AddComment = ({ storyId, signedIn, updateComments, triggerCount, setTriggerCount }) => {
     const { auth } = useAuth();
 
     const { t } = useTranslation()
@@ -42,6 +42,7 @@ const AddComment = ({ storyId, signedIn, updateComments }) => {
                 await sendComment(comment, token);
                 document.getElementById('add-comment').value = '';
                 updateComments();
+                setTriggerCount(!triggerCount);
             } catch (error) {
                 console.log(error);
             }

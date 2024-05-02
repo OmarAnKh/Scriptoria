@@ -6,7 +6,7 @@ import { toast } from 'react-hot-toast';
 import useAuth from '../../../hooks/useAuth';
 import { useTranslation } from 'react-i18next';
 
-const Rate = ({ id }) => {
+const Rate = ({ id, setTriggerRate }) => {
 
     const { t } = useTranslation()
     const { auth } = useAuth();
@@ -47,6 +47,7 @@ const Rate = ({ id }) => {
             if (res.statusText === 'OK')
                 toast.success('you have rated this story succesfully')
             setIsRated(true);
+            setTriggerRate(true)
         } catch (error) {
             console.error('Rating error:', error);
             toast.error('it looks like theres an error, try again later')

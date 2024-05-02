@@ -54,8 +54,8 @@ const FriendsList = (props) => {
                         <FriendsListBtn userName={friend.userName} />
                     </div>
                 ))}
-                {!showAll && <button className="btn show-more-friend " onClick={toggleShowAll}>{t("FriendsList.show_More")}</button>}
-            </div>
+                {friendsinfo.length > 5 && !showAll && (
+                <button className="btn show-more-friend" onClick={toggleShowAll}> {t("FriendsList.show_More")} </button>)}              </div>
         </div>
     );
 };
