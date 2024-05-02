@@ -15,8 +15,9 @@ const Panel = ({ className, hText, infoText, btnClassName, btnId, btnText, onCli
                 <button className={btnClassName} id={btnId} onClick={onClick}>
                     {btnText}
                 </button>
+                <br></br>
+                <img src={logo} alt="" className="img-registration " />
             </div>
-            <img src={logo} alt="" className="img-registration " />
         </div>
     )
 }
