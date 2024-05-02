@@ -142,8 +142,16 @@
 
 @media (max-width: 1500px) {
     .prof-card {
-        margin-left: 5em !important;
+        margin-left: 7em !important;
     }
+    .profileCard {
+        max-width: 70px;
+    }
+
+    .story-prev {
+        width: 300px !important;
+    }
+
 }
 
 @media (max-width: 992px) {

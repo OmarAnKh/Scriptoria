@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 import useAuth from '../../../hooks/useAuth'
 
 
-const Comments = ({ id }) => {
+const Comments = ({ id, triggerCount, setTriggerCount }) => {
   const { auth } = useAuth();
   const { t } = useTranslation()
   const [signedIn, setSignedIn] = useState(false);
@@ -81,6 +81,8 @@ const Comments = ({ id }) => {
                         time={getDateStringDifference(new Date(), new Date(comment.createdAt))}
                         updateComments={updateComments}
                         likes={comment.likes}
+                        triggerCount={triggerCount}
+                        setTriggerCount={setTriggerCount}
                       />
                     );
                   })
@@ -92,7 +94,7 @@ const Comments = ({ id }) => {
               </div>
               }
               {signedIn ? <div className="modal-footer p-0">
-                <AddComment signedIn={signedIn} updateComments={updateComments} storyId={id} />
+                <AddComment signedIn={signedIn} updateComments={updateComments} storyId={id} triggerCount={triggerCount} setTriggerCount={setTriggerCount}/>
               </div> : ``}
             </div>
           </div>

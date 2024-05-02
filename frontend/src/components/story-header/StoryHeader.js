@@ -21,7 +21,6 @@ const StoryHeader = () => {
     const [coverPhoto, setCoverPhoto] = useState('')
 
     const [authors, setAuthors] = useState([])
-    const [counts, setCounts] = useState({})
 
     const [isExpanded, setIsExpanded] = useState(false);
     const [showReadMore, setShowReadMore] = useState(false);
@@ -35,7 +34,6 @@ const StoryHeader = () => {
 
                 setAuthors(response?.accounts);
                 setData(response?.story);
-                setCounts(response?.counts);
                 setGenres(response?.story?.genres);
 
                 const cover = Buffer.from(response?.story?.coverPhoto).toString('base64');
@@ -108,7 +106,7 @@ const StoryHeader = () => {
                         })}
 
                     </div>
-                    <Icons data={data} id={id} counts={counts} setData={setData} />
+                    <Icons data={data} id={id} setData={setData} />
                 </div>
                 <div className='my-5'>
                     <StoryCard/>
