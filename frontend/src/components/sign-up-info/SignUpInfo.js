@@ -100,7 +100,7 @@ const SignUpInfo = () => {
             className: "panel left-panel",
             hText: "More Here ?",
             infoText: "In order to optimize your experience and ensure that our interactions are tailored to your preferences, we kindly request that you provide us with relevant information about your preferences. This will enable us to better understand your needs and expectations.",
-            btnClassName: "btn-registration transparent",
+            btnClassName: "btn-registration",
             btnId: "sign-up-btn",
             onClick: handleLeftCard,
             btnText: "continue"
@@ -109,7 +109,7 @@ const SignUpInfo = () => {
             className: "panel right-panel",
             hText: "One of Us?",
             infoText: "In order to optimize your experience and ensure that our interactions are tailored to your preferences, we kindly request that you provide us with relevant information about your preferences. This will enable us to better understand your needs and expectations.",
-            btnClassName: "btn-registration transparent",
+            btnClassName: "btn-registration",
             btnId: "sign-in-btn",
             onClick: handleRightCard,
             btnText: "Back"

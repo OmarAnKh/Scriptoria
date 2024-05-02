@@ -38,7 +38,7 @@ header {
     font-size: xx-large;
 }
 
-.nav-link-color{
+.nav-link-color {
     color: var(--text-Color);
 }
 
@@ -48,8 +48,8 @@ nav a {
     text-decoration: none;
 }
 
-.navbar-button{
-    color : var(--text-Color)
+.navbar-button {
+    color: var(--text-Color)
 }
 
 nav a:hover {
@@ -73,6 +73,18 @@ header div,
 nav {
     display: flex;
     align-items: center;
+}
+
+.fixthefit {
+    width: auto !important;
+}
+
+.ShowArrowOnHover i {
+    display: none;
+}
+
+.ShowArrowOnHover:hover i {
+    display: contents;
 }
 
 @media only screen and (max-width: 1200px) {
