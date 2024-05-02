@@ -178,6 +178,7 @@ const NavBar = () => {
                                 type="checkbox"
                                 name="checkbox"
                                 className="switch"
+                                checked={localStorage.getItem('theme') === 'dark' ? true : false}
                                 onChange={toggleTheme}
                             />
                         </div>
