@@ -16,6 +16,8 @@ const Comment = ({
   time,
   updateComments,
   likes,
+  triggerCount,
+  setTriggerCount
 }) => {
   const { auth } = useAuth();
   const { t } = useTranslation();
@@ -68,6 +70,7 @@ const Comment = ({
             error: "Failed to delete comment",
           }
         );
+        setTriggerCount(!triggerCount)
       }
       if (status === 1) {
         const comment = {

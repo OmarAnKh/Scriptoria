@@ -154,14 +154,7 @@ router.get('/stories/:id', async (req, res) => {
             accounts.push(account);
         }
 
-        const countComments = await Comment.countDocuments({ storyId: _id });
-        const countRates = await Rating.countDocuments({ StoryId: _id });
-        const result = await Rating.aggregate([
-            { $group: { _id: _id, averageRate: { $avg: "$rating" } } }
-        ]);
-
-        const averageRating = result[0]?.averageRate;
-        res.send({ story: story, accounts: accounts, counts: { comments: countComments, rates: countRates, avg: averageRating } })
+        res.send({ story: story, accounts: accounts })
 
     } catch (error) {
         res.status(500).send(error)

@@ -36,6 +36,25 @@ const getComments = async (storyId) =>{
     }
 }
 
+const getCommentsCount = async (storyId) => {
+    try {
+        const response = await fetch(`http://localhost:5000/comments/count/${storyId}`, {
+            method: "GET",
+            credentials: "include",
+            headers: {
+                "Content-Type": "application/json",
+            }
+        })
+
+        if (response.ok) {
+            return response.json()
+        }
+        return response
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 const editComment = async (comment, token) =>{
     try {
         const res = await axios({
@@ -75,5 +94,6 @@ export {
     getComments,
     sendComment,
     deleteComment,
-    editComment
+    editComment,
+    getCommentsCount
 }

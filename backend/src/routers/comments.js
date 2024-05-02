@@ -30,6 +30,16 @@ router.get('/comments/:id', async (req, res) => {
     }
 });
 
+router.get('/comments/count/:id', async (req, res) => {
+    const storyId = req.params.id
+    try {
+        const count = await Comment.countDocuments({ storyId });
+        res.status(200).send({counts: count})
+    } catch (error) {
+        res.status(500).send(error)
+    }
+})
+
 router.patch('/comments/:id', authentication, async (req, res) => {
     try {
         const comment = await Comment.findById(req.params.id);
