@@ -25,7 +25,7 @@ const StoryDetailsOption = ({ options, title, method, disabled, value, error, ty
     <div className="col row">
       <div className="col">
         <label >{title}</label>
-        <select className="form-control story-details-card-input" style={style} onChange={(event) => handleChange(event)} value={value} disabled={disabled}>
+        <select className="form-control darkmodefor story-details-card-input" style={style} onChange={(event) => handleChange(event)} value={value} disabled={disabled}>
           {options.map(option => {
             return (
               type === "color" ?
@@ -47,7 +47,7 @@ const StoryDetailsInput = (props) => {
   return (
     <div className={props?.className}>
       <label>{props?.title}</label>
-      <input className="form-control" type={props?.type} style={props?.style} defaultValue={props.defaultValue} onChange={(event) => handleChange(event)} name={props.name} />
+      <input className="form-control darkmodefor" type={props?.type} style={props?.style} defaultValue={props.defaultValue} onChange={(event) => handleChange(event)} name={props.name} />
       <p className='story-details-error'>{props.error}</p>
     </div>
   )
@@ -261,6 +261,7 @@ const StoryDetails = () => {
                     rows={10}
                     defaultValue={description}
                     onChange={(event) => setDescription(event.target.value)}
+                    style={{backgroundColor: "var(--primary-Color)", color: "var(--text-Color)"}}
                   />
                   <p className='story-details-error'>{descriptionError}</p>
                 </div>
@@ -324,7 +325,7 @@ const StoryDetails = () => {
                       return (
                         <div key={idx} className="d-flex align-items-center rounded p-1">
                           <li className='list-group-item' style={{ width: "200px", wordBreak: "break-word" }}>{category}</li>
-                          <button className='btn mx-1 py-1' style={{ backgroundColor: "#AC967F" }} onClick={() => handelDelete(setCategory, idx)}>X</button>
+                          <button className='btn mx-1 py-1' style={{ backgroundColor: "var(--primary-Color)", color: "var(--text-Color)" }} onClick={() => handelDelete(setCategory, idx)}>X</button>
                         </div>
                       )
                     })
@@ -348,7 +349,7 @@ const StoryDetails = () => {
                       )}
                     </UploadButton>
                     <p className='story-details-error'>{uploadedImageUrlError}</p>
-                    <div className="card" style={{ width: '15rem', height: "23rem" }}>
+                    <div className="card" style={{ width: '15rem', height: "23rem" , backgroundColor: "var(--primary-Color)"}}>
                       {uploadedImageUrl && <img src={uploadedImageUrl} alt="Uploaded Cover" className="uploaded-cover" />}
                     </div>
                   </div>

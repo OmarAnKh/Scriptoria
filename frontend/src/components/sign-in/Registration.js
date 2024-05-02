@@ -153,7 +153,7 @@ const Registration = () => {
             className: "panel left-panel",
             hText: "One of Us?",
             infoText: "Welcome to Scriptoria! Please enter your username and password to access your account. If you don't have an account yet, you can sign up for free.",
-            btnClassName: "btn-registration transparent",
+            btnClassName: "btn-registration",
             btnId: "sign-up-btn",
             onClick: handleRightCard,
             btnText: "Sign up"
@@ -162,7 +162,7 @@ const Registration = () => {
             className: "panel right-panel",
             hText: "One of Us?",
             infoText: "Welcome to Scriptoria! Please enter your username and password to access your account. If you don't have an account yet, you can sign up for free.",
-            btnClassName: "btn-registration transparent",
+            btnClassName: "btn-registration",
             btnId: "sign-in-btn",
             onClick: handleLeftCard,
             btnText: "Sign in"
@@ -176,7 +176,7 @@ const Registration = () => {
                 <RegistrationInput className="input-field" iClassName="bx bx-lock-alt" inputClassName={"px-3"} type="password" placeholder="Password" error={signInPasswordError} onChange={setPassword} />
                 <p className='registration-input-error'>{signInError}</p>
                 <Link to={`/GetEmail`} target="" style={{ textDecoration: "none", color: "rgb(33,33,33)" }}>
-                    <p>Forgot your password? <span style={{ textDecoration: "none", color: "white" }}>Reset password</span></p>
+                    <p>Forgot your password? <span style={{ textDecoration: "underline", color: "var(--text-Color)" }}>Reset password</span></p>
                 </Link>
                 <input type="submit" value="Sign In" className="btn-registration solid" />
             </form>

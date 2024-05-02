@@ -25,8 +25,8 @@ const NavHomeButton = (props) => {
                 {
                     props.accountDropDown.map((accountInfo, idx) => {
                         return (
-                            <Link className="dropdown-item" to={accountInfo.to} key={idx} onClick={accountInfo.method}>
-                                {accountInfo.title}
+                            <Link className="dropdown-item fixthefit ShowArrowOnHover" to={accountInfo.to} key={idx} onClick={accountInfo.method}>
+                                {accountInfo.title} <i className="bi bi-arrow-left-short ms-3"></i>
                             </Link>
                         )
                     })

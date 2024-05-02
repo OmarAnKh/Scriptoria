@@ -19,7 +19,7 @@ const WelcomeCard = () => {
                             <img src={LoopImg} className='loop-img' />
                         </div>
                         <div className="col pt-5">
-                            <p className='WelcomeText'>{t("WelcomeCard.we-are")}<span> {t("WelcomeCard.scriptoria")}</span></p>
+                            <p className='WelcomeText'>{t("WelcomeCard.we-are")}  {t("WelcomeCard.scriptoria")}</p>
                             <div>
                                 <p className='DescTitle d-flex justify-content-center'>{t("WelcomeCard.desc-title")}</p>
                                 <p className='DescTitlep'>

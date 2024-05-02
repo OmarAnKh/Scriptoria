@@ -2,7 +2,7 @@
     position: relative;
     width: 100%;
     min-height: 100vh;
-    background-color: #fff;
+    background-color: var(--background-Color);
     overflow: hidden;
 }
 
@@ -63,7 +63,7 @@ form.right-registration-card {
 
 .title {
     font-size: 2.2rem;
-    color: #444;
+    color: var(--text-Color);
     margin-bottom: 10px;
 }
 
@@ -108,8 +108,8 @@ form.right-registration-card {
     outline: none;
     border-radius: 49px;
     cursor: pointer;
-    background-color: #0ef;
-    color: #000;
+    background-color: var(--primary-Color);
+    color: var(--text-Color);
     text-transform: uppercase;
     font-weight: 600;
     margin: 10px 0;
@@ -117,8 +117,7 @@ form.right-registration-card {
 }
 
 .btn-registration:hover {
-    background-color: #4d84e2;
-    color: #fff;
+    transform: scale(1.05);
 }
 
 .social-text {
@@ -181,7 +180,7 @@ form.right-registration-card {
 }
 
 .panel .content {
-    color: #fff;
+    color: var(--text-Color);
     transition: 0.9s 0.6s ease-in-out;
 }
 

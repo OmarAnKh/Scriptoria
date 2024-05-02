@@ -15,7 +15,7 @@ const ProfileInfo = (props) => {
 
     const { auth } = useAuth();
 
-    const { getAccountByUserName } = useAccount();
+    const { getAccountByUserName, getAccountWork } = useAccount();
 
     const { t } = useTranslation()
     const data = props.user;
@@ -25,12 +25,14 @@ const ProfileInfo = (props) => {
     const [imgURL, setImgURL] = useState(logo)
     const navigate = useNavigate()
     const [followerCount, setFollowerCount] = useState(0);
+    const [followingCount, setFollowingCount] = useState(0)
     const [editAbout, setEditAbout] = useState(false);
     const [editedDescription, setEditedDescription] = useState(data.description);
+    // const [getAccountWorks, setGetAccountWorks] = useState(0)
 
     const { userName } = useParams()
 
-    const { setFollow, unFollow, getFollowerCount, isFollowing } = useFollow();
+    const { setFollow, unFollow, getFollowerCount, getfollowingCount, isFollowing } = useFollow();
 
     const editAboutHandler = async () => {
         setEditAbout(true);
@@ -97,6 +99,11 @@ const ProfileInfo = (props) => {
                 const _id = (await getAccountByUserName(userName))._id
                 const followerCount = await getFollowerCount(_id)
                 setFollowerCount(followerCount);
+                const folloingCount = await getfollowingCount(_id)
+                setFollowingCount(folloingCount)
+                // const accountWorks = await getAccountWork(_id, true)
+                // console.log(accountWorks)
+                // setGetAccountWorks(accountWorks)
             } catch (error) {
                 console.error("Error fetching followers:", error);
             }
@@ -127,8 +134,8 @@ const ProfileInfo = (props) => {
                 <div className="Nda col">
                     <div className="DisplayName">
                         {t("ProfileInfo.hello")}
-                        <br></br>{data.userName}
-                        <div className="Username"> @{data.displayName}</div>
+                        <br></br>{data.displayName}
+                        <div className="Username"> @{data.userName}</div>
                     </div>
                     <br />
                     <div className='container'>
@@ -285,8 +292,8 @@ const ProfileInfo = (props) => {
                         <div className="">
                             <div className="buttons1">
                                 <InfoButton text={t("ProfileInfo.followers")} value={followerCount?.followerCount} />
-                                <InfoButton text={t("ProfileInfo.works")} value="21" />
-                                <InfoButton text={t("ProfileInfo.following")} value="356" />
+                                <InfoButton text={t("ProfileInfo.works")} value="0" />
+                                <InfoButton text={t("ProfileInfo.following")} value={followingCount?.followingsNumber} />
                             </div>
                         </div>
                     </div>

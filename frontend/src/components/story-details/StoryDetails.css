@@ -23,3 +23,7 @@
   color: red;
   font-weight: bold;
 }
+.darkmodefor{
+  background-color: var(--primary-Color);
+  color: var(--text-Color);
+}
