@@ -13,7 +13,7 @@
     height: 2000px;
     border-radius: 50%;
     background: linear-gradient(-45deg, var(--accent-Color), var(--primary-Color));
-    top: -10%;
+    top: -6%;
     right: 48%;
     transform: translateY(-50%);
     z-index: 6;
@@ -171,12 +171,12 @@ form.right-registration-card {
 
 .left-panel {
     pointer-events: all;
-    padding: 3rem 17% 2rem 12%;
+    padding: 3rem 35% 2rem 12%;
 }
 
 .right-panel {
     pointer-events: none;
-    padding: 3rem 12% 2rem 17%;
+    padding: 3rem 12% 2rem 35%;
 }
 
 .panel .content {
@@ -260,7 +260,7 @@ form.right-registration-card {
 .registration-see-password {
     position: relative;
     top: 3px;
-    left: 100px;
+    left: 70px;
 }
 
 @media (max-width: 870px) {
