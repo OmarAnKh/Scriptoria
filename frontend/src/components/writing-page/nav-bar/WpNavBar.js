@@ -14,7 +14,7 @@ import useAuth from "../../../hooks/useAuth";
 import { getstory } from "../../../api/storyAPI";
 import toast from "react-hot-toast";
 
-const WpNavBar = ({ setMode,  setState }) => {
+const WpNavBar = ({ setMode, setState }) => {
   const navigate = useNavigate()
   const { auth } = useAuth()
   const { id } = useParams()
@@ -270,7 +270,7 @@ const WpNavBar = ({ setMode,  setState }) => {
         <div className="collapse navbar-collapse text-center order-2 order-lg-1" id="navbarNavDropdown">
           <ol className="navbar-nav mx-auto">
             <li className="nav-item">
-              <Buttons btnCN="FocusMode" name="Focus Mode" method={handleMode}/>
+              <Buttons btnCN="FocusMode" name="Focus Mode" method={handleMode} />
             </li>
             <li className="nav-item">
               <button type="button" className="btn btn-outline-dark rounded-5 m-2" onClick={handelPublich}>

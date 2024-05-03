@@ -68,7 +68,7 @@ const Settings = () => {
     const { t } = useTranslation()
     const settingsButtonObject = [
         {
-            className: "nav-link active nav-link-settings",
+            className: "nav-link active  nav-link-settings",
             id: "v-pills-userInfo-tab",
             dataBsToggle: "pill",
             dataBsTarget: "#v-pills-userInfo",
@@ -271,7 +271,7 @@ const Settings = () => {
                 {alertMsg ? toast.success('image saved') : ""}
                 <div className="row">
                     <div className="col-md-8 mx-auto">
-                        <div className="settings-page-header py-4">
+                        <div className="settings-page-header py-4 mb-3">
                             <span className="edit-profile-text">{t("Settings.settings")}</span>
                         </div>
                         <div className="row">
@@ -303,7 +303,7 @@ const Settings = () => {
                             </div>
                             <div className="col-md-10">
                                 <div className="tab-content" id="v-pills-tabContent">
-                                    <SettingsInfo className="tab-pane fade show active settings-info-body" id="v-pills-userInfo" role="tabpanel" ariaLabelledby="v-pills-userInfo-tab" tabIndex={0} >
+                                    <SettingsInfo className="tab-pane fade show active  settings-info-body " id="v-pills-userInfo" role="tabpanel" ariaLabelledby="v-pills-userInfo-tab" tabIndex={0} >
                                         <CardSettingsInfo cardBodyClassName="d-flex align-items-end">
                                             <div className="d-flex align-items-start">
                                                 <UploadButton uploader={uploader}
@@ -354,7 +354,7 @@ const Settings = () => {
                                         {t("Settings.privacy")}
 
                                         <CardSettingsInfo cardBodyClassName="d-flex align-items-end">
-                                            <div className="d-flex align-items-start" style={{paddingLeft: '1em'}}>
+                                            <div className="d-flex align-items-start" style={{ paddingLeft: '1em' }}>
                                                 <UploadButton uploader={uploader}
                                                     options={options}
                                                     onComplete={files => setImgURL(files.map(x => x.fileUrl).join("\n"))}>
