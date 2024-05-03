@@ -7,6 +7,7 @@ import Like from "../models/like.js";
 import Comment from "../models/comment.js";
 import Rating from "../models/rating.js";
 import { converImgToBuffer } from "../utils/image.js";
+import ReadingList from "../models/readingList.js";
 
 const router = new express.Router();
 
@@ -228,5 +229,24 @@ router.get('/storiesGenre/:genre', async (req, res) => {
     }
 });
 
+router.delete('/delete/story/:id', authentication, async (req, res) => {
 
+    try {
+        const story = await Story.findByIdAndDelete(req.params.id)
+        if (!story) {
+            res.status(400).send({ message: false, error: "couldn't find the story" })
+        }
+        await ReadingList.updateOne(
+            { $pull: { stories: req.params.id } }
+        );
+        await Comment.deleteMany({ storyId: req.params.id })
+        await Like.deleteMany({ StoryId: req.params.id })
+        await Rating.deleteMany({ StoryId: req.params.id })
+        await Writers.deleteMany({ StoryId: req.params.id })
+        res.status(200).send({ message: true, story })
+    } catch (error) {
+        res.status(500).send({ message: false, error: 'Internal Server Error' });
+    }
+
+})
 export default router;

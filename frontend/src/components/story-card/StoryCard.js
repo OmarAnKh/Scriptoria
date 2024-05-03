@@ -4,7 +4,6 @@ import StarRating from '../star-rating/StarRating';
 import { useTranslation } from 'react-i18next';
 import { Buffer } from 'buffer';
 import { getGenrestory } from '../../api/storyAPI';
-import DiscoverTable from '../discover-tab/DiscoverTable';
 import { Link } from 'react-router-dom';
 
 const StoryCard = ({ selectedTab }) => {

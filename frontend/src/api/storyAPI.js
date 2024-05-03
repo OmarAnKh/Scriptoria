@@ -121,6 +121,24 @@ const getGenrestory = async (selectedTab) => {
     }
 }
 
+
+const deleteStory = async (storyId) => {
+    try {
+        const response = await fetch(`http://localhost:5000/delete/story/${storyId}`, {
+            method: "DELETE",
+            credentials: "include",
+            headers: {
+                "Content-Type": "application/json",
+            }
+        })
+        if (response.ok) {
+            return response.json()
+        }
+        return response
+    } catch (error) {
+        console.log(error)
+    }
+}
 export {
     story,
     writerStory,
@@ -128,5 +146,6 @@ export {
     getStories,
     getStory,
     getstory,
-    getGenrestory
+    getGenrestory,
+    deleteStory
 }

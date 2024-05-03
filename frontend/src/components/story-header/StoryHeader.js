@@ -2,19 +2,21 @@ import Genre from './Genre';
 import './StoryHeader.css'
 import { useEffect, useRef, useState } from 'react';
 import Icons from './icons/Icons';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { Buffer } from 'buffer';
 import { getStory } from '../../api/storyAPI';
 import StoryCard from '../story-overview/StoryOverview';
 import { useTranslation } from 'react-i18next';
-
+import { findWriters } from '../../api/writers';
+import useAuth from '../../hooks/useAuth';
 
 const StoryHeader = () => {
 
     const { t } = useTranslation();
-
+    const { auth } = useAuth()
     const { id } = useParams()
 
+    const navigate = useNavigate()
     const [data, setData] = useState({})
     const [genres, setGenres] = useState([])
 
@@ -30,8 +32,12 @@ const StoryHeader = () => {
     useEffect(() => {
         const fetchStory = async () => {
             try {
-                const response = await getStory(id, 'stories');
 
+                const response = await getStory(id, 'stories');
+                const flag = response.accounts.some((user) => { if (user._id === auth?.userInfo?._id) { return true } })
+                if (!response.story.publishStatus && !flag) {
+                    navigate('/NoAccessPage')
+                }
                 setAuthors(response?.accounts);
                 setData(response?.story);
                 setGenres(response?.story?.genres);
@@ -92,7 +98,7 @@ const StoryHeader = () => {
                                 {data?.description}
                             </p>
                             {showReadMore && (
-                                <button className="btn btn-link text-decoration-none text-white p-1" onClick={() => setIsExpanded(!isExpanded)} style={isExpanded ? null : { whiteSpace: 'nowrap'}}>
+                                <button className="btn btn-link text-decoration-none text-white p-1" onClick={() => setIsExpanded(!isExpanded)} style={isExpanded ? null : { whiteSpace: 'nowrap' }}>
                                     {isExpanded ? `${t("StoryHeader.read_less")}` : `${t("StoryHeader.read_more")}`}
                                 </button>
                             )}
@@ -109,7 +115,7 @@ const StoryHeader = () => {
                     <Icons data={data} id={id} setData={setData} />
                 </div>
                 <div className='my-5'>
-                    <StoryCard/>
+                    <StoryCard />
                 </div>
             </div>
         </div>
