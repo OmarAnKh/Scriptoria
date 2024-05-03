@@ -68,7 +68,7 @@ const Settings = () => {
     const { t } = useTranslation()
     const settingsButtonObject = [
         {
-            className: "nav-link active  nav-link-settings",
+            className: "nav-link active nav-link-settings",
             id: "v-pills-userInfo-tab",
             dataBsToggle: "pill",
             dataBsTarget: "#v-pills-userInfo",
