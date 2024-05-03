@@ -260,7 +260,7 @@ form.right-registration-card {
 .registration-see-password {
     position: relative;
     top: 3px;
-    left: 70px;
+    left: 20%;
 }
 
 @media (max-width: 870px) {
