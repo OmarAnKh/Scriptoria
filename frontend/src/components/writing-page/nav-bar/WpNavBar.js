@@ -40,7 +40,6 @@ const WpNavBar = ({ setMode, setState }) => {
     }
     const fetchUsers = async () => {
       const res = await getWriters(id)
-      console.log(res)
       setUsers(res.users)
       const userExists = res.users?.some(writer => {
         if (writer.AccountId === auth?.userInfo._id) {

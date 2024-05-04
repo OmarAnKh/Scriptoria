@@ -221,7 +221,6 @@ const StoryDetails = () => {
       mainCharacters: mainCharacters
     };
     const res = await story("story", storyData, auth.token);
-    console.log(res)
     navigate(`/WritingPage/${res?.story?._id}`);
   }
 

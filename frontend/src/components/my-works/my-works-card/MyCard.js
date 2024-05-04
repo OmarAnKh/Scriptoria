@@ -27,7 +27,6 @@ const MyCard = (props) => {
     }, [])
 
     const isWriter = writers.find((writer) => writer.AccountId === auth?.userInfo?._id)
-    console.log(isWriter)
     return (
         <div className="custom-card-article">
             <img src={props.photo} alt="couldn't load" className="custom-card-img object-fit-cover" />
