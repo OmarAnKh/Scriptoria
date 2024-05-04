@@ -8,6 +8,7 @@ import { findAccount } from '../../api/accountApi.js'
 import TopCard from './my-works-card/TopCard.js';
 import useAtuh from '../../hooks/useAuth.js'
 import { getstory } from '../../api/storyAPI.js'
+import NavBar from '../navbar/Navbar.js'
 
 const getStories = async (writers, owner) => {
     let temp = []
@@ -65,45 +66,46 @@ const MyWorks = () => {
     stories.sort((a, b) => b.likes - a.likes);
     const top5 = stories.slice(0, 5);
     return (
-        <div className='custom-card-container mt-5'>
-            <div className="container">
-                <h2 className='moveitmoveit'>Stories By {currentUser?.userName}</h2>
-                <h4 className='moveitmoveit'>{stories?.length} Stories</h4>
-                <div className="custom-card-container custom-card-container1">
-                    {stories?.map((story, index) => {
+        <><NavBar />
+            <div className='custom-card-container mt-5'>
+                <div className="container">
+                    <h2 className='moveitmoveit'>Stories By {currentUser?.userName}</h2>
+                    <h4 className='moveitmoveit'>{stories?.length} Stories</h4>
+                    <div className="custom-card-container custom-card-container1">
+                        {stories?.map((story, index) => {
 
+                            return (
+                                <React.Fragment key={index}>
+
+
+                                    <MyCard
+                                        photo={story?.story?.coverPhoto?.data ? `data:image/png;base64,${Buffer.from(story?.story?.coverPhoto?.data).toString('base64')}` : undefined}
+                                        storytitle={story?.story?.title}
+                                        key={index}
+                                        storyId={story?.story?._id}
+                                        userId={id}
+                                    />
+                                </React.Fragment>
+                            )
+                        })}
+                    </div>
+                </div>
+                <div className='top5col mt-5 col-lg-4'>
+                    <h4>Top Stories</h4>
+                    {top5.map((top5, index) => {
                         return (
                             <React.Fragment key={index}>
-
-
-                                <MyCard
-                                    photo={story?.story?.coverPhoto?.data ? `data:image/png;base64,${Buffer.from(story?.story?.coverPhoto?.data).toString('base64')}` : undefined}
-                                    storytitle={story?.story?.title}
+                                <TopCard
+                                    index={index + 1}
+                                    photo={top5?.story?.coverPhoto?.data ? `data:image/png;base64,${Buffer.from(top5?.story?.coverPhoto?.data).toString('base64')}` : undefined}
+                                    storytitle={top5?.story?.title}
                                     key={index}
-                                    storyId={story?.story?._id}
-                                    userId={id}
                                 />
-                            </React.Fragment>
-                        )
+                            </React.Fragment>)
                     })}
                 </div>
             </div>
-            <div className='top5col mt-5 col-lg-4'>
-                <h4>Top Stories</h4>
-                {top5.map((top5, index) => {
-                    return (
-                        <React.Fragment key={index}>
-                            <TopCard
-                                index={index + 1}
-                                photo={top5?.story?.coverPhoto?.data ? `data:image/png;base64,${Buffer.from(top5?.story?.coverPhoto?.data).toString('base64')}` : undefined}
-                                storytitle={top5?.story?.title}
-                                key={index}
-                            />
-                        </React.Fragment>)
-                })}
-            </div>
-        </div>
-
+        </>
     );
 };
 

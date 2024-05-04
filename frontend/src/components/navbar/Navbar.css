@@ -28,6 +28,7 @@ header {
     transform: scale(1.05);
     background-color: var(--primary-Color);
     transition: all .1s ease-in-out;
+    color: var(--text-Color);
 }
 
 .ScriptoriaName {
