@@ -1,12 +1,32 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./WritingPage.css";
 import WpNavBar from "./nav-bar/WpNavBar";
 import TextEditor from "./text-editor/TextEditor";
+import { io } from "socket.io-client";
+import useAuth from "../../hooks/useAuth";
+
 
 const WritingPage = () => {
   const [zen, setZen] = useState(false);
   const [data, setData] = useState('');
   const [state, setState] = useState(false)
+  const [socket, setSocket] = useState()
+  const [flag, setFlag] = useState(false)
+  const { auth } = useAuth()
+
+  useEffect(() => {
+    const s = io("http://localhost:5000")
+    setSocket(s)
+
+    return () => {
+      s.disconnect()
+    }
+  }, [])
+
+  useEffect(() => {
+    if (socket == null) return
+    socket.emit("joinWritingPage", auth?.userInfo._id)
+  }, [socket])
 
   const setMode = () => {
     setZen(!zen);
@@ -33,7 +53,7 @@ const WritingPage = () => {
 
   return (
     <div className="WP">
-      <WpNavBar data={data} setMode={setMode} setData={setData} setState={setState} />
+      <WpNavBar socket={socket} data={data} setMode={setMode} setData={setData} setState={setState} />
       <div
 
         className="focus"
@@ -43,7 +63,7 @@ const WritingPage = () => {
           transition: "all 0.3s ease-in",
         }}
       >
-        <TextEditor mode={model} setModel={setModel} data={data} setData={setData} state={state} />
+        <TextEditor socket={socket} mode={model} setModel={setModel} data={data} setData={setData} state={state} />
       </div>
     </div>
   );

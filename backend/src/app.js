@@ -50,8 +50,14 @@ server.listen(port, () => {
     console.log('run on port ' + port)
 });
 
+const users = {}
 // Socket.io connection logic
 io.on("connection", socket => {
+
+    socket.on("joinWritingPage", (user) => {
+        users[user] = socket.id
+    })
+    
     socket.on("get-document", async documentId => {
         const document = await findDocument(documentId);
         socket.join(documentId);
@@ -65,4 +71,14 @@ io.on("connection", socket => {
             await Story.findByIdAndUpdate(documentId, { slide: data });
         });
     });
+
+    socket.on("remove-user", (userId) => {
+        const targetSocket = io.sockets.sockets.get(users[userId]);
+        targetSocket?.emit("navigate")
+    })
+
+    socket.on("rule-change", ({ userId, rule}) => {
+        const targetSocket = io.sockets.sockets.get(users[userId]);
+        targetSocket?.emit("changed", rule)
+    })
 });

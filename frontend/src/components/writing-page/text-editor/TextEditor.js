@@ -14,19 +14,11 @@ const TOOLBAR_OPTIONS = [
   ["clean"],
 ]
 
-export default function TextEditor({ state }) {
+export default function TextEditor({ socket, state }) {
   const { id: documentId } = useParams()
-  const [socket, setSocket] = useState()
   const [quill, setQuill] = useState()
   useEffect(() => { }, [state])
-  useEffect(() => {
-    const s = io("http://localhost:5000")
-    setSocket(s)
 
-    return () => {
-      s.disconnect()
-    }
-  }, [])
 
   useEffect(() => {
     if (socket == null || quill == null) return
