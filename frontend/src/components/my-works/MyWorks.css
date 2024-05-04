@@ -1,17 +1,18 @@
-.custom-card-container {
+.custom-card-contain {
   display: flex;
   row-gap: 20px;
   column-gap: 25px;
   flex-wrap: nowrap;
   position: relative;
-  top: 25%;
+  top: 5%;
   margin-left: 50px;
 }
 
 .moveitmoveit {
   position: relative;
-  top: 25%;
+  top: 5%;
   left: 5%;
+  color: var(--text-Color);
 }
 
 .top5col {
@@ -106,6 +107,7 @@
   padding: 5px;
   border-radius: 15px;
   background-color: var(--accent-Color);
+  color: var(--text-Color);
 }
 
 .TopCard img {
@@ -118,6 +120,10 @@
 .TopCard h5 {
   padding-left: 20px;
   width: 100%;
+  
+}
+.top5col  h4 {
+  color: var(--text-Color);
 }
 
 .TopCard h3 {
@@ -127,7 +133,7 @@
 }
 
 @media screen and (max-width: 950px) {
-  .custom-card-container {
+  .custom-card-contain {
       flex-direction: column-reverse;
   }
   .top5col{
@@ -186,8 +192,4 @@
     width: 100%;
     padding: 1rem;
   }
-}
-
-@media screen and (max-width: 1148px) {
-  .custom-card-container {}
 }
