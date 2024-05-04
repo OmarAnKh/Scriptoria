@@ -11,7 +11,6 @@ import { getstory } from '../../api/storyAPI.js'
 
 const getStories = async (writers, owner) => {
     let temp = []
-    console.log(writers.length)
     for (let i = 0; i < writers.length; i++) {
         if (owner) {
             const res = await getstory(writers[i].StoryId)
@@ -34,7 +33,6 @@ const MyWorks = () => {
     const { auth } = useAtuh()
     const [publishStatus, setPublishStatus] = useState(false)
     const owner = auth?.userInfo?._id === id
-    console.log(owner)
     useEffect(() => {
         const fetchStories = async () => {
             try {
@@ -42,7 +40,6 @@ const MyWorks = () => {
                 const storiesObject = await writerStory("/MyWorks", id, publishStatus);
                 setWriters(storiesObject);
                 const temp = await getStories(storiesObject, owner);
-                console.log(temp, 10)
                 setStories(temp);
 
             } catch (error) {
