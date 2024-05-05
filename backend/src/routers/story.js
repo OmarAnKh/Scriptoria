@@ -67,6 +67,15 @@ router.get("/search/:criteria", async (req, res) => {
                 { 'userName': criteria }
             ]
         })
+
+        const user = await Account.find({
+            $or: [
+                { 'email': criteria },
+                { 'displayName': criteria },  
+                { 'userName': criteria }
+            ]
+        })
+
         let storyId
         if (account) {
             const writers = await Writers.find(
@@ -90,7 +99,7 @@ router.get("/search/:criteria", async (req, res) => {
         if (stories.length === 0) {
             return res.status(404).send({ error: "could not find stories", status: false });
         }
-        return res.status(200).send({ stories, status: true });
+        return res.status(200).send({ stories,user, status: true });
     } catch (error) {
         return res.status(500).send({ error, status: false });
     }
