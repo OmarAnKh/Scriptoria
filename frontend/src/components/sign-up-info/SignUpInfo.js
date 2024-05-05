@@ -1,4 +1,4 @@
-import React, {useState } from 'react'
+import React, { useState } from 'react'
 import RegistrationInput from '../registration/RegistrationInput'
 import { genders, countrys } from './signUpOptions'
 import RegistrationForm from '../registration/RegistrationForm'
@@ -6,7 +6,7 @@ import content from "../../img/content.png";
 import openBook from "../../img/open-book.png";
 import signature from "../../img/signature.png"
 import { useLocation, useNavigate } from 'react-router-dom';
-
+import useConvertPath from '../../hooks/useConvertPath';
 
 const JoyButton = (props) => {
     return (
@@ -23,6 +23,7 @@ const JoyButton = (props) => {
 
 const SignUpInfo = () => {
     const [registrationMode, setRegistrationMode] = useState(false);
+    const { convertPath } = useConvertPath()
 
     const location = useLocation();
     const navigate = useNavigate();
@@ -85,13 +86,22 @@ const SignUpInfo = () => {
         setJoyType(type)
     }
 
-    const handleSignUpInformation = (event) => {
+    const handleSignUpInformation = async (event) => {
         event.preventDefault();
         if (description !== "") {
             accountInfo.description = description;
         }
         accountInfo.type = joyType;
-        console.log(accountInfo, 10)
+
+        if (joyType === "both") {
+            accountInfo.profilePicture = content;
+        }
+        if (joyType === "reader") {
+            accountInfo.profilePicture = await convertPath(openBook);
+        }
+        if (joyType === "writer") {
+            accountInfo.profilePicture = await convertPath(signature);
+        }
         navigate(`/SignUpVerificationCode`, { state: { accountInfo } });
     }
 
