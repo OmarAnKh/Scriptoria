@@ -36,9 +36,9 @@ const GettingEmail = () => {
                 cardType={t("GettingEmail.cardType")}
                 type="email"
                 text={t("GettingEmail.text")}
-                inputPlaceholder={t("GettingEmail.E_mail")}
+                inputPlaceholder={t("GettingEmail.inputPlaceholder")}
                 methodOnChange={setEmail}
-                buttonTitle={t("GettingEmail.get_code")}
+                buttonTitle={t("GettingEmail.buttonTitle")}
                 methodOnClick={clickHandler}
                 inputColor={inputColor}
                 inputError={inputError}
