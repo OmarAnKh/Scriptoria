@@ -11,6 +11,7 @@ import commentsRouter from "./routers/comments.js"
 import listsRouter from "./routers/readingList.js"
 import likesRouter from "./routers/likes.js"
 import writersRouter from "./routers/writers.js"
+import roomRouter from "./routers/room.js"
 import cors from "cors"
 import cookieParser from "cookie-parser"
 
@@ -45,13 +46,25 @@ app.use(commentsRouter)
 app.use(listsRouter)
 app.use(likesRouter)
 app.use(writersRouter)
+app.use(roomRouter)
 
 server.listen(port, () => {
     console.log('run on port ' + port)
 });
 
 // Socket.io connection logic
-io.on("connection", socket => {
+io.on("connection", (socket) => {
+
+    socket.on('joinRoom', (roomId) => {
+        socket.join(roomId); 
+      });
+
+    socket.on('sendMessage', (message)=>{
+        io.to(message.room).emit('message', message)
+        console.log(message, 20)
+    })
+
+
     socket.on("get-document", async documentId => {
         const document = await findDocument(documentId);
         socket.join(documentId);

@@ -27,6 +27,7 @@ import StoryPage from './components/story-page/StoryPage.js';
 import ReadingPage from './components/reading-page/flip-book/FlipBook.js'
 import Registration from './components/sign-in/Registration.js';
 import SignUpInfo from './components/sign-up-info/SignUpInfo.js';
+import Chat from './components/chat-app/Chat.js';
 
 function App() {
 
@@ -54,6 +55,7 @@ function App() {
           {/* refresh pages && protected routers */}
           <Route element={<PersistLogin />}>
             <Route path='/' element={<HomePage />} />
+            <Route path='/chat' element={<Chat />} />
             <Route path="profile/:username" element={<Profile />} />
             <Route path='Search/:criteria' element={<SearchResultsPage />} />
             <Route path='TeamMembers' element={<AllMembers />} />
