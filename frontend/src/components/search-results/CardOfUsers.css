@@ -1,0 +1,22 @@
+.buttonsOfPro{
+    border-radius: 10px;
+    background-color:rgb(72, 72, 249);
+}
+
+
+.cardOfUsers{
+    background-color:rgba(248, 248, 242, 0.817);
+    margin: 0 7px;
+    margin-bottom: 10px;
+    margin-top: 5px;
+}
+
+.displayName{
+    font-size: 26px;
+}
+
+.userName{
+     font-size: small;
+     color: rgb(70, 69, 69);
+}
+
