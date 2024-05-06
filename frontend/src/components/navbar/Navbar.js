@@ -170,7 +170,8 @@ const NavBar = () => {
                             />
                         </div>
                         <NavHomeButton iclassName="bi bi-globe2 navbar-button" className="navbar-button" buttonClassName="btn btn rounded-5 m-2" isDropDown={true} accountDropDown={languageDropDown} />
-                        {/* <NavHomeButton iclassName="bi bi-bell navbar-button" className="navbar-button" buttonClassName="btn btn rounded-5 m-2" method={noHandel} /> */}
+                        <Link to={'/chats'} className="m-0 p-0"><NavHomeButton iclassName="bi bi-chat-heart-fill navbar-button" className="navbar-button" buttonClassName="btn btn rounded-5 m-2" method={noHandel} /></Link> 
+                        
                         <NavHomeButton pfp={true} className="navbar-button" buttonClassName="btn btn rounded-5 m-2" isDropDown={true} accountDropDown={accountDropDown} />
                     </> : <>
                         <NavHomeButton iclassName="bi bi-globe2 navbar-button" className="navbar-button" buttonClassName="btn btn rounded-5 m-2" isDropDown={true} accountDropDown={languageDropDown} />

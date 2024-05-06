@@ -1,7 +1,7 @@
 import React from 'react'
 import useAuth from '../../hooks/useAuth'
 
-const Conversation = ({data}) => {
+const Conversation = ({data, myMessages}) => {
     const {auth} = useAuth()
     const users = data.users.filter((user)=> user._id !== auth?.userInfo?._id)
     const photo = `data:image/png;base64,${users[0]?.profilePicture}`

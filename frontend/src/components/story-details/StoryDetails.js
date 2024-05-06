@@ -221,7 +221,6 @@ const StoryDetails = () => {
       mainCharacters: mainCharacters
     };
     const res = await story("story", storyData, auth.token);
-    console.log(res)
     navigate(`/WritingPage/${res?.story?._id}`);
   }
 
@@ -288,7 +287,7 @@ const StoryDetails = () => {
                     mainCharacters.map((mainCharacter, idx) => {
                       return (
                         <div key={idx} className="d-flex align-items-center rounded p-1">
-                          <li className='list-group-item' style={{ width: "200px", wordBreak: "break-word", backgroundColor: "var(--primary-Color)", color: "var(--text-Color)", border:"var(--primary-Color)", borderRadius: "5px" }}>{mainCharacter}</li>
+                          <li className='list-group-item' style={{ width: "200px", wordBreak: "break-word", backgroundColor: "var(--text-Color)", border:"var(--primary-Color)", borderRadius: "5px" }}>{mainCharacter}</li>
                           <button className='mx-1 py-1 btn btn-primary ml-2' style={{ backgroundColor: "var(--primary-Color)", color: "var(--text-Color)", border:"var(--primary-Color)" }} onClick={() => handelDelete(setMainCharacters, idx)}>X</button>
                         </div>
                       )

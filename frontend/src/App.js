@@ -1,5 +1,6 @@
 import './App.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
+import 'react-tooltip/dist/react-tooltip.css'
 import { Route, Routes } from 'react-router-dom';
 import HomePage from './components/home-page/HomePage';
 import WritingPage from './components/writing-page/WrtitingPage';
@@ -55,7 +56,7 @@ function App() {
           {/* refresh pages && protected routers */}
           <Route element={<PersistLogin />}>
             <Route path='/' element={<HomePage />} />
-            <Route path='/chat' element={<Chat />} />
+            <Route path='/chats' element={<Chat />} />
             <Route path="profile/:username" element={<Profile />} />
             <Route path='Search/:criteria' element={<SearchResultsPage />} />
             <Route path='TeamMembers' element={<AllMembers />} />

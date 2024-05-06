@@ -13,8 +13,9 @@ import { getWriters } from "../../../api/writers";
 import useAuth from "../../../hooks/useAuth";
 import { getstory } from "../../../api/storyAPI";
 import toast from "react-hot-toast";
+import { io } from "socket.io-client";
 
-const WpNavBar = ({ setMode, setState }) => {
+const WpNavBar = ({ socket, setMode, setState }) => {
   const navigate = useNavigate()
   const { auth } = useAuth()
   const { id } = useParams()
@@ -40,7 +41,6 @@ const WpNavBar = ({ setMode, setState }) => {
     }
     const fetchUsers = async () => {
       const res = await getWriters(id)
-      console.log(res)
       setUsers(res.users)
       const userExists = res.users?.some(writer => {
         if (writer.AccountId === auth?.userInfo._id) {
@@ -114,6 +114,7 @@ const WpNavBar = ({ setMode, setState }) => {
 
 
   const ruleChangeHandler = async (rule, userId) => {
+    socket.emit("rule-change", { userId, rule })
     const document = {
       AccountId: userId,
       StoryId: id,
@@ -127,9 +128,21 @@ const WpNavBar = ({ setMode, setState }) => {
     });
   }
 
+  useEffect(() => {
+    if (socket == null) return
+    
+    socket.on("changed", (rule) => {
+      setState(rule == "admin" ? false : true)
+      toast(`Your role has been changed to: ${rule}`, {
+        icon: '😊',
+      });
+    })
 
+  }, [socket])
 
   const removeUserHandler = async (userId) => {
+    socket.emit("remove-user", userId)
+
     const document = {
       AccountId: userId,
       StoryId: id,
@@ -141,6 +154,18 @@ const WpNavBar = ({ setMode, setState }) => {
       icon: '🙋‍♂️',
     });
   }
+
+  useEffect(() => {
+    if (socket == null) return
+
+    socket.on("navigate", () => {
+      toast("The owner has removed you from the story page", {
+        icon: '🙋‍♂️',
+      });
+      navigate('/NoAccessPage')
+    })
+    
+  }, [socket])
 
   const handelPublich = async () => {
     const userExists = users?.some(writer => {

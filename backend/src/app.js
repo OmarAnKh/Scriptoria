@@ -52,18 +52,32 @@ server.listen(port, () => {
     console.log('run on port ' + port)
 });
 
+const users = {}
+const rooms = {}
 // Socket.io connection logic
+
 io.on("connection", (socket) => {
 
-    socket.on('joinRoom', (roomId) => {
-        socket.join(roomId); 
+    socket.on('joinRoom', (room) => {
+        socket.join(room._id); 
+        if(!rooms[room._id]){
+            rooms[room._id] = {...room, messages : []}
+        }
+
+        socket.emit('getOldMessages', rooms[room._id].messages)
       });
 
     socket.on('sendMessage', (message)=>{
-        io.to(message.room).emit('message', message)
-        console.log(message, 20)
+        io.to(message.roomId).emit('message', message)
+        rooms[message.roomId].messages.push(message)
     })
 
+
+
+    socket.on("joinWritingPage", (user) => {
+        users[user] = socket.id
+    })
+    
 
     socket.on("get-document", async documentId => {
         const document = await findDocument(documentId);
@@ -78,4 +92,14 @@ io.on("connection", (socket) => {
             await Story.findByIdAndUpdate(documentId, { slide: data });
         });
     });
+
+    socket.on("remove-user", (userId) => {
+        const targetSocket = io.sockets.sockets.get(users[userId]);
+        targetSocket?.emit("navigate")
+    })
+
+    socket.on("rule-change", ({ userId, rule}) => {
+        const targetSocket = io.sockets.sockets.get(users[userId]);
+        targetSocket?.emit("changed", rule)
+    })
 });
