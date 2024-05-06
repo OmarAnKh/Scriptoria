@@ -2,7 +2,7 @@
     display: flex;
     border: 1px solid #cccccc !important;
     border-radius: 16px;
-    background-color: #00000047;
+    background-color: var(--primary-Color);
     padding-left: 20px;
     padding-right: 20px;
     flex-direction: column;
@@ -17,11 +17,13 @@
     background-color: #0000000c;
     margin-top: 20px;
     margin-bottom: 25px;
+    background-color: var(--accent-Color);
 }
 
 .BookCard {
     display: flex;
     min-height: 260px;
+    
 }
 
 .info-container {
@@ -37,6 +39,7 @@
 
 .info-container p {
     max-width: 80%;
+    color: var(--text-Color);
 }
 
 .intractButton {
@@ -44,10 +47,11 @@
     margin: 10px;
     border: 1px solid #cccccc52 !important;
     border-radius: 16px;
-    background-color: #ffffff59;
+    background-color: var(--primary-Color);
     text-align: center;
     height: 30px;
     display: inline-flex;
+    color: var(--text-Color);
 }
 
 .StarRate {
@@ -74,6 +78,9 @@
 .nexteach {
     display: flex !important;
 
+}
+.nexteach p{
+    color: var(--text-Color);
 }
 
 .buttonflex {
