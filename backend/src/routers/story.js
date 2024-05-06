@@ -95,6 +95,9 @@ router.get("/search/:criteria", async (req, res) => {
         });
 
         if (stories.length === 0) {
+            if (users.length > 0) {
+                return res.status(200).send({ users, status: true });
+            }
             return res.status(404).send({ error: "could not find stories", status: false });
         }
         return res.status(200).send({ stories, users, status: true });
