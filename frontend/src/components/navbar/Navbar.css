@@ -1,11 +1,14 @@
 header {
     display: flex;
-    align-items: center;
     justify-content: space-between;
+    align-items: center;
     height: 80px;
     padding: 0 2rem;
     background-color: var(--accent-Color);
     color: var(--textColor);
+}
+.invisNav{
+    width: 350px;
 }
 
 .NavLogo {
@@ -17,7 +20,7 @@ header {
 
 .addstory {
     background: var(--primary-Color);
-    width: fit-content;
+    min-width: fit-content;
     margin-top: 8px;
     display: flex;
     border-color: var(--primary-Color);
@@ -87,6 +90,7 @@ nav {
 .ShowArrowOnHover:hover i {
     display: contents;
 }
+
 
 @media only screen and (max-width: 1200px) {
     header .nav-btn {

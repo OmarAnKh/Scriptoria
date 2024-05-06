@@ -62,20 +62,11 @@ router.get("/search/:criteria", async (req, res) => {
     try {
         const account = await Account.findOne({
             $or: [
-                { 'email': criteria },
-                { 'displayName': criteria },
-                { 'userName': criteria }
+                { 'email': { $regex: new RegExp(criteria, 'i') } },
+                { 'displayName': { $regex: new RegExp(criteria, 'i') } },
+                { 'userName': { $regex: new RegExp(criteria, 'i') } }
             ]
-        })
-
-        const user = await Account.find({
-            $or: [
-                { 'email': criteria },
-                { 'displayName': criteria },  
-                { 'userName': criteria }
-            ]
-        })
-
+        });
         let storyId
         if (account) {
             const writers = await Writers.find(
@@ -85,21 +76,28 @@ router.get("/search/:criteria", async (req, res) => {
                 storyId = writers.map(story => story.StoryId);
             }
         }
+        const users = await Account.find({
+            $or: [
+                { 'email': { $regex: new RegExp(criteria, 'i') } },
+                { 'displayName': { $regex: new RegExp(criteria, 'i') } },
+                { 'userName': { $regex: new RegExp(criteria, 'i') } }
+            ]
+        });
 
 
         const stories = await Story.find({
             $or: [
-                { 'genres': criteria },
-                { 'title': criteria },
-                { 'language': criteria },
-                { '_id': storyId },
+                { 'genres': { $regex: new RegExp(criteria, 'i') } },
+                { 'title': { $regex: new RegExp(criteria, 'i') } },
+                { 'language': { $regex: new RegExp(criteria, 'i') } },
+                { '_id': storyId }
             ]
-        })
+        });
 
         if (stories.length === 0) {
             return res.status(404).send({ error: "could not find stories", status: false });
         }
-        return res.status(200).send({ stories,user, status: true });
+        return res.status(200).send({ stories,users, status: true });
     } catch (error) {
         return res.status(500).send({ error, status: false });
     }

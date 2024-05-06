@@ -2,8 +2,6 @@ import express from "express";
 import Account from "../models/account.js"
 import sendMail from "../emails/sendMail.js"
 import authentication from "../middleware/authentication.js";
-import axios from "axios";
-import sharp from "sharp";
 import jwt from "jsonwebtoken"
 import Follow from "../models/follow.js";
 import Like from "../models/like.js";
@@ -18,6 +16,9 @@ import Writers from "../models/writers.js";
 const router = new express.Router()
 
 router.post("/SignUp", async (req, res) => {
+    if (req?.body?.profilePicture) {
+        req.body.profilePicture = await converImgToBuffer(req.body.profilePicture);
+    }
     const user = new Account(req.body);
     try {
         await user.save();
@@ -250,11 +251,11 @@ router.delete("/account/delete", async (req, res) => {
 
         const writers = await Writers.find({ AccountId: id });
         for (const writer of writers) {
-            const count = await Writers.countDocuments({StoryId: writer.StoryId})
+            const count = await Writers.countDocuments({ StoryId: writer.StoryId })
 
-            if(count === 1) {
+            if (count === 1) {
                 await Story.findByIdAndDelete(writer.StoryId)
-            } 
+            }
 
             await Writers.findByIdAndDelete(writer._id)
         }

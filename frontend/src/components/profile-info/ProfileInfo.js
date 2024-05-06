@@ -28,9 +28,9 @@ const ProfileInfo = (props) => {
     const [followingCount, setFollowingCount] = useState(0)
     const [editAbout, setEditAbout] = useState(false);
     const [editedDescription, setEditedDescription] = useState(data.description);
-    // const [getAccountWorks, setGetAccountWorks] = useState(0)
+    const [getAccountWorks, setGetAccountWorks] = useState(0)
 
-    const { userName } = useParams()
+    const { username: userName } = useParams()
 
     const { setFollow, unFollow, getFollowerCount, getfollowingCount, isFollowing } = useFollow();
 
@@ -93,6 +93,7 @@ const ProfileInfo = (props) => {
     const settingsHandler = async () => {
         navigate(`/settings/${auth?.userInfo?._id}`)
     }
+    
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -101,9 +102,10 @@ const ProfileInfo = (props) => {
                 setFollowerCount(followerCount);
                 const folloingCount = await getfollowingCount(_id)
                 setFollowingCount(folloingCount)
-                // const accountWorks = await getAccountWork(_id, true)
-                // console.log(accountWorks)
-                // setGetAccountWorks(accountWorks)
+                const accountWorks = await getAccountWork(_id, true)
+                if (accountWorks.state) {
+                    setGetAccountWorks(accountWorks?.stories?.length)
+                }
             } catch (error) {
                 console.error("Error fetching followers:", error);
             }
@@ -292,7 +294,7 @@ const ProfileInfo = (props) => {
                         <div className="">
                             <div className="buttons1">
                                 <InfoButton text={t("ProfileInfo.followers")} value={followerCount?.followerCount} />
-                                <InfoButton text={t("ProfileInfo.works")} value="0" />
+                                <InfoButton text={t("ProfileInfo.works")} value={getAccountWorks} />
                                 <InfoButton text={t("ProfileInfo.following")} value={followingCount?.followingsNumber} />
                             </div>
                         </div>

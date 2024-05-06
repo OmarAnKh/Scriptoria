@@ -128,7 +128,7 @@
         "Update-a-story" : "कहानी अपडेट करें",
         "title": "शीर्षक",
         "number": "स्लाइड की संख्या",
-        "description": "विवरण (300 शब्द अधिकतम)",
+        "description": "विवरण",
         "characters": "मुख्य पात्र",
         "background": "पृष्ठभूमि रंग:",
         "cancel": "रद्द करें",

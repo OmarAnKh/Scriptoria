@@ -1,6 +1,6 @@
 const follows = async (point, user, follow) => {
     try {
-        const response = await fetch("http://localhost:5000/" + point + "/" + user + "/" + follow, {
+        const response = await fetch(`${process.env.REACT_APP_HOSTURL}/${point}/${user}/${follow}`, {
             method: "GET",
             credentials: "include",
             headers: {
@@ -15,7 +15,7 @@ const follows = async (point, user, follow) => {
 
 const unfollow = async (point, obj) => {
     try {
-        const response = await fetch("http://localhost:5000/" + point, {
+        const response = await fetch(`${process.env.REACT_APP_HOSTURL}/${point}`, {
             method: "delete",
             credentials: "include",
             headers: {
@@ -32,7 +32,7 @@ const unfollow = async (point, obj) => {
 
 const followers = async (point, user) => {
     try {
-        const response = await fetch('http://localhost:5000' + point + "/" + user, {
+        const response = await fetch(`${process.env.REACT_APP_HOSTURL}/${point}/${user}`, {
             method: "GET",
             credentials: "include",
             headers: {
@@ -52,7 +52,7 @@ const followers = async (point, user) => {
 
 const followings = async (userId) => {
     try {
-        const response = await fetch(`http://localhost:5000/users/${userId}/followings`, {
+        const response = await fetch(`${process.env.REACT_APP_HOSTURL}/users/${userId}/followings`, {
             method: "GET",
             credentials: "include",
             headers: {

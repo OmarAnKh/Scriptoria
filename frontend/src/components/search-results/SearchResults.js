@@ -12,7 +12,7 @@ import "react-multi-carousel/lib/styles.css";
 const responsive = {
     desktop: {
       breakpoint: { max: 3000, min: 1024 },
-      items: 3,
+      items: 2,
       slidesToSlide: 1,
     },
     tablet: {
@@ -30,7 +30,7 @@ const responsive = {
 const SearchResultsPage = () => {
     const { criteria } = useParams()
     const [books, setBooks] = useState([])
-    const [users, setusers] = useState([])
+    const [users, setUsers] = useState([])
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -40,7 +40,7 @@ const SearchResultsPage = () => {
                 const res = await findStory(criteria)
                 if (res.status === true) {
                     setBooks(res.stories)
-                    setusers(res.user)
+                    setUsers(res.users)
                     return
                 }
                 navigate('/StoryErrorsPage')
@@ -57,43 +57,42 @@ const SearchResultsPage = () => {
 
         <>
          <Navbar /> 
-<div className="mx-5 my-5">
-      <div className=" my-5">
-{users?.length ? <Carousel
-          responsive={responsive}
-          containerClass="custom-carousel hide-arrows"
-          itemClass="custom-slide"
-          infinite={true}
-          swipeable={true}
-          draggable={false}
-          showDots={false}
-          ssr={true}
-          autoPlay={false}
-          autoPlaySpeed={1000}
-          keyBoardControl={true}
-          customTransition="transform 1000ms ease-in-out"
-          transitionDuration={800}
-          removeArrowOnDeviceType={["tablet", "mobile"]}
-          dotListClass="custom-dot-list-style"
-          focusOnSelect={true}
-          partialVisbile={false}
-      
-        >
-            {users.map((user, index) => (   
-                    <CardOfUsers
-                    key={index}
-                     userId={user._id}
-                     userName={user.userName}
-                    displayName={user.displayName}
-                    images={`data:image/png;base64,${user?.profilePicture}`}
-                          />
-                         
-                           ) )}
-                           
-        </Carousel>:
-          <></>}
-          </div>
-          </div>
+         <div className="container my-5" >
+                <div className="row justify-content-center">
+                    <div className="col-md-8">
+                        {users?.length ?
+                            <Carousel
+                                responsive={responsive}
+                                infinite={true}
+                                swipeable={true}
+                                draggable={false}
+                                showDots={false}
+                                ssr={true}
+                                autoPlay={false}
+                                autoPlaySpeed={1000}
+                                keyBoardControl={true}
+                                customTransition="transform 1000ms ease-in-out"
+                                transitionDuration={800}
+                                removeArrowOnDeviceType={["tablet", "mobile"]}
+                                dotListClass="custom-dot-list-style"
+                                focusOnSelect={true}
+                                partialVisbile={false}
+                            >
+                                {users.map((user, index) => (
+                                    <CardOfUsers
+                                        key={index}
+                                        userId={user._id}
+                                        userName={user.userName}
+                                        displayName={user.displayName}
+                                        images={`data:image/png;base64,${user?.profilePicture}`}
+                                    />
+                                ))}
+                            </Carousel>
+                            :
+                            <></>}
+                    </div>
+                </div>
+            </div>
        
           <div className="Search-container">
                             {books.map((book, index) => {
