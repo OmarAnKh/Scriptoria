@@ -31,7 +31,6 @@ import SignUpInfo from './components/sign-up-info/SignUpInfo.js';
 import Chat from './components/chat-app/Chat.js';
 
 function App() {
-
   return (
     <div className="App">
       <Routes>

@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next';
 const EmailVerifing = () => {
     const { t } = useTranslation();
     const { email } = useParams();
-    const [validEmail, setValidEmail] = useState(undefined);
+    const [validEmail, setValidEmail] = useState("");
     const [userCode, setUserCode] = useState("")
     const [generatedCode, setGeneratedCode] = useState("")
 
@@ -18,21 +18,23 @@ const EmailVerifing = () => {
     const navigate = useNavigate()
     useEffect(() => {
         async function checkEmailValidity() {
+
             if (!validator.isEmail(email)) {
-                setValidEmail(undefined);
+                navigate('/*')
                 return;
             }
 
             try {
                 const res = await findAccount({ email });
-                if (res.status === 404) {
-                    setValidEmail(undefined);
+                console.log(res)
+                if (res.message === false) {
+                    navigate('/*')
                 } else {
                     setValidEmail(email);
                 }
             } catch (error) {
                 console.error("Error occurred while checking email validity:", error);
-                setValidEmail(undefined);
+                navigate('/*')
             }
         }
         generateCode();
@@ -80,26 +82,23 @@ const EmailVerifing = () => {
     const codeResendHandler = () => {
         sendVerificationCode()
     }
-    if (validEmail !== undefined) {
-        return (
-            <EmailVerification
-                cardType={t("EmailVerifing.cardType")}
-                type="email"
-                text={t("EmailVerifing.text")}
-                inputPlaceholder={t("EmailVerifing.inputPlaceholder")}
-                methodOnChange={setUserCode}
-                buttonTitle={t("EmailVerifing.buttonTitle")}
-                buttonTitle2={t("EmailVerifing.buttonTitle2")}
-                methodOnClick={compareHandler}
-                methodOnClick2={codeResendHandler}
-                inputColor={inputColor}
-                inputError={inputError}
-            />
-        );
-    } else {
-        navigate('*')
-        return null
-    }
+    return (
+        <EmailVerification
+            cardType={t("EmailVerifing.cardType")}
+            type="email"
+            text={t("EmailVerifing.text")}
+            inputPlaceholder={t("EmailVerifing.inputPlaceholder")}
+            methodOnChange={setUserCode}
+            buttonTitle={t("EmailVerifing.buttonTitle")}
+            buttonTitle2={t("EmailVerifing.buttonTitle2")}
+            methodOnClick={compareHandler}
+            methodOnClick2={codeResendHandler}
+            inputColor={inputColor}
+            inputError={inputError}
+
+        />
+    );
+
 };
 
 export default EmailVerifing;

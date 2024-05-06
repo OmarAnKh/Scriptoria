@@ -12,7 +12,7 @@ const ErrorPage = () => {
             <div className="row">
                 <div className="col text-center">
                     <img src={ErrorImg} alt="ErrorImg" className="img-fluid" />
-                    <p className="mt-2" style={{ fontSize: "calc(3.375rem + 1.5vw)", fontWeight: "bold" }}>{t("ErrorPage.page_was_not_found")}</p>
+                    <p className="mt-2" style={{ fontSize: "calc(3.375rem + 1.5vw)", fontWeight: "bold", color: "var(--text-Color)" }}>{t("ErrorPage.page_was_not_found")}</p>
                 </div>
             </div>
         </div>

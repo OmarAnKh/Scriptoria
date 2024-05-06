@@ -140,10 +140,8 @@ const NavBar = () => {
                 <div className="NavLogo mx-2" />
                 <Link to={'/'} className="ScriptoriaName">Scriptoria</Link>
             </div>
-
             <nav ref={navRef}>
                 <Link className="nav-link-color" to="/">{t("Navbar.home")}</Link>
-                <Link className="nav-link-color" to="/browse">{t("Navbar.browse")}</Link>
                 <Link className="nav-link-color" to="/TeamMembers">{t("Navbar.teamMembers")}</Link>
                 <button
                     className="nav-btn nav-close-btn"
@@ -151,46 +149,44 @@ const NavBar = () => {
                     <FaTimes />
                 </button>
                 <SearchBar />
-            </nav>
-
-            <nav className="hello">
-
-                {
-                    auth.userName ? <>
-                        <Link type="button" className="addstory btn rounded-5 m-2" to={`/StoryDetails`}>
-                            {t("Navbar.add_a_story")}
-                        </Link>
-                        <div className="wrapper">
-                            <input
-                                type="checkbox"
-                                name="checkbox"
-                                className="switch"
-                                checked={localStorage.getItem('theme') === 'dark' ? true : false}
-                                onChange={toggleTheme}
-                            />
-                        </div>
-                        <NavHomeButton iclassName="bi bi-globe2 navbar-button" className="navbar-button" buttonClassName="btn btn rounded-5 m-2" isDropDown={true} accountDropDown={languageDropDown} />
-                        <Link to={'/chats'} className="m-0 p-0"><NavHomeButton iclassName="bi bi-chat-heart-fill navbar-button" className="navbar-button" buttonClassName="btn btn rounded-5 m-2" method={noHandel} /></Link> 
-                        
-                        <NavHomeButton pfp={true} className="navbar-button" buttonClassName="btn btn rounded-5 m-2" isDropDown={true} accountDropDown={accountDropDown} />
-                    </> : <>
-                        <NavHomeButton iclassName="bi bi-globe2 navbar-button" className="navbar-button" buttonClassName="btn btn rounded-5 m-2" isDropDown={true} accountDropDown={languageDropDown} />
-                        <div className="wrapper">
-                            <input
-                                type="checkbox"
-                                name="checkbox"
-                                className="switch"
-                                checked={localStorage.getItem('theme') === 'dark' ? true : false}
-                                onChange={toggleTheme}
-                            />
-                        </div>
-                    </>}
+                <nav className="invisNav"></nav>
+                <div className="d-flex justfiy-content-center">
+                    {
+                        auth.userName ? <>
+                            <Link type="button" className="addstory btn rounded-5 m-2" to={`/StoryDetails`}>
+                                {t("Navbar.add_a_story")}
+                            </Link>
+                            <div className="wrapper">
+                                <input
+                                    type="checkbox"
+                                    name="checkbox"
+                                    className="switch"
+                                    checked={localStorage.getItem('theme') === 'dark' ? true : false}
+                                    onChange={toggleTheme}
+                                />
+                            </div>
+                            <NavHomeButton iclassName="bi bi-globe2 navbar-button" className="navbar-button" buttonClassName="btn btn rounded-5 m-2" isDropDown={true} accountDropDown={languageDropDown} />
+                            <NavHomeButton pfp={true} className="navbar-button" buttonClassName="btn btn rounded-5 m-2" isDropDown={true} accountDropDown={accountDropDown} />
+                        </> : <>
+                            <NavHomeButton iclassName="bi bi-globe2 navbar-button" className="navbar-button" buttonClassName="btn btn rounded-5 m-2" isDropDown={true} accountDropDown={languageDropDown} />
+                            <div className="wrapper">
+                                <input
+                                    type="checkbox"
+                                    name="checkbox"
+                                    className="switch"
+                                    checked={localStorage.getItem('theme') === 'dark' ? true : false}
+                                    onChange={toggleTheme}
+                                />
+                            </div>
+                        </>}
+                </div>
             </nav>
             <button
                 className="nav-btn"
                 onClick={showNavbar}>
                 <FaBars />
             </button>
+
         </header>
     );
 

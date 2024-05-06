@@ -143,7 +143,6 @@ const Registration = () => {
         const accountInfo = {
             userName, email, password
         }
-        console.log(accountInfo)
         navigate(`/registration/info`, { state: { accountInfo } });
     }
 

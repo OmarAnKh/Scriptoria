@@ -37,8 +37,7 @@ const MyWorks = () => {
     useEffect(() => {
         const fetchStories = async () => {
             try {
-
-                const storiesObject = await writerStory("/MyWorks", id, publishStatus);
+                const storiesObject = await writerStory("MyWorks", id, publishStatus);
                 setWriters(storiesObject);
                 const temp = await getStories(storiesObject, owner);
                 setStories(temp);
