@@ -129,7 +129,7 @@
         "Update-a-story": "تحديث القصة",
         "title": "العنوان",
         "number": "عدد الصفحات",
-        "description": "الوصف (300 كلمة كحد اقصى)",
+        "description": "الوصف",
         "characters": "الشخصيات الرئيسية",
         "background": "لون الخلفية",
         "cancel": "الغاء",

@@ -1,6 +1,6 @@
 const saveDocument = async (point, document) => {
     try {
-        const response = await fetch("http://localhost:5000/" + point, {
+        const response = await fetch(`${process.env.REACT_APP_HOSTURL}/${point}`, {
             method: "POST",
             credentials: "include",
             headers: {
@@ -20,7 +20,7 @@ const saveDocument = async (point, document) => {
 
 const sendEmail = async (point, emailDetails) => {
     try {
-        const response = await fetch("http://localhost:5000/" + point, {
+        const response = await fetch(`${process.env.REACT_APP_HOSTURL}/${point}`, {
             method: "POST",
             credentials: "include",
             headers: {
@@ -41,7 +41,7 @@ const sendEmail = async (point, emailDetails) => {
 
 const deleteDocument = async (point, document) => {
     try {
-        const response = await fetch(`http://localhost:5000/${point}/delete`, {
+        const response = await fetch(`${process.env.REACT_APP_HOSTURL}/${point}/delete`, {
             method: "delete",
             credentials: "include",
             headers: {
@@ -62,7 +62,7 @@ const deleteDocument = async (point, document) => {
 
 const updateDocument = async (point, document) => {
     try {
-        const response = await fetch(`http://localhost:5000/${point}/update`, {
+        const response = await fetch(`${process.env.REACT_APP_HOSTURL}/${point}/update`, {
             method: "PATCH",
             credentials: "include",
             headers: {
@@ -82,7 +82,7 @@ const updateDocument = async (point, document) => {
 
 const getDocumentByUsingParams = async (point, params) => {
     try {
-        const response = await fetch(`http://localhost:5000/${point}/${params}`, {
+        const response = await fetch(`${process.env.REACT_APP_HOSTURL}/${point}/${params}`, {
             method: "GET",
             credentials: "include",
             headers: {

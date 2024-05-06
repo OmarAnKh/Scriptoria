@@ -1,7 +1,7 @@
 
 const createLike = async (point, document, token) => {
     try {
-        const response = await fetch("http://localhost:5000/" + point, {
+        const response = await fetch(`${process.env.REACT_APP_HOSTURL}/${point}`, {
             method: "POST",
             credentials: "include",
             headers: {
@@ -23,7 +23,7 @@ const createLike = async (point, document, token) => {
 const getLike = async (point, accountId, storyId) => {
 
     try {
-        const response = await fetch(`http://localhost:5000/${point}?AccountId=${accountId}&StoryId=${storyId}`, {
+        const response = await fetch(`${process.env.REACT_APP_HOSTURL}/${point}?AccountId=${accountId}&StoryId=${storyId}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -41,7 +41,7 @@ const getLike = async (point, accountId, storyId) => {
 const deleteLike = async (point, document) => {
 
     try {
-        const response = await fetch("http://localhost:5000/" + point, {
+        const response = await fetch(`${process.env.REACT_APP_HOSTURL}/${point}`, {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json",
