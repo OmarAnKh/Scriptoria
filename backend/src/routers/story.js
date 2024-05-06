@@ -97,28 +97,12 @@ router.get("/search/:criteria", async (req, res) => {
         if (stories.length === 0) {
             return res.status(404).send({ error: "could not find stories", status: false });
         }
-        return res.status(200).send({ stories,users, status: true });
+        return res.status(200).send({ stories, users, status: true });
     } catch (error) {
         return res.status(500).send({ error, status: false });
     }
 })
 
-router.get('/stories', async (req, res) => {
-
-    const limit = req.query.limit ? parseInt(req.query.limit, 10) : 7;
-
-    try {
-        const stories = await Story.find({ publishStatus: true }).limit(limit);
-
-        if (!stories) {
-            res.status(404).send();
-        }
-        res.status(200).send(stories);
-
-    } catch (error) {
-        res.status(500).send();
-    }
-})
 router.get('/stories', async (req, res) => {
 
     const limit = req.query.limit ? parseInt(req.query.limit, 10) : 7;
