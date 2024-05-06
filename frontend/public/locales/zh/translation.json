@@ -9,7 +9,7 @@
         "signUp": "注册",
         "profile": "个人资料",
         "settings": "设置",
-        "lists" : "清单",
+        "lists": "清单",
         "logout": "退出",
         "works": "我的作品"
     },
@@ -122,12 +122,12 @@
         "show_more": "显示更多"
     },
     "StoryDetails": {
-        "Story-Details" : "故事详情",
-        "Create-a-story" : "创建故事",
-        "Update-a-story" : "更新故事",
+        "Story-Details": "故事详情",
+        "Create-a-story": "创建故事",
+        "Update-a-story": "更新故事",
         "title": "标题",
         "number": "幻灯片数量",
-        "description": "描述（最多300字）",
+        "description": "描述",
         "characters": "主要角色",
         "background": "背景颜色：",
         "cancel": "取消",
@@ -154,7 +154,7 @@
         "votes": "投票",
         "Add_to_reading_list": "加入阅读列表",
         "Share": "分享"
-    },    
+    },
     "StoryOverview": {
         "following": "关注",
         "followers": "粉丝",
@@ -163,7 +163,7 @@
         "follow": "关注",
         "unfollow": "取消关注",
         "start_reading": "开始阅读...",
-        "read_more": "阅读更多", 
+        "read_more": "阅读更多",
         "read_less": "阅读更少"
     },
     "Logout": {
@@ -199,41 +199,41 @@
         "update": "更新",
         "cancel": "取消"
     },
-    "Lists" : {
-        "reading-lists" : "的阅读列表",
-        "edit" : "编辑",
-        "delete" : "删除",
-        "share" : "分享",
+    "Lists": {
+        "reading-lists": "的阅读列表",
+        "edit": "编辑",
+        "delete": "删除",
+        "share": "分享",
         "copy": "复制",
-        "list-name" : "清单名称",
-        "edit-privacy" : "编辑隐私",
-        "public" : "公开",
-        "private" : "私人",
-        "save" : "保存",
-        "cancel" : "取消",
-        "yes" : "是",
-        "do-you-want-to-delete-this-list" : "您要删除此列表吗？",
-        "do-you-want-to-copy-this-list" : "您要复制此列表吗？",
-        "this-user-may-not-have-one-public-list-at-least" : "此用户至少必须拥有一个公共列表",
-        "loading" : "载入中..."
+        "list-name": "清单名称",
+        "edit-privacy": "编辑隐私",
+        "public": "公开",
+        "private": "私人",
+        "save": "保存",
+        "cancel": "取消",
+        "yes": "是",
+        "do-you-want-to-delete-this-list": "您要删除此列表吗？",
+        "do-you-want-to-copy-this-list": "您要复制此列表吗？",
+        "this-user-may-not-have-one-public-list-at-least": "此用户至少必须拥有一个公共列表",
+        "loading": "载入中..."
     },
-    "ErrorPages" : {
-        "this-list-may-not-contain-one-story-at-least" : "此列表可能至少不包含一個故事",
-        "this-user-may-not-have-one-public-list-at-least" : "此用户可能至少没有一个公共列表",
-        "you-have-no-access-to-reach-this-page" : "您无权访问此页面",
-        "Access-Denied" : "访问被拒绝",
-        "return-to-home-page" : "返回首页"
+    "ErrorPages": {
+        "this-list-may-not-contain-one-story-at-least": "此列表可能至少不包含一個故事",
+        "this-user-may-not-have-one-public-list-at-least": "此用户可能至少没有一个公共列表",
+        "you-have-no-access-to-reach-this-page": "您无权访问此页面",
+        "Access-Denied": "访问被拒绝",
+        "return-to-home-page": "返回首页"
     },
-    "Footer" : {
-        "need-help-reach-out" : "需要帮助？！联系我们！",
-        "reach-out-via-email" : "有业务询问，请通过电子邮件与我们联系。"
+    "Footer": {
+        "need-help-reach-out": "需要帮助？！联系我们！",
+        "reach-out-via-email": "有业务询问，请通过电子邮件与我们联系。"
     },
-    "WelcomeCard" : {
-        "we-are" : "我们是",
-        "scriptoria" : "Scriptoria",
-        "desc-title" : "Scriptoria不仅仅是另一个基于漫画的网站",
-        "sign-in" : "登录",
-        "sign-up" : "注册",
+    "WelcomeCard": {
+        "we-are": "我们是",
+        "scriptoria": "Scriptoria",
+        "desc-title": "Scriptoria不仅仅是另一个基于漫画的网站",
+        "sign-in": "登录",
+        "sign-up": "注册",
         "desc": "这是一个讲故事者和创作者的充满活力的中心。在Scriptoria，我们提供一个动态平台，让个人可以参与合作写作项目，在沉浸式和创造性的环境中编织故事。无论您是经验丰富的作家还是新兴人才，Scriptoria都为您提供了一个发布原创故事的空间，让它们得以茁壮成长并触达更广泛的受众。但我们的目标不仅仅如此。我们希望成为渴望成为作家的人的发射台，为他们提供被发现甚至被业界认可的机会。有了Scriptoria，从想象到实现的旅程是无边无际的，我们邀请您加入我们，共同打造下一个故事叙述的辉煌篇章。"
-    }      
+    }
 }

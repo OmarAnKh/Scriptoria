@@ -20,7 +20,7 @@ header {
 
 .addstory {
     background: var(--primary-Color);
-    width: fit-content;
+    min-width: fit-content;
     margin-top: 8px;
     display: flex;
     border-color: var(--primary-Color);

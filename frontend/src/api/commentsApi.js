@@ -3,7 +3,7 @@ import axios from 'axios'
 const sendComment = async (comment, token) => {
     try {
         await axios({
-            url: "http://localhost:5000/comments",
+            url: `${process.env.REACT_APP_HOSTURL}/comments`,
             method: "POST",
             withCredentials: true,
             headers: {
@@ -17,10 +17,10 @@ const sendComment = async (comment, token) => {
     }
 }
 
-const getComments = async (storyId) =>{
+const getComments = async (storyId) => {
     try {
         const response = await axios({
-            url: "http://localhost:5000/comments/" + storyId,
+            url: `${process.env.REACT_APP_HOSTURL}/comments/${storyId}`,
             method: "GET",
             withCredentials: true,
             headers: {
@@ -38,7 +38,7 @@ const getComments = async (storyId) =>{
 
 const getCommentsCount = async (storyId) => {
     try {
-        const response = await fetch(`http://localhost:5000/comments/count/${storyId}`, {
+        const response = await fetch(`${process.env.REACT_APP_HOSTURL}/comments/count/${storyId}`, {
             method: "GET",
             credentials: "include",
             headers: {
@@ -55,20 +55,20 @@ const getCommentsCount = async (storyId) => {
     }
 }
 
-const editComment = async (comment, token) =>{
+const editComment = async (comment, token) => {
     try {
         const res = await axios({
-            url : "http://localhost:5000/comments/" + comment._id,
-            method : "PATCH",
+            url: `${process.env.REACT_APP_HOSTURL}/comments/${comment._id}`,
+            method: "PATCH",
             withCredentials: true,
-            headers : {
+            headers: {
                 "Content-Type": "application/json",
                 "Authorization": 'Bearer ' + token,
             },
-            data : comment 
+            data: comment
         })
         return res
-    } catch(error){
+    } catch (error) {
         console.log(error)
     }
 }
@@ -76,7 +76,7 @@ const editComment = async (comment, token) =>{
 const deleteComment = async (id, token) => {
     try {
         const response = await axios({
-            url: "http://localhost:5000/comments/" + id,
+            url: `${process.env.REACT_APP_HOSTURL}/comments/${id}`,
             method: "DELETE",
             withCredentials: true,
             headers: {

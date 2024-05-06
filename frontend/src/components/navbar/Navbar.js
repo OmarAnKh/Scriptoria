@@ -142,7 +142,6 @@ const NavBar = () => {
             </div>
             <nav ref={navRef}>
                 <Link className="nav-link-color" to="/">{t("Navbar.home")}</Link>
-                <Link className="nav-link-color" to="/browse">{t("Navbar.browse")}</Link>
                 <Link className="nav-link-color" to="/TeamMembers">{t("Navbar.teamMembers")}</Link>
                 <button
                     className="nav-btn nav-close-btn"

@@ -1,6 +1,8 @@
+
+
 const findAccount = async (findCriteria) => {
     try {
-        const response = await fetch("http://localhost:5000/user/find", {
+        const response = await fetch(`${process.env.REACT_APP_HOSTURL}/user/find`, {
             method: "POST",
             credentials: "include",
             headers: {
@@ -19,7 +21,7 @@ const findAccount = async (findCriteria) => {
 
 const sendEmail = async (point, emailDetails) => {
     try {
-        const response = await fetch("http://localhost:5000/" + point, {
+        const response = await fetch(`${process.env.REACT_APP_HOSTURL}/${point}`, {
             method: "POST",
             credentials: "include",
             headers: {
@@ -39,7 +41,7 @@ const sendEmail = async (point, emailDetails) => {
 
 const editPassword = async (point, accountDetails) => {
     try {
-        const response = await fetch("http://localhost:5000/" + point, {
+        const response = await fetch(`${process.env.REACT_APP_HOSTURL}/${point}`, {
             method: "PATCH",
             credentials: "include",
             headers: {
@@ -59,7 +61,7 @@ const editPassword = async (point, accountDetails) => {
 
 const confirmPassword = async (point, accountDetails) => {
     try {
-        const response = await fetch("http://localhost:5000/" + point, {
+        const response = await fetch(`${process.env.REACT_APP_HOSTURL}/${point}`, {
             method: "POST",
             credentials: "include",
             headers: {
@@ -78,7 +80,7 @@ const confirmPassword = async (point, accountDetails) => {
 
 const logoutAll = async (token) => {
     try {
-        const response = await fetch("http://localhost:5000/account/logoutAll", {
+        const response = await fetch(`${process.env.REACT_APP_HOSTURL}/account/logoutAll`, {
             method: "POST",
             credentials: "include",
             headers: {
@@ -98,7 +100,7 @@ const logoutAll = async (token) => {
 
 const logoutAccount = async (token) => {
     try {
-        const response = await fetch("http://localhost:5000/account/logout", {
+        const response = await fetch(`${process.env.REACT_APP_HOSTURL}/account/logout`, {
             method: "POST",
             credentials: "include",
             headers: {
@@ -118,7 +120,7 @@ const logoutAccount = async (token) => {
 
 const deleteAccount = async (point, document) => {
     try {
-        const response = await fetch("http://localhost:5000/" + point, {
+        const response = await fetch(`${process.env.REACT_APP_HOSTURL}/${point}`, {
             method: "DELETE",
             credentials: "include",
             headers: {
@@ -138,7 +140,7 @@ const deleteAccount = async (point, document) => {
 
 const getFriends = async (userId) => {
     try {
-        const response = await fetch(`http://localhost:5000/getFriends/${userId}`, {
+        const response = await fetch(`${process.env.REACT_APP_HOSTURL}/getFriends/${userId}`, {
             method: "GET",
             credentials: "include",
             headers: {

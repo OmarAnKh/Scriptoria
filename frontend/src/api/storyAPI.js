@@ -1,7 +1,7 @@
 
 const story = async (point, story, token) => {
     try {
-        const response = await fetch("http://localhost:5000/" + point, {
+        const response = await fetch(`${process.env.REACT_APP_HOSTURL}/${point}`, {
             method: "POST",
             credentials: "include",
             headers: {
@@ -24,7 +24,7 @@ const story = async (point, story, token) => {
 
 const writerStory = async (point, UserId) => {
     try {
-        const response = await fetch("http://localhost:5000" + point + "/" + UserId, {
+        const response = await fetch(`${process.env.REACT_APP_HOSTURL}/${point}/${UserId}`, {
             method: "GET",
             credentials: "include",
             headers: {
@@ -41,7 +41,7 @@ const writerStory = async (point, UserId) => {
 
 const findStory = async (criteria) => {
     try {
-        const response = await fetch(`http://localhost:5000/search/${criteria}`, {
+        const response = await fetch(`${process.env.REACT_APP_HOSTURL}/search/${criteria}`, {
             method: "GET",
             credentials: "include",
             headers: {
@@ -60,7 +60,7 @@ const findStory = async (criteria) => {
 
 const getStories = async (point, limit) => {
     try {
-        const response = await fetch(`http://localhost:5000/${point}?limit=${limit}`, {
+        const response = await fetch(`${process.env.REACT_APP_HOSTURL}/${point}?limit=${limit}`, {
             method: "GET",
             credentials: "include",
             headers: {
@@ -81,7 +81,7 @@ const getStories = async (point, limit) => {
 const getStory = async (id, point) => {
     try {
         if (id) {
-            const response = await fetch("http://localhost:5000/" + point + "/" + id, {
+            const response = await fetch(`${process.env.REACT_APP_HOSTURL}/${point}/${id}`, {
                 credentials: "include"
             })
             if (response.ok) {
@@ -99,7 +99,7 @@ const getStory = async (id, point) => {
 
 const getstory = async (id) => {
     try {
-        const response = await fetch(`http://localhost:5000/stories/${id}`);
+        const response = await fetch(`${process.env.REACT_APP_HOSTURL}/stories/${id}`);
         if (response.ok) {
             return response.json();
         }
@@ -111,7 +111,7 @@ const getstory = async (id) => {
 
 const getGenrestory = async (selectedTab) => {
     try {
-        const response = await fetch(`http://localhost:5000/storiesGenre/${selectedTab}`);
+        const response = await fetch(`${process.env.REACT_APP_HOSTURL}/storiesGenre/${selectedTab}`);
         if (response.ok) {
             return response.json();
         }
@@ -124,7 +124,7 @@ const getGenrestory = async (selectedTab) => {
 
 const deleteStory = async (storyId) => {
     try {
-        const response = await fetch(`http://localhost:5000/delete/story/${storyId}`, {
+        const response = await fetch(`${process.env.REACT_APP_HOSTURL}/delete/story/${storyId}`, {
             method: "DELETE",
             credentials: "include",
             headers: {

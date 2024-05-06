@@ -127,7 +127,7 @@
         "Update-a-story" : "Mettre à jour une histoire",
         "title": "Titre",
         "number": "Nombre de diapositives",
-        "description": "Description (maximum 300 mots)",
+        "description": "Description",
         "characters": "Personnages principaux",
         "background": "Couleur de fond :",
         "cancel": "Annuler",
