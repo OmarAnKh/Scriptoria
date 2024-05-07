@@ -59,10 +59,14 @@ const Card = ({ data }) => {
                     <div className={`CarouselCards-body ${data.textColor}`}>
                         <h4 className="CarouselCards-title">{data.title}</h4>
                         <h6 className="author-name">
-                            {writers.map((writer, idx) => {
-                                    return <span key={idx}>{writer.displayName} <br/> </span>;
-                            })}
+                            {writers.map((writer, idx) => (
+                                <span key={idx}>
+                                    {writer.displayName}
+                                    {idx !== writers.length - 1 && ' , '}
+                                </span>
+                            ))}
                         </h6>
+                        
                         <span className="d-flex">
                             <StarRating rating={ratings} />  &emsp; {votes} {t("CarouselCards.votes")}
                         </span>
