@@ -14,7 +14,7 @@ function StoryPage(props) {
     const flipBookRef = useRef(null);
     const howManycharacters = useRef(0); // Using useRef instead of useState
     const { id } = useParams();
-    const [storyData, setStoryData] = useState(null);
+    const [storyData, setStoryData] = useState({});
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
     const [bookWidth, setBookWidth] = useState(400);
     const [data, setData] = useState({})
@@ -50,8 +50,7 @@ function StoryPage(props) {
         const fetchData = async () => {
             try {
                 const story = await getstory(id);
-                setStoryData(story);
-                setCounts(story.counts)
+                setStoryData(story.story);
                 setSlide(getSlides(story?.story?.slide?.ops, howManycharacters.current))
 
             } catch (error) {
@@ -132,10 +131,9 @@ function StoryPage(props) {
                     </button>
 
                 </div>
-                <div style={{ backgroundColor: storyData?.story.backgroundColor, borderRadius: "5px" }} >
-                    <Icons data={counts} id={id} counts={counts} setData={setData} />
+                <div style={{ backgroundColor: storyData?.backgroundColor, borderRadius: "5px" }} >
+                    <Icons data={storyData} id={id} setData={setStoryData} />
                 </div>
-
             </div >
         </>
     );
