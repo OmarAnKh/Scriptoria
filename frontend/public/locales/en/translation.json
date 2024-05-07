@@ -129,7 +129,7 @@
         "Update-a-story": "Update a story",
         "title": "Title",
         "number": "Number of slides",
-        "description": "description (300 word max)",
+        "description": "description",
         "characters": "Main Characters",
         "background": "Background color:",
         "cancel": "Cancel",

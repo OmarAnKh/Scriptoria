@@ -1,6 +1,6 @@
 const getWriters = async (findCriteria) => {
     try {
-        const response = await fetch(`http://localhost:5000/find/writers/${findCriteria}`, {
+        const response = await fetch(`${process.env.REACT_APP_HOSTURL}/find/writers/${findCriteria}`, {
             method: "GET",
             credentials: "include",
             headers: {
@@ -14,7 +14,7 @@ const getWriters = async (findCriteria) => {
 }
 const findWriters = async (findCriteria) => {
     try {
-        const response = await fetch(`http://localhost:5000/get/writers/${findCriteria}`, {
+        const response = await fetch(`${process.env.REACT_APP_HOSTURL}/get/writers/${findCriteria}`, {
             method: "GET",
             credentials: "include",
             headers: {
@@ -28,7 +28,7 @@ const findWriters = async (findCriteria) => {
 }
 const getStories = async (findCriteria, flag) => {
     try {
-        const response = await fetch(`http://localhost:5000/find/stories/${findCriteria}/${flag}`, {
+        const response = await fetch(`${process.env.REACT_APP_HOSTURL}/find/stories/${findCriteria}/${flag}`, {
             method: "GET",
             credentials: "include",
             headers: {

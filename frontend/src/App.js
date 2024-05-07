@@ -29,7 +29,6 @@ import Registration from './components/sign-in/Registration.js';
 import SignUpInfo from './components/sign-up-info/SignUpInfo.js';
 
 function App() {
-
   return (
     <div className="App">
       <Routes>

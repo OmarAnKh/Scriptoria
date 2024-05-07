@@ -20,7 +20,7 @@ const useFollow = () => {
 
     const getFollowerCount = async (id) => {
         try {
-            return await followers("/followers", id);
+            return await followers("followers", id);
         } catch (error) {
             console.log(error)
         }

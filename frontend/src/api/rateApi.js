@@ -3,7 +3,7 @@ import axios from 'axios';
 const sendRate = async (rate, token) => {
     try {
         const res = await axios({
-            url: "http://localhost:5000/rate",
+            url: `${process.env.REACT_APP_HOSTURL}/rate`,
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -21,17 +21,17 @@ const sendRate = async (rate, token) => {
 const getRate = async (StoryId, token) => {
     try {
         const response = await axios({
-            url: "http://localhost:5000/rate/" + StoryId,
+            url: `${process.env.REACT_APP_HOSTURL}/rate/${StoryId}`,
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": 'Bearer ' + token,
             },
             withCredentials: true,
-            data : { StoryId }
+            data: { StoryId }
         });
-       if(response.data)  return response.data.rating;
-       return undefined
+        if (response.data) return response.data.rating;
+        return undefined
     } catch (error) {
         console.log(error);
     }
@@ -39,7 +39,7 @@ const getRate = async (StoryId, token) => {
 
 const getStoryRates = async (point, storyId) => {
     try {
-        const response = await fetch(`http://localhost:5000/${point}/${storyId}`, {
+        const response = await fetch(`${process.env.REACT_APP_HOSTURL}/${point}/${storyId}`, {
             method: "GET",
             credentials: "include",
             headers: {
@@ -60,7 +60,7 @@ const updateRate = async (rate, token) => {
 
     try {
         const res = await axios({
-            url: "http://localhost:5000/rate/" + rate.StoryId,
+            url: `${process.env.REACT_APP_HOSTURL}/rate/${rate.StoryId}`,
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json",

@@ -77,7 +77,7 @@ const MemberPage = () => {
                         <MemberCard
                             imageSrc={mohammad}
                             name="Mohamad ali jbr"
-                            role="1/2 Developer"
+                            role="Developer"
                             facebookLink="https://www.facebook.com/profile.php?id=100009352542889"
                             githubLink="https://www.github.com/mohammad-ali-jaber"
                             email="jaberaaa8@gmail.com"
