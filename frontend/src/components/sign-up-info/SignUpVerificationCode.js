@@ -25,7 +25,6 @@ const SignUpVerificationCode = () => {
                     let temp = allChar[indexForAllChar];
                     generatedCode += temp[Math.floor(Math.random() * temp.length)];
                 }
-
                 setCorrectCode(generatedCode);
             }
         };

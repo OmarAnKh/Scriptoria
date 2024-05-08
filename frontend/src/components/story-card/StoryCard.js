@@ -48,11 +48,13 @@ const StoryCard = ({ selectedTab }) => {
                                     <div className="card-body">
                                         <h5 className="card-title story-title text-white">{story?.story?.title}</h5>
                                         <h6 className="author text-white">
-                                            {/* {story?.accounts[0]?.displayName} */}
-                                            {story?.accounts?.map((author, idx) => {
-                                                return <span key={idx}>{author?.displayName} <br/> </span>;
-                                            })}
-                                        </h6>
+                                        {story?.accounts?.map((author, idx) => (
+                                            <span key={idx}>
+                                                {author?.displayName}
+                                                {idx !== story.accounts.length - 1 && ' , '}
+                                            </span>
+                                        ))}
+                                    </h6>
                                         <div className="d-flex">
                                             <StarRating rating={story?.counts?.avg} />
                                             <div className='voters text-white'>{story?.counts?.rates} votes</div>
