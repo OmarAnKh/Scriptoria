@@ -74,4 +74,6 @@
     display: none;
    }
 } */
-
+.chat-scroll {
+  overflow-y: auto;
+}

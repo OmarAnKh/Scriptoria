@@ -5,10 +5,9 @@ import io from 'socket.io-client';
 
 const Conversation = ({data}) => {
   const {auth} = useAuth()
-  const users = data.users.filter(user => user.user._id !== auth?.userInfo?._id)
+  const users = data?.users?.filter(user => user.user._id !== auth?.userInfo?._id)
   const name = data.name !== '' ? data.name : (users.length > 0 ? users[0].user.userName : "Unnamed User");
-  const canEdit = data.users.length === 2 && data.users[0].admin !== data.users[1].admin
-  const photo = !canEdit && users[0]?.user?.profilePicture ? `data:image/png;base64,${users[0]?.user?.profilePicture}` : defaultPhoto
+  const photo = data.name==='' && users[0]?.user?.profilePicture ? `data:image/png;base64,${users[0]?.user?.profilePicture}` : defaultPhoto
 
   return (
       <div className='container d-flex flex-row bg-secondary p-1 my-2 rounded' style={{cursor : 'pointer'}}>

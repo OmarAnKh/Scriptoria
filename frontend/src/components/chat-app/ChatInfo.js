@@ -6,16 +6,18 @@ import { Link } from 'react-router-dom'
 import { Tooltip } from 'react-tooltip'
 import io from 'socket.io-client';
 import defaultPhoto from './../../img/group-chat.webp'
+import { getRooms } from './../../api/roomsApi';
 
-const ChatInfo = ({ chat, name, updateData, currentChatId, setName }) => {
+const ChatInfo = ({ chat, chats, setChats ,name, updateData, currentChatId, setName }) => {
   const { auth } = useAuth()
   const [edit, setEdit] = useState(false)
   const [newName, setNewName] = useState(name)
   const [socket, setSocket] = useState();
-  const [users, setUsers] = useState(chat.users.filter(user => user.user._id !== auth?.userInfo?._id))
-  const currentUser = chat.users.find(user => user.user._id === auth?.userInfo?._id)
-  const canEdit = chat.users.length !== 2 || (chat.users.length === 2 && ((chat.users[0].admin && !chat.users[1].admin) || (!chat.users[0].admin && chat.users[1].admin)));
+  const [users, setUsers] = useState(chat?.users?.filter(user => user.user._id !== auth?.userInfo?._id))
+  const currentUser = chat?.users?.find(user => user.user._id === auth?.userInfo?._id)
+  const canEdit = chat?.users?.length !== 2 || (chat?.users?.length === 2 && ((chat?.users[0]?.admin && !chat?.users[1]?.admin) || (!chat?.users[0]?.admin && chat?.users[1].admin)));
   const photo = !canEdit && users[0]?.user?.profilePicture ? `data:image/png;base64,${users[0]?.user?.profilePicture}` : defaultPhoto
+
 
   useEffect(() => {
     setNewName(name)
@@ -34,41 +36,32 @@ const ChatInfo = ({ chat, name, updateData, currentChatId, setName }) => {
     }
   }, [])
 
-  // useEffect(()=>{
-  //   socket?.on('roomDeleted', (roomId) => {
-  //     if (roomId === currentChatId) {
-  //       window.location.reload();
-  //     }
-  //   });
 
-  //   return()=>{
-  //     socket?.off('roomDeleted')
-  //   }
-  // },[socket])
-  
   useEffect(()=>{
-    console.log(socket)
-    socket?.on('update',(room)=>{
-      console.log(room)
-      const user = room.users.find((user)=> user.user._id===auth?.userInfo?._id)
-      setName(room.name)
-      if(user){
-        updateData()
-      }
-    })
-    
-    return ()=>{
-      socket?.off('update')
-    }
+    if(!socket) return
 
+    socket.on('sendUsers', ({room, users})=>{
+      console.log(room, users)
+      const isMember = room.users.find((user)=>user.user===auth?.userInfo?._id)
+      if(isMember){
+        setUsers(users.filter(user => user.user._id !== auth?.userInfo?._id))
+      }
+      
+    })
+    return()=>{
+      socket.off('sendUsers')
+    }
   },[socket])
+  
+
+  
+  
 
   const deleteChat = async () => {
     try {
       const res = await deleteRoom(chat._id, auth?.token)
       if (res.status === 200) {
-        toast.success('group deleted successfully')
-        socket.emit('deleteRoom', chat._id);
+        socket.emit('deleteRoom', res.data);
       }
     } catch (error) {
       console.log(error)
@@ -77,40 +70,34 @@ const ChatInfo = ({ chat, name, updateData, currentChatId, setName }) => {
   }
 
   const leaveChat = async (userId) => {
+  
+    const user = chat.users.find((user) => user.user._id === userId)
     const updatedUsers = chat.users.filter((user) => user.user._id !== userId)
-    if (
-      currentUser.admin &&
-      updatedUsers.filter((user) => user.admin).length === 0 &&
-      updatedUsers.length > 0
-    ) {
-      updatedUsers[0].admin = true
+    setUsers(updatedUsers.filter((user)=>user.user._id !== auth?.userInfo?._id));
+    if (currentUser.admin && updatedUsers.length > 0 && !updatedUsers.some((user) => user.admin)) {
+      updatedUsers[0].admin = true;
     }
-
-    const room = {
-      id: chat._id,
-      name: chat.name,
-      users: updatedUsers.map((user) => ({
-        user: user.user._id,
-        admin: user.admin,
-      })),
-    }
-
+      const room = {
+        id: chat._id,
+        name: chat.name,
+        users: updatedUsers.map((user) => ({
+          user: user.user._id,
+          admin: user.admin,
+        })),
+      }
+  
     try {
-      const res = await updateRoom(room, auth?.token)
+      const res = await updateRoom(room, auth?.token)    
       if (res.status === 200) {
-        if (userId === auth?.userInfo?._id) {
-          toast.success("you have left the chat")
-        } else {
-          toast.success("you have removed one user from the chat")
-          setUsers(updatedUsers.filter(user => user.user._id !== auth?.userInfo?._id))
-          socket.emit('leaveGroup', {room : room, userId})
-        }
+        socket.emit('leaveGroup', { room: res.data, user })
+        setUsers(updatedUsers.filter((user)=>user.user._id!==auth?.user._id))
       }
     } catch (error) {
       console.log(error)
-      toast.error("error occurred")
+      toast.error("An error occurred")
     }
   }
+  
 
   const editRoom = async () => {
     setEdit(false)
@@ -122,9 +109,8 @@ const ChatInfo = ({ chat, name, updateData, currentChatId, setName }) => {
     }
     try {
       const res = await updateRoom(room, auth?.token)
-      console.log(res)
       if (res.status === 200) {
-        socket.emit('updateChats', room)
+        socket.emit('updateChats', res.data)
         return toast.success('done')
       }
     } catch (error) {
@@ -133,32 +119,6 @@ const ChatInfo = ({ chat, name, updateData, currentChatId, setName }) => {
     }
   }
 
-  
-  const changeRule = async (userId) => {
-    const updatedUsers = chat.users.map((user) => {
-      return user.user._id === userId ? { ...user, admin: !user.admin } : user;
-    });
-  
-    const room = {
-      id: chat._id,
-      name: chat.name,
-      users: updatedUsers.map((user) => ({ user: user.user._id, admin: user.admin })),
-    };
-  
-    try {
-      const res = await updateRoom(room, auth?.token);
-      if (res.status === 200) {
-        socket.emit('updateChats', room)
-        setUsers(updatedUsers.filter((user)=> user.user._id !== auth?.userInfo?._id))
-        toast.success("Rule changed successfully")
-      }
-    } catch (error) {
-      console.log(error)
-      toast.error("An error occurred")
-    }
-  }
-  
-  
   
 
   return (
@@ -192,39 +152,33 @@ const ChatInfo = ({ chat, name, updateData, currentChatId, setName }) => {
 
 
               <div className='members p-2'>
-                <div className='position-sticky'><span className='fw-bold h4 p-2'>group members</span></div>
+                <div className='position-sticky row'>
+                  <div className='col'><span className='fw-bold h4 p-2 col'>group members</span></div>
+                  </div>
                 <hr className='m-1' />
                 <div className='container text-start bg-light rounded-2'>
                   <div className='row  p-1 my-2'>
-                    <div className='username col'><Link className='text-decoration-none text-dark' to={`/profile/${currentUser.user.userName}`}>{currentUser.user.userName} {currentUser.admin ? <>(me, admin)</> : <>(me)</>}</Link></div>
+                    <div className='username col'><Link className='text-decoration-none text-dark' to={`/profile/${currentUser?.user?.userName}`}>{currentUser?.user?.userName} {currentUser?.admin ? <>(me, admin)</> : <>(me)</>}</Link></div>
                   </div>
                   {users.map((user, index) => {
-
-                const userId = user.user._id;
                 return (
                   <div className='row p-2 my-3' key={index}>
-                    <div className='username col-8'><Link className='text-decoration-none text-dark' to={`/profile/${user.user.userName}`}>{user.user.userName}</Link> {user.admin ? <>(admin)</> : <></>}</div>
+                    <div className='username col-8'><Link className='text-decoration-none text-dark' to={`/profile/${user?.user?.userName}`}>{user?.user?.userName}</Link> {user?.admin ? <>(admin)</> : <></>}</div>
                     {
                       currentUser.admin ? (
                         <div className='btns btn-group-sm btn-group text-end col'>
-                          <button onClick={() => changeRule(userId)} className={`btn btn-secondary bi ${user.admin ? 'bi-person-fill-x' : 'bi-person-fill-lock'}`} data-tooltip-id="my-tooltip"
-                            data-tooltip-content={user.admin ? "set as an admin" : "remove admin"}
-                            data-tooltip-place="bottom"></button>
                           <button className='btn btn-danger bi bi-person-dash-fill' data-tooltip-id="my-tooltip" data-tooltip-content="kick" data-tooltip-place="bottom" onClick={() => leaveChat(user.user._id)}></button>
                         </div>
                       ) : (
                         <></>
                       )
                     }
-    </div>
-  );
-})
-}
+                  </div>
+                );
+              })
+              }
                 </div>
               </div>
-
-
-
             </div>
 
             <div className="modal-footer p-1">

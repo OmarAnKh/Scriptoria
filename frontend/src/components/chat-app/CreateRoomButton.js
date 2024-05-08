@@ -9,7 +9,7 @@ import io from 'socket.io-client';
 import './Chat.css'
 
 
-const CreateRoomButton = ({updateData}) => {
+const CreateRoomButton = ({updateData,chats, setChats}) => {
 
   
     const {auth} = useAuth()
@@ -34,7 +34,7 @@ const CreateRoomButton = ({updateData}) => {
       return () => {
         s.disconnect()
       }
-    }, [])
+    }, [])    
 
     useEffect(()=>{
       const fetchData = async()=>{
@@ -54,7 +54,6 @@ const CreateRoomButton = ({updateData}) => {
       const membersIds = selectedMembers.map((member) => ({ user: member.value, admin: false }));
       setMembers(membersIds);
     }
-
 
     const handleCreate = async () => {
       if (group) {
@@ -86,7 +85,8 @@ const CreateRoomButton = ({updateData}) => {
             ]
       };
     
-      const res = await createRoom(chat, auth?.token);
+      try{
+        const res = await createRoom(chat, auth?.token);
     
       if (res?.status === 200) {
         setNameRequired(false)
@@ -95,13 +95,13 @@ const CreateRoomButton = ({updateData}) => {
         setName('')
         setMembers([])
         setPerson(null)
-        setGroup(false)
-        // socket.emit('joinRoom', res.data);
-        socket.emit('updateChats', res.data._id)
+        setGroup(false) 
+        socket.emit('newRoom', res.data)
         document.getElementById('closeModal').click()
-        return toast.success('new room created')
-      } else {
-        return toast.error('an error occurred')
+        toast.success(`u have created new room ${name}`)
+      }}catch(error){
+        console.log(error)
+        toast.error('an error occured')
       }
     }
 

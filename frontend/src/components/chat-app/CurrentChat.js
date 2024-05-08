@@ -1,17 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Message from './Message';
 import io from 'socket.io-client';
 import useAuth from '../../hooks/useAuth';
 import moment from 'moment';
 import ChatInfo from './ChatInfo';
 
-const CurrentChat = ({ currentChat, bothSides ,setBothSides, updateData }) => {
+const CurrentChat = ({ currentChat,chats, setChats, bothSides ,setBothSides, updateData }) => {
   const { auth } = useAuth();
   const [socket, setSocket] = useState(null);
   const [text, setText] = useState('');
-  const [name, setName] = useState(currentChat.name!=='' ? currentChat.name : users[0].user.userName)
+  const chatScrollRef = useRef(null);
+
   const [messages, setMessages] = useState([]);
-  const users = currentChat.users.filter(user => user.user._id !== auth?.userInfo?._id)
+  const users = currentChat?.users?.filter(user => user.user._id !== auth?.userInfo?._id)
+  const [name, setName] = useState(currentChat.name!=='' ? currentChat.name : users[0].user.userName)
   // const name = currentChat.name!=='' ? currentChat.name : users[0].user.userName
 
   useEffect(() => {
@@ -31,6 +33,13 @@ const CurrentChat = ({ currentChat, bothSides ,setBothSides, updateData }) => {
   }, [currentChat])
 
   useEffect(() => {
+    if (currentChat) {
+      const users = currentChat.users.filter(user => user.user._id !== auth?.userInfo?._id);
+      setName(currentChat.name !== '' ? currentChat.name : users[0].user.userName);
+    }
+  }, [currentChat, auth]);
+
+  useEffect(() => {
     if (!socket) return;
 
     const handleMessage = (message) => {
@@ -42,13 +51,13 @@ const CurrentChat = ({ currentChat, bothSides ,setBothSides, updateData }) => {
     return () => {
       socket.off('message', handleMessage);
     };
-  }, [socket, currentChat]);
+  }, [socket]);
 
   const handleSubmit = () => {
     if (!text.trim() || !socket) return;
     const message = {
       owner: auth?.userInfo,
-      roomId: currentChat._id,
+      roomId: currentChat?._id,
       text,
       time: moment(new Date().getTime()).format('h:mm a.')
     };
@@ -72,13 +81,13 @@ const CurrentChat = ({ currentChat, bothSides ,setBothSides, updateData }) => {
       <div>
       <div className='row my-2'>
       <div className='col-6'><span className='display-6 text-light'><a className={bothSides? 'bi bi-arrow-left-short' : 'bi bi-arrow-right-short'} onClick={()=>setBothSides(!bothSides)}></a> {name} &nbsp;</span></div>
-      <div className='col-6 text-end'><ChatInfo chat={currentChat} name={name} setName={setName} updateData={updateData}/></div>
+      <div className='col-6 text-end'><ChatInfo chat={currentChat} name={name} setName={setName} updateData={updateData} chats={chats} setChats={setChats}/></div>
       </div>
       <hr className='mt-0' />
       </div>
-      <div className='flex-grow-1'>
+      <div className='flex-grow-1 chat-scroll' style={{ maxHeight: '66vh', overflowY: 'auto' }} ref={chatScrollRef}>
 
-        {messages.map((message, index) => (
+        {messages?.map((message, index) => (
           <Message
             key={index}
             owner={message.owner}
@@ -96,7 +105,8 @@ const CurrentChat = ({ currentChat, bothSides ,setBothSides, updateData }) => {
           placeholder='Write a message'
           className='form-control'
           value={text}
-          onChange={(e) => setText(e.target.value)}
+          onChange={(e) => {
+            setText(e.target.value)}}
           onKeyPress={handleKeyPress}
         />
         <button className='btn btn-primary' onClick={handleSubmit}>

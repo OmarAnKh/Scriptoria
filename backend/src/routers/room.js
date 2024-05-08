@@ -12,7 +12,7 @@ router.post('/room', authentication, async (req,res)=>{
     })
     try{
         await room.save()
-        res.send(room)
+        res.send(room);
     } catch(error){
         console.log(error)
         res.status(400).send(error)

@@ -52,20 +52,33 @@ server.listen(port, () => {
     console.log('run on port ' + port)
 });
 
-const users = {}
+const users = {}  
 const rooms = {}
 // Socket.io connection logic
 
 io.on("connection", (socket) => {
 
     socket.on('joinRoom', (room) => {
-        socket.join(room._id); 
-        if(!rooms[room._id]){
-            rooms[room._id] = {...room, messages : []}
+        if (room && room._id) { 
+            socket.join(room._id);
+            if (!rooms[room._id]) {
+                rooms[room._id] = { ...room, messages: [] };
+            }
+            socket.emit('getOldMessages', rooms[room._id].messages);
+        } else {
+            console.error('Room object is null or undefined');
         }
+    });
+    
 
-        socket.emit('getOldMessages', rooms[room._id].messages)
+    socket.on('newRoom', (room)=>{
+        if(!rooms[room._id]){
+          rooms[room._id] = { ...room, messages: [] };
+          io.emit('update', room); 
+        }
       });
+      
+
 
       socket.on('sendMessage', (message)=>{
         io.to(message.roomId).emit('message', message)
@@ -76,30 +89,33 @@ io.on("connection", (socket) => {
         }
     })
 
-    socket.on('deleteRoom', (roomId)=>{
-        const room = rooms[roomId];
-        delete rooms[roomId];
-        io.emit('roomDeleted', roomId); 
-    })
-
-    socket.on('leaveGroup', ({roomId, userId})=>{
-        const user = rooms[roomId].users.find((user)=> user.user._id===userId)
-        if(user){
-            io.to(rooms[roomId]).emit('leftGroup',`${user.user.userName} had left the group`)
-            rooms[roomId].users = rooms[roomId].users.filter((user=>user.user._id===userId))
+    socket.on('deleteRoom', (room)=>{
+        if (rooms[room._id]) {
+            delete rooms[room._id];
+            io.emit('roomDeleted', room);
+        } else {
+            console.log("Room not found");
         }
     })
+
+    
 
     socket.on('updateChats', (room)=>{
-        const currentRoom = rooms[room.id]
-        console.log(rooms,room)
-        if(currentRoom){
-
-            io.to(currentRoom._id).emit('update', room)
+        rooms[room._id] = {...room, messages : [...rooms[room._id].messages]}
+        if(rooms[room._id]){
+            io.emit('update', room)
         }
     })
 
 
+    socket.on('leaveGroup', ({room, user})=>{
+        const isMember = rooms[room._id].users.find((member)=> member.user === user.user._id)
+        if(isMember){
+            rooms[room._id] = {...room, messages : [...rooms[room._id].messages]}
+            io.emit('leftGroup',  { room, user })
+            io.emit('update', room)
+        }
+    })
 
 
     socket.on("joinWritingPage", (user) => {
