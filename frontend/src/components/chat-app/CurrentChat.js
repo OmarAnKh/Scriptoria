@@ -3,14 +3,16 @@ import Message from './Message';
 import io from 'socket.io-client';
 import useAuth from '../../hooks/useAuth';
 import moment from 'moment';
+import ChatInfo from './ChatInfo';
 
-const CurrentChat = ({ currentChat, bothSides ,setBothSides }) => {
+const CurrentChat = ({ currentChat, bothSides ,setBothSides, updateData }) => {
   const { auth } = useAuth();
-  const room = currentChat._id;
-  const username = auth?.userName;
   const [socket, setSocket] = useState(null);
   const [text, setText] = useState('');
+  const [name, setName] = useState(currentChat.name!=='' ? currentChat.name : users[0].user.userName)
   const [messages, setMessages] = useState([]);
+  const users = currentChat.users.filter(user => user.user._id !== auth?.userInfo?._id)
+  // const name = currentChat.name!=='' ? currentChat.name : users[0].user.userName
 
   useEffect(() => {
     const s = io("http://localhost:5000")
@@ -50,7 +52,6 @@ const CurrentChat = ({ currentChat, bothSides ,setBothSides }) => {
       text,
       time: moment(new Date().getTime()).format('h:mm a.')
     };
-    console.log(message, 10)
     socket.emit('sendMessage', message, (error) => {
       if (error) {
         return console.log(error);
@@ -69,8 +70,11 @@ const CurrentChat = ({ currentChat, bothSides ,setBothSides }) => {
   return (
     <>
       <div>
-      <span className='display-4 text-light'><a className={bothSides? 'bi bi-arrow-left-short' : 'bi bi-arrow-right-short'} onClick={()=>setBothSides(!bothSides)}></a> {currentChat?.name} &nbsp;</span>
-      <hr />
+      <div className='row my-2'>
+      <div className='col-6'><span className='display-6 text-light'><a className={bothSides? 'bi bi-arrow-left-short' : 'bi bi-arrow-right-short'} onClick={()=>setBothSides(!bothSides)}></a> {name} &nbsp;</span></div>
+      <div className='col-6 text-end'><ChatInfo chat={currentChat} name={name} setName={setName} updateData={updateData}/></div>
+      </div>
+      <hr className='mt-0' />
       </div>
       <div className='flex-grow-1'>
 
@@ -96,7 +100,7 @@ const CurrentChat = ({ currentChat, bothSides ,setBothSides }) => {
           onKeyPress={handleKeyPress}
         />
         <button className='btn btn-primary' onClick={handleSubmit}>
-          Send
+          send
         </button>
       </div>
     </>

@@ -67,10 +67,38 @@ io.on("connection", (socket) => {
         socket.emit('getOldMessages', rooms[room._id].messages)
       });
 
-    socket.on('sendMessage', (message)=>{
+      socket.on('sendMessage', (message)=>{
         io.to(message.roomId).emit('message', message)
-        rooms[message.roomId].messages.push(message)
+        if (rooms[message.roomId]) {
+            rooms[message.roomId].messages.push(message)
+        } else {
+            console.error(`room ${message.roomId} does not exist.`);
+        }
     })
+
+    socket.on('deleteRoom', (roomId)=>{
+        const room = rooms[roomId];
+        delete rooms[roomId];
+        io.emit('roomDeleted', roomId); 
+    })
+
+    socket.on('leaveGroup', ({roomId, userId})=>{
+        const user = rooms[roomId].users.find((user)=> user.user._id===userId)
+        if(user){
+            io.to(rooms[roomId]).emit('leftGroup',`${user.user.userName} had left the group`)
+            rooms[roomId].users = rooms[roomId].users.filter((user=>user.user._id===userId))
+        }
+    })
+
+    socket.on('updateChats', (room)=>{
+        const currentRoom = rooms[room.id]
+        console.log(rooms,room)
+        if(currentRoom){
+
+            io.to(currentRoom._id).emit('update', room)
+        }
+    })
+
 
 
 

@@ -31,8 +31,29 @@ router.get('/room/:userId', authentication, async(req, res)=>{
     }
 })
 
-// router.patch('/room/:roomId', authentication, (req, res)=>{
-//     const
-// })
+router.patch('/room', authentication, async (req, res)=>{
+    const id = req.body.id
+    try{
+        const room = await Room.findById(id)
+        if(!room) return res.status(404).send({})
+            room.name = req.body.name
+            room.users=req.body.users
+            await room.save()
+            res.status(200).send(room)
+    }catch(error){
+        res.status(500).send(error)
+    }
+})
+
+router.delete('/room/:id', async (req, res)=>{
+    const id = req.params.id
+    try{
+        const room = await Room.findByIdAndDelete(id)
+        if(!room) return res.status(404).send(room)
+            res.status(200).send(room)
+    }catch(error){
+        res.status(500).send(error)
+    }
+})
 
 export default router
