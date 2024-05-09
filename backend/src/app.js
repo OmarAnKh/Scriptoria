@@ -11,6 +11,7 @@ import commentsRouter from "./routers/comments.js"
 import listsRouter from "./routers/readingList.js"
 import likesRouter from "./routers/likes.js"
 import writersRouter from "./routers/writers.js"
+import roomRouter from "./routers/room.js"
 import cors from "cors"
 import cookieParser from "cookie-parser"
 
@@ -45,19 +46,82 @@ app.use(commentsRouter)
 app.use(listsRouter)
 app.use(likesRouter)
 app.use(writersRouter)
+app.use(roomRouter)
 
 server.listen(port, () => {
     console.log('run on port ' + port)
 });
 
-const users = {}
+const users = {}  
+const rooms = {}
 // Socket.io connection logic
-io.on("connection", socket => {
+
+io.on("connection", (socket) => {
+
+    socket.on('joinRoom', (room) => {
+        if (room && room._id) { 
+            socket.join(room._id);
+            if (!rooms[room._id]) {
+                rooms[room._id] = { ...room, messages: [] };
+            }
+            socket.emit('getOldMessages', rooms[room._id].messages);
+        } else {
+            console.log('Room object is null or undefined');
+        }
+    });
+
+    socket.on('newRoom', (room)=>{
+        if(!rooms[room._id]){
+          rooms[room._id] = { ...room, messages: [] };
+          io.emit('update', room);  
+        }
+      }); 
+
+      socket.on('sendMessage', (message)=>{
+        io.to(message.roomId).emit('message', message)
+        socket.broadcast.to(message.roomId).emit('sendNotification', message)
+        if (rooms[message.roomId]) {
+            rooms[message.roomId].messages.push(message)
+        } else {
+            console.log(rooms)
+            console.log(`room ${message.roomId} does not exist.`);
+        }
+    })
+ 
+
+    socket.on('deleteRoom', (room)=>{
+        if (rooms[room._id]) {
+            delete rooms[room._id];
+            io.emit('roomDeleted', room);
+        } else {
+            console.log("Room not found");
+        }
+    })
+
+
+    socket.on('updateChats', (room)=>{
+        rooms[room._id] = {...room, messages : [...rooms[room._id].messages]}
+        if(rooms[room._id]){
+            io.to(room._id).emit('update', room)
+        }
+    })
+
+
+    socket.on('leaveGroup', ({room, user})=>{
+        const isMember = rooms[room._id].users.find((member)=> member.user === user.user._id)
+        if(isMember){
+            rooms[room._id] = {...room, messages : [...rooms[room._id].messages]}
+            io.to(room._id).emit('leftGroup',  { room, user })
+            io.to(room._id).emit('update', room)
+        }
+    })
+
 
     socket.on("joinWritingPage", (user) => {
         users[user] = socket.id
     })
     
+
     socket.on("get-document", async documentId => {
         const document = await findDocument(documentId);
         socket.join(documentId);
@@ -67,7 +131,7 @@ io.on("connection", socket => {
             applyChangesAndBroadcast(socket, documentId, delta);
         });
 
-        socket.on("save-document", async data => {
+        socket.on("save-document", async data => { 
             await Story.findByIdAndUpdate(documentId, { slide: data });
         });
     });
