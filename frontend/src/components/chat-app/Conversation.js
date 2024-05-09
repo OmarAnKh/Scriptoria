@@ -1,7 +1,5 @@
-import React, {useEffect, useState} from 'react'
 import useAuth from '../../hooks/useAuth'
 import defaultPhoto from './../../img/group-chat.webp'
-import io from 'socket.io-client';
 
 const Conversation = ({data}) => {
   const {auth} = useAuth()
@@ -10,7 +8,7 @@ const Conversation = ({data}) => {
   const photo = data.name==='' && users[0]?.user?.profilePicture ? `data:image/png;base64,${users[0]?.user?.profilePicture}` : defaultPhoto
 
   return (
-      <div className='container d-flex flex-row bg-secondary p-1 my-2 rounded' style={{cursor : 'pointer'}}>
+      <div className='container d-flex flex-row bg-light p-1 my-2 rounded' style={{cursor : 'pointer'}}>
           <div>
               <img
                   className="rounded-circle border border-2"

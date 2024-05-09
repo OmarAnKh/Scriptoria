@@ -4,20 +4,17 @@ import useAuth from '../../hooks/useAuth'
 import { toast } from 'react-hot-toast'
 import { Link } from 'react-router-dom'
 import { Tooltip } from 'react-tooltip'
-import io from 'socket.io-client';
 import defaultPhoto from './../../img/group-chat.webp'
 import { getRooms } from './../../api/roomsApi';
 
-const ChatInfo = ({ chat, chats, setChats ,name, updateData, currentChatId, setName }) => {
+const ChatInfo = ({ chat, socket, setChats ,name}) => {
   const { auth } = useAuth()
   const [edit, setEdit] = useState(false)
   const [newName, setNewName] = useState(name)
-  const [socket, setSocket] = useState();
   const [users, setUsers] = useState(chat?.users?.filter(user => user.user._id !== auth?.userInfo?._id))
   const currentUser = chat?.users?.find(user => user.user._id === auth?.userInfo?._id)
   const canEdit = chat?.users?.length !== 2 || (chat?.users?.length === 2 && ((chat?.users[0]?.admin && !chat?.users[1]?.admin) || (!chat?.users[0]?.admin && chat?.users[1].admin)));
   const photo = !canEdit && users[0]?.user?.profilePicture ? `data:image/png;base64,${users[0]?.user?.profilePicture}` : defaultPhoto
-
 
   useEffect(() => {
     setNewName(name)
@@ -26,35 +23,50 @@ const ChatInfo = ({ chat, chats, setChats ,name, updateData, currentChatId, setN
   useEffect(() => {
     setUsers(chat.users.filter(user => user.user._id !== auth?.userInfo?._id))
   }, [chat.users, auth?.userInfo?._id])
-
-  useEffect(() => {
-    const s = io("http://localhost:5000")
-
-    setSocket(s)     
-    return () => {
-      s.disconnect()
-    }
-  }, [])
-
-
+  
+  
   useEffect(()=>{
     if(!socket) return
 
-    socket.on('sendUsers', ({room, users})=>{
-      console.log(room, users)
-      const isMember = room.users.find((user)=>user.user===auth?.userInfo?._id)
-      if(isMember){
-        setUsers(users.filter(user => user.user._id !== auth?.userInfo?._id))
-      }
-      
+    socket.on('roomDeleted', async (room)=>{
+        const isMember =  room.users.some(user => user.user === auth?.userInfo?._id)
+        toast.error(`"${room.name}" room got deleted by admin`)
+        if(room._id === chat?._id){
+            window.location.reload()
+            toast.success('this chat has been removed')
+            return
+        }
+        if (isMember && room._id !== chat?._id) {
+            const res = await getRooms(auth?.userInfo?._id, auth?.token)
+            if (res?.status === 200) setChats(res?.data)
+                toast.error(`"${room.name}" room got deleted by admin`)
+        }
     })
-    return()=>{
-      socket.off('sendUsers')
+    return ()=>{
+        socket.off('roomDeleted')
     }
-  },[socket])
-  
+},[socket])
 
+useEffect(()=>{
+  if(!socket) return
   
+  socket?.on('leftGroup', async ({room, user})=>{
+      if(auth?.userInfo?._id===user.user._id){
+          toast.success(`you have left the group chat ${room.name}`)
+          window.location.reload()
+          return
+      } else{
+        const res = await getRooms(auth?.userInfo?._id, auth?.token)
+        setUsers(chat.users.filter(user => user.user._id !== user.user._id))
+        if (res.status === 200) setChats(res.data)
+        toast.success(`${user.user.userName} left ${room.name}`) 
+      }         
+  })
+
+  return()=>{
+      socket?.off('leftGroup')
+  }
+},[socket])
   
 
   const deleteChat = async () => {
@@ -118,8 +130,7 @@ const ChatInfo = ({ chat, chats, setChats ,name, updateData, currentChatId, setN
       return toast.error('error occured')
     }
   }
-
-  
+ 
 
   return (
     <div>

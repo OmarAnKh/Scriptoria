@@ -11,7 +11,6 @@ import useLogout from "../../hooks/useLogout.js";
 import useThemeToggle from "../theme-toggle/ThemeToggle.js"
 
 
-
 const NavBar = () => {
     const navRef = useRef();
     const { auth } = useAuth();
@@ -156,7 +155,7 @@ const NavBar = () => {
                             <Link type="button" className="addstory btn rounded-5 m-2" to={`/StoryDetails`}>
                                 {t("Navbar.add_a_story")}
                             </Link>
-                            <div className="wrapper">
+                            <div className="wrapper m-2">
                                 <input
                                     type="checkbox"
                                     name="checkbox"
@@ -165,6 +164,7 @@ const NavBar = () => {
                                     onChange={toggleTheme}
                                 />
                             </div>
+                            <Link className="bi m-2 rounded-5  bi-envelope navbar-button" to={`/chats`} />
                             <NavHomeButton iclassName="bi bi-globe2 navbar-button" className="navbar-button" buttonClassName="btn btn rounded-5 m-2" isDropDown={true} accountDropDown={languageDropDown} />
                             <NavHomeButton pfp={true} className="navbar-button" buttonClassName="btn btn rounded-5 m-2" isDropDown={true} accountDropDown={accountDropDown} />
                         </> : <>

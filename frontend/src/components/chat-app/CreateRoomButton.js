@@ -5,13 +5,9 @@ import Select from 'react-select'
 import makeAnimated from 'react-select/animated';
 import { toast } from 'react-hot-toast';
 import { getFriends } from '../../api/accountApi';
-import io from 'socket.io-client';
-import './Chat.css'
 
 
-const CreateRoomButton = ({updateData,chats, setChats}) => {
-
-  
+const CreateRoomButton = ({socket}) => {
     const {auth} = useAuth()
     const animatedComponents = makeAnimated();
     const [members, setMembers] = useState([])
@@ -22,19 +18,11 @@ const CreateRoomButton = ({updateData,chats, setChats}) => {
     const [membersRequired, setMembersRequired] = useState(false)
     const [personRequired, setPersonRequired] = useState(false)
     const [name, setName] = useState('')
-    const [socket, setSocket] = useState(null);
+
 
     const options = friends?.map((friend)=>{
       return { value : friend._id, label : friend.userName}
-    })
-
-    useEffect(() => {
-      const s = io("http://localhost:5000")
-      setSocket(s)      
-      return () => {
-        s.disconnect()
-      }
-    }, [])    
+    })  
 
     useEffect(()=>{
       const fetchData = async()=>{
@@ -138,7 +126,12 @@ const CreateRoomButton = ({updateData,chats, setChats}) => {
             />
           </div>
           {membersRequired? <span className='text-danger'>group is empty !</span> : <></>}
-          <div className='text-center p-2'><a className='text-secondary text-decoration-none' onClick={()=>setGroup(false)} style={{cursor : 'pointer'}}>chat with one person only</a></div>
+          <div className='text-center p-2'><a className='text-secondary text-decoration-none' 
+          onClick={()=>{
+            setGroup(false)
+            setName('')
+          }} 
+          style={{cursor : 'pointer'}}>chat with one person only</a></div>
           </div></>) : (<><div className='container h4 text-center'>choose someone to chat with</div>
           <Select    
           components={animatedComponents}

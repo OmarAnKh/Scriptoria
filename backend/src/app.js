@@ -66,28 +66,28 @@ io.on("connection", (socket) => {
             }
             socket.emit('getOldMessages', rooms[room._id].messages);
         } else {
-            console.error('Room object is null or undefined');
+            console.log('Room object is null or undefined');
         }
     });
-    
 
     socket.on('newRoom', (room)=>{
         if(!rooms[room._id]){
           rooms[room._id] = { ...room, messages: [] };
-          io.emit('update', room); 
+          io.emit('update', room);  
         }
-      });
-      
-
+      }); 
 
       socket.on('sendMessage', (message)=>{
         io.to(message.roomId).emit('message', message)
+        socket.broadcast.to(message.roomId).emit('sendNotification', message)
         if (rooms[message.roomId]) {
             rooms[message.roomId].messages.push(message)
         } else {
-            console.error(`room ${message.roomId} does not exist.`);
+            console.log(rooms)
+            console.log(`room ${message.roomId} does not exist.`);
         }
     })
+ 
 
     socket.on('deleteRoom', (room)=>{
         if (rooms[room._id]) {
@@ -98,12 +98,11 @@ io.on("connection", (socket) => {
         }
     })
 
-    
 
     socket.on('updateChats', (room)=>{
         rooms[room._id] = {...room, messages : [...rooms[room._id].messages]}
         if(rooms[room._id]){
-            io.emit('update', room)
+            io.to(room._id).emit('update', room)
         }
     })
 
@@ -112,8 +111,8 @@ io.on("connection", (socket) => {
         const isMember = rooms[room._id].users.find((member)=> member.user === user.user._id)
         if(isMember){
             rooms[room._id] = {...room, messages : [...rooms[room._id].messages]}
-            io.emit('leftGroup',  { room, user })
-            io.emit('update', room)
+            io.to(room._id).emit('leftGroup',  { room, user })
+            io.to(room._id).emit('update', room)
         }
     })
 
@@ -132,7 +131,7 @@ io.on("connection", (socket) => {
             applyChangesAndBroadcast(socket, documentId, delta);
         });
 
-        socket.on("save-document", async data => {
+        socket.on("save-document", async data => { 
             await Story.findByIdAndUpdate(documentId, { slide: data });
         });
     });
