@@ -263,26 +263,26 @@ router.delete("/account/delete", async (req, res) => {
             await Writers.findByIdAndDelete(writer._id)
         }
 
-        const rooms = await Room.find({'users.user' : user._id})
-        for(const room of rooms){
-            const index = room.users.findIndex((user)=> user.user === user._id)
-            if(index !== -1){
-                if(room.length <= 2){
-                    await Room.findByIdAndDelete(room._id)
+        const rooms = await Room.find({ 'users.user': account._id });
+        for (const room of rooms) {
+            const index = room.users.findIndex((user) => user.user === account._id);
+            if (index !== -1) {
+                if (room.users.length <= 2) {
+                    await Room.findByIdAndDelete(room._id);
                 } else {
-                    if(room.users[index].admin){
-                        const admins = room.users.filter((user)=> user.admin)
-                        if(admins.length===1){
-                            const otherUserIndex = room.users.findIndex((user)=> user.admin)
-                            room.users[otherUserIndex].admin = true
-                        } 
-                        room.users.splice(index, 1)
-                        await room.save() 
+                    if (room.users[index].admin) {
+                        const admins = room.users.filter((user) => user.admin);
+                        if (admins.length === 1) {
+                            const otherUserIndex = room.users.findIndex((user) => user.admin);
+                            room.users[otherUserIndex].admin = true;
+                        }
+                        room.users.splice(index, 1);
+                        await room.save();
                     }
                 }
             }
         }
-
+        
         const account = await Account.findOneAndDelete(id)
 
         if (!account) {
@@ -293,6 +293,8 @@ router.delete("/account/delete", async (req, res) => {
         res.status(500).send(error)
     }
 })
+
+
 router.get('/getFriends/:userId', async (req, res) => {
     const userId = req.params.userId
     try {
