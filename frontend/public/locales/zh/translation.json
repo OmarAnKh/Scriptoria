@@ -23,6 +23,12 @@
         "read_the_book": "阅读书籍",
         "votes": "投票"
     },
+    "AvatarPage": {
+        "save": "保存",
+        "cancel": "取消",
+        "avatar_styles": "头像风格",
+        "styling_options": "样式选项"
+    },    
     "DiscoverTable": {
         "all_genres": "所有类型",
         "action": "动作",
@@ -99,7 +105,10 @@
         "confirm_password": "请确认您的密码",
         "delete_account_header": "您确定要删除您的账户吗？",
         "confirm": "确认",
-        "cancel": "取消"
+        "cancel": "取消",
+        "add_to_profile": "您想要添加什么？",
+        "profile_picture": "个人资料图片",
+        "avatar": "头像"
     },
     "StoryCard": {
         "show_more": "显示更多"

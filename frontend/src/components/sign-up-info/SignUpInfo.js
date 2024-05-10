@@ -4,9 +4,12 @@ import { genders, countrys } from './signUpOptions'
 import RegistrationForm from '../registration/RegistrationForm'
 import content from "../../img/content.png";
 import openBook from "../../img/open-book.png";
+import avatar from "../../img/avatar.png";
+import profilePicture from "../../img/profilePicture.png";
 import signature from "../../img/signature.png"
 import { useLocation, useNavigate } from 'react-router-dom';
 import useConvertPath from '../../hooks/useConvertPath';
+import UploadImg from '../settings/UploadImg';
 
 const JoyButton = (props) => {
     return (
@@ -40,6 +43,9 @@ const SignUpInfo = () => {
     const [regionError, setRegionError] = useState("");
     const [dateOfBirthError, setDateOfBirthError] = useState("");
     const [genderError, setGenderError] = useState("");
+    
+    const [image, setImage] = useState(profilePicture)
+    const [addProfile, setAddProfile] = useState(false)
 
     const handleLeftCard = () => {
         if (displayName === "") {
@@ -86,7 +92,14 @@ const SignUpInfo = () => {
         setJoyType(type)
     }
 
-    const handleSignUpInformation = async (event) => {
+    const handleProfileButton = (event, type) => {
+        event.preventDefault();
+        if (type === 'Avatar') {
+            handleSignUpInformation(event, type)
+        }
+    }
+
+    const handleSignUpInformation = async (event, type) => {
         event.preventDefault();
         if (description !== "") {
             accountInfo.description = description;
@@ -101,6 +114,14 @@ const SignUpInfo = () => {
         }
         if (joyType === "writer") {
             accountInfo.profilePicture = await convertPath(signature);
+        }
+
+        if(addProfile) {
+            accountInfo.profilePicture = image
+        }
+
+        if(type === "Avatar") {
+            return navigate(`/Avatars`, { state: { accountInfo } });
         }
         navigate(`/SignUpVerificationCode`, { state: { accountInfo } });
     }
@@ -137,19 +158,32 @@ const SignUpInfo = () => {
             <form className="right-registration-card" >
                 <h2 className="title">Sign Up Infromation</h2>
                 <RegistrationInput className="col-md-8" inputClassName="form-control" type="textarea" placeholder="Your Description" onChange={setDescription} />
-                <div className='row'>
-                    <div className='d-flex justify-content-center'>
-                        <JoyButton icon={content} type="both" actives={joyType} method={(event, type) => {
+                <div className='row d-flex justify-content-center'>
+                    <div className='d-flex justify-content-between mx-4'>
+                        <JoyButton icon={openBook} type="reader" actives={joyType} method={(event, type) => {
                             handleJoyButton(event, type)
                         }} />
-                    </div>
-                    <div className='d-flex justify-content-between'>
-                        <JoyButton icon={openBook} type="reader" actives={joyType} method={(event, type) => {
+                        <JoyButton icon={content} type="both" actives={joyType} method={(event, type) => {
                             handleJoyButton(event, type)
                         }} />
                         <JoyButton icon={signature} type="writer" actives={joyType} method={(event, type) => {
                             handleJoyButton(event, type)
                         }} />
+                    </div>
+                </div>
+                <div className="row d-flex text-center" style={{marginTop: '1em'}}>
+                    <p className="">Would you like to add...</p>
+                    <div className="d-flex justify-content-center">
+                        <div className='mx-4'>
+                            <UploadImg imgURL={image} setImgURL={setImage} width={80} setAddProfile={setAddProfile}/>
+                            <p>Profile Picture</p>
+                        </div>
+                        <button className="btn" onClick={(event) => {
+                            handleProfileButton(event, "Avatar")
+                        }}>
+                            <img src={avatar} className="img-fluid rounded-circle image-img" style={{ width: "80px", height: "80px" }} alt="what do you prefer" />
+                            <p>Avatar</p>
+                        </button>
                     </div>
                 </div>
                 <button type="submit" className="btn-registration solid mb-5" onClick={(event) => { handleSignUpInformation(event) }} >Sign Up</button>
