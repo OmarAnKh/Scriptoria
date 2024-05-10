@@ -26,14 +26,9 @@ const WelcomeCard = () => {
                                     {t("WelcomeCard.desc")}
                                 </p>
                             </div>
-                            <div className='d-flex justify-content-end'>
+                            <div className='d-flex justify-content-center'>
                                 <AuthButtons
-                                    title={t("WelcomeCard.sign-in")}
-                                    herf="/registration"
-
-                                />
-                                <AuthButtons
-                                    title={t("WelcomeCard.sign-up")}
+                                    title={t("WelcomeCard.registration")}
                                     herf="/registration"
                                 />
                             </div>

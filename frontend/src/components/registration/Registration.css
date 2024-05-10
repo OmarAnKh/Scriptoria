@@ -211,7 +211,7 @@ form.right-registration-card {
 
 .right-panel .content,
 .right-panel .img-registration {
-    transform: translateX(800px);
+    transform: translateX(900px);
 }
 
 .container-registration.registration-mode::before {
@@ -221,7 +221,7 @@ form.right-registration-card {
 
 .container-registration.registration-mode .left-panel .img-registration,
 .container-registration.registration-mode .left-panel .content {
-    transform: translateX(-800px);
+    transform: translateX(-900px);
 }
 
 .container-registration.registration-mode .right-panel .content,
