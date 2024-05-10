@@ -23,6 +23,12 @@
         "read_the_book": "किताब पढ़ें",
         "votes": "वोट"
     },
+    "AvatarPage": {
+        "save": "सहेजें",
+        "cancel": "रद्द करें",
+        "avatar_styles": "अवतार स्टाइल्स",
+        "styling_options": "स्टाइलिंग विकल्प"
+    },
     "DiscoverTable": {
         "all_genres": "सभी शैलियाँ",
         "action": "क्रिया",
@@ -117,7 +123,10 @@
         "confirm_password": "कृपया अपना पासवर्ड पुष्टि करें",
         "delete_account_header": "क्या आप वाकई अपना खाता हटाना चाहते हैं?",
         "confirm": "पुष्टि करें",
-        "cancel": "रद्द करें"
+        "cancel": "रद्द करें",
+        "add_to_profile": "आप क्या जोड़ना चाहेंगे?",
+        "profile_picture": "प्रोफ़ाइल चित्र",
+        "avatar": "अवतार"
     },
     "StoryCard": {
         "show_more": "और दिखाएं"

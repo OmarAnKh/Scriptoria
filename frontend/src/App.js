@@ -35,6 +35,7 @@ import { toast } from 'react-hot-toast'
 import { useState, useEffect } from 'react';
 import { getRooms } from './api/roomsApi.js';
 
+import AvatarPage from './components/avatars/AvatarPage.js';
 
 function App() {
   const {auth} = useAuth()
@@ -112,6 +113,7 @@ function App() {
           {/* registration pages */}
           {/* <Route path="SignIn" element={<SignIn />} />
           <Route path="SignUp" element={<SingUp />} /> */}
+          <Route path='Avatars' element={<AvatarPage />} />
           <Route path='registration' element={<Registration />} />
           <Route path='registration/info' element={<SignUpInfo />} />
           <Route path='SignUpVerificationCode' element={<SignUpVerificationCode />} />

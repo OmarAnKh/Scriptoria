@@ -23,6 +23,12 @@
         "read_the_book": "Read the book",
         "votes": "votes"
     },
+    "AvatarPage": {
+        "save": "Save",
+        "cancel": "Cancel",
+        "avatar_styles": "Avatar Styles",
+        "styling_options": "Styling Options"
+    },
     "DiscoverTable": {
         "all_genres": "All genres",
         "action": "Action",
@@ -118,7 +124,10 @@
         "confirm_password": "Please confirm your password",
         "delete_account_header": "Are you sure you want to delete your account?",
         "confirm": "Confirm",
-        "cancel": "Cancel"
+        "cancel": "Cancel",
+        "add_to_profile": "What would you like to add?",
+        "profile_picture": "Profile picture",
+        "avatar": "Avatar"
     },
     "StoryCard": {
         "show_more": "Show more"
