@@ -37,66 +37,72 @@ import { getRooms } from './api/roomsApi.js';
 
 
 function App() {
-  const {auth} = useAuth()
+  const { auth } = useAuth()
   const [chats, setChats] = useState([])
   const [socket, setSocket] = useState(null)
-  useEffect(()=>{
-    if(auth?.userName){
+  useEffect(() => {
+    if (auth?.userName) {
       const s = io('http://localhost:5000');
-        setSocket(s);
+      setSocket(s);
 
-      const fetchChats = async()=>{
+      const fetchChats = async () => {
         const res = await getRooms(auth?.userInfo?._id, auth?.token)
-        if(res?.status===200) setChats(res.data)
+        if (res?.status === 200) setChats(res.data)
       }
-    fetchChats()
-        return () => {
-          s.disconnect();
-        };
+      fetchChats()
+      return () => {
+        s.disconnect();
+      };
     }
-  },[auth])
+  }, [auth])
 
-  useEffect(()=>{
-    chats.map((chat)=>{
-      socket?.emit('joinRoom', chat); 
+  useEffect(() => {
+    chats?.map((chat) => {
+      socket?.emit('joinRoom', chat);
     })
 
-    return()=>{
+    return () => {
       socket?.off('joinRoom')
     }
-  },[chats])
+  }, [chats])
 
-  useEffect(()=>{
-    if(auth?.userName){
-      socket.on('sendNotification', (message)=>{
+  useEffect(() => {
+    if (auth?.userName) {
+      socket.on('sendNotification', (message) => {
         console.log(message)
-        if(window.location.pathname!=='/chats')
+        if (window.location.pathname !== '/chats')
           toast((t) => (
             <div className='container notification p-1 gap-2 d-flex flex-row mw-25'>
-            <div className='p-0 m-0'>
-              <img width="45" className='rounded-circle img-fluid object-fit-cover rounded-5' src={`data:image/png;base64,${message?.owner?.profilePicture}`} />
-            </div>
-            <div className='d-flex flex-column justify-content-between'>
-              <div>
-                <b>
-                  {message?.owner?.userName} {message.roomName === '' ? '' : `to '${message.roomName}'`}
-                </b>
+              <div className='p-0 m-0'>
+                <img width="45" className='rounded-circle img-fluid object-fit-cover rounded-5' src={`data:image/png;base64,${message?.owner?.profilePicture}`} />
               </div>
-              <div className='text-break'>
-                <small>
-                  {message.text.length > 30 ? (`${message.text.substring(0, 30)}...` ) : (message.text)}
-                </small>
+              <div className='d-flex flex-column justify-content-between'>
+                <div>
+                  <b>
+                    {message?.owner?.userName} {message.roomName === '' ? '' : `to '${message.roomName}'`}
+                  </b>
+                </div>
+                <div className='text-break'>
+                  <small>
+                    {message.text.length > 30 ? (`${message.text.substring(0, 30)}...`) : (message.text)}
+                  </small>
+
+                </div>
+
               </div>
+              <button class="button-X mt-2" data-text="Awesome" onClick={() => toast.dismiss(t.id)}>
+                <pre class="actual-text"> &#10005; </pre >
+                <pre aria-hidden="true" class="hover-text"> &#10005; </pre >
+              </button>
             </div>
-          </div>       
-          ));     
+          ));
       })
     }
 
-    return()=>{
+    return () => {
       socket?.off('sendNotification')
     }
-  },[socket])
+  }, [socket])
 
   return (
     <div className="App">
@@ -122,7 +128,7 @@ function App() {
           {/* refresh pages && protected routers */}
           <Route element={<PersistLogin />}>
             <Route path='/' element={<HomePage />} />
-            <Route path='/chats' element={<Chat socket={socket} chats={chats} setChats={setChats}/>} />
+            <Route path='/chats' element={<Chat socket={socket} chats={chats} setChats={setChats} />} />
             <Route path="profile/:username" element={<Profile />} />
             <Route path='Search/:criteria' element={<SearchResultsPage />} />
             <Route path='TeamMembers' element={<AllMembers />} />
