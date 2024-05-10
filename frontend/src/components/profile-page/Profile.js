@@ -36,7 +36,7 @@ const Profile = () => {
             try {
                 const res = await findAccount({ userName: username });
                 if (!res.message) {
-                    navigate('*');
+                    navigate('/*');
                     return;
                 }
                 setUser(res.user);
@@ -97,9 +97,6 @@ const Profile = () => {
                 </>
             )
         }
-    } else {
-        navigate('*');
-        return null;
     }
 };
 
