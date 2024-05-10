@@ -47,7 +47,12 @@ function App() {
 
       const fetchChats = async () => {
         const res = await getRooms(auth?.userInfo?._id, auth?.token)
-        if (res?.status === 200) setChats(res.data)
+        console.log(res)
+        if (res?.status === 200 && res?.data?.value !== "undefined") {
+          setChats(res.data)
+          console.log(res.data)
+
+        }
       }
       fetchChats()
       return () => {
@@ -57,6 +62,7 @@ function App() {
   }, [auth])
 
   useEffect(() => {
+    console.log(chats)
     chats?.map((chat) => {
       socket?.emit('joinRoom', chat);
     })
