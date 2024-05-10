@@ -115,7 +115,7 @@ const SignUpInfo = () => {
         if (joyType === "writer") {
             accountInfo.profilePicture = await convertPath(signature);
         }
-        console.log('addProfile', addProfile)
+
         if(addProfile) {
             accountInfo.profilePicture = image
         }
@@ -159,11 +159,6 @@ const SignUpInfo = () => {
                 <h2 className="title">Sign Up Infromation</h2>
                 <RegistrationInput className="col-md-8" inputClassName="form-control" type="textarea" placeholder="Your Description" onChange={setDescription} />
                 <div className='row d-flex justify-content-center'>
-                    {/* <div className='d-flex justify-content-center'>
-                        <JoyButton icon={content} type="both" actives={joyType} method={(event, type) => {
-                            handleJoyButton(event, type)
-                        }} />
-                    </div> */}
                     <div className='d-flex justify-content-between mx-4'>
                         <JoyButton icon={openBook} type="reader" actives={joyType} method={(event, type) => {
                             handleJoyButton(event, type)

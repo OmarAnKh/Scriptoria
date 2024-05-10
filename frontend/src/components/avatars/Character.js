@@ -18,12 +18,15 @@ const Character =  (props) => {
 
     try {
         const response = await updateDocument("account", { profilePicture: avatarPicture, _id: auth?.userInfo?._id });
-        if(response.ok) {
-          toast.success('Avatar saved!')
-        } else {
-          toast.error('failed to save avatar')
+        
+        if(response.ok === false) {
+          toast.error('Failed to save avatar!')
           props.setSave(!props.save)
-        }   
+        } else {
+          toast.success('Avatar saved!')
+          navigate(`/settings/${auth?.userInfo?._id}`);
+        }
+
     } catch (error) {
         console.log("error", error)
     }
