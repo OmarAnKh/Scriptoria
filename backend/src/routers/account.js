@@ -12,6 +12,7 @@ import Rating from "../models/rating.js";
 import ReadingList from "../models/readingList.js";
 import Story from "../models/story.js";
 import Writers from "../models/writers.js";
+import Room from "../models/room.js";
 
 const router = new express.Router()
 
@@ -241,6 +242,8 @@ router.delete("/account/delete", async (req, res) => {
         const { userName } = req.body
         const id = await Account.findOne({ userName })
 
+        
+
         await Like.deleteMany({ AccountId: id });
         await Comment.deleteMany({ accountId: id });
         await Rating.deleteMany({ AccountId: id });
@@ -258,6 +261,26 @@ router.delete("/account/delete", async (req, res) => {
             }
 
             await Writers.findByIdAndDelete(writer._id)
+        }
+
+        const rooms = await Room.find({'users.user' : user._id})
+        for(const room of rooms){
+            const index = room.users.findIndex((user)=> user.user === user._id)
+            if(index !== -1){
+                if(room.length <= 2){
+                    await Room.findByIdAndDelete(room._id)
+                } else {
+                    if(room.users[index].admin){
+                        const admins = room.users.filter((user)=> user.admin)
+                        if(admins.length===1){
+                            const otherUserIndex = room.users.findIndex((user)=> user.admin)
+                            room.users[otherUserIndex].admin = true
+                        } 
+                        room.users.splice(index, 1)
+                        await room.save() 
+                    }
+                }
+            }
         }
 
         const account = await Account.findOneAndDelete(id)

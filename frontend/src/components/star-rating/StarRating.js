@@ -1,4 +1,4 @@
-
+import { Tooltip } from "react-tooltip";
 const StarRating = ({ rating }) => {
 
     const numOfStars = 5;
@@ -23,7 +23,8 @@ const StarRating = ({ rating }) => {
     }
 
     return (
-        <div>
+        <div  data-tooltip-id="my-tooltip" data-tooltip-content={`${rating}/5 stars`} data-tooltip-place='bottom'>
+            <Tooltip id="my-tooltip" />
             {createStars()}
         </div>
     );

@@ -135,7 +135,7 @@ useEffect(()=>{
   return (
     <div>
 
-      <span className='display-6 text-light' data-bs-toggle="modal" data-bs-target="#chatInfo" title='chat info'><a className='bi bi-info-circle-fill' ></a></span>
+      <span className='display-6 text-light' data-bs-toggle="modal" data-bs-target="#chatInfo" title='chat info'><Link className='bi bi-info-circle-fill' ></Link></span>
       <Tooltip id="my-tooltip" />
       <div className="modal fade" id="chatInfo" tabIndex={-1} aria-labelledby="chatInfoModal" aria-hidden="true">
         <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable">
@@ -147,7 +147,7 @@ useEffect(()=>{
             <div className="modal-body text-dark text-start">
               <div className='text-center p-2 bg-light rounded-4'>
                 {
-                  canEdit ? <div className='d-flex justify-content-end flex-row'>{edit ? <a className='bi bi-floppy-fill p-0 text-primary' title='edit name' onClick={() => setEdit(false)}></a> : <a className='bi bi-pencil-square px-0 text-primary' title='edit name' onClick={() => setEdit(true)} style={{ cursor: 'pointer' }}></a> }</div> : <></>
+                  canEdit ? <div className='d-flex justify-content-end flex-row'>{edit ? <Link className='bi bi-floppy-fill p-0 text-primary' title='edit name' onClick={() => setEdit(false)}></Link> : <a className='bi bi-pencil-square px-0 text-primary' title='edit name' onClick={() => setEdit(true)} style={{ cursor: 'pointer' }}></a> }</div> : <></>
                 }
                 <div><img className='rounded-circle m-2' src={photo} width='100'></img></div>
                 <div className='row h6 bg-light text-center'>

@@ -47,19 +47,6 @@ function App() {
 
       const fetchChats = async () => {
         const res = await getRooms(auth?.userInfo?._id, auth?.token)
-        if(res?.status===200 && res?.value !== "undefined") setChats(res.data)
-      }
-    fetchChats()
-        return () => {
-          s?.disconnect();
-        };
-    }
-  },[auth])
-
-  useEffect(()=>{
-    chats?.map((chat)=>{
-      socket?.emit('joinRoom', chat); 
-=======
         console.log(res)
         if (res?.status === 200 && res?.data?.value !== "undefined") {
           setChats(res.data)
@@ -78,7 +65,6 @@ function App() {
     console.log(chats)
     chats?.map((chat) => {
       socket?.emit('joinRoom', chat);
->>>>>>> 2aee235cf63b087c94182233f491fe3fdd8d5d99
     })
 
     return () => {
@@ -86,11 +72,11 @@ function App() {
     }
   }, [chats])
 
-  useEffect(()=>{
-    if(auth?.userName){
-      socket?.on('sendNotification', (message)=>{
-        if(window.location.pathname!=='/chats')
-
+  useEffect(() => {
+    if (auth?.userName) {
+      socket.on('sendNotification', (message) => {
+        console.log(message)
+        if (window.location.pathname !== '/chats')
           toast((t) => (
             <div className='container notification p-1 gap-2 d-flex flex-row mw-25'>
               <div className='p-0 m-0'>

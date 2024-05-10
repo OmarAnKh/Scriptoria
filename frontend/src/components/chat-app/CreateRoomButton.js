@@ -5,6 +5,7 @@ import Select from 'react-select'
 import makeAnimated from 'react-select/animated';
 import { toast } from 'react-hot-toast';
 import { getFriends } from '../../api/accountApi';
+import { Link } from 'react-router-dom';
 
 
 const CreateRoomButton = ({socket}) => {
@@ -97,7 +98,7 @@ const CreateRoomButton = ({socket}) => {
   return (
     <>
      <div>
-    <a className='bi bi-plus-circle-fill display-6' data-bs-toggle="modal" data-bs-target="#createRoom" ></a>
+    <Link className='bi bi-plus-circle-fill display-6' data-bs-toggle="modal" data-bs-target="#createRoom" ></Link>
   <div className="modal fade" id="createRoom" tabIndex={-1} aria-labelledby="myModal" aria-hidden="true">
     <div className="modal-dialog modal-dialog-centered">
       <div className="modal-content">
@@ -126,12 +127,12 @@ const CreateRoomButton = ({socket}) => {
             />
           </div>
           {membersRequired? <span className='text-danger'>group is empty !</span> : <></>}
-          <div className='text-center p-2'><a className='text-secondary text-decoration-none' 
+          <div className='text-center p-2'><Link className='text-secondary text-decoration-none' 
           onClick={()=>{
             setGroup(false)
             setName('')
           }} 
-          style={{cursor : 'pointer'}}>chat with one person only</a></div>
+          style={{cursor : 'pointer'}}>chat with one person only</Link></div>
           </div></>) : (<><div className='container h4 text-center'>choose someone to chat with</div>
           <Select    
           components={animatedComponents}
@@ -139,7 +140,7 @@ const CreateRoomButton = ({socket}) => {
           onChange={(selected)=>setPerson(selected.value)}
           />
           {personRequired? <span className='text-danger'>choose one person !</span> : <></>}
-          <div className='text-center p-2'><a className='text-secondary text-decoration-none' onClick={()=>setGroup(true)} style={{cursor : 'pointer'}}>create a group chat</a></div>
+          <div className='text-center p-2'><Link className='text-secondary text-decoration-none' onClick={()=>setGroup(true)} style={{cursor : 'pointer'}}>create a group chat</Link></div>
   </>)
         }
         </div>
