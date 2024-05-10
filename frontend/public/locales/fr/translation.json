@@ -38,23 +38,6 @@
     "ErrorPage": {
         "page_was_not_found": "Page non trouvée"
     },
-    "Footer": {
-        "product": "Produit",
-        "features": "Fonctionnalités",
-        "copy_Rights": "Droits d'auteur",
-        "resources": "Ressources",
-        "blog": "Blog",
-        "user_guides": "Guides d'utilisateur",
-        "community": "Communauté",
-        "developers": "Développeurs",
-        "users": "Utilisateurs",
-        "company": "Entreprise",
-        "about": "À propos de",
-        "join_us": "Rejoignez-nous",
-        "support": "Support",
-        "help_center": "Centre d'aide",
-        "chat_support": "Support par chat"
-    },
     "FriendsList": {
         "friends_List": "Amis suggérés",
         "show_More": "Afficher plus"
@@ -241,8 +224,7 @@
         "we-are" : "Nous sommes",
         "scriptoria" : "Scriptoria",
         "desc-title" : "Scriptoria n'est pas juste un autre site web basé sur les bandes dessinées",
-        "sign-in" : "Se connecter",
-        "sign-up" : "S'inscrire",
+        "registration" : "S'inscrire",
         "desc": "C'est un centre dynamique pour les conteurs et les créateurs. À Scriptoria, nous proposons une plateforme dynamique où les individus peuvent s'engager dans des projets d'écriture collaborative, tissant des récits ensemble dans un environnement immersif et créatif. Que vous soyez un écrivain chevronné ou un talent émergent, Scriptoria offre un espace pour publier vos histoires originales, leur permettant de s'épanouir et d'atteindre un public plus large. Mais nous ne nous arrêtons pas là. Nous aspirons à être un tremplin pour les écrivains en herbe, offrant des opportunités pour être découvert et éventuellement même intégré à l'industrie. Avec Scriptoria, le voyage de l'imagination à la réalisation est sans limites, et nous vous invitons à nous rejoindre pour façonner le prochain chapitre de l'excellence narrative."
     }             
 }

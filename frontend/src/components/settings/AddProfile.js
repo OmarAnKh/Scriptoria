@@ -28,7 +28,7 @@ const AddProfile = (props) => {
                 <div className="modal-dialog">
                     <div className="modal-content">
                     <div className="modal-header">
-                        <h3 class="modal-title fs-5" id="profileModalLabel">{t("Settings.add_to_profile")}</h3>
+                        <h3 className="modal-title fs-5" id="profileModalLabel">{t("Settings.add_to_profile")}</h3>
                         <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div className="modal-body d-flex justify-content-between text-center align-items-center mx-5">
@@ -38,7 +38,7 @@ const AddProfile = (props) => {
                         </div>
                         <div>
                             <h5 id="profileModalLabel">{t("Settings.avatar")}</h5>
-                            <button className="btn" onClick={() => { navigate(`/Avatars`) }} data-bs-dismiss={`${modalDismiss}`}>
+                            <button className="btn" onClick={() => { navigate(`/UpdateAvatars`) }} data-bs-dismiss={`${modalDismiss}`}>
                                 <img src={avatar} className="img-fluid image-img" alt="avatar icon" style={{width: '120px'}}/>
                             </button>
                         </div>

@@ -64,7 +64,7 @@ const AvatarPage = () => {
                     </div>
                 </div>
                 <div className="mt-5 d-flex justify-content-center align-items-center">
-                    <Character style={clickedStyle} options={receivedOptions} save={save} cancel={cancel} setSave={setSave}/>
+                    <Character style={clickedStyle} options={receivedOptions} name={clickedStyleName} save={save} cancel={cancel} setSave={setSave}/>
                 </div>
                 <div className="container mt-5">
                     <div className=" mt-3 w-55">

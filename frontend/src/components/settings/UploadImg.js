@@ -17,13 +17,14 @@ const UploadImg = (props) => {
                 options={options}
                 onComplete={files => {
                     props.setImgURL(files.map(x => x.fileUrl).join("\n"))
-                    props.setAddProfile(true)
+                    if (props.setAddProfile) {
+                        props.setAddProfile(true)
+                    }
                 }
-                    }>
+                }>
                 {({ onClick }) =>
                     <button onClick={onClick} className="upload-button">
                         <img src={props.imgURL} className="rounded-circle image-img" style={{ width: `${props.width}px` }} alt="Profile Logo" />
-                        <i className="bi bi-camera image-icon"></i>
                     </button>
                 }
             </UploadButton>
