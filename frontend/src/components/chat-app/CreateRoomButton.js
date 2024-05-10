@@ -28,8 +28,8 @@ const CreateRoomButton = ({socket}) => {
       const fetchData = async()=>{
         try {
           const res = await getFriends(auth?.userInfo?._id)
-            if (res.message) {
-                setFriends(res.friends)
+            if (res?.message) {
+                setFriends(res?.friends)
             }
         } catch(error) {
           console.log(error)
