@@ -14,6 +14,7 @@ import AlertWithTime from '../alert/AlertWithTime';
 import { toast } from 'react-hot-toast'
 import { useTranslation } from 'react-i18next';
 import DeleteButton from './DeleteButton';
+import AddProfile from './AddProfile';
 
 const uploader = Uploader({
     apiKey: "free"
@@ -306,16 +307,7 @@ const Settings = () => {
                                     <SettingsInfo className="tab-pane fade show active  settings-info-body " id="v-pills-userInfo" role="tabpanel" ariaLabelledby="v-pills-userInfo-tab" tabIndex={0} >
                                         <CardSettingsInfo cardBodyClassName="d-flex align-items-end">
                                             <div className="d-flex align-items-start">
-                                                <UploadButton uploader={uploader}
-                                                    options={options}
-                                                    onComplete={files => setImgURL(files.map(x => x.fileUrl).join("\n"))}>
-                                                    {({ onClick }) =>
-                                                        <button onClick={onClick} className="upload-button">
-                                                            <img src={imgURL} className="rounded-circle image-img" style={{ width: "150px" }} alt="Profile Logo" />
-                                                            <i className="bi bi-camera image-icon"></i>
-                                                        </button>
-                                                    }
-                                                </UploadButton>
+                                                <AddProfile imgURL={imgURL} setImgURL={setImgURL}/> 
                                                 <div className="ms-3 my-3">
                                                     <h5>{displayName}</h5>
                                                     <p className='user-name-text'>@{userName}</p>
@@ -355,16 +347,7 @@ const Settings = () => {
 
                                         <CardSettingsInfo cardBodyClassName="d-flex align-items-end">
                                             <div className="d-flex align-items-start" style={{ paddingLeft: '1em' }}>
-                                                <UploadButton uploader={uploader}
-                                                    options={options}
-                                                    onComplete={files => setImgURL(files.map(x => x.fileUrl).join("\n"))}>
-                                                    {({ onClick }) =>
-                                                        <button onClick={onClick} className="upload-button">
-                                                            <img src={imgURL} className="rounded-circle image-img" style={{ width: "100px" }} alt="Profile Logo" />
-                                                            <i className="bi bi-camera" style={{ position: 'absolute', top: '30px' }}></i>
-                                                        </button>
-                                                    }
-                                                </UploadButton>
+                                                <AddProfile imgURL={imgURL} setImgURL={setImgURL}/> 
                                                 <div className="ms-3 my-3 px-3">
                                                     <h5>{displayName}</h5>
                                                     <p className='user-name-text'>@{userName}</p>

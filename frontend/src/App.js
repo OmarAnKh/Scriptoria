@@ -34,6 +34,7 @@ import io from 'socket.io-client';
 import { toast } from 'react-hot-toast'
 import { useState, useEffect } from 'react';
 import { getRooms } from './api/roomsApi.js';
+import AvatarPage from './components/avatars/AvatarPage.js';
 
 
 function App() {
@@ -122,6 +123,7 @@ function App() {
 
 
           {/* registration pages */}
+          <Route path='Avatars' element={<AvatarPage />} />
           <Route path='registration' element={<Registration />} />
           <Route path='registration/info' element={<SignUpInfo />} />
           <Route path='SignUpVerificationCode' element={<SignUpVerificationCode />} />
@@ -145,6 +147,7 @@ function App() {
 
             {/* refresh pages && protected routers */}
             <Route element={<RequireAuth />}>
+              <Route path='UpdateAvatars' element={<AvatarPage />} />
               <Route path='/chats' element={<Chat socket={socket} chats={chats} setChats={setChats} />} />
               <Route path='WritingPage/:id' element={<WritingPage />} />
               <Route path='StoryDetails' element={<StoryDetails />} />
