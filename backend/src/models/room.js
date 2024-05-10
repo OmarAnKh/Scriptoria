@@ -1,0 +1,22 @@
+import mongoose, { Schema } from "mongoose";
+
+const roomSchema = new mongoose.Schema({
+    name: {
+        type: String,
+    },
+    users: [{
+        user: {
+            type: Schema.Types.ObjectId,
+            ref: 'Account'
+        },
+        admin: {
+            type: Boolean,
+            default: false
+        }
+    }],
+});
+
+
+const Room = mongoose.model('Chat', roomSchema);
+
+export default Room

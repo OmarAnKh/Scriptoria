@@ -61,7 +61,7 @@ router.get("/refresh", async (req, res) => {
         const newRefreshToken = jwt.sign(
             { _id: user._id.toString() },
             process.env.JWT_REFRESH_SECRET,
-            { expiresIn: '10m' }
+            { expiresIn: '60m' }
         );
         user.tokens = user.tokens.concat({ token: newRefreshToken });
         await user.save();

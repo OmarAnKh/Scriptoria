@@ -84,11 +84,12 @@ const StoryHeader = () => {
                         <div className="header-details">
                             <h3 className="card-title mb-2 fs-1">{data?.title}</h3>
                             <p className="author-name mb-0 fs-5">
-
-                                {authors?.map((author, idx) => {
-                                    return <span key={idx}>{author?.displayName}</span>;
-                                })}
-
+                            {authors?.map((author, idx) => (
+                            <span key={idx}>
+                                {author?.displayName}
+                                {idx !== authors.length - 1 && ' , '}
+                            </span>
+                        ))}
                             </p>
                             <p className="mb-1">{data?.language}</p>
                         </div>

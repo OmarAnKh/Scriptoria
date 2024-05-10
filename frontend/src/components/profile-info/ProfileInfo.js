@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import './ProfileInfo.css'
 import InfoButton from './Card.js'
 import ActionButton from './ButtonCard.js'
@@ -29,6 +29,9 @@ const ProfileInfo = (props) => {
     const [editAbout, setEditAbout] = useState(false);
     const [editedDescription, setEditedDescription] = useState(data.description);
     const [getAccountWorks, setGetAccountWorks] = useState(0)
+    const [isExpanded, setIsExpanded] = useState(false);
+    const textRef = useRef(null);
+    const [showReadMore, setShowReadMore] = useState(false);
 
     const { username: userName } = useParams()
 
@@ -138,6 +141,23 @@ const ProfileInfo = (props) => {
         fetchData();
 
     }, []);
+    useEffect(() => {
+        if (textRef.current) {
+            setShowReadMore(textRef.current.scrollHeight > textRef.current.clientHeight);
+        }
+
+    }, [data?.description]);
+
+    const textStyle = isExpanded ? {
+        overflow: 'visible',
+        display: 'block',
+    } : {
+        overflow: 'hidden',
+        display: '-webkit-box',
+        WebkitLineClamp: 3,
+        WebkitBoxOrient: 'vertical',
+    };
+
     if (!props.ifblocked) {
         return (
             <div className="MainPage row">
@@ -158,9 +178,20 @@ const ProfileInfo = (props) => {
                                         className="form-control"
                                         value={editedDescription}
                                         onChange={(e) => setEditedDescription(e.target.value)}
+                                        style={textStyle}
                                     />
                                 ) : (
-                                    <p>{data.description}</p>
+                                    <div className="description-card" style={isExpanded ? null : { display: 'flex', alignItems: 'flex-end' }}>
+                                        <p ref={textRef} style={textStyle} className="profile-description card-text text-sm text-black fw-bold">
+                                            {data?.description}
+                                        </p>
+                                        {showReadMore && (
+                                            <button className="btn btn-link text-decoration-none text-black p-1" onClick={() => setIsExpanded(!isExpanded)} style={isExpanded ? null : { whiteSpace: 'nowrap' }}>
+                                                {isExpanded ? `${t("StoryHeader.read_less")}` : `${t("StoryHeader.read_more")}`}
+                                            </button>
+                                        )}
+                                    </div>
+
                                 )}
                             </div>
                         </div>

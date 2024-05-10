@@ -23,9 +23,15 @@
 .DescriptionArea p {
     font-family: PoppinsBold;
     font-size: 11px;
+}
 
-
-
+.profile-description {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 12 !important;
+    overflow: hidden;
+    margin: 30px auto 0;
+    text-align: left;
 }
 
 .DisplayName {
@@ -73,7 +79,7 @@
     color: var(--text-color);
     background-color: var(--primary-Color);
     font-size: 0.7rem;
-    
+
 }
 
 .buttonstyle .bi1 {
