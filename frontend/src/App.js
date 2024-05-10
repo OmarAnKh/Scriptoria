@@ -122,8 +122,6 @@ function App() {
 
 
           {/* registration pages */}
-          {/* <Route path="SignIn" element={<SignIn />} />
-          <Route path="SignUp" element={<SingUp />} /> */}
           <Route path='registration' element={<Registration />} />
           <Route path='registration/info' element={<SignUpInfo />} />
           <Route path='SignUpVerificationCode' element={<SignUpVerificationCode />} />
@@ -131,10 +129,9 @@ function App() {
           <Route path='EmailVerifing/:email' element={<EmailVerifing />} />
           <Route path='ResetPassword' element={<ResetPassword />} />
 
-          {/* refresh pages && protected routers */}
+          {/* refresh pages*/}
           <Route element={<PersistLogin />}>
             <Route path='/' element={<HomePage />} />
-            <Route path='/chats' element={<Chat socket={socket} chats={chats} setChats={setChats} />} />
             <Route path="profile/:username" element={<Profile />} />
             <Route path='Search/:criteria' element={<SearchResultsPage />} />
             <Route path='TeamMembers' element={<AllMembers />} />
@@ -144,7 +141,11 @@ function App() {
             <Route path='story/:id' element={<StoryPage />} />
             <Route path='MyWorks/:id' element={<MyWorks />} />
             <Route path='ReadingPage/:id' element={<ReadingPage />} />
+
+
+            {/* refresh pages && protected routers */}
             <Route element={<RequireAuth />}>
+              <Route path='/chats' element={<Chat socket={socket} chats={chats} setChats={setChats} />} />
               <Route path='WritingPage/:id' element={<WritingPage />} />
               <Route path='StoryDetails' element={<StoryDetails />} />
               <Route path='StoryDetails/:id' element={<StoryDetails />} />

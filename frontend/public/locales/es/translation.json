@@ -32,23 +32,6 @@
     "ErrorPage": {
         "page_was_not_found": "Página no encontrada"
     },
-    "Footer": {
-        "product": "Producto",
-        "features": "Características",
-        "copy_Rights": "Derechos de autor",
-        "resources": "Recursos",
-        "blog": "Blog",
-        "user_guides": "Guías de usuario",
-        "community": "Comunidad",
-        "developers": "Desarrolladores",
-        "users": "Usuarios",
-        "company": "Empresa",
-        "about": "Acerca de",
-        "join_us": "Únete a nosotros",
-        "support": "Soporte",
-        "help_center": "Centro de ayuda",
-        "chat_support": "Soporte de chat"
-    },
     "FriendsList": {
         "friends_List": "Amigos sugeridos",
         "show_More": "Ver más"
@@ -233,8 +216,7 @@
         "we-are" : "Somos",
         "scriptoria" : "Scriptoria",
         "desc-title" : "Scriptoria no es solo otro sitio web basado en cómics",
-        "sign-in" : "Iniciar sesión",
-        "sign-up" : "Registrarse",
+        "registration" : "Registrarse",
         "desc": "Es un centro vibrante para narradores y creadores por igual. En Scriptoria, ofrecemos una plataforma dinámica donde las personas pueden participar en proyectos de escritura colaborativa, tejiendo narrativas juntas en un entorno inmersivo y creativo. Ya seas un escritor experimentado o un talento emergente, Scriptoria proporciona un espacio para publicar tus historias originales, permitiendo que florezcan y lleguen a un público más amplio. Pero no nos detenemos ahí. Aspiramos a ser un trampolín para escritores aspirantes, ofreciendo oportunidades para ser descubiertos y posiblemente incluso asignados en la industria. Con Scriptoria, el viaje desde la imaginación hasta la realización es ilimitado, y te invitamos a unirte a nosotros en la creación del próximo capítulo de la excelencia narrativa."
     }             
 }
