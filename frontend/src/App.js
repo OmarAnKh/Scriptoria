@@ -52,7 +52,6 @@ function App() {
         if (res?.status === 200 && res?.data?.value !== "undefined") {
           setChats(res.data)
           console.log(res.data)
-
         }
       }
       fetchChats()

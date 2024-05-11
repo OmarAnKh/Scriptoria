@@ -15,11 +15,7 @@ const Chat = ({socket, chats, setChats}) => {
     
     useEffect(() => {
         if (!socket) return 
-        socket?.on('update', async (room) => {
-                const res = await getRooms(auth?.userInfo?._id, auth?.token)
-            if (res?.status===200 && res.value !== "undefined") setChats(res.data)
-            if (currentChat?._id === room?._id) setName(room?.name)
-        });
+        
         return () => {
             socket?.off('update')
         }

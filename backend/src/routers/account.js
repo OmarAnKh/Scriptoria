@@ -283,47 +283,13 @@ router.delete("/account/delete", async (req, res) => {
 
         if (!account) {
             res.status(400).send()
-        }
+        } 
         res.status(200).send(account)
     } catch (error) {
         res.status(500).send(error)
     }
 })
-// router.delete("/account/delete", async (req, res) => {
-//     try {
-//         const { userName } = req.body
-//         const id = await Account.findOne({ userName })
 
-        
-
-//         await Like.deleteMany({ AccountId: id });
-//         await Comment.deleteMany({ accountId: id });
-//         await Rating.deleteMany({ AccountId: id });
-//         await ReadingList.deleteMany({ accountId: id });
-//         await Follow.deleteMany({ account: id });
-//         await Follow.deleteMany({ follow: id });
-
-
-//         const writers = await Writers.find({ AccountId: id });
-//         for (const writer of writers) {
-//             const count = await Writers.countDocuments({ StoryId: writer.StoryId })
-
-//             if (count === 1) {
-//                 await Story.findByIdAndDelete(writer.StoryId)
-//             }
-
-//             await Writers.findByIdAndDelete(writer._id)
-//         }
-//         const account = await Account.findOneAndDelete(id)
-
-//         if (!account) {
-//             res.status(400).send()
-//         }
-//         res.status(200).send(account)
-//     } catch (error) {
-//         res.status(500).send(error)
-//     }
-// })
 
 
 router.get('/getFriends/:userId', async (req, res) => {
