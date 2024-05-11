@@ -1,30 +1,12 @@
 import "./SearchResults.css"
 import React, { useEffect, useState } from 'react';
 import BookCard from "./BookCard";
-import { useParams, useNavigate, Link } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { findStory } from "../../api/storyAPI";
 import Navbar from "../navbar/Navbar";
 import CardOfUsers from "../search-results/CardOfUsers";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-
-const responsive = {
-    desktop: {
-        breakpoint: { max: 3000, min: 1024 },
-        items: 2,
-        slidesToSlide: 1,
-    },
-    tablet: {
-        breakpoint: { max: 1024, min: 464 },
-        items: 2,
-        slidesToSlide: 1,
-    },
-    mobile: {
-        breakpoint: { max: 434, min: 0 },
-        items: 1,
-        slidesToSlide: 1,
-    }
-};
 
 const SearchResultsPage = () => {
     const { criteria } = useParams()
@@ -33,7 +15,6 @@ const SearchResultsPage = () => {
     const navigate = useNavigate()
 
     useEffect(() => {
-
         const fetchData = async () => {
             try {
                 const res = await findStory(criteria)
@@ -53,29 +34,64 @@ const SearchResultsPage = () => {
     }, [])
 
     return (
-
         <>
             <Navbar />
-            <div className="container my-5" >
+            <div className="container my-5">
                 <div className="row justify-content-center">
                     <div className="col-md-8">
                         {users?.length ?
                             <Carousel
-                                responsive={responsive}
-                                infinite={true}
-                                swipeable={true}
-                                draggable={false}
+                                additionalTransfrom={0}
+                                arrows
+                                autoPlaySpeed={3000}
+                                centerMode={false}
+                                containerClass="container-with-dots"
+                                dotListClass=""
+                                draggable
+                                focusOnSelect={false}
+                                infinite
+                                itemClass=""
+                                keyBoardControl
+                                minimumTouchDrag={80}
+                                pauseOnHover
+                                renderArrowsWhenDisabled={false}
+                                renderButtonGroupOutside={false}
+                                renderDotsOutside={false}
+                                responsive={{
+                                    desktop: {
+                                        breakpoint: {
+                                            max: 3000,
+                                            min: 1024
+                                        },
+                                        items: users.length >= 3 ? 3 : 2,
+                                        partialVisibilityGutter: 40
+                                    },
+                                    mobile: {
+                                        breakpoint: {
+                                            max: 464,
+                                            min: 0
+                                        },
+                                        items: 1,
+                                        partialVisibilityGutter: 30
+                                    },
+                                    tablet: {
+                                        breakpoint: {
+                                            max: 1024,
+                                            min: 464
+                                        },
+                                        items: users.length > 1 ? 2 : 1,
+                                        partialVisibilityGutter: 30
+                                    }
+                                }}
+
+                                rewind={false}
+                                rewindWithAnimation={false}
+                                rtl={false}
+                                shouldResetAutoplay
                                 showDots={false}
-                                ssr={true}
-                                autoPlay={false}
-                                autoPlaySpeed={1000}
-                                keyBoardControl={true}
-                                customTransition="transform 1000ms ease-in-out"
-                                transitionDuration={800}
-                                removeArrowOnDeviceType={["tablet", "mobile"]}
-                                dotListClass="custom-dot-list-style"
-                                focusOnSelect={true}
-                                partialVisbile={false}
+                                sliderClass=""
+                                slidesToSlide={1}
+                                swipeable
                             >
                                 {users.map((user, index) => (
                                     <CardOfUsers
@@ -92,7 +108,6 @@ const SearchResultsPage = () => {
                     </div>
                 </div>
             </div>
-
             <div className="Search-container">
                 {books?.map((book, index) => {
                     return (

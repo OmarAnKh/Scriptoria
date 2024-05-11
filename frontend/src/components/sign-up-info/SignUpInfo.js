@@ -43,7 +43,7 @@ const SignUpInfo = () => {
     const [regionError, setRegionError] = useState("");
     const [dateOfBirthError, setDateOfBirthError] = useState("");
     const [genderError, setGenderError] = useState("");
-    
+
     const [image, setImage] = useState(profilePicture)
     const [addProfile, setAddProfile] = useState(false)
 
@@ -116,11 +116,11 @@ const SignUpInfo = () => {
             accountInfo.profilePicture = await convertPath(signature);
         }
 
-        if(addProfile) {
+        if (addProfile) {
             accountInfo.profilePicture = image
         }
 
-        if(type === "Avatar") {
+        if (type === "Avatar") {
             return navigate(`/Avatars`, { state: { accountInfo } });
         }
         navigate(`/SignUpVerificationCode`, { state: { accountInfo } });
@@ -148,14 +148,14 @@ const SignUpInfo = () => {
     ];
     return (
         <RegistrationForm panels={panelsData} registrationMode={registrationMode}>
-            <form className="left-registration-card">
+            <form className="left-registration-card" onSubmit={(event) => { event.preventDefault() }}>
                 <h2 className="title">Sign Up Infromation</h2>
                 <RegistrationInput className="input-field" iClassName="bx bx-envelope" inputClassName={"px-3"} type="text" placeholder="Disblay Name" error={displayNameError} onChange={setDisplayName} />
                 <RegistrationInput className="input-field" options={countrys} value={region} error={regionError} onChange={setRegion} />
                 <RegistrationInput className="input-field" options={genders} value={gender} error={genderError} onChange={setGender} />
                 <RegistrationInput className="input-field d-flex justify-content-center" inputClassName="text-center" type="date" placeholder="dd-mm-yyyy" error={dateOfBirthError} onChange={setDateOfBirth} />
             </form>
-            <form className="right-registration-card" >
+            <form className="right-registration-card" onSubmit={(event) => { event.preventDefault() }}>
                 <h2 className="title">Sign Up Infromation</h2>
                 <RegistrationInput className="col-md-8" inputClassName="form-control" type="textarea" placeholder="Your Description" onChange={setDescription} />
                 <div className='row d-flex justify-content-center'>
@@ -171,11 +171,11 @@ const SignUpInfo = () => {
                         }} />
                     </div>
                 </div>
-                <div className="row d-flex text-center" style={{marginTop: '1em'}}>
+                <div className="row d-flex text-center" style={{ marginTop: '1em' }}>
                     <p className="">Would you like to add...</p>
                     <div className="d-flex justify-content-center">
                         <div className='mx-4'>
-                            <UploadImg imgURL={image} setImgURL={setImage} width={80} setAddProfile={setAddProfile}/>
+                            <UploadImg imgURL={image} setImgURL={setImage} width={80} setAddProfile={setAddProfile} />
                             <p>Profile Picture</p>
                         </div>
                         <button className="btn" onClick={(event) => {
