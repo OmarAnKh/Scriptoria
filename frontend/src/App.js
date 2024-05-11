@@ -48,10 +48,8 @@ function App() {
 
       const fetchChats = async () => {
         const res = await getRooms(auth?.userInfo?._id, auth?.token)
-        console.log(res)
         if (res?.status === 200 && res?.data?.value !== "undefined") {
           setChats(res.data)
-          console.log(res.data)
         }
       }
       fetchChats()
@@ -62,7 +60,6 @@ function App() {
   }, [auth])
 
   useEffect(() => {
-    console.log(chats)
     chats?.map((chat) => {
       socket?.emit('joinRoom', chat);
     })
@@ -75,7 +72,6 @@ function App() {
   useEffect(() => {
     if (auth?.userName) {
       socket.on('sendNotification', (message) => {
-        console.log(message)
         if (window.location.pathname !== '/chats')
           toast((t) => (
             <div className='container notification p-1 gap-2 d-flex flex-row mw-25'>
