@@ -7,7 +7,7 @@
   "scripts": {
     "start": "node app.js",
     "dev": "env-cmd -f ./src/config/.env nodemon ./src/app.js",
-    "serv": "env-cmd -f ./src/config/.env nodemon ./src/app.js"
+    "serv": "nodemon ./src/app.js"
   },
   "author": "",
   "license": "ISC",
