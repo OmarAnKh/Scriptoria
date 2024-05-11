@@ -22,7 +22,7 @@ const app = express()
 const server = http.createServer(app); // Create a server instance
 const io = new Server(server, {
     cors: {
-        origin: "http://localhost:3000",
+        origin: process.env.REACT_URL,
         methods: ["GET", "POST"],
     }
 });
@@ -30,7 +30,7 @@ const io = new Server(server, {
 const port = process.env.PORT
 
 app.use(cors({
-    origin: 'http://localhost:3000',
+    origin: process.env.REACT_URL,
     credentials: true,
     optionsSuccessStatus: 200
 }));
@@ -52,14 +52,14 @@ server.listen(port, () => {
     console.log('run on port ' + port)
 });
 
-const users = {}  
+const users = {}
 const rooms = {}
 // Socket.io connection logic
 
 io.on("connection", (socket) => {
 
     socket.on('joinRoom', (room) => {
-        if (room && room._id) { 
+        if (room && room._id) {
             socket.join(room._id);
             if (!rooms[room._id]) {
                 rooms[room._id] = { ...room, messages: [] };
@@ -70,14 +70,14 @@ io.on("connection", (socket) => {
         }
     });
 
-    socket.on('newRoom', (room)=>{
-        if(!rooms[room._id]){
-          rooms[room._id] = { ...room, messages: [] };
-          io.emit('update', room);  
+    socket.on('newRoom', (room) => {
+        if (!rooms[room._id]) {
+            rooms[room._id] = { ...room, messages: [] };
+            io.emit('update', room);
         }
-      }); 
+    });
 
-      socket.on('sendMessage', (message)=>{
+    socket.on('sendMessage', (message) => {
         io.to(message.roomId).emit('message', message)
         socket.broadcast.to(message.roomId).emit('sendNotification', message)
         if (rooms[message.roomId]) {
@@ -87,9 +87,9 @@ io.on("connection", (socket) => {
             console.log(`room ${message.roomId} does not exist.`);
         }
     })
- 
 
-    socket.on('deleteRoom', (room)=>{
+
+    socket.on('deleteRoom', (room) => {
         if (rooms[room._id]) {
             delete rooms[room._id];
             io.emit('roomDeleted', room);
@@ -99,19 +99,19 @@ io.on("connection", (socket) => {
     })
 
 
-    socket.on('updateChats', (room)=>{
-        rooms[room._id] = {...room, messages : [...rooms[room._id].messages]}
-        if(rooms[room._id]){
+    socket.on('updateChats', (room) => {
+        rooms[room._id] = { ...room, messages: [...rooms[room._id].messages] }
+        if (rooms[room._id]) {
             io.to(room._id).emit('update', room)
         }
     })
 
 
-    socket.on('leaveGroup', ({room, user})=>{
-        const isMember = rooms[room._id].users.find((member)=> member.user === user.user._id)
-        if(isMember){
-            rooms[room._id] = {...room, messages : [...rooms[room._id].messages]}
-            io.to(room._id).emit('leftGroup',  { room, user })
+    socket.on('leaveGroup', ({ room, user }) => {
+        const isMember = rooms[room._id].users.find((member) => member.user === user.user._id)
+        if (isMember) {
+            rooms[room._id] = { ...room, messages: [...rooms[room._id].messages] }
+            io.to(room._id).emit('leftGroup', { room, user })
             io.to(room._id).emit('update', room)
         }
     })
@@ -120,7 +120,7 @@ io.on("connection", (socket) => {
     socket.on("joinWritingPage", (user) => {
         users[user] = socket.id
     })
-    
+
 
     socket.on("get-document", async documentId => {
         const document = await findDocument(documentId);
@@ -131,7 +131,7 @@ io.on("connection", (socket) => {
             applyChangesAndBroadcast(socket, documentId, delta);
         });
 
-        socket.on("save-document", async data => { 
+        socket.on("save-document", async data => {
             await Story.findByIdAndUpdate(documentId, { slide: data });
         });
     });
@@ -141,7 +141,7 @@ io.on("connection", (socket) => {
         targetSocket?.emit("navigate")
     })
 
-    socket.on("rule-change", ({ userId, rule}) => {
+    socket.on("rule-change", ({ userId, rule }) => {
         const targetSocket = io.sockets.sockets.get(users[userId]);
         targetSocket?.emit("changed", rule)
     })
