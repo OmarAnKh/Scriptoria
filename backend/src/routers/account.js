@@ -12,6 +12,7 @@ import Rating from "../models/rating.js";
 import ReadingList from "../models/readingList.js";
 import Story from "../models/story.js";
 import Writers from "../models/writers.js";
+import Room from "../models/room.js";
 
 const router = new express.Router()
 
@@ -240,6 +241,8 @@ router.delete("/account/delete", async (req, res) => {
     try {
         const { userName } = req.body
         const id = await Account.findOne({ userName })
+        const userId = id._id
+        
 
         await Like.deleteMany({ AccountId: id });
         await Comment.deleteMany({ accountId: id });
@@ -260,6 +263,22 @@ router.delete("/account/delete", async (req, res) => {
             await Writers.findByIdAndDelete(writer._id)
         }
 
+       const rooms = await Room.find({ "users.user": userId });
+       for (const room of rooms) {
+           if (room.users.length <= 2) {
+               await Room.findByIdAndDelete(room._id);
+           } else {
+               const userInRoom = room.users.find(u => u.user.toString() === userId.toString());
+               if (userInRoom.admin) {
+                   const anotherUser = room.users.find(u => u.user.toString() !== userId.toString());
+                   anotherUser.admin = true;
+                   await room.save();
+               }
+               room.users.pull({ user: userId });
+               await room.save();
+           }
+       }
+
         const account = await Account.findOneAndDelete(id)
 
         if (!account) {
@@ -270,6 +289,43 @@ router.delete("/account/delete", async (req, res) => {
         res.status(500).send(error)
     }
 })
+// router.delete("/account/delete", async (req, res) => {
+//     try {
+//         const { userName } = req.body
+//         const id = await Account.findOne({ userName })
+
+        
+
+//         await Like.deleteMany({ AccountId: id });
+//         await Comment.deleteMany({ accountId: id });
+//         await Rating.deleteMany({ AccountId: id });
+//         await ReadingList.deleteMany({ accountId: id });
+//         await Follow.deleteMany({ account: id });
+//         await Follow.deleteMany({ follow: id });
+
+
+//         const writers = await Writers.find({ AccountId: id });
+//         for (const writer of writers) {
+//             const count = await Writers.countDocuments({ StoryId: writer.StoryId })
+
+//             if (count === 1) {
+//                 await Story.findByIdAndDelete(writer.StoryId)
+//             }
+
+//             await Writers.findByIdAndDelete(writer._id)
+//         }
+//         const account = await Account.findOneAndDelete(id)
+
+//         if (!account) {
+//             res.status(400).send()
+//         }
+//         res.status(200).send(account)
+//     } catch (error) {
+//         res.status(500).send(error)
+//     }
+// })
+
+
 router.get('/getFriends/:userId', async (req, res) => {
     const userId = req.params.userId
     try {

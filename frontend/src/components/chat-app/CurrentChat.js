@@ -6,7 +6,7 @@ import ChatInfo from './ChatInfo';
 import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
 
-const CurrentChat = ({ socket ,name , setName ,currentChat, setShowChats ,chats, setChats, bothSides ,setBothSides, updateData }) => {
+const CurrentChat = ({ socket ,name , setName ,currentChat, setCurrentChat, setShowChat ,chats, setChats, bothSides ,updateData }) => {
   const { auth } = useAuth();
   const [text, setText] = useState('');
   const messagesEndRef = useRef(null);
@@ -71,7 +71,6 @@ const CurrentChat = ({ socket ,name , setName ,currentChat, setShowChats ,chats,
       text,
       time: moment(new Date().getTime()).format('h:mm a.')
     };
-    console.log(message)
     socket.emit('sendMessage', message, (error) => {
       if (error) {
         return console.log(error)
@@ -127,18 +126,18 @@ const CurrentChat = ({ socket ,name , setName ,currentChat, setShowChats ,chats,
     <>
       <div>
       <div className='row my-2'>
-      <div className='col-6'><span className='display-6 text-light'><a className={bothSides? 'bi bi-arrow-left-short' : 'bi bi-arrow-right-short'} 
+      <div className='col-6'><span className='display-6 text-light'>
+        <Link className={bothSides? 'bi bi-arrow-left-short' : 'bi bi-arrow-right-short'} 
       onClick={()=>{
-      // setShowChats(false)
-      setBothSides(!bothSides)
-      }}></a> 
+      setCurrentChat(null)
+      }}
+      style={{cursor : 'pointer'}}></Link> 
       {name} &nbsp;</span></div>
       <div className='col-6 text-end'><ChatInfo chat={currentChat} socket={socket} updateData={updateData} chats={chats} setChats={setChats} name={name} setName={setName}/></div>
       </div>
       <hr className='mt-0' />
       </div>
-      <div className='p-0 m-0'  style={{ height: '66vh', overflowY : 'scroll'}}>
-      <div className='flex-grow-1 messages-div' ref={messagesEndRef}>
+      <div className='flex-grow-1 messages-div' style={{ overflowY : 'scroll'}} ref={messagesEndRef}>
       {messages?.map((message, index) => (
         <Message
           key={index}
@@ -148,7 +147,6 @@ const CurrentChat = ({ socket ,name , setName ,currentChat, setShowChats ,chats,
           time={message.time}
         />
       ))}
-      </div>
       </div>
       <div className='card-footer my-4 d-flex gap-2 '>
         <input
