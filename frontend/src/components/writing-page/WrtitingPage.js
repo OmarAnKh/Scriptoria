@@ -15,7 +15,7 @@ const WritingPage = () => {
   const { auth } = useAuth()
 
   useEffect(() => {
-    const s = io("http://localhost:5000")
+    const s = io(process.env.REACT_APP_HOSTURL)
     setSocket(s)
 
     return () => {

@@ -42,7 +42,7 @@ function App() {
   const [socket, setSocket] = useState(null)
   useEffect(() => {
     if (auth?.userName) {
-      const s = io('http://localhost:5000');
+      const s = io(process.env.REACT_APP_HOSTURL);
       setSocket(s);
 
       const fetchChats = async () => {

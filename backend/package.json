@@ -5,7 +5,7 @@
   "main": "app.js",
   "type": "module",
   "scripts": {
-    "start": "node app.js",
+    "start": "node ./src/app.js",
     "dev": "env-cmd -f ./src/config/.env nodemon ./src/app.js",
     "serv": "nodemon ./src/app.js"
   },
