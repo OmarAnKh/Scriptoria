@@ -23,7 +23,7 @@ router.get('/room/:userId', authentication, async(req, res)=>{
     const userId = req.params.userId 
     try{
         const rooms = await Room.find({ 'users.user': userId }).populate('users.user');
-        if(!rooms || rooms.length===0) return res.status(404).send([])
+        if(!rooms || rooms.length===0) return res.status(404).send(rooms)
         res.status(200).send(rooms)
     } catch(error){
         console.log(error)

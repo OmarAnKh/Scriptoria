@@ -23,6 +23,12 @@
         "read_the_book": "ابدأ القراءة",
         "votes": "صوت"
     },
+    "AvatarPage": {
+        "save": "حفظ",
+        "cancel": "إلغاء",
+        "avatar_styles": "الشخصيات",
+        "styling_options": "خيارات التصميم"
+    },
     "DiscoverTable": {
         "all_genres": "جميع الفئات",
         "action": "أكشن",
@@ -99,7 +105,10 @@
         "confirm_password": "يرجى تأكيد كلمة المرور الخاصة بك",
         "delete_account_header": "هل أنت متأكد من رغبتك في حذف حسابك؟",
         "confirm": "تأكيد",
-        "cancel": "الغاء"
+        "cancel": "الغاء",
+        "add_to_profile": "هل ترغب في إضافة",
+        "profile_picture": "صورة شخصية",
+        "avatar": "شخصية"
     },
     "StoryCard": {
         "show_more": "عرض المزيد"

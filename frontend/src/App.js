@@ -34,6 +34,7 @@ import io from 'socket.io-client';
 import { toast } from 'react-hot-toast'
 import { useState, useEffect } from 'react';
 import { getRooms } from './api/roomsApi.js';
+import AvatarPage from './components/avatars/AvatarPage.js';
 
 
 function App() {
@@ -47,11 +48,8 @@ function App() {
 
       const fetchChats = async () => {
         const res = await getRooms(auth?.userInfo?._id, auth?.token)
-        console.log(res)
         if (res?.status === 200 && res?.data?.value !== "undefined") {
           setChats(res.data)
-          console.log(res.data)
-
         }
       }
       fetchChats()
@@ -62,7 +60,6 @@ function App() {
   }, [auth])
 
   useEffect(() => {
-    console.log(chats)
     chats?.map((chat) => {
       socket?.emit('joinRoom', chat);
     })
@@ -75,7 +72,6 @@ function App() {
   useEffect(() => {
     if (auth?.userName) {
       socket.on('sendNotification', (message) => {
-        console.log(message)
         if (window.location.pathname !== '/chats')
           toast((t) => (
             <div className='container notification p-1 gap-2 d-flex flex-row mw-25'>
@@ -122,6 +118,7 @@ function App() {
 
 
           {/* registration pages */}
+          <Route path='Avatars' element={<AvatarPage />} />
           <Route path='registration' element={<Registration />} />
           <Route path='registration/info' element={<SignUpInfo />} />
           <Route path='SignUpVerificationCode' element={<SignUpVerificationCode />} />
@@ -145,6 +142,7 @@ function App() {
 
             {/* refresh pages && protected routers */}
             <Route element={<RequireAuth />}>
+              <Route path='UpdateAvatars' element={<AvatarPage />} />
               <Route path='/chats' element={<Chat socket={socket} chats={chats} setChats={setChats} />} />
               <Route path='WritingPage/:id' element={<WritingPage />} />
               <Route path='StoryDetails' element={<StoryDetails />} />
