@@ -130,7 +130,7 @@ function App() {
           <Route element={<PersistLogin />}>
             <Route path='/' element={<HomePage />} />
             <Route path="profile/:username" element={<Profile />} />
-            <Route path='Search/:criteria' element={<SearchResultsPage />} />
+            <Route path='search/:criteria' element={<SearchResultsPage />} />
             <Route path='TeamMembers' element={<AllMembers />} />
             <Route path='settings/:id' element={<Settings />} />
             <Route path='profile/:userName/lists' element={<AllListsPage />} />

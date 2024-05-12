@@ -1,12 +1,13 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const AuthButtons = (props) => {
     return (
-        
-            <a type='button' className="sginbutton text-wrap" href={props.herf}>
-                {props.title}
-            </a>
-        
+
+        <Link type='button' className="sginbutton text-wrap" to={props.to}>
+            {props.title}
+        </Link>
+
     );
 }
 
