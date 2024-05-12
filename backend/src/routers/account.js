@@ -24,7 +24,7 @@ router.post("/SignUp", async (req, res) => {
     try {
         await user.save();
         const { accessToken, refreshToken } = await user.generateAuthToken();
-        res.cookie('jwt', refreshToken, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000 });
+        res.cookie('jwt', refreshToken, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000, secure: true });
         res.status(201).send({ user, token: accessToken, refreshToken });
     } catch (error) {
         res.status(400).send(error);
@@ -35,7 +35,7 @@ router.post('/signIn', async (req, res) => {
     try {
         const user = await Account.findByCredentials(req.body.email, req.body.password)
         const { accessToken, refreshToken } = await user.generateAuthToken();
-        res.cookie('jwt', refreshToken, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000 });
+        res.cookie('jwt', refreshToken, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000, secure: true });
         res.status(200).send({ user, token: accessToken, refreshToken });
     } catch (error) {
         res.status(400).send()
@@ -66,7 +66,7 @@ router.get("/refresh", async (req, res) => {
         );
         user.tokens = user.tokens.concat({ token: newRefreshToken });
         await user.save();
-        res.cookie('jwt', newRefreshToken, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000 });
+        res.cookie('jwt', newRefreshToken, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000,secure: true });
         res.cookie('flag', true);
         res.send({ accessToken, userName: user.userName, refreshToken: newRefreshToken, userInfo: user });
     } catch (error) {
