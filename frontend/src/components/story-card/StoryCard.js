@@ -48,10 +48,10 @@ const StoryCard = ({ selectedTab }) => {
                                     <div className="card-body">
                                         <h5 className="card-title story-title text-white">{story?.story?.title}</h5>
                                         <h6 className="author text-white">
-                                        {story?.accounts?.map((author, idx) => (
+                                        {story?.writers?.map((author, idx) => (
                                             <span key={idx}>
-                                                {author?.displayName}
-                                                {idx !== story.accounts.length - 1 && ' , '}
+                                                {author?.AccountId.displayName}
+                                                {idx !== story.writers.length - 1 && ' , '}
                                             </span>
                                         ))}
                                     </h6>

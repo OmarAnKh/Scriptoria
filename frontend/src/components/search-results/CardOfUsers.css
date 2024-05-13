@@ -1,22 +1,62 @@
-.buttonsOfPro{
-    border-radius: 10px;
-    background-color:rgb(72, 72, 249);
-}
+.searchProfile {
+    width: 210px;
+    height: 280px;
+    background: var(--accent-Color); 
+    border-radius: 12px;
+    box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.123);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+  }
 
+  .searchProfileImage {
+    background: linear-gradient(to right,var(--primary-Color, rgb(54, 54, 54)), var(--primary-Color, rgb(32, 32, 32))); 
+    margin-top: 20px;
+    width: 170px;
+    height: 170px;
+    border-radius: 50%;
+    box-shadow: 5px 10px 20px rgba(0, 0, 0, 0.329);
+  
+  }
 
-.cardOfUsers{
-    background-color:rgba(248, 248, 242, 0.817);
-    margin: 0 7px;
-    margin-bottom: 10px;
-    margin-top: 5px;
-}
+  .searchProfileImage img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+  }
 
-.displayName{
-    font-size: 26px;
-}
+  .textContainer {
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
 
-.userName{
-     font-size: small;
-     color: rgb(70, 69, 69);
-}
+  .profileDisplayName {
+    font-size: 0.9em;
+    font-weight: 600;
+    color: var(--text-Color);
+    letter-spacing: 0.5px;
+    margin: 0; 
+    padding: 0; 
+  }
 
+  .profileUserName{
+    font-size: 0.84em;
+    color: rgb(150, 150, 150);
+    letter-spacing: 0.2px;
+    margin-top: -10px; 
+  }
+
+  .person-icon {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    color: var(--primary-Color); 
+    cursor: pointer;
+    font-size: 1.5em; 
+  }
+  
