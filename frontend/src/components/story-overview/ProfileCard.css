@@ -1,13 +1,6 @@
 @font-face {
-    font-family: 'Poppins';
-    src: url('../../fonts/Poppins-Light.ttf') format('truetype');
-    font-weight: bold; 
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'Lilita One';
-    src: url('../../fonts/Righteous-Regular.ttf') format('truetype');
+    font-family: 'Merriweather';
+    src: url('../../fonts/Merriweather-Black.ttf') format('truetype');
     font-weight: bold; 
     font-style: normal;
 }
@@ -23,6 +16,7 @@
     align-items: center;
     justify-content: center; 
     text-align: center; 
+    font-size: 14px;
 }
 
 .btnfollowandviewprofile:hover {
@@ -30,12 +24,12 @@
 }
 
 .profile-username {
-    font-family: 'Lilita One';
+    font-family: 'Merriweather';
     margin-top: -5px;
     font-size: small;
 }
 .profile-name {
-    font-family: 'Poppins';
+    font-family: 'Merriweather';
     margin-top: -10px;
     font-size: medium;
     text-shadow: 0px 1px 1px #000000;
@@ -44,12 +38,12 @@
 }
 
 .titleFW {
-    font-family: 'Lilita One';
+    font-family: 'Merriweather';
     margin-top: -8px;
     font-size: medium;
 }
 .numberFW {
-    font-family: 'Poppins';
+    font-family: 'Merriweather';
     margin-top: -10px;
     font-size: small;
     text-shadow: 0px 1px 1px #000000;

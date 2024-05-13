@@ -67,7 +67,7 @@ const Card = ({ data }) => {
                             ))}
                         </h6>
                         
-                        <span className="d-flex">
+                        <span className="numOfVotes d-flex">
                             <StarRating rating={ratings} />  &emsp; {votes} {t("CarouselCards.votes")}
                         </span>
                         <p className="CarouselCards-text text-sm">{data.description}</p>

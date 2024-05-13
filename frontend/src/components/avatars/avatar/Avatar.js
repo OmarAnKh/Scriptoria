@@ -16,8 +16,8 @@ const Avatar = ({ name, options, sentData }) => {
                 
                 if (options.hasOwnProperty(`${option}Probability`)) {
                     temp[option] = { options: options[option].default, probability: true };
-                    if (!temp[option].options.includes('')) {
-                        temp[option].options.unshift('')
+                    if (!temp[option].options.includes(` &${option}Probability=0`)) {
+                        temp[option].options.unshift(` &${option}Probability=0`)
                     }
                 } else {
                     temp[option] = { options: options[option].default, probability: false };

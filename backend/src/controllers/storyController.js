@@ -179,22 +179,14 @@ const getStoryByGenre = async (req, res) => {
 
         const storiesWithDetails = [];
         for (const story of stories) {
-            const writers = await Writers.find({ StoryId: story._id });
+            const writers = await Writers.find({ StoryId: story._id })
+            .populate({ path: "AccountId" })
+            .populate({ path: "StoryId" });
 
             if (!writers) {
                 return res.status(404).send();
             }
 
-            const accounts = [];
-            for (const writer of writers) {
-                const account = await Account.findById(writer.AccountId);
-
-                if (!account) {
-                    return res.status(404).send();
-                }
-
-                accounts.push(account);
-            }
             const countRates = await Rating.countDocuments({ StoryId: story._id });
             const result = await Rating.aggregate([
                 { $match: { StoryId: story._id } },
@@ -203,7 +195,7 @@ const getStoryByGenre = async (req, res) => {
             const averageRating = result.length > 0 ? result[0].averageRate : 0;
             storiesWithDetails.push({
                 story: story,
-                accounts: accounts,
+                writers: writers,
                 counts: { rates: countRates, avg: averageRating }
             });
         }
