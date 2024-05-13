@@ -10,22 +10,18 @@ const CardOfUsers = (props) => {
         navigate(`/Profile/${props.userName}`);
       }
 
-  return (
-   
-<div className="card cardOfUsers" style={{width: '16rem'}}>
-  <div className='ratio ratio-1x1'>
-  <img src={props.images} className="card-img-top object-fit-cover" alt="..."   />
-  </div>
-  <div className="card-body d-flex flex-column justify-content-center align-items-center">
-  <h5 className="card-text  displayName ">{props.displayName}</h5>
-    <p className="card-title userName">{props.userName}</p>
-    <div>
-    <button  type="button" className="btn btn-primary mx-5 buttonsOfPro" onClick={GoToProfile}>Show Profile</button>
-    </div>
-  </div>
-  
-</div>
-  )
+      return (
+        <div className="card searchProfile">
+          <div className="searchProfileImage">
+            <img src={props.images} alt="Profile Image" />
+          </div>
+          <div className="textContainer">
+            <p className="profileDisplayName">{props.displayName}</p>
+            <p className="profileUserName">@{props.userName}</p>
+          </div>
+           <i  class="bi bi-person person-icon" onClick={GoToProfile}></i>
+        </div>
+      );
 }
 
 export default CardOfUsers
