@@ -5,7 +5,10 @@ import { sendEmail } from "../../api/API's";
 import { saveDocument } from "../../api/API's";
 import useAuth from "../../hooks/useAuth"
 import Cookies from "js-cookie"
+import { useTranslation } from 'react-i18next';
+
 const SignUpVerificationCode = () => {
+    const { t } = useTranslation();
     const { setAuth } = useAuth();
     const [code, setCode] = useState("");
     const [correctCode, setCorrectCode] = useState(null);
@@ -54,6 +57,14 @@ const SignUpVerificationCode = () => {
         }
     };
 
+    const codeResendHandler = () => {
+        const emailDetails = {
+            email: accountInfo.email,
+            codeGenerated: correctCode
+        };
+        sendEmail("account/recovery", emailDetails)
+    }
+
     return (
         <>
             <EmailVerification
@@ -62,8 +73,10 @@ const SignUpVerificationCode = () => {
                 type="text"
                 inputPlaceholder="Enter code"
                 buttonTitle="Next"
+                buttonTitle2={t("EmailVerifing.buttonTitle2")}
                 methodOnChange={setCode}
                 methodOnClick={clickHandler}
+                methodOnClick2={codeResendHandler}
                 nputColor={inputColor}
                 inputError={inputError}
             />
