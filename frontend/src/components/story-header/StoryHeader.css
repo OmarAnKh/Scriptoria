@@ -1,13 +1,13 @@
 @font-face {
-    font-family: 'Righteous';
-    src: url('../../fonts/Righteous-Regular.ttf') format('truetype');
+    font-family: 'Merriweather';
+    src: url('../../fonts/Merriweather-Black.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
     font-display: swap;
 }
 
 .details, .genres, .icons {
-    font-family: 'Righteous';
+    font-family: 'Merriweather';
 }
 
 .details-card {

@@ -10,6 +10,7 @@ import signature from "../../img/signature.png"
 import { useLocation, useNavigate } from 'react-router-dom';
 import useConvertPath from '../../hooks/useConvertPath';
 import UploadImg from '../settings/UploadImg';
+import './SignUpInfo.css'
 
 const JoyButton = (props) => {
     return (
@@ -156,10 +157,10 @@ const SignUpInfo = () => {
                 <RegistrationInput className="input-field d-flex justify-content-center" inputClassName="text-center" type="date" placeholder="dd-mm-yyyy" error={dateOfBirthError} onChange={setDateOfBirth} />
             </form>
             <form className="right-registration-card" onSubmit={(event) => { event.preventDefault() }}>
-                <h2 className="title">Sign Up Infromation</h2>
-                <RegistrationInput className="col-md-8" inputClassName="form-control" type="textarea" placeholder="Your Description" onChange={setDescription} />
+                <h2 className="title sign-up-info-title">Sign Up Infromation</h2>
+                <RegistrationInput className="col-md-8 user-description" inputClassName="form-control" type="textarea" placeholder="Your Description" onChange={setDescription} />
                 <div className='row d-flex justify-content-center'>
-                    <div className='d-flex justify-content-between mx-4'>
+                    <div className='d-flex justify-content-between mx-4 signup-joy-buttons'>
                         <JoyButton icon={openBook} type="reader" actives={joyType} method={(event, type) => {
                             handleJoyButton(event, type)
                         }} />
