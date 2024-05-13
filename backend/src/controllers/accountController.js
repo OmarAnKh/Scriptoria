@@ -94,9 +94,9 @@ const getAccount = async (req, res) => {
     }
 }
 
-const accountRecovery = async (req, res) => {
+const sendEmail = async (req, res) => {
     try {
-        sendMail(req.body.email, req.body.codeGenerated)
+        sendMail(req.body.email, req.body.content)
         res.status(200).send({ status: true })
     } catch (error) {
         res.status(500).send({ status: false })
@@ -292,7 +292,7 @@ export default {
     refreshAccount,
     getAccountByUserName,
     getAccount,
-    accountRecovery,
+    sendEmail,
     getAccountByEmail,
     resetAccountPassword,
     confirmAccountPassword,

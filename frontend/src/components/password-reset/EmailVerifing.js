@@ -3,10 +3,11 @@ import validator from "validator";
 import { findAccount } from "../../api/accountApi";
 import EmailVerification from "../email-verification/EmailVerification";
 import { useNavigate, useParams } from "react-router-dom"
-import { sendEmail } from "../../api/API's";
 import { useTranslation } from 'react-i18next';
+import useSendEmail from "../../hooks/useSendEmail";
 
 const EmailVerifing = () => {
+    const { sendMail } = useSendEmail();
     const { t } = useTranslation();
     const { email } = useParams();
     const [validEmail, setValidEmail] = useState("");
@@ -26,7 +27,6 @@ const EmailVerifing = () => {
 
             try {
                 const res = await findAccount({ email });
-                console.log(res)
                 if (res.message === false) {
                     navigate('/*')
                 } else {
@@ -43,7 +43,7 @@ const EmailVerifing = () => {
 
     useEffect(() => {
         if (validEmail) {
-            sendVerificationCode();
+            sendMail(email, generatedCode);
         }
     },);
 
@@ -58,19 +58,6 @@ const EmailVerifing = () => {
         setGeneratedCode(code)
     }
 
-    const sendVerificationCode = async () => {
-        const emailDetails = {
-            email,
-            codeGenerated: generatedCode
-        };
-        try {
-            await sendEmail("account/recovery", emailDetails);
-            console.log("Email sent successfully");
-        } catch (error) {
-            console.error("Error occurred while sending email:", error);
-        }
-    };
-
     const compareHandler = () => {
         if (userCode === generatedCode) {
             navigate(`/ResetPassword`, { state: { email } })
@@ -80,7 +67,7 @@ const EmailVerifing = () => {
         setInputError(t("EmailVerifing.InputError"))
     }
     const codeResendHandler = () => {
-        sendVerificationCode()
+        sendMail(email, generatedCode)
     }
     return (
         <EmailVerification
