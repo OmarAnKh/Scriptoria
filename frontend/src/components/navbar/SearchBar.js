@@ -9,7 +9,7 @@ const SearchBar = () => {
         if (searchCriteria === "") {
             return;
         }
-        navigate(`search/${searchCriteria}`);
+        navigate(`/search/${searchCriteria}`);
         window.location.reload();
     }
     return (
