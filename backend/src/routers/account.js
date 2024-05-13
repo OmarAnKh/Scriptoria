@@ -12,7 +12,7 @@ router.get('/find/userName/:userName', accountController.getAccountByUserName);
 
 router.post("/user/find", accountController.getAccount);
 
-router.post('/account/recovery', accountController.accountRecovery);
+router.post('/sendEmail', accountController.sendEmail);
 
 router.get('/find/email/:email', accountController.getAccountByEmail);
 

@@ -1,11 +1,15 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import EmailVerification from "../email-verification/EmailVerification";
 import { useEffect, useState } from "react";
-import { sendEmail } from "../../api/API's";
 import { saveDocument } from "../../api/API's";
 import useAuth from "../../hooks/useAuth"
 import Cookies from "js-cookie"
+import { useTranslation } from 'react-i18next';
+import useSendEmail from "../../hooks/useSendEmail";
+
+
 const SignUpVerificationCode = () => {
+    const { sendMail } = useSendEmail();
     const { setAuth } = useAuth();
     const [code, setCode] = useState("");
     const [correctCode, setCorrectCode] = useState(null);
@@ -13,6 +17,7 @@ const SignUpVerificationCode = () => {
     const [inputError, setInputError] = useState("")
     const location = useLocation();
     const navigate = useNavigate();
+    const { t } = useTranslation();
     const { accountInfo } = location.state || {};
 
     useEffect(() => {
@@ -29,12 +34,8 @@ const SignUpVerificationCode = () => {
             }
         };
         generateCode();
-        const emailDetails = {
-            email: accountInfo.email,
-            codeGenerated: correctCode
-        };
         if (correctCode) {
-            sendEmail("account/recovery", emailDetails)
+            sendMail(accountInfo.email, correctCode)
         }
     }, [correctCode]);
 
@@ -53,7 +54,9 @@ const SignUpVerificationCode = () => {
             navigate(`/`);
         }
     };
-
+    const codeResendHandler = () => {
+        sendMail(accountInfo.email, correctCode)
+    }
     return (
         <>
             <EmailVerification
@@ -62,8 +65,10 @@ const SignUpVerificationCode = () => {
                 type="text"
                 inputPlaceholder="Enter code"
                 buttonTitle="Next"
+                buttonTitle2={t("EmailVerifing.buttonTitle2")}
                 methodOnChange={setCode}
                 methodOnClick={clickHandler}
+                methodOnClick2={codeResendHandler}
                 nputColor={inputColor}
                 inputError={inputError}
             />
