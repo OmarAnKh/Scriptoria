@@ -19,9 +19,9 @@ const findAccount = async (findCriteria) => {
     }
 }
 
-const sendEmail = async (point, emailDetails) => {
+const sendEmail = async (emailDetails) => {
     try {
-        const response = await fetch(`${process.env.REACT_APP_HOSTURL}/${point}`, {
+        const response = await fetch(`${process.env.REACT_APP_HOSTURL}/sendEmail`, {
             method: "POST",
             credentials: "include",
             headers: {
