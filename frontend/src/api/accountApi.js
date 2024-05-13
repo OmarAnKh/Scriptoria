@@ -19,25 +19,7 @@ const findAccount = async (findCriteria) => {
     }
 }
 
-const sendEmail = async (emailDetails) => {
-    try {
-        const response = await fetch(`${process.env.REACT_APP_HOSTURL}/sendEmail`, {
-            method: "POST",
-            credentials: "include",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(emailDetails)
-        })
-        if (response.ok) {
-            return response.json();
-        }
-        return response;
 
-    } catch (error) {
-        console.log(error)
-    }
-}
 
 const editPassword = async (point, accountDetails) => {
     try {
@@ -157,7 +139,6 @@ const getFriends = async (userId) => {
     }
 }
 export {
-    sendEmail,
     editPassword,
     findAccount,
     logoutAccount,

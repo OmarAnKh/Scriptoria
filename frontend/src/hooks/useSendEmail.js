@@ -1,16 +1,21 @@
-import { sendEmail } from '../api/accountApi';
+import { sendEmail } from "../api/API's";
 
-const useSendEmail = async (email, content) => {
-    const emailDetails = {
-        email,
-        content
-    };
-    try {
-        await sendEmail( emailDetails);
-        console.log("Email sent successfully");
-    } catch (error) {
-        console.error("Error occurred while sending email:", error);
+const useSendEmail = () => {
+    const sendMail = async (email, content) => {
+
+        const emailDetails = {
+            email,
+            content
+        };
+
+        try {
+            await sendEmail(emailDetails);
+        } catch (error) {
+            console.error("Error occurred while sending email:", error);
+        }
     }
+
+    return { sendMail }
 }
 
 export default useSendEmail
