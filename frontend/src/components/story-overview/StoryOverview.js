@@ -80,7 +80,7 @@ const StoryCard = () => {
                             <i className="bi bi-arrow-bar-left btn-right position-absolute top-0 start-0 m-3" onClick={toggleProfileCard}></i>
                         )}
                         <div className="group-color " role="group" aria-label="Background Color">
-                            <button type="button" className="group-color2" onClick={toggleColorOptions}><i className="bi bi-plus text-dark"></i></button>
+                            <button type="button" className={`group-color2 ${backgroundColor === '#242425' ? 'border-white' : 'border-dark'}`} onClick={toggleColorOptions}><i className={`bi bi-plus ${backgroundColor === '#242425' ? 'text-white' : 'text-dark'}`}></i></button>
                         </div>
                         {showColorOptions &&
                             <div className='btncolor '>

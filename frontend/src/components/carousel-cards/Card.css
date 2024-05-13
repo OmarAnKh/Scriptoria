@@ -1,14 +1,14 @@
 @font-face {
-    font-family: 'Righteous';
-    src: url('../../fonts/Righteous-Regular.ttf') format('truetype');
+    font-family: 'Merriweather';
+    src: url('../../fonts/Merriweather-Black.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
     font-display: swap;
 }
 
 @font-face {
-    font-family: 'Lilita One';
-    src: url('../../fonts/Righteous-Regular.ttf') format('truetype');
+    font-family: 'Freeman';
+    src: url('../../fonts/Freeman-Regular.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
     font-display: swap;
@@ -49,12 +49,13 @@
 
 .CarouselCards-text,
 .author-name,
-.read-btn {
-    font-family: 'Lilita One';
+.numOfVotes {
+    font-family: 'Freeman';
 }
 
-.CarouselCards-title {
-    font-family: 'Righteous';
+.CarouselCards-title,
+.read-btn {
+    font-family: 'Merriweather';
 }
 
 .CarouselCards {

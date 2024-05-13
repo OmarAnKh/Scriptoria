@@ -1,20 +1,13 @@
 @font-face {
-    font-family: 'Poppins';
-    src: url('../../fonts/Poppins-Light.ttf') format('truetype');
+    font-family: 'Merriweather';
+    src: url('../../fonts/Merriweather-Black.ttf') format('truetype');
     font-weight: bold;
     font-style: normal;
     font-display: swap;
 }
 
-@font-face {
-    font-family: 'Lilita One';
-    src: url('../../fonts/Righteous-Regular.ttf') format('truetype');
-    font-weight: bold;
-    font-style: normal;
-}
-
 .title-friends-list {
-    font-family: 'Poppins';
+    font-family: 'Merriweather';
     font-weight: bold;
     color: var(--text-Color);
 }
@@ -59,7 +52,7 @@
 }
 
 .friends-name {
-    font-family: 'Poppins';
+    font-family: 'Merriweather';
     margin-top: -25px;
     font-size: medium;
     text-shadow: 0px 1px 1px #000000;
@@ -68,7 +61,7 @@
 }
 
 .friends-username {
-    font-family: 'Lilita One';
+    font-family: 'Merriweather';
     margin-top: -10px;
     font-size: small;
     color: var(--text-Color);
@@ -95,7 +88,7 @@
     background-color: var(--primary-Color);
     border-radius: 9px;
     border: none;
-    font-family: 'Poppins';
+    font-family: 'Merriweather';
     text-align: center;
     display: block;
     margin: 0 auto;

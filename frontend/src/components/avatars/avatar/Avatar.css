@@ -16,6 +16,10 @@
     animation: circle-effect 1s ease-in-out;
 }
 
+.style-img:hover{
+    transform: scale(1.09);
+}
+
 @keyframes circle-effect {
     from {
         transform: scale(0);

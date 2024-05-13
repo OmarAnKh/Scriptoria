@@ -1,0 +1,12 @@
+@media (max-width: 576px) { 
+    .user-description,
+    .signup-joy-buttons {
+        height: 120px;
+    }
+    .sign-up-info-title {
+        font-size: 30px;
+    }
+    .avatar-profile {
+        height: 150px;
+    }
+}
