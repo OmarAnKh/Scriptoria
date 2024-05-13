@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import useAccount from '../../hooks/useAccount';
 import { useTranslation } from 'react-i18next';
+import { Buffer } from 'buffer';
 
 const WriterCard = ({ handleArrowLeftClick, user }) => {
 
@@ -25,13 +26,13 @@ const WriterCard = ({ handleArrowLeftClick, user }) => {
 
     useEffect(() => {
         const getIsFollowing = async () => {
-            const isFollowingRes = await isFollowing(auth?.userInfo?._id, user?._id)
+            const isFollowingRes = await isFollowing(auth?.userInfo?._id, user?.AccountId)
             setIsFollowingAccount(isFollowingRes.status)
-            const followerCount = await getFollowerCount(user?._id);
+            const followerCount = await getFollowerCount(user?.AccountId);
             setFollowersData(followerCount.followerCount);
-            const followingCount = await getfollowingCount(user?._id);
+            const followingCount = await getfollowingCount(user?.AccountId);
             setFollowingData(followingCount.followingsNumber);
-            const accountWorks = await getAccountWork(user?._id, false);
+            const accountWorks = await getAccountWork(user?.AccountId, false);
             setWorksCount(accountWorks?.stories?.length);
         }
         getIsFollowing();
@@ -39,15 +40,15 @@ const WriterCard = ({ handleArrowLeftClick, user }) => {
 
     const handleFollowClick = async () => {
         if (auth.userName) {
-            if (auth?.userInfo?._id === user?._id) {
+            if (auth?.userInfo?._id === user?.AccountId) {
                 toast.error('you cannot follow yourself!');
             } else {
                 if (isFollowingAccount) {
                     setIsFollowingAccount(false);
-                    await unFollow({ account: auth?.userInfo._id, follow: user?._id })
+                    await unFollow({ account: auth?.userInfo._id, follow: user?.AccountId })
                 } else {
                     setIsFollowingAccount(true);
-                    await setFollow({ account: auth?.userInfo._id, follow: user?._id });
+                    await setFollow({ account: auth?.userInfo._id, follow: user?.AccountId });
                 }
                 setFlag(!flag)
             }
@@ -69,7 +70,7 @@ const WriterCard = ({ handleArrowLeftClick, user }) => {
                         onClick={handleArrowLeftClick}
                     ></i>
                     <img
-                        src={`data:image/png;base64,${user?.profilePicture}`}
+                        src={`data:image/png;base64,${Buffer.from(user?.profilePicture).toString('base64')}`}
                         className="card-img-top rounded-circle mx-auto d-block mt-2"
                         alt="Profile Image"
                         style={{ width: "100px", height: "100px" }}
