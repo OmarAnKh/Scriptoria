@@ -81,7 +81,7 @@ const searchByCriteria = async (req, res) => {
                 { 'title': { $regex: new RegExp(criteria, 'i') } },
                 { 'language': { $regex: new RegExp(criteria, 'i') } },
                 { '_id': storyId }
-            ]
+            ], publishStatus: true
         });
 
         if (stories.length === 0) {
@@ -180,8 +180,8 @@ const getStoryByGenre = async (req, res) => {
         const storiesWithDetails = [];
         for (const story of stories) {
             const writers = await Writers.find({ StoryId: story._id })
-            .populate({ path: "AccountId" })
-            .populate({ path: "StoryId" });
+                .populate({ path: "AccountId" })
+                .populate({ path: "StoryId" });
 
             if (!writers) {
                 return res.status(404).send();

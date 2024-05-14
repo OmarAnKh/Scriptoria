@@ -10,7 +10,7 @@ import signature from "../../img/signature.png"
 import { useLocation, useNavigate } from 'react-router-dom';
 import useConvertPath from '../../hooks/useConvertPath';
 import UploadImg from '../settings/UploadImg';
-import './SignUpInfo.css'
+import { useTranslation } from 'react-i18next';
 
 const JoyButton = (props) => {
     return (
@@ -26,6 +26,7 @@ const JoyButton = (props) => {
 }
 
 const SignUpInfo = () => {
+    const { t } = useTranslation();
     const [registrationMode, setRegistrationMode] = useState(false);
     const { convertPath } = useConvertPath()
 
@@ -130,64 +131,64 @@ const SignUpInfo = () => {
     const panelsData = [
         {
             className: "panel left-panel",
-            hText: "More Here ?",
-            infoText: "In order to optimize your experience and ensure that our interactions are tailored to your preferences, we kindly request that you provide us with relevant information about your preferences. This will enable us to better understand your needs and expectations.",
+            hText: t("Registration.panel_htext_two"),
+            infoText: t("Registration.panel_info_text_two"),
             btnClassName: "btn-registration",
             btnId: "sign-up-btn",
             onClick: handleLeftCard,
-            btnText: "continue"
+            btnText: t("Registration.panel_continue")
         },
         {
             className: "panel right-panel",
-            hText: "One of Us?",
-            infoText: "In order to optimize your experience and ensure that our interactions are tailored to your preferences, we kindly request that you provide us with relevant information about your preferences. This will enable us to better understand your needs and expectations.",
+            hText: t("Registration.panel_htext"),
+            infoText: t("Registration.panel_info_text_two"),
             btnClassName: "btn-registration",
             btnId: "sign-in-btn",
             onClick: handleRightCard,
-            btnText: "Back"
+            btnText: t("Registration.panel_back")
         }
     ];
     return (
         <RegistrationForm panels={panelsData} registrationMode={registrationMode}>
             <form className="left-registration-card" onSubmit={(event) => { event.preventDefault() }}>
-                <h2 className="title">Sign Up Infromation</h2>
-                <RegistrationInput className="input-field" iClassName="bx bx-envelope" inputClassName={"px-3"} type="text" placeholder="Disblay Name" error={displayNameError} onChange={setDisplayName} />
+                <h2 className="title">{t("Registration.sign_up_infromation_title")}</h2>
+                <RegistrationInput className="input-field" iClassName="bx bx-envelope" inputClassName={"px-3"} type="text" placeholder={t("Registration.displayName")} error={displayNameError} onChange={setDisplayName} />
                 <RegistrationInput className="input-field" options={countrys} value={region} error={regionError} onChange={setRegion} />
                 <RegistrationInput className="input-field" options={genders} value={gender} error={genderError} onChange={setGender} />
                 <RegistrationInput className="input-field d-flex justify-content-center" inputClassName="text-center" type="date" placeholder="dd-mm-yyyy" error={dateOfBirthError} onChange={setDateOfBirth} />
             </form>
             <form className="right-registration-card" onSubmit={(event) => { event.preventDefault() }}>
-                <h2 className="title sign-up-info-title">Sign Up Infromation</h2>
-                <RegistrationInput className="col-md-8 user-description" inputClassName="form-control" type="textarea" placeholder="Your Description" onChange={setDescription} />
+                <h2 className="title">{t("Registration.sign_up_infromation_title")}</h2>
+                <RegistrationInput className="col-md-8" inputClassName="form-control" type="textarea" placeholder={t("Registration.description")} onChange={setDescription} />
                 <div className='row d-flex justify-content-center'>
-                    <div className='d-flex justify-content-between mx-4 signup-joy-buttons'>
-                        <JoyButton icon={openBook} type="reader" actives={joyType} method={(event, type) => {
+                    <div className='d-flex justify-content-between mx-4'>
+                        <JoyButton icon={openBook} type={t("Registration.reader")} actives={joyType} method={(event, type) => {
                             handleJoyButton(event, type)
                         }} />
-                        <JoyButton icon={content} type="both" actives={joyType} method={(event, type) => {
+                        <JoyButton icon={content} type={t("Registration.both")} actives={joyType} method={(event, type) => {
                             handleJoyButton(event, type)
                         }} />
-                        <JoyButton icon={signature} type="writer" actives={joyType} method={(event, type) => {
+                        <JoyButton icon={signature} type={t("Registration.writer")} actives={joyType} method={(event, type) => {
                             handleJoyButton(event, type)
                         }} />
                     </div>
                 </div>
                 <div className="row d-flex text-center" style={{ marginTop: '1em' }}>
-                    <p className="">Would you like to add...</p>
+                    <p className="">{t("Registration.image_type")}</p>
                     <div className="d-flex justify-content-center">
                         <div className='mx-4'>
                             <UploadImg imgURL={image} setImgURL={setImage} width={80} setAddProfile={setAddProfile} />
-                            <p>Profile Picture</p>
+                            <p>{t("Registration.profile_picture")}</p>
                         </div>
                         <button className="btn" onClick={(event) => {
                             handleProfileButton(event, "Avatar")
                         }}>
                             <img src={avatar} className="img-fluid rounded-circle image-img" style={{ width: "80px", height: "80px" }} alt="what do you prefer" />
-                            <p>Avatar</p>
+                            <p>{t("Registration.avatar")}</p>
                         </button>
                     </div>
                 </div>
-                <button type="submit" className="btn-registration solid mb-5" onClick={(event) => { handleSignUpInformation(event) }} >Sign Up</button>
+                <button type="submit" className="btn-registration solid mb-5" onClick={(event) => { handleSignUpInformation(event) }} >{t("Registration.signup_btn_text")}</button>
             </form>
         </RegistrationForm>
     )
