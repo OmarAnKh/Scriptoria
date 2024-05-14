@@ -80,16 +80,17 @@ const ProfileInfo = (props) => {
             account: follow_id._id,
             follow: auth?.userInfo?._id
         })
-        window.location.reload();
+        props.setBlockFlag(!props.blockFlag)
     }
+
+
     const unblockHandler = async () => {
         const unblock = {
             account: follow_id._id,
             block: auth?.userInfo?._id
         }
         const res = await unfollow("unblock", unblock)
-
-        window.location.reload();
+        props.setBlockFlag(!props.blockFlag)
     }
 
     const unfollowHandler = async () => {
