@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 const SearchBar = () => {
     const [searchCriteria, setSearchCriteria] = useState("");
+    const { t } = useTranslation();
     const navigate = useNavigate()
     const searchHandle = () => {
         if (searchCriteria === "") {
@@ -16,7 +17,7 @@ const SearchBar = () => {
         <div className="search">
             <div className="search-box">
                 <div className="search-field">
-                    <input placeholder="Search..." className="input" type="text" onChange={(event) => { setSearchCriteria(event.target.value) }} onKeyDown={(event) => { if (event.key === 'Enter') { searchHandle() } }} />
+                    <input placeholder={t("Navbar.search")} className="input" type="text" onChange={(event) => { setSearchCriteria(event.target.value) }} onKeyDown={(event) => { if (event.key === 'Enter') { searchHandle() } }} />
                     <div className="search-box-icon">
                         <button className="btn-icon-content" onClick={searchHandle}>
                             <i className="search-icon">

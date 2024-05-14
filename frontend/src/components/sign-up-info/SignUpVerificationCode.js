@@ -60,11 +60,11 @@ const SignUpVerificationCode = () => {
     return (
         <>
             <EmailVerification
-                cardType="Email Verification"
-                text={`An email with Verification code was just send to ${accountInfo.email}`}
+                cardType={t("EmailVerifing.signup_verification_card_type")}
+                text={`${t("EmailVerifing.signup_verification_code")} ${accountInfo.email}`}
                 type="text"
-                inputPlaceholder="Enter code"
-                buttonTitle="Next"
+                inputPlaceholder={t("EmailVerifing.signup_verification_enter_code")}
+                buttonTitle={t("EmailVerifing.signup_verification_code_next")}
                 buttonTitle2={t("EmailVerifing.buttonTitle2")}
                 methodOnChange={setCode}
                 methodOnClick={clickHandler}

@@ -56,7 +56,11 @@
         "text": "الرجاء ادخال الرمز الذي ارسل الى بريدك الالكتروني",
         "inputPlaceholder": "رمز التحقق",
         "buttonTitle": "تحقق من الرمز",
-        "buttonTitle2": "اعادة ارسال الرمز"
+        "buttonTitle2": "اعادة ارسال الرمز",
+        "signup_verification_code": "لقد تم ارسال بريد الكتروني يحتوي على رمز التأكيد",
+        "signup_verification_code_next": "التالي",
+        "signup_verification_card_type": "تأكيد بواسطة البريد الالكتروني",
+        "signup_verification_enter_code": "ادخل الرمز"
     },
     "ResetPassword": {
         "InputError_password_criteria": "يجب ان تتكون كلمة المرور من 6 رموز على الأقل, وأن تحتوي على حرف واحد كبير على الاقل باللغة الانجليزية, وحرف واحد صغير , ورقم واحد على الأقل",

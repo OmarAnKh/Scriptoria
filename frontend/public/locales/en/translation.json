@@ -56,7 +56,11 @@
         "text": "Please enter the code that was sent to your email",
         "inputPlaceholder": "Verification code",
         "buttonTitle": "Verify my code",
-        "buttonTitle2": "resend a code"
+        "buttonTitle2": "resend a code",
+        "signup_verification_code": "An email with Verification code was just send to",
+        "signup_verification_code_next": "Next",
+        "signup_verification_card_type": "Email Verification",
+        "signup_verification_enter_code": "Enter code"
     },
     "ResetPassword": {
         "InputError_password_criteria": "Password must be at least 6 characters long, contain at least one uppercase letter, contain at least one lowercase letter and contain at least one number",
