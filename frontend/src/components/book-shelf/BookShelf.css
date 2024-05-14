@@ -1,6 +1,6 @@
 @font-face {
-    font-family: 'Righteous';
-    src: url('../../fonts/Righteous-Regular.ttf') format('truetype');
+    font-family: 'Merriweather';
+    src: url('../../fonts/Merriweather-Black.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
     font-display: swap;
@@ -50,5 +50,6 @@
 @media screen and (max-width: 767px) {
     .carousel-container {
         margin: 0 50px;
+        width: 280px;
     }
 }

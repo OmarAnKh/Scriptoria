@@ -40,7 +40,7 @@ const getRateCount = async (req, res) => {
             { $group: { _id: null, averageRate: { $avg: "$rating" } } }
         ]);
 
-        const averageRating = result[0]?.averageRate;
+        const averageRating = result.length > 0 ? result[0].averageRate : 0;
         res.status(200).send({ counts: { rates: countRates, avg: averageRating } })
 
     } catch (error) {

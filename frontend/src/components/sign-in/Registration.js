@@ -8,9 +8,11 @@ import Cookies from "js-cookie"
 import useAccount from '../../hooks/useAccount';
 import usePassword from '../../hooks/usePassword';
 import RegistrationInput from '../registration/RegistrationInput';
-
+import { useTranslation } from 'react-i18next';
 
 const Registration = () => {
+
+    const { t } = useTranslation();
 
     const { setAuth } = useAuth();
     const navigate = useNavigate();
@@ -150,44 +152,43 @@ const Registration = () => {
     const panelsData = [
         {
             className: "panel left-panel",
-            hText: "One of Us?",
-            infoText: "Welcome to Scriptoria! Please enter your username and password to access your account. If you don't have an account yet, you can sign up for free.",
+            hText: t("Registration.panel_htext"),
+            infoText: t("Registration.panel_info_text"),
             btnClassName: "btn-registration",
             btnId: "sign-up-btn",
             onClick: handleRightCard,
-            btnText: "Sign up"
+            btnText: t("Registration.signup_btn_text")
         },
         {
             className: "panel right-panel",
-            hText: "One of Us?",
-            infoText: "Welcome to Scriptoria! Please enter your username and password to access your account. If you don't have an account yet, you can sign up for free.",
+            hText: t("Registration.panel_htext"),
+            infoText: t("Registration.panel_info_text"),
             btnClassName: "btn-registration",
             btnId: "sign-in-btn",
             onClick: handleLeftCard,
-            btnText: "Sign in"
+            btnText: t("Registration.signin_btn_text")
         }
     ];
     return (
         <RegistrationForm panels={panelsData} registrationMode={registrationMode}>
             <form className="left-registration-card" onSubmit={(event) => signInHandler(event)}>
-                <h2 className="title">Sign In</h2>
-                <RegistrationInput className="input-field" iClassName="bx bx-envelope" inputClassName={"px-3"} type="text" placeholder="Email" error={signInEmailError} onChange={setEmail} />
-                <RegistrationInput className="input-field" iClassName="bx bx-lock-alt" inputClassName={"px-3"} type="password" placeholder="Password" error={signInPasswordError} onChange={setPassword} />
+                <h2 className="title">{t("Registration.signin_btn_text")}</h2>
+                <RegistrationInput className="input-field" iClassName="bx bx-envelope" inputClassName={"px-3"} type="text" placeholder={t("Registration.email")} error={signInEmailError} onChange={setEmail} />
+                <RegistrationInput className="input-field" iClassName="bx bx-lock-alt" inputClassName={"px-3"} type="password" placeholder={t("Registration.password")} error={signInPasswordError} onChange={setPassword} />
                 <p className='registration-input-error'>{signInError}</p>
                 <Link to={`/GetEmail`} target="" style={{ textDecoration: "none", color: "rgb(33,33,33)" }}>
-                    <p>Forgot your password? <span style={{ textDecoration: "underline", color: "var(--text-Color)" }}>Reset password</span></p>
+                    <p>{t("Registration.forgot_password")} <span style={{ textDecoration: "underline", color: "var(--text-Color)" }}>{t("Registration.reset_password")}</span></p>
                 </Link>
-                <input type="submit" value="Sign In" className="btn-registration solid" />
+                <input type="submit" value={t("Registration.signin_btn_text")} className="btn-registration solid" />
             </form>
             <form className="right-registration-card" onSubmit={(event) => { signUpHandler(event) }}>
-                <h2 className="title">Sign Up</h2>
-                <RegistrationInput className="input-field" iClassName="bx bx-user" inputClassName={"px-3"} type="text" placeholder="User Name" error={userNameError} onChange={setUserName} />
-                <RegistrationInput className="input-field" iClassName="bx bx-envelope" inputClassName={"px-3"} type="text" placeholder="Email" error={signUpEmailError} onChange={setEmail} />
-                <RegistrationInput className="input-field" iClassName="bx bx-lock-alt" inputClassName={"px-3"} type="password" placeholder="Password" error={signUpPasswordError} onChange={setPassword} />
-                <RegistrationInput className="input-field" iClassName="bx bx-lock-alt" inputClassName={"px-3"} type="password" placeholder="Confirm Password" error={confirmPasswordError} onChange={setConfirmPassword} />
-                <input type="submit" defaultValue="Sign Up" className="btn-registration solid" />
+                <h2 className="title">{t("Registration.signup_btn_text")}</h2>
+                <RegistrationInput className="input-field" iClassName="bx bx-user" inputClassName={"px-3"} type="text" placeholder={t("Registration.username")} error={userNameError} onChange={setUserName} />
+                <RegistrationInput className="input-field" iClassName="bx bx-envelope" inputClassName={"px-3"} type="text" placeholder={t("Registration.email")} error={signUpEmailError} onChange={setEmail} />
+                <RegistrationInput className="input-field" iClassName="bx bx-lock-alt" inputClassName={"px-3"} type="password" placeholder={t("Registration.password")} error={signUpPasswordError} onChange={setPassword} />
+                <RegistrationInput className="input-field" iClassName="bx bx-lock-alt" inputClassName={"px-3"} type="password" placeholder={t("Registration.confirm_password")} error={confirmPasswordError} onChange={setConfirmPassword} />
+                <input type="submit" value={t("Registration.go_signup_info")} className="btn-registration solid" />
             </form>
-
         </RegistrationForm>
     )
 }
