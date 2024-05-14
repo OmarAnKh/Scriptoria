@@ -176,6 +176,9 @@ const getStoryByGenre = async (req, res) => {
         } else {
             stories = await Story.find({ genres: genre, publishStatus: true });
         }
+        if (!stories.length) {
+            return res.status(404).send()
+        }
 
         const storiesWithDetails = [];
         for (const story of stories) {

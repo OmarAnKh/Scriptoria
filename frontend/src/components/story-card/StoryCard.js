@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { Buffer } from 'buffer';
 import { getGenrestory } from '../../api/storyAPI';
 import { Link } from 'react-router-dom';
+import Placeholder from '../placeholder/Placeholder';
 
 const StoryCard = ({ selectedTab }) => {
     const { t } = useTranslation()
@@ -67,7 +68,14 @@ const StoryCard = ({ selectedTab }) => {
                             </div>
                         </div>
                     ))}
-                </div> : <></>}
+                </div> :
+                <>
+                    {
+                        storyData?.status === 404 ?
+                            <p></p> :
+                            <Placeholder />
+                    }
+                </>}
             {
                 visiblestory < storyData.length && (
                     <div className="text-center">
