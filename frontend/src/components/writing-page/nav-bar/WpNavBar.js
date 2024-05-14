@@ -1,10 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./WpNavBar.css";
-import Logo from "../../../img/scriptoria-logo.png";
 import { Link } from "react-router-dom";
-import 'froala-editor/js/froala_editor.pkgd.min.js';
-import LinkBtns from "./LinkBtns";
-import Buttons from "./Buttons";
 import { findAccount } from "../../../api/accountApi";
 import validator from "validator";
 import { useParams, useNavigate } from "react-router-dom";
@@ -14,6 +10,7 @@ import useAuth from "../../../hooks/useAuth";
 import { getstory } from "../../../api/storyAPI";
 import toast from "react-hot-toast";
 import useSendEmail from "../../../hooks/useSendEmail";
+import { Tooltip } from "react-tooltip";
 
 
 const WpNavBar = ({ socket, setMode, setState }) => {
@@ -210,18 +207,13 @@ const WpNavBar = ({ socket, setMode, setState }) => {
   }
 
   return (
-
-    <nav className="navbar navbar-expand-lg WpNavBar py-1" id="WpNavBar">
+    <>
+   
+    <div className="nav-container fixed-top w-100 mx-0 row justify-content-center">
+    <nav className="navbar navbar-expand-md  WpNavBar  rounded-5 py- my-2 w-75" id="WpNavBar">
       <div className="container-fluid d-flex justify-content-between">
-        <Link to={`/`} className="card-text d-flex align-items-center" target="">
-          <img className="logo-size" src={Logo} alt="no"></img>
-          <div className="d-none d-md-block">
-            <span className="Scriptoria ourbtn fs-2 py-0 px-0">Scriptoria</span>
-          </div>
-        </Link>
-
-        <button
-          className="navbar-toggler order-1 order-lg-2"
+          <button
+          className="navbar-toggler order-1 collapsed"
           type="button"
           data-bs-toggle="collapse"
           data-bs-target="#navbarNavDropdown"
@@ -229,29 +221,46 @@ const WpNavBar = ({ socket, setMode, setState }) => {
           aria-expanded="false"
           aria-label="Toggle navigation"
         >
-          <span className="navbar-toggler-icon" />
+          <span className="toggle-icon top-bar"/>
+          <span className="toggle-icon middle-bar"/>
+          <span className="toggle-icon bottom-bar"/>
         </button>
-
-        <div className="d-flex order-lg-2">
-          <ul className="nav flex-nowrap align-items-center ms-sm-3 list-unstyled ">
-
-            {/* invitation button */}
-            <li className="nav-item invitation m-2">
-              <div>
-                <button className="bi bi-envelope-paper-fill btn btn-outline-dark rounded-5 m-1" data-bs-toggle="modal" data-bs-target="#Invitation-modal" title="invite your friend"></button>
-                <div className="modal fade" id="Invitation-modal" tabIndex={-1} aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <Tooltip id="my-tooltip" />
+        <div className="d-flex">
+          <ul className="nav flex-nowrap align-items-center list-unstyled ">
+           <Link to={'/'} className="btn nav-btn rounded-5" data-tooltip-id="my-tooltip" data-tooltip-content="finish writing and go to home page" data-tooltip-place='bottom'>finish</Link>
+            </ul>
+            </div>
+        <div className="collapse navbar-collapse text-center order-2" id="navbarNavDropdown">
+          <ol className="navbar-nav mx-auto flex-column flex-md-row">
+            <li className="nav-item">
+                <button className="btn nav-btn rounded-5 mx-2 my-1" data-bs-toggle="modal" data-bs-target="#Invitation-modal" data-tooltip-id="my-tooltip" data-tooltip-content="invite you friend to write with you" data-tooltip-place='bottom'>invite</button>
+            </li>
+            <li className="nav-item">
+              <button className="btn nav-btn rounded-5 mx-2 my-1" onClick={handleMode}>focus mode</button>
+            </li>
+            <li className="nav-item">
+              <button type="button" className="btn rounded-5 nav-btn mx-2 my-1" onClick={handelPublich} data-tooltip-id="my-tooltip" data-tooltip-content="change publish status" data-tooltip-place='bottom'>
+                {publishStatus ? "published" : "private"}
+              </button>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </nav >
+    </div>
+    <div className="modal fade" id="Invitation-modal" tabIndex={-1} aria-labelledby="exampleModalLabel" aria-hidden="true">
                   <div className="modal-dialog modal-dialog-centered">
                     <div className="modal-content" style={{ display: "inline" }}>
                       Do You Want To Invite Someone to Write With You?
-                      <div className="row justify-content-end mx-0" style={{ display: "inline" }}>
+                      <div className="justify-content-end mx-0" style={{ display: "inline" }}>
                         <button type="button" className="btn-close m-2" data-bs-dismiss="modal" aria-label="Close" >
                         </button>
                       </div>
                       <div className="modal-body container fs-1">
-                        <div className="row star-widget row-cols-auto justify-content-center">
-
+                        <div className="row-cols-auto justify-content-center">
                         </div>
-                        <div className='row rate-msg fs-5 justify-content-center text-secondary p-2'>
+                        <div className='fs-5 justify-content-center text-secondary p-2'>
                           <div style={{ display: 'flex', alignItems: 'center' }}>
                             <input
                               type="text"
@@ -357,31 +366,7 @@ const WpNavBar = ({ socket, setMode, setState }) => {
                     </div>
                   </div>
                 </div>
-              </div>
-            </li>
-
-            {/* profile button */}
-            <li className="nav-item pfp m-2">
-              <LinkBtns btnCn="Profile" icon="bi bi-emoji-angry-fill" badge={0} />
-            </li>
-          </ul>
-        </div>
-
-        <div className="collapse navbar-collapse text-center order-2 order-lg-1" id="navbarNavDropdown">
-          <ol className="navbar-nav mx-auto">
-            <li className="nav-item">
-              <Buttons btnCN="FocusMode" name="Focus Mode" method={handleMode} />
-            </li>
-            <li className="nav-item">
-              <button type="button" className="btn btn-outline-dark rounded-5 m-2" onClick={handelPublich}>
-                Publish Status:{publishStatus ? "Published" : "not Published"}
-              </button>
-            </li>
-          </ol>
-        </div>
-      </div>
-    </nav >
-
+    </>
   );
 };
 

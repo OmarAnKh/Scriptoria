@@ -7,7 +7,7 @@ import useAuth from "../../hooks/useAuth";
 
 
 const WritingPage = () => {
-  const [zen, setZen] = useState(false);
+  const [focus, setFocus] = useState(false);
   const [data, setData] = useState('');
   const [state, setState] = useState(false)
   const [socket, setSocket] = useState()
@@ -28,17 +28,14 @@ const WritingPage = () => {
     socket.emit("joinWritingPage", auth?.userInfo._id)
   }, [socket])
 
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, []);
+
   const setMode = () => {
-    setZen(!zen);
-    document.getElementsByClassName("WpNavBar")[0].style = {
-      backgroundColor: zen ? "black" : "#DEE2FF",
-    };
+    setFocus(!focus);
   };
 
-  const [model, setModel] = useState(() => {
-    const data = localStorage.getItem("savedHtml");
-    return data;
-  });
 
   const body = document.body;
   const html = document.documentElement;
@@ -52,20 +49,17 @@ const WritingPage = () => {
 
 
   return (
-    <div className="WP">
-      <WpNavBar socket={socket} data={data} setMode={setMode} setData={setData} setState={setState} />
-      <div
-
-        className="focus"
-        style={{
-          backgroundColor: zen ? "#25252585" : "#F6F9FE",
-          height,
-          transition: "all 0.3s ease-in",
-        }}
-      >
-        <TextEditor socket={socket} mode={model} setModel={setModel} data={data} setData={setData} state={state} />
-      </div>
+    <>
+    <WpNavBar socket={socket} data={data} setMode={setMode} setData={setData} setState={setState} />
+    <div className="WP"   style={{
+      backgroundColor: focus ? "#25252585" : "#ECECEC",
+      height,
+      transition: "all 0.3s ease-in",
+    }}>     
+        <TextEditor socket={socket} data={data} setData={setData} state={state} />    
     </div>
+    </>
+
   );
 };
 
