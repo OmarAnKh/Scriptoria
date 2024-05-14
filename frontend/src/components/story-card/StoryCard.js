@@ -68,7 +68,14 @@ const StoryCard = ({ selectedTab }) => {
                             </div>
                         </div>
                     ))}
-                </div> : <><Placeholder /></>}
+                </div> :
+                <>
+                    {
+                        storyData?.status === 404 ?
+                            <p></p> :
+                            <Placeholder />
+                    }
+                </>}
             {
                 visiblestory < storyData.length && (
                     <div className="text-center">
