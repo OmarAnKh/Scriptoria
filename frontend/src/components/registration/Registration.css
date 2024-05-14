@@ -10,7 +10,7 @@
     content: "";
     position: absolute;
     width: 2000px;
-    height: 2000px;
+    height: 2900px;
     border-radius: 50%;
     background: linear-gradient(-45deg, var(--accent-Color), var(--primary-Color));
     right: 48%;
