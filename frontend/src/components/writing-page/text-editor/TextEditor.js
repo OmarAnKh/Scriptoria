@@ -3,7 +3,7 @@ import Quill from "quill";
 import "quill/dist/quill.snow.css";
 import { io } from "socket.io-client";
 import { useParams } from "react-router-dom";
-import TEInstructions from './TEInstructions';
+
 
 
 const SAVE_INTERVAL_MS = 2000
@@ -88,7 +88,11 @@ export default function TextEditor({ socket, state }) {
     <div className='mb-5'>
       <br></br>
       <br></br>
-      <TEInstructions />
+      <section className="container text-center wpi mt-5 mb-3">
+      <h1 className="mb-0">
+        Welcome to <span className="Scriptoria fs-1">Scriptoria</span>
+      </h1>
+    </section>
       <div className='TextEditorSize container justify-content-center align-items-center bg-light p-0 rounded-3 border-none' style={{ position: 'relative' }} id="hello">
         {state ? <div style={{
           position: 'absolute',
@@ -100,7 +104,6 @@ export default function TextEditor({ socket, state }) {
           backgroundColor: 'rgba(255, 255, 255, 0.5)',
           cursor: 'not-allowed',
         }}></div> : <></>}
-
         <div ref={wrapperRef} className=""></div>
       </div>
       <br></br>

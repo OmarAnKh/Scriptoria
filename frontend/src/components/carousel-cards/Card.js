@@ -51,7 +51,7 @@ const Card = ({ data }) => {
                 <div className="col-md-4">
                     {data.coverPhoto && (
                     <Link to={`/story/${data._id}`}>
-                        <img src={`data:image/png;base64,${Buffer.from(data.coverPhoto).toString('base64')}`} className="cover-img img-fluid rounded" alt="..."/>
+                        <img src={`data:image/png;base64,${Buffer.from(data.coverPhoto).toString('base64')}`} className="cover-img img-fluid rounded object-fit-cover" alt="..."/>
                     </Link>
                     )}
                 </div>

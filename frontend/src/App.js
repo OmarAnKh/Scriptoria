@@ -37,6 +37,7 @@ import { getRooms } from './api/roomsApi.js';
 import AvatarPage from './components/avatars/AvatarPage.js';
 
 
+
 function App() {
   const { auth } = useAuth()
   const [chats, setChats] = useState([])

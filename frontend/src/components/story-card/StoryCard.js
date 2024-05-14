@@ -40,7 +40,7 @@ const StoryCard = ({ selectedTab }) => {
                                             <img
                                                 src={story?.story.coverPhoto?.data ? `data:image/jpeg;base64,${Buffer.from(story?.story?.coverPhoto.data).toString('base64')}` : ''}
                                                 alt="story-img"
-                                                className="card-img"
+                                                className="card-img object-fit-cover"
                                                 style={{ width: '100%', height: '100%', minHeight: '200px' }} />
                                         </Link>
                                     </div>
