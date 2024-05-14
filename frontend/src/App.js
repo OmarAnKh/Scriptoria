@@ -35,7 +35,6 @@ import { toast } from 'react-hot-toast'
 import { useState, useEffect } from 'react';
 import { getRooms } from './api/roomsApi.js';
 import AvatarPage from './components/avatars/AvatarPage.js';
-import Test from './components/wp-navbar/Test.js';
 
 
 
@@ -112,7 +111,6 @@ function App() {
     <div className="App">
       <Routes>
         <Route path='/' element={<Layout />}>
-          <Route path='test' element={<Test/>}/>
           {/* error pages  */}
           <Route path="NoAccessPage" element={<NoAccessPage />} />
           <Route path='ServersErrorPage' element={<ServersErrorPage />} />
