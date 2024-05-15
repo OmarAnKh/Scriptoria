@@ -19,7 +19,7 @@
 body {
   font-family: Merriweather;
   background-color: var(--background-Color);
-  transition: background-color 0.5s ease-in-out, color 0.5s ease-in-out, --accent-Color 0.5s ease-in-out, --text-Color 0.5s ease-in-out, --primary-Color 0.5s ease-in-out, --background-Color 0.5s ease-in-out, --darker--primary-Color 0.5s ease-in-out, --logo 0.5s ease-in-out;
+  transition: background-color 0.5s ease-in-out, color 0.5s ease-in-out, --accent-Color 0.5s ease-in-out, --primary-Color 0.5s ease-in-out, --text-Color 0.5s ease-in-out, --darker--primary-Color 0.5s ease-in-out, --logo 0.5s ease-in-out;
 }
 
 .Scriptoria {

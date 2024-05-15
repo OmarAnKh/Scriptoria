@@ -30,6 +30,7 @@ footer {
     width: 400px;
     height: auto;
     filter: drop-shadow(10px 5px 10px rgba(0, 0, 0, 0.3));
+    margin-left: 5rem;
 }
 
 .footerplace {
