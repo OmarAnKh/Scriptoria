@@ -23,6 +23,12 @@
         "read_the_book": "Read the book",
         "votes": "votes"
     },
+    "AvatarPage": {
+        "save": "Save",
+        "cancel": "Cancel",
+        "avatar_styles": "Avatar Styles",
+        "styling_options": "Styling Options"
+    },
     "DiscoverTable": {
         "all_genres": "All genres",
         "action": "Action",
@@ -31,25 +37,6 @@
     },
     "ErrorPage": {
         "page_was_not_found": "Page was not found"
-    },
-    "Footer": {
-        "product": "Product",
-        "features": "Features",
-        "copy_Rights": "Copy Rights",
-        "resources": "Resources",
-        "blog": "Blog",
-        "user_guides": "User guides",
-        "community": "Community",
-        "developers": "Developers",
-        "users": "Users",
-        "company": "Company",
-        "about": "About",
-        "join_us": "Join us",
-        "support": "Support",
-        "help_center": "Help center",
-        "chat_support": "Chat support",
-        "need-help-reach-out": "Need help?! Reach out!",
-        "reach-out-via-email": "For business inquiries, please reach out to us via email."
     },
     "FriendsList": {
         "friends_List": "Friends",
@@ -69,7 +56,11 @@
         "text": "Please enter the code that was sent to your email",
         "inputPlaceholder": "Verification code",
         "buttonTitle": "Verify my code",
-        "buttonTitle2": "resend a code"
+        "buttonTitle2": "resend a code",
+        "signup_verification_code": "An email with Verification code was just send to",
+        "signup_verification_code_next": "Next",
+        "signup_verification_card_type": "Email Verification",
+        "signup_verification_enter_code": "Enter code"
     },
     "ResetPassword": {
         "InputError_password_criteria": "Password must be at least 6 characters long, contain at least one uppercase letter, contain at least one lowercase letter and contain at least one number",
@@ -118,7 +109,10 @@
         "confirm_password": "Please confirm your password",
         "delete_account_header": "Are you sure you want to delete your account?",
         "confirm": "Confirm",
-        "cancel": "Cancel"
+        "cancel": "Cancel",
+        "add_to_profile": "What would you like to add?",
+        "profile_picture": "Profile picture",
+        "avatar": "Avatar"
     },
     "StoryCard": {
         "show_more": "Show more"
@@ -231,12 +225,41 @@
         "Access-Denied": "Access Denied",
         "return-to-home-page": "return to home page"
     },
+    "Footer": {
+        "need-help-reach-out": "Need help? Reach out to us!",
+        "reach-out-via-email": "For business inquiries, please reach out to us via email."
+    },
     "WelcomeCard": {
         "we-are": "We Are",
         "scriptoria": "Scriptoria",
         "desc-title": "Scriptoria is not just another comic-based website",
-        "sign-in": "Sign in",
-        "sign-up": "Sign up",
+        "registration": "register",
         "desc": "it's a vibrant hub for storytellers and creators alike. At Scriptoria, we offer a dynamic platform where individuals can engage in collaborative writing ventures, weaving narratives together in an immersive and creative environment. Whether you're a seasoned writer or a budding talent, Scriptoria provides a space to publish your original stories, allowing them to flourish and reach a wider audience. But we don't stop there. We aspire to be a launchpad for aspiring writers, offering opportunities to be discovered and possibly even assigned into the industry. With Scriptoria, the journey from imagination to realization is boundless, and we invite you to join us in crafting the next chapter of storytelling excellence."
+    },
+    "Registration": {
+        "signup_btn_text": "Sign Up",
+        "signin_btn_text": "Sign in",
+        "panel_info_text": "Welcome to Scriptoria! Please enter your username and password to access your account. If you don't have an account yet, you can sign up for free.",
+        "panel_htext": "One of Us?",
+        "forgot_password": "Forgot your password?",
+        "reset_password": "Reset password",
+        "email": "email",
+        "password": "Password",
+        "go_signup_info": "Submit",
+        "username": "User Name",
+        "displayName": "Display Name",
+        "confirm_password": "confirm Password",
+        "sign_up_infromation_title": "Sign Up Infromation",
+        "panel_info_text_two": "In order to optimize your experience and ensure that our interactions are tailored to your preferences, we kindly request that you provide us with relevant information about your preferences. This will enable us to better understand your needs and expectations.",
+        "panel_htext_two": "More Here ?",
+        "profile_picture": "Profile Picture",
+        "avatar": "Avatar",
+        "reader": "reader",
+        "both": "both",
+        "writer": "writer",
+        "image_type": "Would you like to add...",
+        "description": "Your Description",
+        "panel_continue": "Continue",
+        "panel_back": "Back"
     }
 }

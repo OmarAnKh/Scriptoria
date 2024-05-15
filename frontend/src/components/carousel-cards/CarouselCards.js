@@ -3,6 +3,7 @@ import Card from "./Card";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { getStories } from "../../api/storyAPI";
+import Placeholder from "../placeholder/Placeholder";
 
 
 // Responsive property for the <Carousel> tag from react-multi-carousel package
@@ -49,38 +50,38 @@ const CarouselCards = (props) => {
 
     return (
         <>
-        {stories?.length ?
-            <Carousel swipeable={false}
-            draggable={false}
-            showDots={false}
-            responsive={responsive}
-            ssr={true} // means to render carousel on server-side.
-            infinite={true}
-            autoPlay={false}
-            autoPlaySpeed={1000}
-            keyBoardControl={true}
-            customTransition="transform 1000ms ease-in-out"
-            transitionDuration={800}
-            containerClass="carousel-container-cards"
-            removeArrowOnDeviceType={["tablet", "mobile"]}
-            deviceType={props.deviceType}
-            dotListClass="custom-dot-list-style"
-            itemClass="carousel-item-padding-40-px"
-            centerMode={true}
-            focusOnSelect={true}
-            >
+            {stories?.length ?
+                <Carousel swipeable={false}
+                    draggable={false}
+                    showDots={false}
+                    responsive={responsive}
+                    ssr={true} // means to render carousel on server-side.
+                    infinite={true}
+                    autoPlay={false}
+                    autoPlaySpeed={1000}
+                    keyBoardControl={true}
+                    customTransition="transform 1000ms ease-in-out"
+                    transitionDuration={800}
+                    containerClass="carousel-container-cards"
+                    removeArrowOnDeviceType={["tablet", "mobile"]}
+                    deviceType={props.deviceType}
+                    dotListClass="custom-dot-list-style"
+                    itemClass="carousel-item-padding-40-px"
+                    centerMode={true}
+                    focusOnSelect={true}
+                >
 
-            {stories?.map((story) => {
-                return (
-                    <div className="row justify-content-center" key={story._id}>
-                        <div className="col-lg-12">
-                            <Card data={story} />
-                        </div>
-                    </div>
-                )
-            })}
+                    {stories?.map((story) => {
+                        return (
+                            <div className="row justify-content-center" key={story._id}>
+                                <div className="col-lg-12">
+                                    <Card data={story} />
+                                </div>
+                            </div>
+                        )
+                    })}
 
-            </Carousel> : <></> }
+                </Carousel> : <><Placeholder /></>}
         </>
     );
 }

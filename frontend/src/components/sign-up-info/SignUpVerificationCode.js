@@ -1,11 +1,15 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import EmailVerification from "../email-verification/EmailVerification";
 import { useEffect, useState } from "react";
-import { sendEmail } from "../../api/API's";
 import { saveDocument } from "../../api/API's";
 import useAuth from "../../hooks/useAuth"
 import Cookies from "js-cookie"
+import { useTranslation } from 'react-i18next';
+import useSendEmail from "../../hooks/useSendEmail";
+
+
 const SignUpVerificationCode = () => {
+    const { sendMail } = useSendEmail();
     const { setAuth } = useAuth();
     const [code, setCode] = useState("");
     const [correctCode, setCorrectCode] = useState(null);
@@ -13,6 +17,7 @@ const SignUpVerificationCode = () => {
     const [inputError, setInputError] = useState("")
     const location = useLocation();
     const navigate = useNavigate();
+    const { t } = useTranslation();
     const { accountInfo } = location.state || {};
 
     useEffect(() => {
@@ -29,12 +34,8 @@ const SignUpVerificationCode = () => {
             }
         };
         generateCode();
-        const emailDetails = {
-            email: accountInfo.email,
-            codeGenerated: correctCode
-        };
         if (correctCode) {
-            sendEmail("account/recovery", emailDetails)
+            sendMail(accountInfo.email, correctCode)
         }
     }, [correctCode]);
 
@@ -53,17 +54,21 @@ const SignUpVerificationCode = () => {
             navigate(`/`);
         }
     };
-
+    const codeResendHandler = () => {
+        sendMail(accountInfo.email, correctCode)
+    }
     return (
         <>
             <EmailVerification
-                cardType="Email Verification"
-                text={`An email with Verification code was just send to ${accountInfo.email}`}
+                cardType={t("EmailVerifing.signup_verification_card_type")}
+                text={`${t("EmailVerifing.signup_verification_code")} ${accountInfo.email}`}
                 type="text"
-                inputPlaceholder="Enter code"
-                buttonTitle="Next"
+                inputPlaceholder={t("EmailVerifing.signup_verification_enter_code")}
+                buttonTitle={t("EmailVerifing.signup_verification_code_next")}
+                buttonTitle2={t("EmailVerifing.buttonTitle2")}
                 methodOnChange={setCode}
                 methodOnClick={clickHandler}
+                methodOnClick2={codeResendHandler}
                 nputColor={inputColor}
                 inputError={inputError}
             />

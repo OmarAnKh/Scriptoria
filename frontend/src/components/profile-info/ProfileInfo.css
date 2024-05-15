@@ -21,7 +21,7 @@
 }
 
 .DescriptionArea p {
-    font-family: PoppinsBold;
+    font-family: Merriweather;
     font-size: 11px;
 }
 
@@ -36,7 +36,7 @@
 
 .DisplayName {
     line-height: normal;
-    font-family: Lilta One;
+    font-family: Merriweather;
     font-size: 48px;
     filter: drop-shadow(2px 2px 2px #0000006b);
     color: var(--text-Color);
@@ -44,7 +44,7 @@
 
 .AboutMe {
     --bs-gutter-x: 1.5rem;
-    font-family: Lilta One;
+    font-family: Merriweather;
     font-size: 24px;
     filter: drop-shadow(2px 2px 2px #0000006b);
     padding-right: calc(var(--bs-gutter-x) * .5);
@@ -75,7 +75,7 @@
 }
 
 .buttonstyle {
-    font-family: Lilta One;
+    font-family: Merriweather;
     color: var(--text-color);
     background-color: var(--primary-Color);
     font-size: 0.7rem;
@@ -104,7 +104,7 @@
     align-items: center;
     justify-content: center;
     padding: var(--bs-btn-padding-y) var(--bs-btn-padding-x);
-    font-family: Lilta One;
+    font-family: Merriweather;
     font-weight: var(--bs-btn-font-weight);
     line-height: var(--bs-btn-line-height);
     color: var(--text-Color);
@@ -132,7 +132,7 @@
     align-items: center;
     justify-content: center;
     padding: var(--bs-btn-padding-y) var(--bs-btn-padding-x);
-    font-family: Lilta One;
+    font-family: Merriweather;
     font-weight: var(--bs-btn-font-weight);
     line-height: var(--bs-btn-line-height);
     color: var(--text-Color);
@@ -191,20 +191,13 @@
 }
 
 @font-face {
-    font-family: 'Lilta One';
-    src: url('../../fonts/LilitaOne-Regular.ttf') format('truetype');
+    font-family: 'Merriweather';
+    src: url('../../fonts/Merriweather-Black.ttf') format('truetype');
     font-weight: bold;
     font-style: normal;
     font-display: swap;
 }
 
-@font-face {
-    font-family: 'PoppinsBold';
-    src: url('../../fonts/Poppins-Bold.ttf') format('truetype');
-    font-weight: bold;
-    font-style: normal;
-    font-display: swap;
-}
 
 
 @media only screen and (max-width: 560px) {

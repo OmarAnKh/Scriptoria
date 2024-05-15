@@ -1,22 +1,7 @@
-@font-face {
-  font-family: 'Fibre Vintage';
-  src: url('./fonts/LilitaOne-Regular.ttf') format('truetype');
-  font-weight: bold;
-  font-style: normal;
-  font-display: swap;
-}
 
 @font-face {
-  font-family: 'Poppins';
-  src: url('./fonts/Poppins-Light.ttf') format('truetype');
-  font-weight: bold;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Righteous';
-  src: url('./fonts/Righteous-Regular.ttf') format('truetype');
+  font-family: 'Merriweather';
+  src: url('./fonts/Merriweather-Black.ttf') format('truetype');
   font-weight: bold;
   font-style: normal;
   font-display: swap;
@@ -33,8 +18,8 @@
 
 
 body {
-  font-family: Fibre Vintage;
-  background-color:var(--background-Color);
+  font-family: Merriweather;
+  background-color: var(--background-Color);
 }
 
 .Scriptoria {
@@ -45,8 +30,58 @@ body {
   --text-Color: #000000;
   --background-Color: #ECECEC;
   --primary-Color: #AC967F;
-  --darker--primary-Color: #564B40;
+  --darker--primary-Color: #564b40;
   --accent-Color: #E1D8D1;
   --logo: url('./img/scriptoria-logo-black.png')
 }
 
+
+
+/* === removing default button style ===*/
+.button-X {
+  margin: 0;
+  height: auto;
+  background: transparent;
+  padding: 0;
+  border: none;
+}
+
+.actual-text {
+  color: black;
+}
+
+/* button styling */
+.button-X  {
+  --border-right: 6px;
+  --text-stroke-color: rgba(255, 255, 255, 0.6);
+  --animation-color: #999999;
+  --fs-size: 2em;
+  letter-spacing: 3px;
+  text-decoration: none;
+  font-size: var(--fs-size);
+  font-family: "Arial";
+  position: relative;
+  text-transform: uppercase;
+  color: transparent;
+  -webkit-text-stroke: 1px var(--text-stroke-color);
+}
+
+/* this is the text, when you hover on button */
+.hover-text {
+  position: absolute;
+  box-sizing: border-box;
+  content: attr(data-text);
+  color: var(--animation-color);
+  width: 0%;
+  inset: 0;
+  border-right: var(--border-right) solid var(--animation-color);
+  overflow: hidden;
+  transition: 0.5s;
+  -webkit-text-stroke: 1px var(--animation-color);
+}
+
+/* hover */
+.button-X:hover .hover-text {
+  width: 100%;
+  filter: drop-shadow(0 5px 23px var(--animation-color))
+}

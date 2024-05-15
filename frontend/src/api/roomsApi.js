@@ -19,6 +19,7 @@ const createRoom = async (room, token) => {
 }
 
 const getRooms = async (userId, token)=>{ 
+    if(!userId) return {status : 404, data : []}
         try {
             const res = await axios({
                 url: `${process.env.REACT_APP_HOSTURL}/room/${userId}`,

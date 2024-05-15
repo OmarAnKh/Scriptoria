@@ -28,6 +28,7 @@ const Profile = () => {
     const { auth } = useAuth();
     const [user, setUser] = useState("")
     const [block, setBlock] = useState(false)
+    const [blockFlag, setBlockFlag] = useState(false)
     const { username } = useParams()
     const navigate = useNavigate()
 
@@ -36,7 +37,7 @@ const Profile = () => {
             try {
                 const res = await findAccount({ userName: username });
                 if (!res.message) {
-                    navigate('*');
+                    navigate('/*');
                     return;
                 }
                 setUser(res.user);
@@ -46,7 +47,7 @@ const Profile = () => {
         };
 
         fetchData();
-    }, [username, navigate]);
+    }, [username]);
 
     useEffect(() => {
         const handleBlocked = async () => {
@@ -64,7 +65,7 @@ const Profile = () => {
         if (auth.userName) {
             handleBlocked();
         }
-    }, [auth, user]);
+    }, [auth, user, blockFlag]);
 
     if (username === auth.userName && user) {
         return (
@@ -82,7 +83,7 @@ const Profile = () => {
                 <>
                     <Navbar />
                     <div className="container-fluid profile-page-body">
-                        <ProfileInfo visit={user} user={user} userStatus={true} ifblocked={false} />
+                        <ProfileInfo visit={user} user={user} userStatus={true} ifblocked={false} setBlockFlag={setBlockFlag} blockFlag={blockFlag} />
                         <ProfileBooks username={username} userId={user._id} />
                     </div>
                 </>
@@ -92,14 +93,11 @@ const Profile = () => {
                 <>
                     <Navbar />
                     <div className="container-fluid profile-page-body">
-                        <ProfileInfo visit={user} user={user} userStatus={true} ifblocked={true} />
+                        <ProfileInfo visit={user} user={user} userStatus={true} ifblocked={true} setBlockFlag={setBlockFlag} blockFlag={blockFlag} />
                     </div>
                 </>
             )
         }
-    } else {
-        navigate('*');
-        return null;
     }
 };
 

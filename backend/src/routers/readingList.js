@@ -1,82 +1,18 @@
 import express from 'express'
-import ReadingList from '../models/readingList.js'
 import authentication from "../middleware/authentication.js";
+import readingListController from '../controllers/readingListController.js';
+
 const router = new express.Router()
 
-router.post('/readingLists', authentication, async (req, res) => {
-    const readingList = new ReadingList({
-        name: req.body.name,
-        accountId: req.user.id,
-        privacy : req.body.privacy
-    });
-    if (req.body.stories) readingList.stories = req.body.stories;
-    try {
-        await readingList.save();
-        res.send(readingList);
-    } catch (error) {
-        res.status(400).send(error);
-    }
-})
+router.post('/readingLists', authentication, readingListController.createReadingList);
 
+router.get('/readingLists', readingListController.getReadingList);
 
-router.get('/readingLists',  async (req, res) => {
-    const accountId = req.query.accountId;
-    const all = req.query.all === "true"
-    try {
-        const lists = all? await ReadingList.find({accountId}) : await ReadingList.find({accountId, privacy : true})
-        if (!lists) return res.send();
-        res.send(lists);
-    } catch (error) {
-        console.log(error);
-        res.status(400).send();
-    }
-})
+router.get('/lists/:accountId/:listId', readingListController.getAccountReadingListByListId);
 
-router.get('/lists/:accountId/:listId', async (req, res) => {
-    try {
-        const list = await ReadingList.findOne({ _id: req.params.listId, accountId: req.params.accountId }).populate('stories');
-        if (!list) return res.send({"hello" : "nothing"});
-        res.send(list);
-    } catch (error) {
-        console.log(error);
-        res.status(400).send();
-    }
-})
+router.patch('/readingLists/:id', authentication, readingListController.updateReadingList);
 
-
-router.patch('/readingLists/:id', authentication, async (req, res) => {
-    const id = req.params.id;
-    const stories = req.body.stories;
-    const name = req.body.name;
-    const privacy = req.body.privacy
-
-    try {
-        const readingList = await ReadingList.findById(id);
-        if (!readingList) {
-            return res.status(404).send({ error: 'Reading list not found' });
-        }
-        readingList.stories = stories;
-        readingList.name = name;
-        readingList.privacy = privacy;
-        await readingList.save()
-        res.send(readingList);
-    } catch (error) {
-        console.log(error);
-        res.status(400).send(error);
-    }
-})
-
-router.delete('/readingLists/:id', async(req, res)=>{
-    try{
-        const list = await ReadingList.findByIdAndDelete(req.params.id)
-        if(!list){
-            return res.status(404).send();
-        }
-        res.send(list)
-    }catch(e){
-        res.status(500).send();
-    }
-})
+router.delete('/readingLists/:id', readingListController.deleteReadingList);
 
 export default router
 

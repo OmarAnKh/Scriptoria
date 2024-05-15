@@ -9,7 +9,7 @@
         "signUp": "S'inscrire",
         "profile": "Profil",
         "settings": "Paramètres",
-        "lists" : "listes",
+        "lists": "listes",
         "logout": "Déconnexion",
         "works": "mes œuvres"
     },
@@ -23,6 +23,12 @@
         "read_the_book": "Lire le livre",
         "votes": "voix"
     },
+    "AvatarPage": {
+        "save": "Enregistrer",
+        "cancel": "Annuler",
+        "avatar_styles": "Styles d'avatar",
+        "styling_options": "Options de style"
+    },
     "DiscoverTable": {
         "all_genres": "Tous les genres",
         "action": "Action",
@@ -31,23 +37,6 @@
     },
     "ErrorPage": {
         "page_was_not_found": "Page non trouvée"
-    },
-    "Footer": {
-        "product": "Produit",
-        "features": "Fonctionnalités",
-        "copy_Rights": "Droits d'auteur",
-        "resources": "Ressources",
-        "blog": "Blog",
-        "user_guides": "Guides d'utilisateur",
-        "community": "Communauté",
-        "developers": "Développeurs",
-        "users": "Utilisateurs",
-        "company": "Entreprise",
-        "about": "À propos de",
-        "join_us": "Rejoignez-nous",
-        "support": "Support",
-        "help_center": "Centre d'aide",
-        "chat_support": "Support par chat"
     },
     "FriendsList": {
         "friends_List": "Amis suggérés",
@@ -67,7 +56,11 @@
         "text": "Veuillez saisir le code qui vous a été envoyé par e-mail",
         "inputPlaceholder": "Code de vérification",
         "buttonTitle": "Vérifier mon code",
-        "buttonTitle2": "Renvoyer un code"
+        "buttonTitle2": "Renvoyer un code",
+        "signup_verification_code": "Un e-mail avec le code de vérification vient d'être envoyé à",
+        "signup_verification_code_next": "Suivant",
+        "signup_verification_card_type": "Vérification par e-mail",
+        "signup_verification_enter_code": "Entrer le code"
     },
     "ResetPassword": {
         "InputError_password_criteria": "Le mot de passe doit comporter au moins 6 caractères, contenir au moins une lettre majuscule, au moins une lettre minuscule et au moins un chiffre",
@@ -116,15 +109,18 @@
         "confirm_password": "Veuillez confirmer votre mot de passe",
         "delete_account_header": "Êtes-vous sûr de vouloir supprimer votre compte ?",
         "confirm": "Confirmer",
-        "cancel": "Annuler"
+        "cancel": "Annuler",
+        "add_to_profile": "Que souhaitez-vous ajouter ?",
+        "profile_picture": "Photo de profil",
+        "avatar": "Avatar"
     },
     "StoryCard": {
         "show_more": "Afficher plus"
     },
     "StoryDetails": {
-        "Story-Details" : "Détails de l'histoire",
-        "Create-a-story" : "Créer une histoire",
-        "Update-a-story" : "Mettre à jour une histoire",
+        "Story-Details": "Détails de l'histoire",
+        "Create-a-story": "Créer une histoire",
+        "Update-a-story": "Mettre à jour une histoire",
         "title": "Titre",
         "number": "Nombre de diapositives",
         "description": "Description",
@@ -154,9 +150,9 @@
         "votes": "votes",
         "Add_to_reading_list": "Ajouter à la liste de lecture",
         "Share": "Partager",
-        "read_more": "Lire la suite", 
+        "read_more": "Lire la suite",
         "read_less": "Lire moins"
-    },  
+    },
     "StoryOverview": {
         "following": "Suivants",
         "followers": "Abonnés",
@@ -165,75 +161,100 @@
         "follow": "Suivre",
         "unfollow": "Ne plus suivre",
         "start_reading": "Commencer la lecture..."
-    },  
+    },
     "Logout": {
         "text1": "Vous avez été déconnecté avec succès.",
         "text2": "Cliquez ici pour retourner à la page d'accueil."
     },
-    "Comments" : {
-        "Comments" : "Commentaires",
-        "Reply" : "répondre",
-        "edit" : "modifier",
-        "delete" : "supprimer",
-        "save" : "enregistrer",
-        "cancel" : "annuler",
-        "no-comments" : "soyez le premier à commenter cette histoire",
-        "write-something" : "écrire quelque chose..."
+    "Comments": {
+        "Comments": "Commentaires",
+        "Reply": "répondre",
+        "edit": "modifier",
+        "delete": "supprimer",
+        "save": "enregistrer",
+        "cancel": "annuler",
+        "no-comments": "soyez le premier à commenter cette histoire",
+        "write-something": "écrire quelque chose..."
     },
-    "SaveTo" : {
-        "save-to" : "enregistrer l'histoire dans...",
-        "create-a-new-list" : "créer une nouvelle liste",
-        "save" : "enregistrer",
-        "create-reading-list-popop" : "créer une nouvelle liste de lecture",
-        "Name" : "nom",
-        "create-and-save" : "créer et enregistrer",
-        "cancel" : "annuler",
-        "add-to-reading-list" : "ajouter à la liste de lecture",
+    "SaveTo": {
+        "save-to": "enregistrer l'histoire dans...",
+        "create-a-new-list": "créer une nouvelle liste",
+        "save": "enregistrer",
+        "create-reading-list-popop": "créer une nouvelle liste de lecture",
+        "Name": "nom",
+        "create-and-save": "créer et enregistrer",
+        "cancel": "annuler",
+        "add-to-reading-list": "ajouter à la liste de lecture",
         "you-have-no-lists-create-one-to-save-the-story": "Vous n'avez pas de listes, créez-en une pour enregistrer l'histoire"
     },
-    "Rate" : {
-        "msg1" : "Évaluez cette histoire",
-        "msg2" : "Vous avez évalué cette histoire ",
-        "header" : "Évaluer",
-        "save" : "enregistrer",
-        "update" : "mettre à jour",
-        "cancel" : "annuler"
+    "Rate": {
+        "msg1": "Évaluez cette histoire",
+        "msg2": "Vous avez évalué cette histoire ",
+        "header": "Évaluer",
+        "save": "enregistrer",
+        "update": "mettre à jour",
+        "cancel": "annuler"
     },
-    "Lists" : {
-        "reading-lists" : "Listes de lecture de ",
-        "edit" : "modifier",
-        "delete" : "supprimer",
-        "share" : "Partager",
+    "Lists": {
+        "reading-lists": "Listes de lecture de ",
+        "edit": "modifier",
+        "delete": "supprimer",
+        "share": "Partager",
         "copy": "copier",
-        "list-name" : "nom de la liste",
-        "edit-privacy" : "modifier la confidentialité",
-        "public" : "public",
-        "private" : "privé",
-        "save" : "enregistrer",
-        "cancel" : "annuler",
-        "yes" : "oui",
-        "do-you-want-to-delete-this-list" : "Voulez-vous supprimer cette liste ?",
-        "do-you-want-to-copy-this-list" : "Voulez-vous copier cette liste ?",
-        "this-user-may-not-have-one-public-list-at-least" : "Cet utilisateur doit avoir au moins une liste publique",
-        "loading" : "chargement..."
+        "list-name": "nom de la liste",
+        "edit-privacy": "modifier la confidentialité",
+        "public": "public",
+        "private": "privé",
+        "save": "enregistrer",
+        "cancel": "annuler",
+        "yes": "oui",
+        "do-you-want-to-delete-this-list": "Voulez-vous supprimer cette liste ?",
+        "do-you-want-to-copy-this-list": "Voulez-vous copier cette liste ?",
+        "this-user-may-not-have-one-public-list-at-least": "Cet utilisateur doit avoir au moins une liste publique",
+        "loading": "chargement..."
     },
-    "ErrorPages" : {
-        "this-list-may-not-contain-one-story-at-least" : "cette liste ne peut pas contenir au moins une histoire",
-        "this-user-may-not-have-one-public-list-at-least" : "cet utilisateur peut ne pas avoir au moins une liste publique",
-        "you-have-no-access-to-reach-this-page" : "vous n'avez pas accès à cette page",
-        "Access-Denied" : "Accès refusé",
-        "return-to-home-page" : "retour à la page d'accueil"
+    "ErrorPages": {
+        "this-list-may-not-contain-one-story-at-least": "cette liste ne peut pas contenir au moins une histoire",
+        "this-user-may-not-have-one-public-list-at-least": "cet utilisateur peut ne pas avoir au moins une liste publique",
+        "you-have-no-access-to-reach-this-page": "vous n'avez pas accès à cette page",
+        "Access-Denied": "Accès refusé",
+        "return-to-home-page": "retour à la page d'accueil"
     },
-    "Footer" : {
-        "need-help-reach-out" : "Besoin d'aide ?! Contactez-nous !",
-        "reach-out-via-email" : "Pour toute demande commerciale, veuillez nous contacter par e-mail."
+    "Footer": {
+        "need-help-reach-out": "Besoin d'aide ?! Contactez-nous !",
+        "reach-out-via-email": "Pour toute demande commerciale, veuillez nous contacter par e-mail."
     },
-    "WelcomeCard" : {
-        "we-are" : "Nous sommes",
-        "scriptoria" : "Scriptoria",
-        "desc-title" : "Scriptoria n'est pas juste un autre site web basé sur les bandes dessinées",
-        "sign-in" : "Se connecter",
-        "sign-up" : "S'inscrire",
+    "WelcomeCard": {
+        "we-are": "Nous sommes",
+        "scriptoria": "Scriptoria",
+        "desc-title": "Scriptoria n'est pas juste un autre site web basé sur les bandes dessinées",
+        "registration": "S'inscrire",
         "desc": "C'est un centre dynamique pour les conteurs et les créateurs. À Scriptoria, nous proposons une plateforme dynamique où les individus peuvent s'engager dans des projets d'écriture collaborative, tissant des récits ensemble dans un environnement immersif et créatif. Que vous soyez un écrivain chevronné ou un talent émergent, Scriptoria offre un espace pour publier vos histoires originales, leur permettant de s'épanouir et d'atteindre un public plus large. Mais nous ne nous arrêtons pas là. Nous aspirons à être un tremplin pour les écrivains en herbe, offrant des opportunités pour être découvert et éventuellement même intégré à l'industrie. Avec Scriptoria, le voyage de l'imagination à la réalisation est sans limites, et nous vous invitons à nous rejoindre pour façonner le prochain chapitre de l'excellence narrative."
-    }             
+    },
+    "Registration": {
+        "signup_btn_text": "S'inscrire",
+        "signin_btn_text": "Se connecter",
+        "panel_info_text": "Bienvenue sur Scriptoria ! Veuillez saisir votre nom d'utilisateur et votre mot de passe pour accéder à votre compte. Si vous n'avez pas encore de compte, vous pouvez vous inscrire gratuitement.",
+        "panel_htext": "Déjà membre ?",
+        "forgot_password": "Mot de passe oublié ?",
+        "reset_password": "Réinitialiser le mot de passe",
+        "email": "email",
+        "password": "Mot de passe",
+        "go_signup_info": "Soumettre",
+        "username": "Nom d'utilisateur",
+        "displayName": "Nom d'affichage",
+        "confirm_password": "Confirmer le mot de passe",
+        "sign_up_infromation_title": "Informations d'inscription",
+        "panel_info_text_two": "Afin d'optimiser votre expérience et de garantir que nos interactions sont adaptées à vos préférences, nous vous demandons gentiment de nous fournir des informations pertinentes sur vos préférences. Cela nous permettra de mieux comprendre vos besoins et attentes.",
+        "panel_htext_two": "Plus d'infos ici ?",
+        "profile_picture": "Photo de profil",
+        "avatar": "Avatar",
+        "reader": "lecteur",
+        "both": "les deux",
+        "writer": "écrivain",
+        "image_type": "Souhaitez-vous ajouter...",
+        "description": "Votre description",
+        "panel_continue": "Continuer",
+        "panel_back": "Retour"
+    }
 }

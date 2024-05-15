@@ -3,7 +3,6 @@ import DiscoverTable from "../discover-tab/DiscoverTable";
 import StoryCard from "../story-card/StoryCard";
 import Footer from "../footer/Footer";
 import Navbar from "../navbar/Navbar.js";
-//import Navbar from "../navbar/Navbar.js";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import useAuth from "../../hooks/useAuth";
@@ -24,7 +23,6 @@ const HomePage = () => {
 
     const handleTabSelect = (tabName) => {
         setSelectedTab(tabName);
-        // console.log(tabName);
     };
 
 

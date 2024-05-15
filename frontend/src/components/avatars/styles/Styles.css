@@ -1,0 +1,23 @@
+.avatar-style-img {
+    border-style: outset;
+    border-radius: 10px;
+    width: 190px; 
+    height: 190px;
+    cursor: pointer;
+    overflow: hidden;
+    border-radius: 15px;
+}
+
+.avatar-style-img:hover{
+    transform: scale(1.09);
+}
+
+.avatar-styles {
+    display: flex;
+}
+
+.stayle-grid{
+    display: grid;
+    grid-template-columns: repeat(6, 1fr); 
+    gap: 20px; 
+}

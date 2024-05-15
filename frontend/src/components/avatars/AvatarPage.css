@@ -1,0 +1,94 @@
+.button-styles-Options {
+    color: #000000;
+    padding: 0.7em 1.7em;
+    font-size: 18px;
+    border-radius: 0.5em;
+    cursor: pointer;
+    border-radius: 9px;
+    border: none ;
+    transition: all 0.3s;
+    background-color: #fff;
+}
+
+
+.button-styles-Options:hover,
+.button-styles-Options:active,
+.button-styles-Options:focus {
+    background: linear-gradient(0deg, #E1D8D1, #AC967F);
+    box-shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, 0.4),
+                inset 0px -4px 0px 0px rgba(0, 0, 0, 0.2),
+                0px 0px 0px 4px rgba(255, 255, 255, 0.2),
+                0px 0px 180px 0px #AC967F;
+    transform: translateY(-2px);
+    color: #000000; 
+}
+
+
+
+
+
+
+.btn-save-random {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 70px;
+    width: 70px;
+    border-radius: 40px;
+    background-color: #fff;
+    color: #0f172a;
+    border :none ;
+    opacity: .9;
+
+}
+
+
+.sparkle {
+    fill: #000000;
+    transition: all 800ms ease;
+}
+
+.avtar-save-text {
+    font-weight: 600;
+    color: #000000;
+    font-size: medium;
+}
+
+
+.btn-save-random:hover {
+    background: linear-gradient(0deg,#E1D8D1,#AC967F);
+    box-shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, 0.4),
+    inset 0px -4px 0px 0px rgba(0, 0, 0, 0.2),
+    0px 0px 0px 4px rgba(255, 255, 255, 0.2),
+    0px 0px 180px 0px #AC967F;
+    transform: translateY(-2px);
+}
+
+.btn-save-random:hover .text {
+    color: rgb(0, 0, 0);
+}
+
+.btn-save-random:hover .sparkle {
+    fill: rgb(0, 0, 0);
+    transform: scale(1.2);
+} 
+
+
+
+.Card-styles-Options {
+    width: 100%;
+    height: 50%;
+    overflow-y: auto; 
+    max-height: calc(100vh - 150px); 
+}
+
+
+.Card-styles-Options::-webkit-scrollbar {
+    width: 10px; 
+
+}
+
+.Card-styles-Options::-webkit-scrollbar-thumb {
+    background-color: #E1D8D1; 
+    border-radius: 20px; 
+}

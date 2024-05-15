@@ -2,12 +2,10 @@ import './WelcomeCard.css'
 import BookImg from '../../img/Book.png'
 import LoopImg from '../../img/Loop.png'
 import AuthButtons from './AuthButtons.js'
-import useAuth from '../../hooks/useAuth.js'
 import { useTranslation } from 'react-i18next';
 
 const WelcomeCard = () => {
     const { t } = useTranslation();
-    const { auth } = useAuth();
 
     return (
         <>
@@ -26,15 +24,10 @@ const WelcomeCard = () => {
                                     {t("WelcomeCard.desc")}
                                 </p>
                             </div>
-                            <div className='d-flex justify-content-end'>
+                            <div className='d-flex justify-content-center'>
                                 <AuthButtons
-                                    title={t("WelcomeCard.sign-in")}
-                                    herf="/registration"
-
-                                />
-                                <AuthButtons
-                                    title={t("WelcomeCard.sign-up")}
-                                    herf="/registration"
+                                    title={t("WelcomeCard.registration")}
+                                    to="/registration"
                                 />
                             </div>
                         </div>

@@ -1,16 +1,3 @@
-@font-face {
-    font-family: 'Poppins';
-    src: url('../../fonts/Poppins-Light.ttf') format('truetype');
-    font-weight: bold;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'Lilita One';
-    src: url('../../fonts/Righteous-Regular.ttf') format('truetype');
-    font-weight: bold;
-    font-style: normal;
-}
 
 .btncolor {
     position: absolute;
@@ -61,7 +48,7 @@
     height: 30px;
     background-color: transparent;
     margin-bottom: 5px;
-    border: 1px solid black;
+    border: 1px solid;
 }
 
 .btn-Start-Reading {
@@ -214,5 +201,14 @@
 
     .profileCard {
         height: inherit;
+    }
+
+    .story-description {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 10;
+        overflow: hidden;
+        margin: 30px auto 0;
+        text-align: left;
     }
 }

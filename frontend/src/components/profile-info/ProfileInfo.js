@@ -70,17 +70,27 @@ const ProfileInfo = (props) => {
             account: follow_id._id,
             block: auth?.userInfo?._id
         }
+        const removeFollow = {
+            account: auth?.userInfo?._id,
+            follow: follow_id._id
+        }
         const res = await saveDocument("block", block)
-        window.location.reload();
+        unFollow(removeFollow)
+        unFollow({
+            account: follow_id._id,
+            follow: auth?.userInfo?._id
+        })
+        props.setBlockFlag(!props.blockFlag)
     }
+
+
     const unblockHandler = async () => {
         const unblock = {
             account: follow_id._id,
             block: auth?.userInfo?._id
         }
         const res = await unfollow("unblock", unblock)
-
-        window.location.reload();
+        props.setBlockFlag(!props.blockFlag)
     }
 
     const unfollowHandler = async () => {
