@@ -257,5 +257,13 @@
         "description": "الوصف الخاص فيك",
         "panel_continue": "أكمل",
         "panel_back": "العودة"
+    },
+    "MyWorks": {
+        "StoryBy": "قصص بواسطة",
+        "Stories": "قصص",
+        "TopStories": "أهم القصص",
+        "Edit": "تعديل",
+        "Preview": "معاينة",
+        "Delete": "حذف"
     }
 }

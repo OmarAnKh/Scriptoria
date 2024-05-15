@@ -261,5 +261,13 @@
         "description": "Your Description",
         "panel_continue": "Continue",
         "panel_back": "Back"
+    },
+    "MyWorks": {
+        "StoryBy": "Stories By",
+        "Stories": "Stories",
+        "TopStories": "Top Stories",
+        "Edit": "Edit",
+        "Preview": "Preview",
+        "Delete": "Delete"
     }
 }
