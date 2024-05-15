@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import "./WpNavBar.css";
 import Logo from "../../../img/scriptoria-logo.png";
 import { Link } from "react-router-dom";
-import 'froala-editor/js/froala_editor.pkgd.min.js';
 import LinkBtns from "./LinkBtns";
 import Buttons from "./Buttons";
 import { findAccount } from "../../../api/accountApi";
