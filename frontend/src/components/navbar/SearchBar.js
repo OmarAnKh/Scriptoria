@@ -11,6 +11,7 @@ const SearchBar = () => {
             return;
         }
         navigate(`/search/${searchCriteria}`);
+        window.location.reload();
     }
     return (
         <div className="search">
