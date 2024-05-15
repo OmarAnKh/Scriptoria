@@ -165,8 +165,7 @@ const ProfileInfo = (props) => {
 
                 <div className="Nda col">
                     <div className="DisplayName">
-                        {t("ProfileInfo.hello")}
-                        <br></br>{data.displayName}
+                        {`${t("ProfileInfo.hello")} ${data.displayName}`}
                         <div className="Username"> @{data.userName}</div>
                     </div>
                     <br />
