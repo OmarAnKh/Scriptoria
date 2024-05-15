@@ -256,5 +256,13 @@
         "description": "आपका विवरण",
         "panel_continue": "जारी रखें",
         "panel_back": "पीछे जाएं"
+    },
+    "MyWorks": {
+        "StoryBy": "कहानियाँ द्वारा",
+        "Stories": "कहानियाँ",
+        "TopStories": "शीर्ष कहानियाँ",
+        "Edit": "संपादित करें",
+        "Preview": "पूर्वावलोकन",
+        "Delete": "हटाएं"
     }
 }
