@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { Buffer } from 'buffer';
 import { getGenrestory } from '../../api/storyAPI';
 import { Link } from 'react-router-dom';
+import Placeholder from '../placeholder/Placeholder';
 
 const StoryCard = ({ selectedTab }) => {
     const { t } = useTranslation()
@@ -40,7 +41,7 @@ const StoryCard = ({ selectedTab }) => {
                                             <img
                                                 src={story?.story.coverPhoto?.data ? `data:image/jpeg;base64,${Buffer.from(story?.story?.coverPhoto.data).toString('base64')}` : ''}
                                                 alt="story-img"
-                                                className="card-img"
+                                                className="card-img object-fit-cover"
                                                 style={{ width: '100%', height: '100%', minHeight: '200px' }} />
                                         </Link>
                                     </div>
@@ -67,7 +68,14 @@ const StoryCard = ({ selectedTab }) => {
                             </div>
                         </div>
                     ))}
-                </div> : <></>}
+                </div> :
+                <>
+                    {
+                        storyData?.status === 404 ?
+                            <p></p> :
+                            <Placeholder />
+                    }
+                </>}
             {
                 visiblestory < storyData.length && (
                     <div className="text-center">
