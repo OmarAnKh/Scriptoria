@@ -3,7 +3,7 @@ import Card from "./Card";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { getStories } from "../../api/storyAPI";
-import Placeholder from "../placeholder/Placeholder";
+import HomePagePlaceholder from "../placeholder/HomePagePlaceholder";
 
 
 // Responsive property for the <Carousel> tag from react-multi-carousel package
@@ -81,7 +81,7 @@ const CarouselCards = (props) => {
                         )
                     })}
 
-                </Carousel> : <><Placeholder /></>}
+                </Carousel> : <><HomePagePlaceholder /></>}
         </>
     );
 }

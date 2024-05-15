@@ -2,7 +2,7 @@ import React from 'react'
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 
-const Placeholder = () => {
+const HomePagePlaceholder = () => {
     return (
         <div className="d-flex flex-wrap">
             {
@@ -47,4 +47,4 @@ const Placeholder = () => {
     )
 }
 
-export default Placeholder
+export default HomePagePlaceholder
