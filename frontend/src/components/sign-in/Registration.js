@@ -9,10 +9,12 @@ import useAccount from '../../hooks/useAccount';
 import usePassword from '../../hooks/usePassword';
 import RegistrationInput from '../registration/RegistrationInput';
 import { useTranslation } from 'react-i18next';
+import useThemeToggle from "../theme-toggle/ThemeToggle.js"
 
 const Registration = () => {
 
     const { t } = useTranslation();
+    useThemeToggle();
 
     const { setAuth } = useAuth();
     const navigate = useNavigate();

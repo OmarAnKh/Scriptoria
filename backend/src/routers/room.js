@@ -10,6 +10,6 @@ router.get('/room/:userId', authentication, roomController.getRoomForAccount);
 
 router.patch('/room', authentication, roomController.updateRoom);
 
-router.delete('/room/:id', roomController.deleteRoom);
+router.delete('/room/:id', authentication, roomController.deleteRoom);
 
 export default router
