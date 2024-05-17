@@ -30,16 +30,15 @@ const ProfileCard = (props) => {
   };
 
   return (
-    <div className="container mt-5">
-      {userData.map((user, idx) => {
-        return (
-          <div key={idx} className="mb-3">
-            <WriterCard handleArrowLeftClick={handleArrowLeftClick} user={user} />
-          </div>
-        )
-      })}
-    </div >
-  );
+    <div className=" row justify-content-between"  style={{ flexDirection: "row-reverse" }} >
+      {userData.map((user, idx) => (
+        <div key={idx} className=" writer col-md-6 mb-3" >
+        <WriterCard handleArrowLeftClick={handleArrowLeftClick} user={user} backgroundColor={props.backgroundColor} />
+        </div>
+      ))}
+    </div>
+
+      );
 };
 
 export default ProfileCard;

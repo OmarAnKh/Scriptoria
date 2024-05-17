@@ -84,9 +84,9 @@ const AvatarPage = () => {
                             </div>
                         )}
                         {activeTab === 'avatar' && (
-                            <div className="card Card-styles-Options mt-3 w-55" style={{height: '400px'}}>
-                                <div className="card-body ">
-                                    <Avatar name={clickedStyle} options={clickedStyleOptions} sentData={receiveOptions} onClick={toggleNavBar} />
+                            <div className="card mt-3 w-55" style={{height: '100%'}}>
+                                <div className="card-body">
+                                    <Avatar name={clickedStyle} options={clickedStyleOptions} sentData={receiveOptions} receivedOptions={receivedOptions} onClick={toggleNavBar} />
                                 </div>
                             </div>
                         )}

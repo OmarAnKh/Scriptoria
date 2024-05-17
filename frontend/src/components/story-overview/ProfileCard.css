@@ -120,30 +120,3 @@
     }
   }
   
-
-@media (max-width: 576px) {
-    .profile-card-container {
-        justify-content: start;
-    }
-
-    .profile-card-container > * {
-        font-size: x-small; 
-        margin: 1px !important;
-    }
-
-    .profile-card-container .profile-card-title {
-        display: none;
-    }
-
-    .profile-card-container .profile-card-details {
-        display: flex;
-    }
-
-    .profile-card-container .profile-card-description {
-        display: block !important;
-    }
-
-    .profile-card-container .profile-card-description {
-        margin-right: -5rem;
-    }
-}

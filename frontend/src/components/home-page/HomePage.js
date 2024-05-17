@@ -1,6 +1,6 @@
 import CarouselCards from "../carousel-cards/CarouselCards";
 import DiscoverTable from "../discover-tab/DiscoverTable";
-import StoryCard from "../story-card/StoryCard";
+import StoryCards from "../story-card/StoryCards";
 import Footer from "../footer/Footer";
 import Navbar from "../navbar/Navbar.js";
 import { useEffect, useState } from "react";
@@ -32,7 +32,7 @@ const HomePage = () => {
             {!auth.userName ? <WelcomeCard /> : <></>}
             <CarouselCards />
             <DiscoverTable select={selectedTab} onSelect={handleTabSelect} />
-            <StoryCard selectedTab={selectedTab} />
+            <StoryCards selectedTab={selectedTab} />
             <Footer />
         </>
     );
