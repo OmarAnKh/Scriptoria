@@ -85,8 +85,9 @@
 }
 
 .profileCard {
-    margin-Left: -200px;
-    transform: translateY(-10%)
+    margin-top: 80px;
+    margin-Left: -450px;
+    transform: translateY(-10%);
 }
 
 .container-details {
@@ -102,6 +103,7 @@
     width: 1000px;
     height: 600px;
 }
+
 
 
 .card-title {
@@ -129,56 +131,66 @@
 
 @media (max-width: 1500px) {
     .prof-card {
-        margin-left: 7em !important;
+        margin-left: 10em !important;
     }
     .profileCard {
-        max-width: 70px;
+        height: inherit;
+        margin-left: -10em !important;
+        margin-top: 120px;
     }
-
     .story-prev {
         width: 300px !important;
+    
     }
-
+    .writersCards  {
+        flex-direction: column; 
+        display: block;
+    }
+    .writer {
+        width: 100%; 
+    }
 }
 
 @media (max-width: 992px) {
     .story-prev {
         max-width: 400px;
-        justify-content: space-between;
     }
-
     .prof-card {
+        margin-left: 20em !important;
         width: 50px;
-        justify-content: space-between;
     }
-
     .container-details {
         display: flex;
     }
-
     .row-details {
         display: block;
-        justify-content: space-between;
     }
 }
 
+
+
 @media (max-width: 768px) {
     .story-prev {
-        max-width: 300px;
-        justify-content: space-between;
+        min-width: 500px;
+        max-height: 500px;
     }
-
     .prof-card {
-        justify-content: space-between;
+        margin-left: 20em !important;
+        width: 50px;
     }
-
     .container-details {
         display: flex;
     }
-
     .row-details {
         display: block;
-        justify-content: space-between;
+    }
+    .story-description {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 10;
+        overflow: hidden;
+        margin: 30px auto 0;
+        text-align: left;
     }
 }
 
@@ -186,23 +198,17 @@
     .story-prev {
         min-width: 200px;
         max-height: 400px;
-        margin-right: 2em;
     }
-
-    .container-details {
-        display: flex;
-        margin-left: 3em !important;
-        margin-right: 5em;
-    }
-
     .prof-card {
         margin-left: 10em !important;
+        width: 50px;
     }
-
-    .profileCard {
-        height: inherit;
+    .container-details {
+        display: flex;
     }
-
+    .row-details {
+        display: block;
+    }
     .story-description {
         display: -webkit-box;
         -webkit-box-orient: vertical;

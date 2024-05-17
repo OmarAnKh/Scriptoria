@@ -70,7 +70,7 @@ const StoryCard = () => {
                 <div className="prof-card position-relative  ">
                     {showProfileCard && (
                         <div className="profileCard">
-                            <ProfileCard onHideProfile={onHideProfile} storyId={stories._id} />
+                        <ProfileCard onHideProfile={onHideProfile} storyId={stories._id} backgroundColor={stories && stories.backgroundColor} />
                         </div>
                     )}
                 </div>

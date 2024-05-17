@@ -7,7 +7,7 @@ import useAccount from '../../hooks/useAccount';
 import { useTranslation } from 'react-i18next';
 import { Buffer } from 'buffer';
 
-const WriterCard = ({ handleArrowLeftClick, user }) => {
+const WriterCard = ({ handleArrowLeftClick, user , backgroundColor}) => {
 
     const { t } = useTranslation();
 
@@ -110,11 +110,11 @@ const WriterCard = ({ handleArrowLeftClick, user }) => {
                     </div>
                     <div className="mt-4 buttonfolowandview ">
                         {auth?.userName && <>
-                            <button className="btn btn-social btnfollowandviewprofile" onClick={handleFollowClick}>
+                            <button className="btn btn-social btnfollowandviewprofile" onClick={handleFollowClick} style={{ backgroundColor: backgroundColor }}>
                                 {isFollowingAccount ? `${t("StoryOverview.unfollow")}` : `${t("StoryOverview.follow")}`} <i className="bi bi-person-add"></i>
                             </button>
                         </>}
-                        <button className="btn btn-social btnfollowandviewprofile" onClick={() => handleViewProfile(user.userName)}>{t("StoryOverview.view_profile")}</button>
+                        <button className="btn btn-social btnfollowandviewprofile" onClick={() => handleViewProfile(user.userName)} style={{  backgroundColor: backgroundColor }}>{t("StoryOverview.view_profile")}</button>
                     </div>
                 </div>
             </div>
