@@ -1,5 +1,6 @@
 import express from "express";
 import writersController from "../controllers/writersController.js";
+import authentication from "../middleware/authentication.js";
 
 const router = express.Router();
 
@@ -9,11 +10,11 @@ router.get("/get/writers/:id", writersController.getWritersByStoryId);
 
 router.get("/find/stories/:id/:flag", writersController.getStoriesByWriterId);
 
-router.post("/Writer", writersController.createWriter);
+router.post("/Writer", authentication, writersController.createWriter);
 
-router.patch("/rule/update", writersController.updateWriter);
+router.patch("/rule/update", authentication, writersController.updateWriter);
 
-router.delete('/writer/delete', writersController.deleteWriter);
+router.delete('/writer/delete', authentication, writersController.deleteWriter);
 
 export default router;
 
