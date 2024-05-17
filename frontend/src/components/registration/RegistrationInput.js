@@ -15,9 +15,9 @@ const RegistrationInput = ({ className, iClassName, type, placeholder, error, op
                 <div className={className}>
                     <i className={iClassName} />
                     {type !== "textarea" ?
-                        <input className={inputClassName} style={{ width: "100%" }} type={inputType} placeholder={placeholder} onChange={(event) => onChange(event.target.value)} />
-                        : <textarea className={inputClassName} rows={5} placeholder={placeholder} onChange={(event) => onChange(event.target.value)}></textarea>}
-                    {type === "password" ? <i className="bi bi-eye registration-see-password" onClick={handleShowPassword}></i> : <></>}
+                        <input className={`${inputClassName} w-100`}  type={inputType} placeholder={placeholder} onChange={(event) => onChange(event.target.value)} />
+                    : <textarea className={inputClassName} rows={5} placeholder={placeholder} onChange={(event) => onChange(event.target.value)}></textarea>}
+                    {type === "password" ? <i className="bi bi-eye" onClick={handleShowPassword}></i> : <></>}
                 </div>
                 <p className='registration-input-error'>{error}</p>
             </>
