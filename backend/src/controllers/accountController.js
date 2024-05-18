@@ -96,7 +96,7 @@ const getAccount = async (req, res) => {
 
 const sendEmail = async (req, res) => {
     try {
-        sendMail(req.body.email, req.body.content)
+        sendMail(req.body.email, req.body.content, req.body.type)
         res.status(200).send({ status: true })
     } catch (error) {
         res.status(500).send({ status: false })
