@@ -1,11 +1,12 @@
 import { sendEmail } from "../api/API's";
 
 const useSendEmail = () => {
-    const sendMail = async (email, content) => {
+    const sendMail = async (email, content, type) => {
 
         const emailDetails = {
             email,
-            content
+            content,
+            type
         };
 
         try {
