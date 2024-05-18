@@ -35,7 +35,8 @@ const SignUpVerificationCode = () => {
         };
         generateCode();
         if (correctCode) {
-            sendMail(accountInfo.email, correctCode)
+            sendMail(accountInfo.email, correctCode, "emailVerification")
+
         }
     }, [correctCode]);
 
@@ -55,7 +56,7 @@ const SignUpVerificationCode = () => {
         }
     };
     const codeResendHandler = () => {
-        sendMail(accountInfo.email, correctCode)
+        sendMail(accountInfo.email, correctCode, "emailVerification")
     }
     return (
         <>

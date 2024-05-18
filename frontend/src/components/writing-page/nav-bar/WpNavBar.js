@@ -116,7 +116,7 @@ const WpNavBar = ({ socket, setMode, setState }) => {
       StoryId: id,
       rule: "viewer"
     };
-    sendMail(res.user.email, `${auth?.userInfo.email} just invited you to continue the story with him/her you can join the edit page from the following link ${window.location.href}`)
+    sendMail(res.user.email, window.location.href, "invitation")
     try {
       const writing = await saveDocument('Writer', writerDocument);
       if (writing.status === 400) {

@@ -43,7 +43,7 @@ const EmailVerifing = () => {
 
     useEffect(() => {
         if (validEmail) {
-            sendMail(email, generatedCode);
+            sendMail(email, generatedCode, "emailVerification");
         }
     },);
 
@@ -67,7 +67,7 @@ const EmailVerifing = () => {
         setInputError(t("EmailVerifing.InputError"))
     }
     const codeResendHandler = () => {
-        sendMail(email, generatedCode)
+        sendMail(email, generatedCode, "emailVerification");
     }
     return (
         <EmailVerification
