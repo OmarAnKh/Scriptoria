@@ -12,13 +12,16 @@ const StoryCards = ({ selectedTab }) => {
         setVisiblestory((prevCount) => prevCount + 6);
     };
     const [storyData, setStoryData] = useState([]);
+    const [placeholderShow, setPlaceholderShow] = useState(false)
 
 
     useEffect(() => {
+        setPlaceholderShow(false)
         const fetchStoriesByGenre = async () => {
             try {
                 const data = await getGenrestory(selectedTab);
                 setStoryData(data || []);
+                setPlaceholderShow(true)
             } catch (error) {
                 console.error('Error fetching stories:', error);
             }
@@ -28,17 +31,17 @@ const StoryCards = ({ selectedTab }) => {
 
     return (
         <div>
-            {storyData?.length ?
+            {storyData?.length && placeholderShow ?
                 <div className="d-flex flex-wrap">
                     {storyData?.map((story, index) => (
                         <div key={index} className={`col-md-4 mb-3 ${index >= visiblestory ? 'd-none' : ''} my-5`}>
-                            <StoryCard t={t} story={story}/>
+                            <StoryCard t={t} story={story} />
                         </div>
                     ))}
                 </div> :
                 <>
                     {
-                        storyData?.status === 404 ?
+                        storyData?.status || !placeholderShow === 404 ?
                             <p></p> :
                             <HomePagePlaceholder />
                     }
