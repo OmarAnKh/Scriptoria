@@ -115,7 +115,8 @@
         "avatar": "अवतार"
     },
     "StoryCard": {
-        "show_more": "और दिखाएं"
+        "show_more": "और दिखाएं",
+        "no_story": "इस शैली की कोई कहानी नहीं है"
     },
     "StoryDetails": {
         "Story-Details": "कहानी का विवरण",

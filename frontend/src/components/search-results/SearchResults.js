@@ -7,6 +7,7 @@ import Navbar from "../navbar/Navbar";
 import CardOfUsers from "../search-results/CardOfUsers";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
+import SearchResultsPlaceholder from "../placeholder/SearchResultsPlaceholder";
 
 const SearchResultsPage = () => {
     const { criteria } = useParams()
@@ -104,12 +105,12 @@ const SearchResultsPage = () => {
                                 ))}
                             </Carousel>
                             :
-                            <></>}
+                            <><SearchResultsPlaceholder type="user-card" /></>}
                     </div>
                 </div>
             </div>
             <div className="Search-container">
-                {books?.map((book, index) => {
+                {books.length !== 0 ? books?.map((book, index) => {
                     return (
                         <React.Fragment key={index}>
                             <BookCard
@@ -122,7 +123,7 @@ const SearchResultsPage = () => {
                             />
                         </React.Fragment >)
                 })
-                }
+                    : <SearchResultsPlaceholder type="story-card" />}
             </div>
         </>
     );
