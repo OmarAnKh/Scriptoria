@@ -1,29 +1,34 @@
-import { useState } from "react";
-import CountUp from "react-countup";
+import { useEffect, useState } from "react";
 
 const EmailVerificationButton = (props) => {
     const [disabled, setDisabled] = useState(false);
-    const changeDisabled = () => {
-        setTimeout(() => {
+    const [timer, setTimer] = useState(0);
+
+    useEffect(() => {
+        if (timer < 0) {
             setDisabled(false);
-        }, 40000)
-    }
+            return;
+        }
+        if (disabled) {
+            setTimeout(() => {
+                setTimer(timer - 1)
+            }, 1000)
+        }
+        return () => clearTimeout()
+    }, [timer])
+
     return (
         <button type="submit" className="btn btn-primary btn-block submit-button" disabled={disabled} onClick={(event) => {
             props.methodOnClick()
-            if (props.timer) {
+            if (props?.timer) {
                 setDisabled(true);
-                changeDisabled();
+                setTimer(60);
             }
             event.preventDefault();
         }}>
             {props.title}
 
-            {props.timer && disabled ? <>(<CountUp
-                start={0}
-                end={60}
-                duration={60}
-            />)</> : <></>}
+            {props.timer && disabled ? <> in:{timer}</> : <></>}
         </button>
     )
 }
