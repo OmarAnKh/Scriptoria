@@ -10,8 +10,7 @@
 .Nda {
     position: relative;
     top: 10%;
-    left: 8%;
-    max-width: 520px;
+    margin-left: 8%;
     min-width: auto;
 }
 

@@ -46,6 +46,7 @@ const NavBar = () => {
     const noHandel = () => { }
     const translationHandler = (lang) => {
         i18n.changeLanguage(lang)
+        localStorage.setItem('i18nextLng', lang)
         return
     }
     const logoutHandel = async () => {

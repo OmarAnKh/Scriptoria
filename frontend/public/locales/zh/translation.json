@@ -256,5 +256,13 @@
         "description": "您的描述",
         "panel_continue": "继续",
         "panel_back": "返回"
+    },
+    "MyWorks": {
+        "StoryBy": "故事作者",
+        "Stories": "故事",
+        "TopStories": "热门故事",
+        "Edit": "编辑",
+        "Preview": "预览",
+        "Delete": "删除"
     }
 }

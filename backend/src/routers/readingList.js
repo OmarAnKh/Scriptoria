@@ -12,7 +12,7 @@ router.get('/lists/:accountId/:listId', readingListController.getAccountReadingL
 
 router.patch('/readingLists/:id', authentication, readingListController.updateReadingList);
 
-router.delete('/readingLists/:id', readingListController.deleteReadingList);
+router.delete('/readingLists/:id', authentication, readingListController.deleteReadingList);
 
 export default router
 

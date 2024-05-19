@@ -1,4 +1,3 @@
-
 @font-face {
   font-family: 'Merriweather';
   src: url('./fonts/Merriweather-Regular.ttf') format('truetype');
@@ -20,6 +19,7 @@
 body {
   font-family: Merriweather;
   background-color: var(--background-Color);
+  transition: background-color 0.5s ease-in-out, color 0.5s ease-in-out, --accent-Color 0.5s ease-in-out, --primary-Color 0.5s ease-in-out, --text-Color 0.5s ease-in-out, --darker--primary-Color 0.5s ease-in-out, --logo 0.5s ease-in-out;
 }
 
 .Scriptoria {
@@ -32,7 +32,9 @@ body {
   --primary-Color: #AC967F;
   --darker--primary-Color: #564b40;
   --accent-Color: #E1D8D1;
-  --logo: url('./img/scriptoria-logo-black.png')
+  --logo: url('./img/scriptoria-logo-black.png');
+  --transition-duration: 0.5s;
+  --transition-timing-function: ease;
 }
 
 
@@ -51,7 +53,7 @@ body {
 }
 
 /* button styling */
-.button-X  {
+.button-X {
   --border-right: 6px;
   --text-stroke-color: rgba(255, 255, 255, 0.6);
   --animation-color: #999999;

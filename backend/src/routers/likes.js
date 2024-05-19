@@ -8,6 +8,6 @@ router.post('/likes', authentication, likeController.createLike);
 
 router.get('/likes', likeController.getLike);
 
-router.delete('/likes', likeController.deleteLike);
+router.delete('/likes', authentication, likeController.deleteLike);
 
 export default router;

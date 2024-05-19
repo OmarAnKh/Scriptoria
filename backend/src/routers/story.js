@@ -16,7 +16,7 @@ router.get('/stories', storyController.getStories);
 
 router.get('/stories/:id', storyController.getAllStoryInfo);
 
-router.patch('/stories/update', storyController.updateStory);
+router.patch('/stories/update', authentication, storyController.updateStory);
 
 router.get('/storiesGenre/:genre', storyController.getStoryByGenre);
 

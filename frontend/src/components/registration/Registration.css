@@ -107,7 +107,7 @@ form.right-registration-card {
     outline: none;
     border-radius: 49px;
     cursor: pointer;
-    background-color: var(--primary-Color);
+    background-color: var(--accent-Color);
     color: var(--text-Color);
     text-transform: uppercase;
     font-weight: 600;
@@ -256,11 +256,7 @@ form.right-registration-card {
     color: red;
 }
 
-.registration-see-password {
-    position: relative;
-    top: 3px;
-    left: 20%;
-}
+
 
 @media (max-width: 870px) {
     .container-registration {

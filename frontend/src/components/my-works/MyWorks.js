@@ -9,6 +9,8 @@ import TopCard from './my-works-card/TopCard.js';
 import useAtuh from '../../hooks/useAuth.js'
 import { getstory } from '../../api/storyAPI.js'
 import NavBar from '../navbar/Navbar.js'
+import MyWorkPlaceholder from '../placeholder/MyWorkPlaceholder.js';
+import { useTranslation } from 'react-i18next';
 
 const getStories = async (writers, owner) => {
     let temp = []
@@ -34,6 +36,7 @@ const MyWorks = () => {
     const { auth } = useAtuh()
     const [publishStatus, setPublishStatus] = useState(false)
     const owner = auth?.userInfo?._id === id
+    const { t } = useTranslation();
     useEffect(() => {
         const fetchStories = async () => {
             try {
@@ -66,17 +69,14 @@ const MyWorks = () => {
     const top5 = stories.slice(0, 5);
     return (
         <><NavBar />
-            <div className='custom-card-container mt-5'>
+            <div className='custom-card-contain mt-5'>
                 <div className="container">
-                    <h2 className='moveitmoveit'>Stories By {currentUser?.userName}</h2>
-                    <h4 className='moveitmoveit'>{stories?.length} Stories</h4>
-                    <div className="custom-card-container custom-card-container1">
-                        {stories?.map((story, index) => {
-
+                    <h2 className='moveitmoveit'>{t("MyWorks.StoryBy")} {currentUser?.userName}</h2>
+                    <h4 className='moveitmoveit'>{stories?.length} {t("MyWorks.Stories")}</h4>
+                    <div className="custom-card-contain custom-card-container1">
+                        {stories?.length !== 0 ? stories?.map((story, index) => {
                             return (
                                 <React.Fragment key={index}>
-
-
                                     <MyCard
                                         photo={story?.story?.coverPhoto?.data ? `data:image/png;base64,${Buffer.from(story?.story?.coverPhoto?.data).toString('base64')}` : undefined}
                                         storytitle={story?.story?.title}
@@ -86,12 +86,13 @@ const MyWorks = () => {
                                     />
                                 </React.Fragment>
                             )
-                        })}
+                        }) :
+                            <MyWorkPlaceholder type="mycard" />}
                     </div>
                 </div>
                 <div className='top5col mt-5 col-lg-4'>
-                    <h4>Top Stories</h4>
-                    {top5.map((top5, index) => {
+                    <h4>{t("MyWorks.TopStories")}</h4>
+                    {top5.length !== 0 ? top5.map((top5, index) => {
                         return (
                             <React.Fragment key={index}>
                                 <TopCard
@@ -101,7 +102,7 @@ const MyWorks = () => {
                                     key={index}
                                 />
                             </React.Fragment>)
-                    })}
+                    }) : <MyWorkPlaceholder type="topcard" />}
                 </div>
             </div>
         </>

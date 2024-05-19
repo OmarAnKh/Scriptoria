@@ -256,5 +256,13 @@
         "description": "Su descripción",
         "panel_continue": "Continuar",
         "panel_back": "Atrás"
+    },
+    "MyWorks": {
+        "StoryBy": "Historias Por",
+        "Stories": "Historias",
+        "TopStories": "Historias Destacadas",
+        "Edit": "Editar",
+        "Preview": "Vista Previa",
+        "Delete": "Eliminar"
     }
 }
