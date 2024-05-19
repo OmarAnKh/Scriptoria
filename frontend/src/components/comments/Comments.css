@@ -1,0 +1,47 @@
+.reply-btn, .comment-like-btn{
+    cursor : pointer
+}
+
+.profile-link{
+    text-decoration: none;
+    cursor : pointer;
+    color : black;
+}
+
+.custom-modal-content {
+    min-height: 300px; 
+}
+
+.comment-icon{
+    color : var(--text-Color)
+}
+
+@font-face {
+    font-family: 'merri-light';
+    src: url('../../fonts/Merriweather-Regular.ttf') format('truetype');
+    /* font-weight: bold; */
+    font-style: normal;
+    font-display: swap;
+}
+
+.comments{
+    font-family: merri-light !important;
+}
+
+.comment, .replied-to{
+    font-size: 14px;
+}
+
+.comment-text{
+    font-size: 15px;
+}
+
+.edit-delete-comment{
+    display : none;
+    font-size: 14px;
+}
+
+.comment:hover  .edit-delete-comment{
+    display : block;
+}
+

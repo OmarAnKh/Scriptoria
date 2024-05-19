@@ -1,8 +1,8 @@
 
 @font-face {
   font-family: 'Merriweather';
-  src: url('./fonts/Merriweather-Black.ttf') format('truetype');
-  font-weight: bold;
+  src: url('./fonts/Merriweather-Regular.ttf') format('truetype');
+  /* font-weight: bold; */
   font-style: normal;
   font-display: swap;
 }

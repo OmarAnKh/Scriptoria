@@ -1,4 +1,4 @@
-import Lists from "../../popups/reading-lists/Lists";
+import Lists from "../../reading-lists/Lists";
 
 const Plus = ({id, t}) => {
 

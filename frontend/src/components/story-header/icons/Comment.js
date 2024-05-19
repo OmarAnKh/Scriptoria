@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { getCommentsCount } from "../../../api/commentsApi";
-import Comments from "../../popups/comments/Comments";
+import Comments from "../../comments/Comments";
 
 const Comment = ({id, t}) => {
 

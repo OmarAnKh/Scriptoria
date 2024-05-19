@@ -12,6 +12,7 @@ import listsRouter from "./routers/readingList.js"
 import likesRouter from "./routers/likes.js"
 import writersRouter from "./routers/writers.js"
 import roomRouter from "./routers/room.js"
+import repliesRouter from "./routers/replies.js"
 import cors from "cors"
 import cookieParser from "cookie-parser"
 
@@ -47,6 +48,7 @@ app.use(listsRouter)
 app.use(likesRouter)
 app.use(writersRouter)
 app.use(roomRouter)
+app.use(repliesRouter)
 
 server.listen(port, () => {
     console.log('run on port ' + port)
