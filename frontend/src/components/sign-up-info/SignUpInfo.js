@@ -11,6 +11,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import useConvertPath from '../../hooks/useConvertPath';
 import UploadImg from '../settings/UploadImg';
 import { useTranslation } from 'react-i18next';
+import './SignUpInfo.css'
 
 const JoyButton = (props) => {
     return (
@@ -158,9 +159,9 @@ const SignUpInfo = () => {
                 <RegistrationInput className="input-field d-flex justify-content-center" inputClassName="text-center" type="date" placeholder="dd-mm-yyyy" error={dateOfBirthError} onChange={setDateOfBirth} />
             </form>
             <form className="right-registration-card" onSubmit={(event) => { event.preventDefault() }}>
-                <h2 className="title">{t("Registration.sign_up_infromation_title")}</h2>
-                <RegistrationInput className="col-md-8" inputClassName="form-control" type="textarea" placeholder={t("Registration.description")} onChange={setDescription} />
-                <div className='row d-flex justify-content-center'>
+                <h2 className="title sign-up-info-title">{t("Registration.sign_up_infromation_title")}</h2>
+                <RegistrationInput className="col-md-8 user-description" inputClassName="form-control" type="textarea" placeholder={t("Registration.description")} onChange={setDescription} />
+                <div className='row d-flex justify-content-center signup-joy-buttons '>
                     <div className='d-flex justify-content-between mx-4'>
                         <JoyButton icon={openBook} type={t("Registration.reader")} actives={joyType} method={(event, type) => {
                             handleJoyButton(event, type)
@@ -175,7 +176,7 @@ const SignUpInfo = () => {
                 </div>
                 <div className="row d-flex text-center" style={{ marginTop: '1em' }}>
                     <p className="">{t("Registration.image_type")}</p>
-                    <div className="d-flex justify-content-center">
+                    <div className="avatar-profile d-flex justify-content-center">
                         <div className='mx-4'>
                             <UploadImg imgURL={image} setImgURL={setImage} width={80} setAddProfile={setAddProfile} />
                             <p>{t("Registration.profile_picture")}</p>
