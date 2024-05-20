@@ -1,4 +1,4 @@
-@media (max-width: 576px) { 
+@media (max-width: 1500px) {
     .user-description,
     .signup-joy-buttons {
         height: 120px;
@@ -7,6 +7,42 @@
         font-size: 30px;
     }
     .avatar-profile {
+        height: 120px;
+    }
+}
+
+@media (max-width: 992px) {
+    .user-description,
+    .signup-joy-buttons {
+        height: 120px;
+        margin-bottom: 0.3em;
+    }
+    .sign-up-info-title {
+        font-size: 30px;
+    }
+    .avatar-profile {
         height: 150px;
+    }
+}
+
+@media (max-width: 768px) {
+    .user-description,
+    .signup-joy-buttons {
+        height: 120px;
+    }
+    .sign-up-info-title {
+        font-size: 30px;
+    }
+    .avatar-profile {
+        height: 120px;
+    }
+}
+
+@media (max-width: 576px) { 
+    .sign-up-info-title {
+        font-size: 25px;
+    }
+    .avatar-profile {
+        height: 100px;
     }
 }
