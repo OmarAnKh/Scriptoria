@@ -3,6 +3,7 @@ import mongoose, { Schema } from "mongoose";
 const roomSchema = new mongoose.Schema({
     name: {
         type: String,
+        required : true
     },
     users: [{
         user: {
@@ -14,8 +15,9 @@ const roomSchema = new mongoose.Schema({
             default: false
         }
     }],
+},{
+    timestamps : true
 });
-
 
 const Room = mongoose.model('Chat', roomSchema);
 

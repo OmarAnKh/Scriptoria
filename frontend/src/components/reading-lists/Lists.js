@@ -3,10 +3,10 @@ import {
   getReadingLists,
   createReadingList,
   updateReadingLists,
-} from "../../../api/readingListsApi";
+} from "../../api/readingListsApi";
 import { toast } from 'react-hot-toast'
 import { useTranslation } from 'react-i18next';
-import useAuth from "../../../hooks/useAuth";
+import useAuth from "../../hooks/useAuth";
 import "./Lists.css";
 
 const Lists = ({ storyId }) => {

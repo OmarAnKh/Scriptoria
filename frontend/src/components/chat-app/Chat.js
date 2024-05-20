@@ -28,7 +28,7 @@ const Chat = ({socket, chats, setChats}) => {
                     !currentChat &&
                     <div className={`left-side chats bg-white`} style={{ height: '100vh', overflowY : 'scroll'}}>
                     <div className='row'>
-                    <Link to={'/'} className="ScriptoriaName" data-tooltip-id="my-tooltip" data-tooltip-content='go back to hame page' data-tooltip-place='bottom'>Scriptoria</Link>
+                    <Link to={'/'} className="ScriptoriaName text-black" data-tooltip-id="my-tooltip" data-tooltip-content='go back to hame page' data-tooltip-place='bottom'>Scriptoria</Link>
                     <Tooltip id="my-tooltip" />
                     </div>
                         <div>

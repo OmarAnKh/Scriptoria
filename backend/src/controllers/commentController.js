@@ -1,4 +1,5 @@
 import Comment from '../models/comment.js'
+import Reply from '../models/replies.js'
 
 const createComment = async (req, res) => {
     const comment = new Comment({
@@ -28,7 +29,9 @@ const getCommentById = async (req, res) => {
 const getCommentCountByStoryId = async (req, res) => {
     const storyId = req.params.id
     try {
-        const count = await Comment.countDocuments({ storyId });
+        const commentsCount = await Comment.countDocuments({ storyId });
+        const repliesCount =  + await Reply.countDocuments({ storyId });
+        const count = commentsCount + repliesCount;
         res.status(200).send({ counts: count })
     } catch (error) {
         res.status(500).send(error)
@@ -54,10 +57,14 @@ const updateCommentById = async (req, res) => {
 
 const deleteCommentById = async (req, res) => {
     try {
-        const comment = await Comment.findOneAndDelete({ _id: req.params.id, accountId: req.user.id });
+        
+        const comment = await Comment.findOne({ _id: req.params.id, accountId: req.user.id });
         if (!comment) {
             return res.status(404).send();
         }
+        await Reply.deleteMany({ originId: comment });
+        await comment.deleteOne() 
+        
         res.send(comment);
     } catch (error) {
         res.status(500).send(error);

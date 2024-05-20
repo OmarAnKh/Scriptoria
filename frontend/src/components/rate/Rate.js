@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import Rating from '@mui/material/Rating';
 import StarIcon from '@mui/icons-material/Star';
-import { sendRate, updateRate, getRate } from '../../../api/rateApi'
+import { sendRate, updateRate, getRate } from '../../api/rateApi'
 import { toast } from 'react-hot-toast';
-import useAuth from '../../../hooks/useAuth';
+import useAuth from '../../hooks/useAuth';
 import { useTranslation } from 'react-i18next';
 
 const Rate = ({ id, setTriggerRate }) => {

@@ -3,13 +3,16 @@ import mongoose, { Schema } from "mongoose";
 const ratingSchema = new mongoose.Schema({
     AccountId: {
         type: Schema.Types.ObjectId,
-        ref: 'Account'
+        ref: 'Account',
+        required : true
     },
     StoryId: {
         type: Schema.Types.ObjectId,
-        ref: 'Story'
+        ref: 'Story',
+        required : true
     },
-    rating: { type: Number },
+    rating: { type: Number,
+        required : true },
 });
 
 ratingSchema.index({ AccountId: 1, StoryId: 1 }, { unique: true })

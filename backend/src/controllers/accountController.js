@@ -11,6 +11,7 @@ import ReadingList from "../models/readingList.js";
 import Story from "../models/story.js";
 import Writers from "../models/writers.js";
 import Room from "../models/room.js";
+import Reply from "../models/replies.js"
 
 const createAccount = async (req, res) => {
     if (req?.body?.profilePicture) {
@@ -224,13 +225,24 @@ const deleteAccount = async (req, res) => {
 
 
         await Like.deleteMany({ AccountId: id });
-        await Comment.deleteMany({ accountId: id });
         await Rating.deleteMany({ AccountId: id });
         await ReadingList.deleteMany({ accountId: id });
         await Follow.deleteMany({ account: id });
         await Follow.deleteMany({ follow: id });
+        await Reply.deleteMany({
+            $or : [
+                { 'replier': id },
+                { 'repliedTo': id },
+            ]
+        })
 
-
+        
+        const comments = await Comment.find({accountId: id})
+        for(const comment of comments){
+            await Reply.deleteMany({originId : comment})
+            await comment.deleteOne()
+        }
+        
         const writers = await Writers.find({ AccountId: id });
         for (const writer of writers) {
             const count = await Writers.countDocuments({ StoryId: writer.StoryId })
@@ -257,6 +269,8 @@ const deleteAccount = async (req, res) => {
                 await room.save();
             }
         }
+
+        
 
         const account = await Account.findOneAndDelete(id)
 

@@ -170,13 +170,14 @@
     },
     "Comments": {
         "Comments": "التعليقات",
-        "Reply": "الرد",
+        "reply": "الرد",
         "edit": "تعديل",
         "delete": "حذف",
         "save": "حفظ",
         "cancel": "الغاء",
         "no-comments": "كن أول المعلقين على هذه القصة",
-        "write-something": "اكتب شيء ..."
+        "write-something": "اكتب شيء ...",
+        "reply-to" : "الرد على" 
     },
     "SaveTo": {
         "save-to": "حفظ القصة في",

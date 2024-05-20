@@ -1,5 +1,5 @@
 import StarRating from "../../star-rating/StarRating";
-import Rate from "../../popups/rate/Rate";
+import Rate from "../../rate/Rate";
 import { useEffect, useState } from "react";
 import { getStoryRates } from "../../../api/rateApi";
 

@@ -1,23 +1,28 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { deleteComment, editComment } from "../../../api/commentsApi";
+import { deleteComment, editComment } from "../../api/commentsApi";
 import toast from "react-hot-toast";
-import logo from "../../../img/content.png";
+import logo from "../../img/content.png";
 import { useTranslation } from "react-i18next";
 import "./Comments.css";
-import useAuth from "../../../hooks/useAuth";
+import useAuth from "../../hooks/useAuth";
+import Reply from "./Reply";
 
 
-const Comment = ({
+const Comment = ({ storyId,
   userId,
   commentId,
+  replies,
   text,
   account,
-  time,
+  comment,
   updateComments,
   likes,
   triggerCount,
-  setTriggerCount
+  setTriggerCount,
+  replyInfo,
+  setReplyInfo,
+  replyFlag, setReplyFlag
 }) => {
   const { auth } = useAuth();
   const { t } = useTranslation();
@@ -28,6 +33,8 @@ const Comment = ({
   const [edit, setEdit] = useState(false);
   const [editedText, setEditedText] = useState(text);
   const editDelete = userId === account._id ? true : false;
+
+
 
   useEffect(() => {
     setImageURL(`data:image/png;base64,${account.profilePicture}`);
@@ -76,7 +83,7 @@ const Comment = ({
         const comment = {
           text: editedText,
           _id: commentId,
-          likes: like ? likes : likes.filter((person) => person !== account._id),
+          likes: likes,
           accountId: account._id
         }
         await toast.promise(
@@ -94,6 +101,21 @@ const Comment = ({
     }
   };
 
+  const getDateStringDifference = (date1, date2) => {
+    var difference_ms = Math.abs(date1 - date2);
+    var difference_minutes = Math.floor(difference_ms / (1000 * 60));
+    var difference_hours = Math.floor(difference_ms / (1000 * 60 * 60));
+    var difference_days = Math.floor(difference_ms / (1000 * 60 * 60 * 24));
+    if (difference_days > 0) {
+      return difference_days + "d";
+    } else if (difference_hours > 0) {
+      return difference_hours + "h";
+    } else if (difference_minutes > 0) {
+      return difference_minutes + "m";
+    } else {
+      return "now";
+    }
+  }
 
   const handleCloseModal = () => {
     const modal = document.getElementById("staticBackdrop");
@@ -104,8 +126,9 @@ const Comment = ({
     }
   };
 
+
   return (
-    <div className="comment m-2 h6 d-flex flex-row bg-light p-2 w-100 rounded-2">
+    <div className="comment my-1 text-break rounded-5 d-flex flex-row bg-light p-2 w-100 rounded-2">
       <div className="bd-highlight">
         <img
           className="rounded-circle"
@@ -118,38 +141,38 @@ const Comment = ({
         <div className="col">
           <Link
             to={`/profile/${account.userName}`}
-            className="fw-bold profile-link"
+            className="profile-link fw-bold"
             onClick={handleCloseModal}
           >
             {account.displayName}
           </Link>
         </div>
         {editDelete ? (
-          <div className="col text-end edit-delete-comment">
-            <div className="dropdown">
-              <button
-                className="btn rounded-pill py-0 m-0 bi bi-three-dots"
+          <div className="col text-end edit-delete-comment my-0 py-0">
+            <div className="dropdown my-0 py-0">
+              <Link
+                className="rounded-pill py-0 my-0 bi bi-three-dots text-secondary"
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
-              ></button>
+              ></Link>
               <ul className="dropdown-menu p-0">
                 <li>
-                  <a
+                  <Link
                     className="dropdown-item"
                     onClick={() => {
                       setEdit(true);
                     }}
                   >
                     {t("Comments.edit")}
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a
+                  <Link
                     className="dropdown-item text-danger"
                     onClick={() => handleComment(0)}
                   >
                     {t("Comments.delete")}
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -161,7 +184,7 @@ const Comment = ({
           <>
             <div className="row py-2">
               <textarea
-                className="form-control fs-xs"
+                className="form-control"
                 id="edit-comment"
                 placeholder="write something..."
                 value={editedText}
@@ -195,29 +218,62 @@ const Comment = ({
           </>
         ) : (
           <>
-            <div className="fw-normal comment-text text-secondary">{text}</div>
+            <div className="comment-text text-dark lh-1">{text}</div>
             <div className="row w-100 text-center justify-content-between">
-              <div className="col-8 col-sm-4 row">
-                <div className="col-4 time-passed text-muted">
-                  <small>{time}</small>
+              <div className="col-8 col-sm-4  d-flex flex-row gap-3">
+                <div className="time-passed text-muted">
+                  <small>{getDateStringDifference(new Date(), new Date(comment.createdAt))}</small>
                 </div>
+                {
+                  auth?.userName ? <div className="reply-btn text-muted">
+                  <Link className="text-decoration-none text-secondary"
+                  onClick={()=>{
+                    setReplyInfo({
+                      originId : commentId,
+                      to : account?.displayName
+                    })
+                    setReplyFlag(true)
+                  }}
+                  >{t("Comments.reply")}</Link>
+                </div> : <></>
+                }
               </div>
-              <div className="col-3 px-2 comment-like-btn text-end">
+              <div className="col-3 px-0 mx-0 comment-like-btn text-end">
                 {
                   auth?.userName ? 
                   <>
                   {commentLikes.length}
-                  <a
-                  className={` mx-1 comment-like-btn text-decoration-none bi ${like ? "bi-heart-fill text-danger" : "bi-heart text-secondary"}
+                  <Link
+                  className={`mx-1 comment-like-btn text-end text-decoration-none bi ${like ? "bi-heart-fill text-danger" : "bi-heart text-secondary"}
                     `}
                   onClick={likeHandler}
-                ></a>
+                ></Link>
                   </> : <>{commentLikes.length} likes</> 
                 }
               </div>
             </div>
           </>
         )}
+        {
+          replies?.map((reply, index)=>{
+            return (
+              <Reply
+              reply={reply}
+              key={index}
+              originId={commentId}
+              time={getDateStringDifference(new Date(), new Date(reply.createdAt))}
+              likes={likes}
+              triggerCount={triggerCount}
+              setTriggerCount={setTriggerCount}
+              replyInfo={replyInfo}
+              setReplyInfo={setReplyInfo}
+              replyFlag={replyFlag}
+              setReplyFlag = {setReplyFlag}
+              updateComments={updateComments}
+            />
+            )
+          })
+        }
       </div>
     </div>
   );

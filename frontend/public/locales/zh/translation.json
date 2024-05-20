@@ -169,13 +169,14 @@
     },
     "Comments": {
         "Comments": "评论",
-        "Reply": "回复",
+        "reply": "回复",
         "edit": "编辑",
         "delete": "删除",
         "save": "保存",
         "cancel": "取消",
         "no-comments": "成为第一个评论这个故事的人",
-        "write-something": "写点什么..."
+        "write-something": "写点什么...",
+        "reply-to": "回复至"
     },
     "SaveTo": {
         "save-to": "保存故事到...",

@@ -170,13 +170,14 @@
     },
     "Comments": {
         "Comments": "Comments",
-        "Reply": "reply",
+        "reply": "reply",
         "edit": "edit",
         "delete": "delete",
         "save": "save",
         "cancel": "cancel",
         "no-comments": "be the first to comment on this story",
-        "write-something": "write something..."
+        "write-something": "write something...",
+        "reply-to" : "reply to"
     },
     "SaveTo": {
         "save-to": "save story to...",

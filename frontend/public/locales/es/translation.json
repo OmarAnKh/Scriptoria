@@ -169,13 +169,14 @@
     },
     "Comments": {
         "Comments": "Comentarios",
-        "Reply": "responder",
+        "reply": "responder",
         "edit": "editar",
         "delete": "eliminar",
         "save": "guardar",
         "cancel": "cancelar",
         "no-comments": "sé el primero en comentar esta historia",
-        "write-something": "escribe algo..."
+        "write-something": "escribe algo...",
+        "reply-to": "responder a"
     },
     "SaveTo": {
         "save-to": "guardar historia en...",
