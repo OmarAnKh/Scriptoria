@@ -44,14 +44,6 @@ const Comments = ({ id, triggerCount, setTriggerCount }) => {
   },[commentFlag])
 
   const updateComments = async () => {
-    // const commentsRes = await getComments(id);
-    // if (commentsRes !== undefined) {
-    //   setComments(commentsRes?.data);
-    // }
-    // const repliesRes = await getReplies(id);
-    // if(repliesRes?.status===200){
-    //   setReplies(repliesRes?.data)
-    // }
     setCommentFlag(!commentFlag)
   };
 

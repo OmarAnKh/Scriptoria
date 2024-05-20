@@ -168,13 +168,14 @@
     },
     "Comments": {
         "Comments": "टिप्पणियाँ",
-        "Reply": "उत्तर",
+        "reply": "उत्तर",
         "edit": "संपादित करें",
         "delete": "हटाएं",
         "save": "सहेजें",
         "cancel": "रद्द करें",
         "no-comments": "इस कहानी पर टिप्पणी करने का पहला हो",
-        "write-something": "कुछ लिखें..."
+        "write-something": "कुछ लिखें...",
+        "reply-to": "उत्तर दें"
     },
     "SaveTo": {
         "save-to": "कहानी को सहेजें...",

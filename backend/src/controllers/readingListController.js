@@ -20,7 +20,7 @@ const getReadingList = async (req, res) => {
     const all = req.query.all === "true"
     try {
         const lists = all ? await ReadingList.find({ accountId }) : await ReadingList.find({ accountId, privacy: true })
-        if (!lists) return res.send();
+        if (!lists) return res.status(404).send();
         res.send(lists);
     } catch (error) {
         console.log(error);

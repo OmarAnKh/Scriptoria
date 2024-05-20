@@ -199,7 +199,8 @@ const Reply = ({reply,updateComments,originId,time,likes,triggerCount,setTrigger
                 <div className="time-passed text-muted">
                   <small>{time}</small>
                 </div>
-                <div className="reply-btn text-muted">
+                {
+                  auth?.userName ? <div className="reply-btn text-muted">
                   <Link className="text-decoration-none text-secondary"
                   onClick={()=>{
                     setReplyInfo({
@@ -210,8 +211,9 @@ const Reply = ({reply,updateComments,originId,time,likes,triggerCount,setTrigger
                     })
                     setReplyFlag(true)
                   }}
-                  >reply</Link>
-                </div>
+                  >{t("Comments.reply")}</Link>
+                </div> : <></>
+                }
               </div>
               <div className="col-3 px-0 mx-0 comment-like-btn text-end">
                 {

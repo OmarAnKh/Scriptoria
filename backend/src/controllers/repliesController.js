@@ -18,7 +18,6 @@ const createReply = async (req, res)=>{
 
 const getRepliesByStoryId = async (req, res)=>{
     const storyId = req.params.storyId
-    // const originId = req.params.originId
     try{
         const replies = await Reply.find({storyId}).populate('replier').populate('repliedTo')
         if(!replies || replies.length === 0) return res.status(404).send([])
