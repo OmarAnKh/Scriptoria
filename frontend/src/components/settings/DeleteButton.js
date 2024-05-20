@@ -32,11 +32,9 @@ const ConfirmDeletePopup = (props) => {
             } else if (response.message) {
                 setPasswordValid("green");
                 setPasswordValidMsg("");
-
                 setModalDismiss("modal")
-                setAuth({});
-                await logoutAll()
                 await deleteAccount('account/delete', { userName: auth.userName })
+                setAuth({});
                 navigate('/logout');
             }
 
