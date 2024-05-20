@@ -115,7 +115,8 @@
         "avatar": "头像"
     },
     "StoryCard": {
-        "show_more": "显示更多"
+        "show_more": "显示更多",
+        "no_story": "没有这种类型的故事"
     },
     "StoryDetails": {
         "Story-Details": "故事详情",

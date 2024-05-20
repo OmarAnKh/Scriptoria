@@ -115,7 +115,8 @@
         "avatar": "Avatar"
     },
     "StoryCard": {
-        "show_more": "Afficher plus"
+        "show_more": "Afficher plus",
+        "no_story": "il n'y a pas d'histoires de ce genre"
     },
     "StoryDetails": {
         "Story-Details": "Détails de l'histoire",

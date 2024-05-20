@@ -23,10 +23,10 @@ const EmailVerification = (props) => {
                                     inputColor={props.inputColor}
                                     inputError={props.inputError}
                                 />
-                                <EmailVerificationButton title={props.buttonTitle} methodOnClick={props.methodOnClick} />
+                                <EmailVerificationButton title={props.buttonTitle} methodOnClick={props.methodOnClick} timer={false} />
                                 <p style={{ fontWeight: "bold", color: "red", fontSize: "25px" }}> {props.invalid} </p>
                             </form>
-                            {props.buttonTitle2 ? <EmailVerificationButton title={props.buttonTitle2} methodOnClick={props.methodOnClick2} /> : <></>}
+                            {props.buttonTitle2 ? <EmailVerificationButton title={props.buttonTitle2} methodOnClick={props.methodOnClick2} timer={true} /> : <></>}
                         </div>
                     </div>
                 </div>

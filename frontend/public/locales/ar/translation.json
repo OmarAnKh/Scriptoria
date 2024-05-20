@@ -115,7 +115,8 @@
         "avatar": "شخصية"
     },
     "StoryCard": {
-        "show_more": "عرض المزيد"
+        "show_more": "عرض المزيد",
+        "no_story": "لا توجد قصص من هذا الصنف"
     },
     "StoryDetails": {
         "Story-Details": "تفاصيل القصة",

@@ -12,39 +12,57 @@ const StoryCards = ({ selectedTab }) => {
         setVisiblestory((prevCount) => prevCount + 6);
     };
     const [storyData, setStoryData] = useState([]);
+    const [placeholderShow, setPlaceholderShow] = useState(true);
+    const [currentStory, setCurrentStory] = useState([]);
 
 
     useEffect(() => {
+        setPlaceholderShow(true)
         const fetchStoriesByGenre = async () => {
             try {
                 const data = await getGenrestory(selectedTab);
                 setStoryData(data || []);
+                setCurrentStory(data)
+                setPlaceholderShow(false)
             } catch (error) {
                 console.error('Error fetching stories:', error);
             }
         };
         fetchStoriesByGenre();
-    }, [selectedTab]);
+    }, []);
+
+    useEffect(() => {
+        setPlaceholderShow(true)
+        if (selectedTab.toLowerCase() === "all") {
+            setCurrentStory(storyData)
+            setPlaceholderShow(false)
+            return;
+        }
+        const filteringStory = storyData?.filter((story) => story.genres.includes(selectedTab));
+        setPlaceholderShow(false)
+        setCurrentStory(filteringStory);
+    }, [selectedTab])
+
 
     return (
         <div>
-            {storyData?.length ?
+            {!placeholderShow && currentStory?.length ?
                 <div className="d-flex flex-wrap">
-                    {storyData?.map((story, index) => (
+                    {currentStory?.map((story, index) => (
                         <div key={index} className={`col-md-4 mb-3 ${index >= visiblestory ? 'd-none' : ''} my-5`}>
-                            <StoryCard t={t} story={story}/>
+                            <StoryCard t={t} story={story} />
                         </div>
                     ))}
                 </div> :
                 <>
                     {
-                        storyData?.status === 404 ?
-                            <p></p> :
+                        !placeholderShow ?
+                            <p className='text-center' style={{ fontSize: "30px", fontWeight: "bold" }}>{t("StoryCard.no_story")}</p> :
                             <HomePagePlaceholder />
                     }
                 </>}
             {
-                visiblestory < storyData.length && (
+                visiblestory < currentStory.length && (
                     <div className="text-center">
                         <button type="button" className="btn loadMoreCards-btn" onClick={loadMoreCards} style={{ marginBottom: "3%", marginTop: "3%" }}> {t("StoryCard.show_more")} </button>
                     </div>

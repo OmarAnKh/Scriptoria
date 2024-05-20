@@ -1,12 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './DiscoverTable.css';
 import { useTranslation } from 'react-i18next';
 
 const DiscoverTable = ({ select, onSelect }) => {
   const { t } = useTranslation();
 
+  const [disabled, setDisabled] = useState(false)
+
   const handleTabClick = (tabName) => {
+    setDisabled(true)
     onSelect(tabName);
+    setTimeout(() => {
+      setDisabled(false)
+    }, 500)
   };
 
   return (
@@ -23,6 +29,7 @@ const DiscoverTable = ({ select, onSelect }) => {
             aria-controls="nav-home"
             aria-selected={select === 'all'}
             onClick={() => handleTabClick('All')}
+            disabled={disabled}
           >
             {t("DiscoverTable.all_genres")}
           </button>
@@ -39,6 +46,7 @@ const DiscoverTable = ({ select, onSelect }) => {
               aria-controls="nav-home"
               aria-selected={select === 'action'}
               onClick={() => handleTabClick('Action')}
+              disabled={disabled}
             >
               {t("DiscoverTable.action")}
             </button>
@@ -54,6 +62,7 @@ const DiscoverTable = ({ select, onSelect }) => {
               aria-controls="nav-profile"
               aria-selected={select === 'Horror'}
               onClick={() => handleTabClick('Horror')}
+              disabled={disabled}
             >
               {t("DiscoverTable.horror")}
             </button>
@@ -69,6 +78,7 @@ const DiscoverTable = ({ select, onSelect }) => {
               aria-controls="nav-contact"
               aria-selected={select === 'romance'}
               onClick={() => handleTabClick('Romance')}
+              disabled={disabled}
             >
               {t("DiscoverTable.romance")}
             </button>
