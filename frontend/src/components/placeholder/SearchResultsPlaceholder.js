@@ -8,9 +8,9 @@ const SearchResultsPlaceholder = ({ type }) => {
             <div className='row'>
                 {Array(3).fill().map((_, idx) => {
                     return (
-                        <div className='col'>
-                            <div className="card searchProfile" key={idx} >
-                                <div >
+                        <div className='col' key={idx}>
+                            <div className="card searchProfile" >
+                                <div>
                                     <Skeleton
                                         animation="wave"
                                         className='card-img m-0'
@@ -48,11 +48,13 @@ const SearchResultsPlaceholder = ({ type }) => {
                         return (
                             <div className="bookFrame" key={idx}>
                                 <div className="BookCard">
-                                    <div div className='info-container' >
-                                        <p className="h1"><Skeleton
-                                            animation="wave"
-                                            style={{ width: '100%', height: '100%', backgroundColor: "var(--praimary-Color)" }}
-                                        /></p>
+                                    <div className='info-container' >
+                                        <p className="h1">
+                                            <Skeleton
+                                                animation="wave"
+                                                style={{ width: '100%', height: '100%', backgroundColor: "var(--praimary-Color)" }}
+                                            />
+                                        </p>
                                         <br />
                                         <div className="nexteach">
                                             <p>

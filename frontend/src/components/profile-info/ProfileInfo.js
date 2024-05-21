@@ -32,7 +32,14 @@ const ProfileInfo = (props) => {
     const [isExpanded, setIsExpanded] = useState(false);
     const textRef = useRef(null);
     const [showReadMore, setShowReadMore] = useState(false);
-
+    const date = new Date(data.createdAt)
+    
+    const options = { 
+        year: 'numeric', 
+        month: 'long', 
+        day: 'numeric', 
+    };
+    const  readableDate = date.toLocaleString('en-US', options);
     const { username: userName } = useParams()
 
     const { setFollow, unFollow, getFollowerCount, getfollowingCount, isFollowing } = useFollow();
@@ -299,11 +306,16 @@ const ProfileInfo = (props) => {
                 <div className='col d-flex p-3 profileframe'>
                     <div>
                         <div className="col-12 mb-3">
+
                             <div className="ImageFrame">
-                                <img className="profileImage img-thumbnail" src={imgURL} />
+                                <div className='polariod'>
+                                    <img className="profileImage img-thumbnail" src={imgURL} />  
+                                    <p className='PolName'>#{data.userName}</p>
+                                    <p className='PolDate'>{readableDate}</p>
+                                </div>
                             </div>
                         </div>
-                        <div className="">
+                        <div>
                             <div className="buttons1">
                                 <InfoButton text={t("ProfileInfo.followers")} value={followerCount?.followerCount} />
                                 <InfoButton text={t("ProfileInfo.works")} value={getAccountWorks} />

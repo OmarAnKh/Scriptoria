@@ -68,7 +68,6 @@
     display: flex;
     flex-direction: row;
     position: relative;
-    left: 1em;
     max-width: 300px;
     gap: 15px;
 }
@@ -189,6 +188,89 @@
     justify-content: end;
 }
 
+.polariod {
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    
+}
+.PolName{
+    font-family: dreams;
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+    font-size: x-large;
+    font-style: italic;
+}
+.PolDate{
+    font-family: dreams;
+    display: flex;
+    justify-content: center;
+    font-size: large;
+    font-style: italic;
+    margin-left: 8rem;
+}
+
+/* .spairl {
+    position: fixed;
+    left: 94%;
+}
+
+.meowtest {
+    box-sizing: border-box;
+    width: 50px;
+    height: 50px;
+    background: #ffffff00; 
+    border-top: 7.5px solid #A8A9AD;
+    border-right: 10px solid #B5B7BB;
+    border-bottom: 10px solid #CCCCCC;
+    border-left: 0 solid rgba(0, 0, 255, 0); 
+    border-radius: 50%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    
+}
+
+
+.meowtest::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 50px;
+    height: 100%;
+    background-color: inherit;
+}
+
+.meowtest:nth-child(1) {
+    transform: translate(0px, 0px);
+}
+
+
+
+.meowtest:nth-child(3) {
+    transform: translate(0px, 80px);
+}
+
+
+.meowtest:nth-child(5) {
+    transform: translate(0px, 160px);
+}
+
+
+
+.meowtest:nth-child(7) {
+    transform: translate(0px, 240px);
+}
+
+
+
+.meowtest:nth-child(9) {
+    transform: translate(0px, 320px);
+} */
+
 @font-face {
     font-family: 'Merriweather';
     src: url('../../fonts/Merriweather-Black.ttf') format('truetype');
@@ -196,7 +278,14 @@
     font-style: normal;
     font-display: swap;
 }
-
+@font-face {
+    font-family: 'dreams';
+    src: url('../../fonts/teenage.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+  }
+  
 
 
 @media only screen and (max-width: 560px) {
