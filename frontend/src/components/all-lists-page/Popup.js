@@ -34,7 +34,6 @@ const Popup = ({ page, list, updateFlag, setUpdateFlag }) => {
         const res = await deleteReadingList(list._id, auth?.token)
         console.log(res)
         if(res.statusText==='OK') toast.success("you have deleted this list successfully")
-        // window.location.reload()
       } else if (type === 'edit') {
         const stories = page === "list" ? list.stories.map((story) => story._id) : list.stories
         const editedList = {
