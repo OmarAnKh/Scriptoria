@@ -13,6 +13,7 @@ const SearchResultsPage = () => {
     const { criteria } = useParams()
     const [books, setBooks] = useState([])
     const [users, setUsers] = useState([])
+    const [responsive, setResponsive] = useState({})
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -22,6 +23,32 @@ const SearchResultsPage = () => {
                 if (res.status === true) {
                     setBooks(res.stories)
                     setUsers(res.users)
+                    setResponsive({
+                        desktop: {
+                            breakpoint: {
+                                max: 3000,
+                                min: 1024
+                            },
+                            items: res.users.length >= 3 ? 3 : 2,
+                            partialVisibilityGutter: 40
+                        },
+                        mobile: {
+                            breakpoint: {
+                                max: 464,
+                                min: 0
+                            },
+                            items: 1,
+                            partialVisibilityGutter: 30
+                        },
+                        tablet: {
+                            breakpoint: {
+                                max: 1024,
+                                min: 464
+                            },
+                            items: res.users > 1 ? 2 : 1,
+                            partialVisibilityGutter: 30
+                        }
+                    })
                     return
                 }
                 navigate('/StoryErrorsPage')
@@ -32,7 +59,7 @@ const SearchResultsPage = () => {
             }
         }
         fetchData()
-    }, [])
+    }, [criteria])
 
     return (
         <>
@@ -58,33 +85,7 @@ const SearchResultsPage = () => {
                                 renderArrowsWhenDisabled={false}
                                 renderButtonGroupOutside={false}
                                 renderDotsOutside={false}
-                                responsive={{
-                                    desktop: {
-                                        breakpoint: {
-                                            max: 3000,
-                                            min: 1024
-                                        },
-                                        items: users.length >= 3 ? 3 : 2,
-                                        partialVisibilityGutter: 40
-                                    },
-                                    mobile: {
-                                        breakpoint: {
-                                            max: 464,
-                                            min: 0
-                                        },
-                                        items: 1,
-                                        partialVisibilityGutter: 30
-                                    },
-                                    tablet: {
-                                        breakpoint: {
-                                            max: 1024,
-                                            min: 464
-                                        },
-                                        items: users.length > 1 ? 2 : 1,
-                                        partialVisibilityGutter: 30
-                                    }
-                                }}
-
+                                responsive={responsive}
                                 rewind={false}
                                 rewindWithAnimation={false}
                                 rtl={false}
