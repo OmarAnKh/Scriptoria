@@ -33,13 +33,13 @@ const ProfileInfo = (props) => {
     const textRef = useRef(null);
     const [showReadMore, setShowReadMore] = useState(false);
     const date = new Date(data.createdAt)
-    
-    const options = { 
-        year: 'numeric', 
-        month: 'long', 
-        day: 'numeric', 
+
+    const options = {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
     };
-    const  readableDate = date.toLocaleString('en-US', options);
+    const readableDate = date.toLocaleString('en-US', options);
     const { username: userName } = useParams()
 
     const { setFollow, unFollow, getFollowerCount, getfollowingCount, isFollowing } = useFollow();
@@ -148,7 +148,7 @@ const ProfileInfo = (props) => {
 
         fetchData();
 
-    }, []);
+    }, [props.user]);
     useEffect(() => {
         if (textRef.current) {
             setShowReadMore(textRef.current.scrollHeight > textRef.current.clientHeight);
@@ -309,7 +309,7 @@ const ProfileInfo = (props) => {
 
                             <div className="ImageFrame">
                                 <div className='polariod'>
-                                    <img className="profileImage img-thumbnail" src={imgURL} />  
+                                    <img className="profileImage img-thumbnail" src={imgURL} />
                                     <p className='PolName'>#{data.userName}</p>
                                     <p className='PolDate'>{readableDate}</p>
                                 </div>

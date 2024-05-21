@@ -25,7 +25,7 @@ const FriendsList = (props) => {
         }
 
         fetchUsers();
-    }, [])
+    }, [props.userId])
     return (
         <div className="container">
             <h2 className="title-friends-list ">{t("FriendsList.friends_List")}</h2>
@@ -55,7 +55,7 @@ const FriendsList = (props) => {
                     </div>
                 ))}
                 {friendsinfo.length > 5 && !showAll && (
-                <button className="btn show-more-friend" onClick={toggleShowAll}> {t("FriendsList.show_More")} </button>)}              </div>
+                    <button className="btn show-more-friend" onClick={toggleShowAll}> {t("FriendsList.show_More")} </button>)}              </div>
         </div>
     );
 };
