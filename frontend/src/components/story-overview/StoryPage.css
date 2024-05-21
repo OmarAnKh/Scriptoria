@@ -81,12 +81,12 @@
 .prof-card {
     flex: 0 0 25%;
     max-width: 25%;
-    margin-Left: -100px;
+    margin-Left: -70px;
 }
 
 .profileCard {
     margin-top: 80px;
-    margin-Left: -450px;
+    margin-Left: -480px;
     transform: translateY(-10%);
 }
 
@@ -100,7 +100,7 @@
 .row-details {
     display: flex;
     justify-content: space-between;
-    width: 1000px;
+    width: 900px;
     height: 600px;
 }
 
