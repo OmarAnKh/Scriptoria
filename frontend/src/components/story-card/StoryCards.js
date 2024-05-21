@@ -14,6 +14,7 @@ const StoryCards = ({ selectedTab }) => {
     const [storyData, setStoryData] = useState([]);
     const [placeholderShow, setPlaceholderShow] = useState(true);
     const [currentStory, setCurrentStory] = useState([]);
+    const [numberOfFiltering, setNumberOfFiltering] = useState(0)
 
 
     useEffect(() => {
@@ -24,6 +25,7 @@ const StoryCards = ({ selectedTab }) => {
                 setStoryData(data || []);
                 setCurrentStory(data)
                 setPlaceholderShow(false)
+                setNumberOfFiltering(numberOfFiltering + 1)
             } catch (error) {
                 console.error('Error fetching stories:', error);
             }
@@ -32,14 +34,19 @@ const StoryCards = ({ selectedTab }) => {
     }, []);
 
     useEffect(() => {
+        if (!numberOfFiltering) {
+            return;
+        }
         setPlaceholderShow(true)
         if (selectedTab.toLowerCase() === "all") {
             setCurrentStory(storyData)
             setPlaceholderShow(false)
+            setNumberOfFiltering(numberOfFiltering + 1)
             return;
         }
         const filteringStory = storyData?.filter((story) => story.genres.includes(selectedTab));
         setPlaceholderShow(false)
+        setNumberOfFiltering(numberOfFiltering + 1)
         setCurrentStory(filteringStory);
     }, [selectedTab])
 
