@@ -9,6 +9,7 @@ import PrivateList from '../no-access-pages/PrivateList'
 import EmptyList from '../empty-pages/EmptyList'
 import MyCard from '../my-works/my-works-card/MyCard'
 import { Buffer } from 'buffer'
+import LoadingPage from '../loading-page/LoadingPage'
 import './ListPage.css'
 
 const ListPage = () => {
@@ -16,6 +17,8 @@ const ListPage = () => {
   const { userName, id } = useParams()
   const [list, setList] = useState({})
   const [name, setName] = useState("");
+  const [loading, setLoading] = useState(true)
+  const [updateFlag, setUpdateFlag] = useState(true)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -23,30 +26,25 @@ const ListPage = () => {
         const tempList = await getValidStoriesFrom(userName, id, auth?.userInfo?._id);
         setList({ ...tempList, stories : tempList.stories.filter((story) => story !== undefined) });
         setName(tempList.name);
+        if(tempList.name) setLoading(false)
       } catch (error) {
         console.log(error);
+        setLoading(false)
       }
     };
     fetchData();
-  }, [userName, id, auth?.userInfo?._id]);
+  }, [userName, id, auth?.userInfo?._id, updateFlag]);
 
 const update = async ()=>{
-  try{
-    const tempList = await getValidStoriesFrom(userName, id, auth?.userInfo?._id)
-    setList(tempList)
-    setName(tempList.name)
-  } catch(error){
-    console.log(error)
-  }
+  setUpdateFlag(!updateFlag)
 }
 
-  return (
-    <>
+  return ( loading ? <LoadingPage/> : 
+      <>
       <Navbar />
       {
         userName!==auth?.userName && list.privacy===false ? <PrivateList/> : 
         <div className='container'>
-        
         {list?.name && list.stories.length ?  <>
           <div className='row py-4 justify-content-between'>
           <div className='col-md-6 col-sm-12 display-2 text-md-start text-sm-center'>{list.name}</div>

@@ -7,6 +7,14 @@
 }
 
 @font-face {
+  font-family: 'Merri-light';
+  src: url('./fonts/Merriweather-Light.ttf') format('truetype');
+  /* font-weight: bold; */
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
   font-family: 'Brasika';
   src: url('./fonts/BrasikaDisplay.ttf') format('truetype');
   font-weight: bold;
@@ -86,4 +94,15 @@ body {
 .button-X:hover .hover-text {
   width: 100%;
   filter: drop-shadow(0 5px 23px var(--animation-color))
+}
+
+.notification-name{
+  font-size: 15px;
+  font-weight: bold;
+  font-family: Merri-light;
+}
+
+.notification-message{
+  font-size: 15px;
+  font-family: Merri-light;
 }

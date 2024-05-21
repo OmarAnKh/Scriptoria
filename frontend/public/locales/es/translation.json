@@ -266,5 +266,27 @@
         "Edit": "Editar",
         "Preview": "Vista Previa",
         "Delete": "Eliminar"
+    },
+    "Chats" : {
+        "chats" : "chats",
+        "chat-info" : "información del chat", 
+        "edit-name" : "editar nombre",
+        "save" : "guardar",
+        "cancel" : "cancelar",
+        "members" : "miembros",
+        "me" : "yo",
+        "admin" : "administrador",
+        "leave-group" : "dejar el grupo",
+        "delete-group" : "eliminar grupo",
+        "new-chat" : "nuevo chat",
+        "create-group-chat" : "crear un chat grupal",
+        "group-chat-name" : "nombre del chat grupal",
+        "group-name-is-required" : "¡Se requiere el nombre del grupo!",
+        "choose-group-members" : "elegir miembros del grupo",
+        "group-is-empty" : "¡el grupo está vacío!",
+        "chat-with-one-person-only" : "chatear con una sola persona",
+        "choose-someone-to-chat-with" : "elegir a alguien para chatear",
+        "choose-one-person" : "¡elige a una persona!",
+        "start-chating" : "comenzar a chatear"
     }
 }

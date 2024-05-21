@@ -266,5 +266,27 @@
         "Edit": "संपादित करें",
         "Preview": "पूर्वावलोकन",
         "Delete": "हटाएं"
+    },
+    "Chats" : {
+        "chats" : "चैट्स",
+        "chat-info" : "चैट जानकारी", 
+        "edit-name" : "नाम संपादित करें",
+        "save" : "सहेजें",
+        "cancel" : "रद्द करें",
+        "members" : "सदस्य",
+        "me" : "मैं",
+        "admin" : "प्रशासक",
+        "leave-group" : "समूह छोड़ें",
+        "delete-group" : "समूह हटाएं",
+        "new-chat" : "नई चैट",
+        "create-group-chat" : "समूह चैट बनाएं",
+        "group-chat-name" : "समूह चैट का नाम",
+        "group-name-is-required" : "समूह का नाम आवश्यक है!",
+        "choose-group-members" : "समूह के सदस्य चुनें",
+        "group-is-empty" : "समूह खाली है!",
+        "chat-with-one-person-only" : "केवल एक व्यक्ति के साथ चैट करें",
+        "choose-someone-to-chat-with" : "किसी से चैट करने के लिए चुनें",
+        "choose-one-person" : "एक व्यक्ति चुनें!",
+        "start-chating" : "चैटिंग शुरू करें"
     }
 }

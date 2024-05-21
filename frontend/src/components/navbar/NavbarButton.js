@@ -15,8 +15,8 @@ const NavHomeButton = (props) => {
     return (
         <div className={props.className}>
             {
-                props.pfp? <button type="button" className="btn p-0 rounded-5 m-2 border border-2 border-white" width="100" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <img src={cover} className="img-fluid object-fit-cover rounded-5 bg-sceondary" width="100"></img>
+                props.pfp? <button type="button" className="btn p-0 rounded-5 m-2 border border-2 border-white"  data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <img src={cover} className="object-fit-cover rounded-5 bg-sceondary" width="40"></img>
             </button> : <button type="button" className={`${props.buttonClassName}`} data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i className={props.iclassName}></i>
             </button>

@@ -266,5 +266,27 @@
         "Edit": "编辑",
         "Preview": "预览",
         "Delete": "删除"
+    },
+    "Chats" : {
+        "chats" : "聊天",
+        "chat-info" : "聊天信息", 
+        "edit-name" : "编辑名称",
+        "save" : "保存",
+        "cancel" : "取消",
+        "members" : "成员",
+        "me" : "我",
+        "admin" : "管理员",
+        "leave-group" : "离开群组",
+        "delete-group" : "删除群组",
+        "new-chat" : "新聊天",
+        "create-group-chat" : "创建群聊",
+        "group-chat-name" : "群聊名称",
+        "group-name-is-required" : "群组名称是必需的！",
+        "choose-group-members" : "选择群组成员",
+        "group-is-empty" : "群组是空的！",
+        "chat-with-one-person-only" : "仅与一个人聊天",
+        "choose-someone-to-chat-with" : "选择一个人聊天",
+        "choose-one-person" : "选择一个人！",
+        "start-chating" : "开始聊天"
     }
 }

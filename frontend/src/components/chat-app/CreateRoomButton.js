@@ -6,10 +6,12 @@ import makeAnimated from 'react-select/animated';
 import { toast } from 'react-hot-toast';
 import { getFriends } from '../../api/accountApi';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 
 const CreateRoomButton = ({ socket }) => {
   const { auth } = useAuth()
+  const { t } = useTranslation()
   const animatedComponents = makeAnimated();
   const [members, setMembers] = useState([])
   const [person, setPerson] = useState(null)
@@ -104,20 +106,20 @@ const CreateRoomButton = ({ socket }) => {
           <div className="modal-dialog modal-dialog-centered">
             <div className="modal-content">
               <div className="modal-header">
-                <h1 className="modal-title fs-5" id="myModa">new chat</h1>
+                <h1 className="modal-title fs-5" id="myModa">{t("Chats.new-chat")}</h1>
                 <button type="button" className="btn-close" id="closeModal" data-bs-dismiss="modal" aria-label="Close" onClick={() => setGroup(false)} />
               </div>
               <div className="modal-body text-start">
                 {
-                  group ? (<><div className='container h4 text-center'>create a group chat</div>
+                  group ? (<><div className='container h4 text-center'>{t("Chats.create-group-chat")}</div>
                     <div className='from'>
                       <div className='h5 my-4'>
-                        <label htmlFor='group-name'>group chat name</label>
+                        <label htmlFor='group-name'>{t("Chats.group-chat-name")}</label>
                         <input className='form-control mt-1 mb-2' type='text' id='group-name' required value={name} onChange={(e) => setName(e.target.value)}></input>
-                        {nameRequired ? <span className='text-danger'>group name is required !</span> : <></>}
+                        {nameRequired ? <span className='text-danger'>{t("Chats.group-name-is-required")}</span> : <></>}
                       </div>
                       <div className='my-4'>
-                        <label htmlFor='group-members'><span className='h5'>choose group members</span></label>
+                        <label htmlFor='group-members'><span className='h5'>{t("Chats.choose-group-members")}</span></label>
                         <Select
                           id='group-members'
                           closeMenuOnSelect={false}
@@ -127,27 +129,27 @@ const CreateRoomButton = ({ socket }) => {
                           onChange={handleSelectChange}
                         />
                       </div>
-                      {membersRequired ? <span className='text-danger'>group is empty !</span> : <></>}
+                      {membersRequired ? <span className='text-danger'>{t("Chats.group-is-empty")}</span> : <></>}
                       <div className='text-center p-2'><Link className='text-secondary text-decoration-none'
                         onClick={() => {
                           setGroup(false)
                           setName('')
                         }}
-                        style={{ cursor: 'pointer' }}>chat with one person only</Link></div>
-                    </div></>) : (<><div className='container h4 text-center'>choose someone to chat with</div>
+                        style={{ cursor: 'pointer' }}>{t("Chats.chat-with-one-person-only")}</Link></div>
+                    </div></>) : (<><div className='container h4 text-center'>{t("Chats.choose-someone-to-chat-with")}</div>
                       <Select
                         components={animatedComponents}
                         options={options}
                         onChange={(selected) => setPerson(selected.value)}
                       />
-                      {personRequired ? <span className='text-danger'>choose one person !</span> : <></>}
-                      <div className='text-center p-2'><Link className='text-secondary text-decoration-none' onClick={() => setGroup(true)} style={{ cursor: 'pointer' }}>create a group chat</Link></div>
+                      {personRequired ? <span className='text-danger'>{t("Chats.choose-one-person")}</span> : <></>}
+                      <div className='text-center p-2'><Link className='text-secondary text-decoration-none' onClick={() => setGroup(true)} style={{ cursor: 'pointer' }}>{t("Chats.create-group-chat")}</Link></div>
                     </>)
                 }
               </div>
               <div className="modal-footer p-1">
-                <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">close</button>
-                <button type="button" className="btn btn-primary" onClick={handleCreate}>start chating</button>
+                <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">{t("Chats.cancel")}</button>
+                <button type="button" className="btn btn-primary" onClick={handleCreate}>{t("Chats.start-chating")}</button>
               </div>
             </div>
           </div>

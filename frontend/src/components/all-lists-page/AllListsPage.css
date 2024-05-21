@@ -202,3 +202,7 @@
     transform: scale(8);
   }
 }
+
+.lists-page-title{
+  color : var(--text--Color)
+}
