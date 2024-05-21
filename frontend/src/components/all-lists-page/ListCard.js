@@ -34,7 +34,7 @@ const ListCard = ({userName, list, updateFlag, setUpdateFlag}) => {
         <Link className="list-name text-light display-5 pb-1 text-decoration-none fw-bold text-break" title={list.name} to={`/profile/${userName}/lists/${list._id}`} ><b>{list.name}</b></Link>
         <i className="list-arrow bi bi-arrow-right-short ml-0" ><Link to={`/profile/${userName}/lists/${list._id}`} /></i>
         <p>reading list</p>
-        <img className="list-pic img-fluid object-fit-cover bg-light" src={cover} />
+        <img className="list-pic img-fluid object-fit-cover bg-light" alt="list" src={cover} />
         <Popup page="allLists" list={list} updateFlag={updateFlag} setUpdateFlag={setUpdateFlag} name={name} setName={setName}/>
         <Link className='list-ball' to={`/profile/${userName}/lists/${list._id}`} style={{backgroundColor : color}} />
       </div>
