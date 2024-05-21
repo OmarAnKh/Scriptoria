@@ -278,7 +278,7 @@ const Comment = ({ storyId,
        {
         replies.length > 2 &&  <div className="d-flex p-2 view-more-replies fw-bold" style={{cursor : 'pointer'}} onClick={()=>{
           replies.length >= visibleReplies ? setVisibleReplies((prev)=> prev + 2) : setVisibleReplies(2)
-        }}>{replies.length >= visibleReplies ? t("Comments.view-more-replies") : t("Comments.view-more-replies")}</div>
+        }}>{replies.length >= visibleReplies ? t("Comments.view-more-replies") : t("Comments.view-less-replies")}</div>
        }
       </div>
     </div>
