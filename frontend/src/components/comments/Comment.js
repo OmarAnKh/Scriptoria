@@ -32,6 +32,7 @@ const Comment = ({ storyId,
   const [imageUrl, setImageURL] = useState(logo);
   const [edit, setEdit] = useState(false);
   const [editedText, setEditedText] = useState(text);
+  const [visibleReplies, setVisibleReplies] = useState(2);
   const editDelete = userId === account._id ? true : false;
 
 
@@ -255,7 +256,7 @@ const Comment = ({ storyId,
           </>
         )}
         {
-          replies?.map((reply, index)=>{
+          replies?.slice(0, visibleReplies).map((reply, index)=>{
             return (
               <Reply
               reply={reply}
@@ -274,6 +275,11 @@ const Comment = ({ storyId,
             )
           })
         }
+       {
+        replies.length > 2 &&  <div className="d-flex p-2 view-more-replies fw-bold" style={{cursor : 'pointer'}} onClick={()=>{
+          replies.length >= visibleReplies ? setVisibleReplies((prev)=> prev + 2) : setVisibleReplies(2)
+        }}>{replies.length >= visibleReplies ? t("Comments.view-more-replies") : t("Comments.view-more-replies")}</div>
+       }
       </div>
     </div>
   );

@@ -177,7 +177,9 @@
         "cancel": "cancel",
         "no-comments": "be the first to comment on this story",
         "write-something": "write something...",
-        "reply-to" : "reply to"
+        "reply-to" : "reply to",
+        "view-more-replies" : "view more replies",
+        "view-less-replies" : "view less replies"
     },
     "SaveTo": {
         "save-to": "save story to...",
@@ -292,6 +294,7 @@
         "chat-with-one-person-only" : "chat with one person only",
         "choose-someone-to-chat-with" : "choose someone to chat with",
         "choose-one-person" : "choose one person !",
-        "start-chating" : "start chating"
+        "start-chating" : "start chating",
+        "write-a-message" : "write a message"
     }
 }
