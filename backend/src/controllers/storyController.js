@@ -6,6 +6,7 @@ import Comment from "../models/comment.js";
 import Rating from "../models/rating.js";
 import { converImgToBuffer } from "../utils/image.js";
 import ReadingList from "../models/readingList.js";
+import Reply from "../models/replies.js";
 
 const createStory = async (req, res) => {
     try {
@@ -199,6 +200,7 @@ const deleteStory = async (req, res) => {
         await Like.deleteMany({ StoryId: req.params.id })
         await Rating.deleteMany({ StoryId: req.params.id })
         await Writers.deleteMany({ StoryId: req.params.id })
+        await Reply.deleteMany({ storyId: req.params.id })
         res.status(200).send({ message: true, story })
     } catch (error) {
         res.status(500).send({ message: false, error: 'Internal Server Error' });

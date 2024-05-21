@@ -96,6 +96,7 @@ io.on("connection", (socket) => {
         if (rooms[room._id]) {
             delete rooms[room._id];
             io.emit('roomDeleted', room);
+            io.to(room._id).emit('update', room)
         } else {
             console.log("Room not found");
         }
@@ -104,17 +105,17 @@ io.on("connection", (socket) => {
 
     socket.on('updateChats', (room) => {
         rooms[room._id] = { ...room, messages: [...rooms[room._id].messages] }
-        if (rooms[room._id]) {
+        if (rooms[room._id]) { 
             io.to(room._id).emit('update', room)
         }
     })
 
 
-    socket.on('leaveGroup', ({ room, user }) => {
-        const isMember = rooms[room._id].users.find((member) => member.user === user.user._id)
+    socket.on('leaveGroup', ({ room, user, type }) => {
+        const isMember = rooms[room._id] && rooms[room._id].users.find((member) => member.user === user.user._id)
         if (isMember) {
             rooms[room._id] = { ...room, messages: [...rooms[room._id].messages] }
-            io.to(room._id).emit('leftGroup', { room, user })
+            io.to(room._id).emit('leftGroup', { room, user, type })
             io.to(room._id).emit('update', room)
         }
     })

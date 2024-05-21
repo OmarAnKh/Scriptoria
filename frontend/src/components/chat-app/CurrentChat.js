@@ -6,14 +6,13 @@ import ChatInfo from './ChatInfo';
 import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
 
-const CurrentChat = ({ socket ,name , setName ,currentChat, setCurrentChat, setShowChat ,chats, setChats, bothSides ,updateData }) => {
+const CurrentChat = ({ socket  ,currentChat, setCurrentChat}) => {
   const { auth } = useAuth();
   const [text, setText] = useState('');
   const messagesEndRef = useRef(null);
-
   const [messages, setMessages] = useState([]);
   const users = currentChat?.users?.filter(user => user.user._id !== auth?.userInfo?._id)
-  setName(currentChat.name!=='' ? currentChat.name : users[0].user.userName)
+  const [name, setName] =useState(currentChat.name!=='' ? currentChat.name : users[0].user.userName)
 
   useEffect(() => {
     setMessages([])
@@ -58,7 +57,7 @@ const CurrentChat = ({ socket ,name , setName ,currentChat, setCurrentChat, setS
     socket.on('message', handleMessage);
     
     return () => {
-      socket.off('message', handleMessage);
+      socket.off('message');
     };
   }, [socket, currentChat])
 
@@ -84,25 +83,26 @@ const CurrentChat = ({ socket ,name , setName ,currentChat, setCurrentChat, setS
   useEffect(()=>{
     if(auth?.userName){
       socket.on('sendNotification', (message)=>{
-        if(window.location.pathname==='/chats' && currentChat?._id !== message.roomId)
+        if((window.location.pathname==='/chats' && currentChat?._id !== message.roomId) || (window.location.pathname==='/chats' && !currentChat?._id))
           {toast((t) => (
-            <div className='container notification p-1 gap-2 d-flex flex-row mw-25'>
-            <div className='p-0 m-0'>
-              <img width="45" className='rounded-circle img-fluid object-fit-cover rounded-5' src={`data:image/png;base64,${message?.owner?.profilePicture}`} />
-            </div>
-            <div className='d-flex flex-column justify-content-between'>
-              <div>
-                <b>
-                  {message?.owner?.userName} {message.roomName === '' ? '' : `to '${message.roomName}'`}
-                </b>
+            <div className='container notification p-1 pb-0 gap-2 d-flex flex-row'>
+              <div className='p-0 m-0'>
+                <img width="45" className='rounded-circle border border-1 img-fluid object-fit-cover rounded-5' alt="img" src={`data:image/png;base64,${message?.owner?.profilePicture}`} />
               </div>
-              <div className='text-break'>
-                <small>
-                  {message.text.length > 30 ? (`${message.text.substring(0, 30)}...` ) : (message.text)}
-                </small>
+              <div className='d-flex flex-column'>
+                <div className='notification-name mb-0 pb-0'>
+                    {message?.owner?.userName} {message.roomName === '' ? '' : `to '${message.roomName}'`}
+                </div>
+                <div className='text-break mt-0 pt-0 notification-message'>
+                    {message.text.length > 30 ? (`${message.text.substring(0, 30)}...`) : (message.text)}
+                </div>
+
               </div>
-            </div>
-          </div>               
+              <button class="button-X mt-2 my-0 py-0" data-text="Awesome" onClick={() => toast.dismiss(t.id)}>
+                <pre class="actual-text my-0 py-1"> &#10005; </pre >
+                <pre aria-hidden="true" class="hover-text my-0 py-1"> &#10005; </pre >
+              </button>
+            </div>          
           ));     }
       })
     }
@@ -127,13 +127,13 @@ const CurrentChat = ({ socket ,name , setName ,currentChat, setCurrentChat, setS
       <div>
       <div className='row my-2'>
       <div className='col-6'><span className='display-6 text-light'>
-        <Link className={bothSides? 'bi bi-arrow-left-short' : 'bi bi-arrow-right-short'} 
+        <Link className='bi bi-arrow-left-short'
       onClick={()=>{
       setCurrentChat(null)
       }}
       style={{cursor : 'pointer'}}></Link> 
       {name} &nbsp;</span></div>
-      <div className='col-6 text-end'><ChatInfo chat={currentChat} socket={socket} updateData={updateData} chats={chats} setChats={setChats} name={name} setName={setName}/></div>
+      <div className='col-6 text-end'><ChatInfo chat={currentChat} setCurrentChat={setCurrentChat} socket={socket}  name={name} setName={setName}/></div>
       </div>
       <hr className='mt-0' />
       </div>
@@ -160,8 +160,7 @@ const CurrentChat = ({ socket ,name , setName ,currentChat, setCurrentChat, setS
             setText(e.target.value)}}
           onKeyPress={handleKeyPress}
         />
-        <button className='btn btn-primary' onClick={handleSubmit}>
-          send
+        <button className='btn btn-primary bi bi-send' onClick={handleSubmit}>
         </button>
       </div>
     </>

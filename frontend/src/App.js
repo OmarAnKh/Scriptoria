@@ -41,6 +41,7 @@ import AvatarPage from './components/avatars/AvatarPage.js';
 function App() {
   const { auth } = useAuth()
   const [chats, setChats] = useState([])
+  const [updateChatsFlag, setUpdateChatsFlag] = useState(false)
   const [socket, setSocket] = useState(null)
   useEffect(() => {
     if (auth?.userName) {
@@ -58,7 +59,7 @@ function App() {
         s.disconnect();
       };
     }
-  }, [auth])
+  }, [auth,updateChatsFlag])
 
   useEffect(() => {
     chats?.map((chat) => {
@@ -71,31 +72,38 @@ function App() {
   }, [chats])
 
   useEffect(() => {
+    if (!socket) return 
+    
+    socket?.on('update',()=>{
+      setUpdateChatsFlag(!updateChatsFlag)
+    })
+
+    return () => {
+        socket?.off('update')
+    }
+}, [socket])
+
+  useEffect(() => {
     if (auth?.userName) {
       socket.on('sendNotification', (message) => {
         if (window.location.pathname !== '/chats')
           toast((t) => (
-            <div className='container notification p-1 gap-2 d-flex flex-row mw-25'>
+            <div className='container notification p-1 pb-0 gap-2 d-flex flex-row'>
               <div className='p-0 m-0'>
-                <img width="45" className='rounded-circle img-fluid object-fit-cover rounded-5' src={`data:image/png;base64,${message?.owner?.profilePicture}`} />
+                <img width="45" className='rounded-circle border border-1 img-fluid object-fit-cover rounded-5' src={`data:image/png;base64,${message?.owner?.profilePicture}`} />
               </div>
-              <div className='d-flex flex-column justify-content-between'>
-                <div>
-                  <b>
+              <div className='d-flex flex-column'>
+                <div className='notification-name mb-0 pb-0'>
                     {message?.owner?.userName} {message.roomName === '' ? '' : `to '${message.roomName}'`}
-                  </b>
                 </div>
-                <div className='text-break'>
-                  <small>
+                <div className='text-break mt-0 pt-0 notification-message'>
                     {message.text.length > 30 ? (`${message.text.substring(0, 30)}...`) : (message.text)}
-                  </small>
-
                 </div>
 
               </div>
-              <button class="button-X mt-2" data-text="Awesome" onClick={() => toast.dismiss(t.id)}>
-                <pre class="actual-text"> &#10005; </pre >
-                <pre aria-hidden="true" class="hover-text"> &#10005; </pre >
+              <button className="button-X mt-2 my-0 py-0" data-text="Awesome" onClick={() => toast.dismiss(t.id)}>
+                <pre className="actual-text my-0 py-1"> &#10005; </pre >
+                <pre aria-hidden="true" className="hover-text my-0 py-1"> &#10005; </pre >
               </button>
             </div>
           ));

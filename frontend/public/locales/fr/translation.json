@@ -266,5 +266,27 @@
         "Edit": "Éditer",
         "Preview": "Aperçu",
         "Delete": "Supprimer"
+    },
+    "Chats" : {
+        "chats" : "discussions",
+        "chat-info" : "info de discussion", 
+        "edit-name" : "modifier le nom",
+        "save" : "sauvegarder",
+        "cancel" : "annuler",
+        "members" : "membres",
+        "me" : "moi",
+        "admin" : "administrateur",
+        "leave-group" : "quitter le groupe",
+        "delete-group" : "supprimer le groupe",
+        "new-chat" : "nouvelle discussion",
+        "create-group-chat" : "créer une discussion de groupe",
+        "group-chat-name" : "nom de la discussion de groupe",
+        "group-name-is-required" : "nom du groupe requis!",
+        "choose-group-members" : "choisissez les membres du groupe",
+        "group-is-empty" : "le groupe est vide!",
+        "chat-with-one-person-only" : "discuter avec une seule personne",
+        "choose-someone-to-chat-with" : "choisissez quelqu'un avec qui discuter",
+        "choose-one-person" : "choisissez une personne!",
+        "start-chating" : "commencer à discuter"
     }
 }

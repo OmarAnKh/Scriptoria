@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import useAuth from '../../hooks/useAuth';
 import { createReadingList, deleteReadingList, updateList } from '../../api/readingListsApi';
 import { toast } from 'react-hot-toast';
+import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
-const Popup = ({ page, list, update }) => {
+const Popup = ({ page, list, updateFlag, setUpdateFlag }) => {
   const { auth } = useAuth();
   const { t } = useTranslation()
   const [type, setType] = useState('');
@@ -31,8 +32,9 @@ const Popup = ({ page, list, update }) => {
         if(res.statusText==='OK') toast.success("you have copied this list successfully")
       } else if (type === 'delete') {
         const res = await deleteReadingList(list._id, auth?.token)
+        console.log(res)
         if(res.statusText==='OK') toast.success("you have deleted this list successfully")
-        window.location.reload()
+        // window.location.reload()
       } else if (type === 'edit') {
         const stories = page === "list" ? list.stories.map((story) => story._id) : list.stories
         const editedList = {
@@ -45,7 +47,7 @@ const Popup = ({ page, list, update }) => {
         const res = await updateList(editedList, auth?.token)
         if(res.statusText==='OK') toast.success("you have edited this list successfully")
       }
-      update();
+      setUpdateFlag(!updateFlag)
     } catch (error) {
       console.log(error)
       toast.error("looks like theres an error, try again please")
@@ -59,18 +61,18 @@ const Popup = ({ page, list, update }) => {
         <>
           <div className="list-btns text-light">
             <i className="edit-list">
-              <a
+              <Link
                 className="m-1 text-decoration-none text-light"
                 onClick={shareHandler}
                 style={{ cursor: 'pointer' }}
               >
                 {t("Lists.share")}
-              </a>
+              </Link>
             </i>
             {auth?.userInfo._id === list.accountId ? (
               <>
                 <i className="edit-list">
-                  <a
+                  <Link
                     className="m-1 text-decoration-none text-light"
                     data-bs-toggle="modal"
                     data-bs-target={`#list-btns-modal-${type}-${list._id}`}
@@ -78,10 +80,10 @@ const Popup = ({ page, list, update }) => {
                     style={{ cursor: 'pointer' }}
                   >
                     {t("Lists.edit")}
-                  </a>
+                  </Link>
                 </i>
                 <i className="delete-list">
-                  <a
+                  <Link
                     className="m-1 text-decoration-none text-light"
                     data-bs-toggle="modal"
                     data-bs-target={`#list-btns-modal-${type}-${list._id}`}
@@ -89,12 +91,12 @@ const Popup = ({ page, list, update }) => {
                     style={{ cursor: 'pointer' }}
                   >
                     {t("Lists.delete")}
-                  </a>
+                  </Link>
                 </i>
               </>
             ) : (
               <i className="copy-list">
-                <a
+                <Link
                   className="m-1 text-decoration-none text-light"
                   data-bs-toggle="modal"
                   data-bs-target={`#list-btns-modal-${type}-${list._id}`}
@@ -102,7 +104,7 @@ const Popup = ({ page, list, update }) => {
                   style={{ cursor: 'pointer' }}
                 >
                   {t("Lists.copy")}
-                </a>
+                </Link>
               </i>
             )}
           </div>

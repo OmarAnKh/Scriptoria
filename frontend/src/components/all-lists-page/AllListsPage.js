@@ -6,57 +6,55 @@ import ListCard from './ListCard';
 import { getReadingLists} from './../../api/readingListsApi';
 import useAuth from '../../hooks/useAuth';
 import NoListsPage from '../empty-pages/NoListsPage'
+import LoadingPage from '../loading-page/LoadingPage';
 
-const ListPage = () => {
+const AllListsPage = () => {
    const {userName} = useParams()
    const {t} = useTranslation()
    const { auth } = useAuth();
   const [lists, setLists] = useState([]);
+  const [loading, setLoading] = useState(true)
+  const [updateFlag, setUpdateFlag] = useState(true)
   const all = auth?.userName === userName;
 
   useEffect(() => {
     const fetchData = async () => {
+      setLoading(true)
       try {
         const readingLists = await getReadingLists(userName, all);
         setLists(readingLists);
+        setLoading(false)
       } catch (error) {
         console.error(error);
+        setLoading(false)
       }
     };
     fetchData();
-  }, [userName, auth?.userInfo?._id]);
+  }, [userName, auth?.userInfo?._id, updateFlag]);
 
   const update = async () => {
-    try {
-      const readingLists = await getReadingLists(userName, all);
-      setLists(readingLists);
-    } catch (error) {
-      console.error(error);
-    }
+    setUpdateFlag(!updateFlag)
   };
-  return (
+  return ( loading ? <LoadingPage/> : 
     <>
     <Navbar/>
     {
       lists?.length > 0 ? <>
-       <div className='container display-4'>
+       <div className='container lists-page-title display-4'>
       {userName}{t("Lists.reading-lists")}
   </div>
   <div className='row justify-content-center'>
   <div className="m-4 justify-content-center">
     <div className="list-cards justify-content-center">
-    {lists?.length > 0 ? (
-        lists.map((list, index) => (
+        {lists.map((list, index) => (
           <ListCard
-            update={update}
+          updateFlag={updateFlag}
+            setUpdateFlag={setUpdateFlag}
             key={index}
             userName={userName}
             list={list}
           />
-        ))
-      ) : (
-        <p>{t("Lists.this-user-may-not-have-one-public-list-at-least")}</p>
-      )}
+        ))}   
     </div>
   </div>
   </div> 
@@ -66,4 +64,4 @@ const ListPage = () => {
   )
 }
 
-export default ListPage
+export default AllListsPage

@@ -101,7 +101,6 @@ const updateList = async (list, token) => {
                 privacy: list.privacy
             }
         });
-        console.log(res)
         return res;
     } catch (error) {
         console.log(error)
@@ -145,16 +144,16 @@ const updateReadingLists = async (storyId, checkedLists, userName, token) => {
 
 const deleteReadingList = async (id, token) => {
     try {
-        await axios({
+        const res = await axios({
             url: `${process.env.REACT_APP_HOSTURL}/readingLists/${id}`,
             method: "DELETE",
             withCredentials: true,
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": 'Bearer ' + token,
-            },
-            params: { id }
-        })
+            }
+        }) 
+        return res
     } catch (error) {
         console.log(error)
     }

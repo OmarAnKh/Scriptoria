@@ -53,15 +53,15 @@ const ConfirmDeletePopup = (props) => {
     return (
         <div className="modal fade" id="deleteModal" tabIndex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
             <div className="modal-dialog">
-                <div className="modal-content">
+                <div className="modal-content text-black">
                     <div className="modal-header">
-                        <h1 className="modal-title fs-5" id="deleteModalLabel">{t("Settings.delete_account_header")}</h1>
+                        <h1 className="modal-title fs-5 text-black" id="deleteModalLabel">{t("Settings.delete_account_header")}</h1>
                         <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div className="modal-body mx-auto">
-                        <p className="fw-bold text-center">{t("Settings.confirm_password")}</p>
+                        <p className="fw-bold text-center text-black">{t("Settings.confirm_password")}</p>
                         <JoinInput method={setConfirmedPassword} type="password" color={passwordValid} />
-                        <p className="text-center">{passwordValidMsg}</p>
+                        <p className="text-center text-black">{passwordValidMsg}</p>
                     </div>
                     <div className="modal-footer">
                         <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">{t("Settings.cancel")}</button>

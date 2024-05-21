@@ -6,9 +6,11 @@ import { Link } from 'react-router-dom'
 import { Tooltip } from 'react-tooltip'
 import defaultPhoto from './../../img/group-chat.webp'
 import { getRooms } from './../../api/roomsApi';
+import { useTranslation } from 'react-i18next'
 
-const ChatInfo = ({ chat, socket, setChats ,name}) => {
+const ChatInfo = ({ chat, setCurrentChat, socket ,name, setName}) => {
   const { auth } = useAuth()
+  const { t } = useTranslation()
   const [edit, setEdit] = useState(false)
   const [newName, setNewName] = useState(name)
   const [users, setUsers] = useState(chat?.users?.filter(user => user.user._id !== auth?.userInfo?._id))
@@ -28,40 +30,53 @@ const ChatInfo = ({ chat, socket, setChats ,name}) => {
   useEffect(()=>{
     if(!socket) return
 
-    socket.on('roomDeleted', async (room)=>{
-        const isMember =  room.users.some(user => user.user === auth?.userInfo?._id)
-        toast.error(`"${room.name}" room got deleted by admin`)
+    socket?.on('roomDeleted', async (room)=>{
+      toast(`'${room.name}' got deleted`, {
+        icon: '😞',
+      });
         if(room._id === chat?._id){
-            window.location.reload()
-            toast.success('this chat has been removed')
+            setCurrentChat(null)
+            document.getElementById("chat-info-popup").click()
             return
-        }
-        if (isMember && room._id !== chat?._id) {
-            const res = await getRooms(auth?.userInfo?._id, auth?.token)
-            if (res?.status === 200) setChats(res?.data)
-                toast.error(`"${room.name}" room got deleted by admin`)
         }
     })
     return ()=>{
-        socket.off('roomDeleted')
+        socket?.off('roomDeleted')
     }
 },[socket])
 
 useEffect(()=>{
   if(!socket) return
   
-  socket?.on('leftGroup', async ({room, user})=>{
+  socket?.on('leftGroup', async ({room, user, type})=>{
+    setUsers(prevUsers => prevUsers.filter(u => u.user._id !== user.user._id))
       if(auth?.userInfo?._id===user.user._id){
-          toast.success(`you have left the group chat ${room.name}`)
-          window.location.reload()
+        if(type==="leave") {
+          toast(`you've left the group chat '${room.name}'`, {
+            icon: '😊',
+          });
+        } else if (type==="kick"){
+          toast(`lmao, you've been kicked out of '${room.name}'`, {
+            icon: '💀',
+          });
+        }
+        if(window.location.pathname === '/chats' && chat._id===room._id){
+          setCurrentChat(null)
+          document.getElementById("chat-info-popup").click()
+        }
           return
       } else{
-        const res = await getRooms(auth?.userInfo?._id, auth?.token)
-        setUsers(chat.users.filter(user => user.user._id !== user.user._id))
-        if (res.status === 200) setChats(res.data)
-        toast.success(`${user.user.userName} left ${room.name}`) 
+        if(type==="leave") {
+          toast(`'${user.user.displayName}' left '${room.name}'`, {
+            icon: '😓',
+          });
+        } else if (type === "kick") {
+          toast(`lmao, '${user.user.displayName}' was kicked out of '${room.name}'`, {
+            icon: '💀',
+          });
+        }
       }         
-  })
+  },[socket])
 
   return()=>{
       socket?.off('leftGroup')
@@ -81,7 +96,7 @@ useEffect(()=>{
     }
   }
 
-  const leaveChat = async (userId) => {
+  const leaveChat = async (userId, type) => {
   
     const user = chat.users.find((user) => user.user._id === userId)
     const updatedUsers = chat.users.filter((user) => user.user._id !== userId)
@@ -101,17 +116,16 @@ useEffect(()=>{
     try {
       const res = await updateRoom(room, auth?.token)    
       if (res.status === 200) {
-        socket.emit('leaveGroup', { room: res.data, user })
+        socket.emit('leaveGroup', { room: res.data, user, type })
         setUsers(updatedUsers.filter((user)=>user.user._id!==auth?.user._id))
       }
     } catch (error) {
       console.log(error)
-      toast.error("An error occurred")
     }
   }
   
 
-  const editRoom = async () => {
+  const editRoomName = async () => {
     setEdit(false)
     let users = chat.users.map((user) => ({ user: user.user._id, admin: user.admin }))
     const room = {
@@ -123,6 +137,7 @@ useEffect(()=>{
       const res = await updateRoom(room, auth?.token)
       if (res.status === 200) {
         socket.emit('updateChats', res.data)
+        setName(newName)
         return toast.success('done')
       }
     } catch (error) {
@@ -141,8 +156,8 @@ useEffect(()=>{
         <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable">
           <div className="modal-content">
             <div className="modal-header  text-dark">
-              <h1 className="modal-title fs-5 text-dark" id="chatInfoModal">chat info</h1>
-              <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" onClick={() => setEdit(false)} />
+              <h1 className="modal-title fs-5 text-dark" id="chatInfoModal">{t("Chats.chat-info")}</h1>
+              <button type="button" id="chat-info-popup" className="btn-close" data-bs-dismiss="modal" aria-label="Close" onClick={() => setEdit(false)} />
             </div>
             <div className="modal-body text-dark text-start">
               <div className='text-center p-2 bg-light rounded-4'>
@@ -153,9 +168,9 @@ useEffect(()=>{
                 <div className='row h6 bg-light text-center'>
                   {
                     edit ? <div className='my-2'>
-                      <div className='text-start'>edit name</div>
+                      <div className='text-start'>{t("Chats.edit-name")}</div>
                       <input className='form-control h4 col m-0' value={newName} onChange={(e) => setNewName(e.target.value)} />
-                      <div className='btn-group my-2'><button className='btn btn-primary' onClick={editRoom}>save</button><button className='btn btn-secondary' onClick={() => setEdit(false)}>cancel</button></div>
+                      <div className='btn-group my-2'><button className='btn btn-primary' onClick={editRoomName}>{t("Chats.save")}</button><button className='btn btn-secondary' onClick={() => setEdit(false)}>{t("Chats.cancel")}</button></div>
                     </div> : <div className='h4'>{newName}</div>
                   }
                 </div>
@@ -164,21 +179,21 @@ useEffect(()=>{
 
               <div className='members p-2'>
                 <div className='position-sticky row'>
-                  <div className='col'><span className='fw-bold h4 p-2 col'>group members</span></div>
+                  <div className='col'><span className='fw-bold h4 p-2 col'>{t("Chats.members")}</span></div>
                   </div>
                 <hr className='m-1' />
                 <div className='container text-start bg-light rounded-2'>
                   <div className='row  p-1 my-2'>
-                    <div className='username col'><Link className='text-decoration-none text-dark' to={`/profile/${currentUser?.user?.userName}`}>{currentUser?.user?.userName} {currentUser?.admin ? <>(me, admin)</> : <>(me)</>}</Link></div>
+                    <div className='username col'><Link className='text-decoration-none text-dark' to={`/profile/${currentUser?.user?.userName}`}>{currentUser?.user?.userName} {currentUser?.admin ? <>({t("Chats.me")}, {t("Chats.admin")})</> : <>({t("Chats.me")})</>}</Link></div>
                   </div>
                   {users.map((user, index) => {
                 return (
                   <div className='row p-2 my-3' key={index}>
-                    <div className='username col-8'><Link className='text-decoration-none text-dark' to={`/profile/${user?.user?.userName}`}>{user?.user?.userName}</Link> {user?.admin ? <>(admin)</> : <></>}</div>
+                    <div className='username col-8'><Link className='text-decoration-none text-dark' to={`/profile/${user?.user?.userName}`}>{user?.user?.userName}</Link> {user?.admin ? <>({t("Chats.admin")})</> : <></>}</div>
                     {
                       currentUser.admin ? (
                         <div className='btns btn-group-sm btn-group text-end col'>
-                          <button className='btn btn-danger bi bi-person-dash-fill' data-tooltip-id="my-tooltip" data-tooltip-content="kick" data-tooltip-place="bottom" onClick={() => leaveChat(user.user._id)}></button>
+                          <button className='btn btn-danger bi bi-person-dash-fill' data-tooltip-id="my-tooltip" data-tooltip-content="kick" data-tooltip-place="bottom" onClick={() => leaveChat(user.user._id, "kick")}></button>
                         </div>
                       ) : (
                         <></>
@@ -194,9 +209,9 @@ useEffect(()=>{
 
             <div className="modal-footer p-1">
               {
-                users.length ? <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" onClick={() => leaveChat(auth?.userInfo?._id)}>leave group</button> : <></>
+                users.length ? <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" onClick={() => leaveChat(auth?.userInfo?._id, "leave")}>{t("Chats.leave-group")}</button> : <></>
               }
-              {currentUser?.admin ? <button type="button" className="btn btn-danger" onClick={deleteChat}>delete group</button> : <></>}
+              {currentUser?.admin ? <button type="button" className="btn btn-danger" onClick={deleteChat}>{t("Chats.delete-group")}</button> : <></>}
             </div>
 
           </div>

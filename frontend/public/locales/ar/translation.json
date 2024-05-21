@@ -267,5 +267,27 @@
         "Edit": "تعديل",
         "Preview": "معاينة",
         "Delete": "حذف"
+    },
+    "Chats" : {
+        "chats" : "الدردشات",
+        "chat-info" : "معلومات الدردشة", 
+        "edit-name" : "تعديل الاسم",
+        "save" : "حفظ",
+        "cancel" : "إلغاء",
+        "members" : "الأعضاء",
+        "me" : "أنا",
+        "admin" : "المشرف",
+        "leave-group" : "مغادرة المجموعة",
+        "delete-group" : "حذف المجموعة",
+        "new-chat" : "دردشة جديدة",
+        "create-group-chat" : "إنشاء دردشة جماعية",
+        "group-chat-name" : "اسم الدردشة الجماعية",
+        "group-name-is-required" : "اسم المجموعة مطلوب!",
+        "choose-group-members" : "اختر أعضاء المجموعة",
+        "group-is-empty" : "المجموعة فارغة!",
+        "chat-with-one-person-only" : "الدردشة مع شخص واحد فقط",
+        "choose-someone-to-chat-with" : "اختر شخصًا للدردشة معه",
+        "choose-one-person" : "اختر شخصًا واحدًا!",
+        "start-chating" : "ابدأ الدردشة"
     }
 }

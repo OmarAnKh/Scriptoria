@@ -7,7 +7,7 @@ import Popup from './Popup';
 import useAuth from '../../hooks/useAuth'; 
 import './AllListsPage.css'
 
-const ListCard = ({userName, list, update}) => {
+const ListCard = ({userName, list, updateFlag, setUpdateFlag}) => {
   const {auth} = useAuth()
   const [cover, setCover] = useState(logo)
   const [color, setColor] = useState('chocolate')
@@ -35,7 +35,7 @@ const ListCard = ({userName, list, update}) => {
         <i className="list-arrow bi bi-arrow-right-short ml-0" ><Link to={`/profile/${userName}/lists/${list._id}`} /></i>
         <p>reading list</p>
         <img className="list-pic img-fluid object-fit-cover bg-light" src={cover} />
-        <Popup page="allLists" list={list} update={update} name={name} setName={setName}/>
+        <Popup page="allLists" list={list} updateFlag={updateFlag} setUpdateFlag={setUpdateFlag} name={name} setName={setName}/>
         <Link className='list-ball' to={`/profile/${userName}/lists/${list._id}`} style={{backgroundColor : color}} />
       </div>
 </div>
