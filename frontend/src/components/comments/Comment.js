@@ -51,21 +51,21 @@ const Comment = ({ storyId,
     } else {
       updatedLikes = [...commentLikes, auth?.userInfo?._id];
     }
-  
+
     const comment = {
       text,
       _id: commentId,
       likes: updatedLikes,
       accountId: account._id
     };
-  
+
     const res = await editComment(comment, token);
     if (res.statusText === "OK") {
       setCommentLikes(updatedLikes);
       setLike(!like);
     }
   };
-  
+
 
 
   const handleComment = async (status) => {
@@ -227,59 +227,59 @@ const Comment = ({ storyId,
                 </div>
                 {
                   auth?.userName ? <div className="reply-btn text-muted">
-                  <Link className="text-decoration-none text-secondary"
-                  onClick={()=>{
-                    setReplyInfo({
-                      originId : commentId,
-                      to : account?.displayName
-                    })
-                    setReplyFlag(true)
-                  }}
-                  >{t("Comments.reply")}</Link>
-                </div> : <></>
+                    <Link className="text-decoration-none text-secondary"
+                      onClick={() => {
+                        setReplyInfo({
+                          originId: commentId,
+                          to: account?.displayName
+                        })
+                        setReplyFlag(true)
+                      }}
+                    >{t("Comments.reply")}</Link>
+                  </div> : <></>
                 }
               </div>
               <div className="col-3 px-0 mx-0 comment-like-btn text-end">
                 {
-                  auth?.userName ? 
-                  <>
-                  {commentLikes.length}
-                  <Link
-                  className={`mx-1 comment-like-btn text-end text-decoration-none bi ${like ? "bi-heart-fill text-danger" : "bi-heart text-secondary"}
+                  auth?.userName ?
+                    <>
+                      {commentLikes.length}
+                      <Link
+                        className={`mx-1 comment-like-btn text-end text-decoration-none bi ${like ? "bi-heart-fill text-danger" : "bi-heart text-secondary"}
                     `}
-                  onClick={likeHandler}
-                ></Link>
-                  </> : <>{commentLikes.length} likes</> 
+                        onClick={likeHandler}
+                      ></Link>
+                    </> : <>{commentLikes.length} likes</>
                 }
               </div>
             </div>
           </>
         )}
         {
-          replies?.slice(0, visibleReplies).map((reply, index)=>{
+          replies?.slice(0, visibleReplies).map((reply, index) => {
             return (
               <Reply
-              reply={reply}
-              key={index}
-              originId={commentId}
-              time={getDateStringDifference(new Date(), new Date(reply.createdAt))}
-              likes={likes}
-              triggerCount={triggerCount}
-              setTriggerCount={setTriggerCount}
-              replyInfo={replyInfo}
-              setReplyInfo={setReplyInfo}
-              replyFlag={replyFlag}
-              setReplyFlag = {setReplyFlag}
-              updateComments={updateComments}
-            />
+                reply={reply}
+                key={index}
+                originId={commentId}
+                time={getDateStringDifference(new Date(), new Date(reply.createdAt))}
+                likes={likes}
+                triggerCount={triggerCount}
+                setTriggerCount={setTriggerCount}
+                replyInfo={replyInfo}
+                setReplyInfo={setReplyInfo}
+                replyFlag={replyFlag}
+                setReplyFlag={setReplyFlag}
+                updateComments={updateComments}
+              />
             )
           })
         }
-       {
-        replies.length > 2 &&  <div className="d-flex p-2 view-more-replies fw-bold" style={{cursor : 'pointer'}} onClick={()=>{
-          replies.length >= visibleReplies ? setVisibleReplies((prev)=> prev + 2) : setVisibleReplies(2)
-        }}>{replies.length >= visibleReplies ? t("Comments.view-more-replies") : t("Comments.view-less-replies")}</div>
-       }
+        {
+          replies.length > 2 && <div className="d-flex p-2 view-more-replies fw-bold text-secondary" style={{ cursor: 'pointer' }} onClick={() => {
+            replies.length > visibleReplies ? setVisibleReplies((prev) => prev + 2) : setVisibleReplies(2)
+          }}>{replies.length > visibleReplies ? t("Comments.view-more-replies") : t("Comments.view-less-replies")}</div>
+        }
       </div>
     </div>
   );
