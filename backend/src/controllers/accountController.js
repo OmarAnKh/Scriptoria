@@ -21,7 +21,7 @@ const createAccount = async (req, res) => {
     try {
         await user.save();
         const { accessToken, refreshToken } = await user.generateAuthToken();
-        res.cookie('jwt', refreshToken, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000 });
+        res.cookie('jwt', refreshToken, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000, secure: true, sameSite: 'None' });
         res.status(201).send({ user, token: accessToken, refreshToken });
     } catch (error) {
         res.status(400).send(error);
@@ -63,7 +63,7 @@ const refreshAccount = async (req, res) => {
         );
         user.tokens = user.tokens.concat({ token: newRefreshToken });
         await user.save();
-        res.cookie('jwt', newRefreshToken, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000 });
+        res.cookie('jwt', newRefreshToken, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000, secure: true, sameSite: 'None' });
         res.cookie('flag', true);
         res.send({ accessToken, userName: user.userName, refreshToken: newRefreshToken, userInfo: user });
     } catch (error) {
@@ -230,19 +230,19 @@ const deleteAccount = async (req, res) => {
         await Follow.deleteMany({ account: id });
         await Follow.deleteMany({ follow: id });
         await Reply.deleteMany({
-            $or : [
+            $or: [
                 { 'replier': id },
                 { 'repliedTo': id },
             ]
         })
 
-        
-        const comments = await Comment.find({accountId: id})
-        for(const comment of comments){
-            await Reply.deleteMany({originId : comment})
+
+        const comments = await Comment.find({ accountId: id })
+        for (const comment of comments) {
+            await Reply.deleteMany({ originId: comment })
             await comment.deleteOne()
         }
-        
+
         const writers = await Writers.find({ AccountId: id });
         for (const writer of writers) {
             const count = await Writers.countDocuments({ StoryId: writer.StoryId })
@@ -270,7 +270,7 @@ const deleteAccount = async (req, res) => {
             }
         }
 
-        
+
 
         const account = await Account.findOneAndDelete(id)
 
