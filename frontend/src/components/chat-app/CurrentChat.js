@@ -5,8 +5,10 @@ import moment from 'moment';
 import ChatInfo from './ChatInfo';
 import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 const CurrentChat = ({ socket  ,currentChat, setCurrentChat}) => {
+  const { t } = useTranslation()
   const { auth } = useAuth();
   const [text, setText] = useState('');
   const messagesEndRef = useRef(null);
@@ -153,7 +155,7 @@ const CurrentChat = ({ socket  ,currentChat, setCurrentChat}) => {
           name='message-input'
           id='message-input'
           type='text'
-          placeholder='Write a message'
+          placeholder={t("Chats.write-a-message")}
           className='form-control'
           value={text}
           onChange={(e) => {

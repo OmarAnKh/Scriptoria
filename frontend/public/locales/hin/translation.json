@@ -176,7 +176,9 @@
         "cancel": "रद्द करें",
         "no-comments": "इस कहानी पर टिप्पणी करने का पहला हो",
         "write-something": "कुछ लिखें...",
-        "reply-to": "उत्तर दें"
+        "reply-to": "उत्तर दें",
+        "view-more-replies": "और उत्तर देखें",
+        "view-less-replies": "कम उत्तर देखें"
     },
     "SaveTo": {
         "save-to": "कहानी को सहेजें...",
@@ -287,6 +289,7 @@
         "chat-with-one-person-only" : "केवल एक व्यक्ति के साथ चैट करें",
         "choose-someone-to-chat-with" : "किसी से चैट करने के लिए चुनें",
         "choose-one-person" : "एक व्यक्ति चुनें!",
-        "start-chating" : "चैटिंग शुरू करें"
+        "start-chating" : "चैटिंग शुरू करें",
+        "write-a-message": "संदेश लिखें"
     }
 }

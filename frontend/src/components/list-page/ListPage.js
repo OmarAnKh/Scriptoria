@@ -4,7 +4,6 @@ import { useParams } from 'react-router-dom'
 import useAuth from '../../hooks/useAuth'
 import { getValidStoriesFrom } from '../../api/readingListsApi'
 import Popup from '../all-lists-page/Popup'
-import { useTranslation } from 'react-i18next';
 import PrivateList from '../no-access-pages/PrivateList'
 import EmptyList from '../empty-pages/EmptyList'
 import MyCard from '../my-works/my-works-card/MyCard'

@@ -176,7 +176,9 @@
         "cancel": "取消",
         "no-comments": "成为第一个评论这个故事的人",
         "write-something": "写点什么...",
-        "reply-to": "回复至"
+        "reply-to": "回复至",
+        "view-more-replies": "查看更多回复",
+        "view-less-replies": "查看更少回复"
     },
     "SaveTo": {
         "save-to": "保存故事到...",
@@ -287,6 +289,7 @@
         "chat-with-one-person-only" : "仅与一个人聊天",
         "choose-someone-to-chat-with" : "选择一个人聊天",
         "choose-one-person" : "选择一个人！",
-        "start-chating" : "开始聊天"
+        "start-chating" : "开始聊天",
+        "write-a-message": "写消息"
     }
 }

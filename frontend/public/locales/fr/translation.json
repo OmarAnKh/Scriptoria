@@ -176,7 +176,9 @@
         "cancel": "annuler",
         "no-comments": "soyez le premier à commenter cette histoire",
         "write-something": "écrire quelque chose...",
-        "reply-to": "répondre à"
+        "reply-to": "répondre à",
+        "view-more-replies": "voir plus de réponses",
+        "view-less-replies": "voir moins de réponses"
     },
     "SaveTo": {
         "save-to": "enregistrer l'histoire dans...",
@@ -287,6 +289,7 @@
         "chat-with-one-person-only" : "discuter avec une seule personne",
         "choose-someone-to-chat-with" : "choisissez quelqu'un avec qui discuter",
         "choose-one-person" : "choisissez une personne!",
-        "start-chating" : "commencer à discuter"
+        "start-chating" : "commencer à discuter",
+        "write-a-message": "écrire un message"
     }
 }
