@@ -110,7 +110,7 @@ const SearchResultsPage = () => {
                 </div>
             </div>
             <div className="Search-container">
-                {books.length !== 0 ? books?.map((book, index) => {
+                {books?.length !== 0 ? books?.map((book, index) => {
                     return (
                         <React.Fragment key={index}>
                             <BookCard
