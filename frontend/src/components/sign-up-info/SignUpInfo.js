@@ -19,7 +19,7 @@ const JoyButton = (props) => {
             <button className="btn" onClick={(event) => {
                 props.method(event, props.type)
             }}>
-                <p>{props.type} {props.type === props.actives ? <i className="bi bi-check-circle-fill"></i> : <></>}</p>
+                <p>{props.title} {props.type === props.actives ? <i className="bi bi-check-circle-fill"></i> : <></>}</p>
                 <img src={props.icon} className={`img-fluid`} style={{ width: "80px", height: "80px" }} alt="what do you prefer" />
             </button>
         </>
@@ -163,13 +163,13 @@ const SignUpInfo = () => {
                 <RegistrationInput className="col-md-8 user-description" inputClassName="form-control" type="textarea" placeholder={t("Registration.description")} onChange={setDescription} />
                 <div className='row d-flex justify-content-center signup-joy-buttons '>
                     <div className='d-flex justify-content-between mx-4'>
-                        <JoyButton icon={openBook} type={t("Registration.reader")} actives={joyType} method={(event, type) => {
+                        <JoyButton icon={openBook} type={"reader"} title={t("Registration.reader")} actives={joyType} method={(event, type) => {
                             handleJoyButton(event, type)
                         }} />
-                        <JoyButton icon={content} type={t("Registration.both")} actives={joyType} method={(event, type) => {
+                        <JoyButton icon={content} type={"both"} title={t("Registration.both")} actives={joyType} method={(event, type) => {
                             handleJoyButton(event, type)
                         }} />
-                        <JoyButton icon={signature} type={t("Registration.writer")} actives={joyType} method={(event, type) => {
+                        <JoyButton icon={signature} type={"writer"} title={t("Registration.writer")} actives={joyType} method={(event, type) => {
                             handleJoyButton(event, type)
                         }} />
                     </div>
