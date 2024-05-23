@@ -317,9 +317,9 @@ const ProfileInfo = (props) => {
                         </div>
                         <div>
                             <div className="buttons1">
-                                <InfoButton text={t("ProfileInfo.followers")} value={followerCount?.followerCount} />
+                                <InfoButton text={t("ProfileInfo.following")} value={followerCount?.followerCount} />
                                 <InfoButton text={t("ProfileInfo.works")} value={getAccountWorks} />
-                                <InfoButton text={t("ProfileInfo.following")} value={followingCount?.followingsNumber} />
+                                <InfoButton text={t("ProfileInfo.followers")} value={followingCount?.followingsNumber} />
                             </div>
                         </div>
                     </div>
