@@ -9,7 +9,7 @@ import useAccount from '../../hooks/useAccount';
 import usePassword from '../../hooks/usePassword';
 import RegistrationInput from '../registration/RegistrationInput';
 import { useTranslation } from 'react-i18next';
-import useThemeToggle from "../theme-toggle/ThemeToggle.js"
+import useThemeToggle from "../../hooks/ThemeToggle.js"
 
 const Registration = () => {
 

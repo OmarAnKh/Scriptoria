@@ -8,7 +8,7 @@ import useAuth from "../../hooks/useAuth.js";
 import { useTranslation } from 'react-i18next';
 import { findAccount } from "../../api/accountApi.js";
 import useLogout from "../../hooks/useLogout.js";
-import useThemeToggle from "../theme-toggle/ThemeToggle.js"
+import useThemeToggle from "../../hooks/ThemeToggle.js"
 
 
 const NavBar = () => {

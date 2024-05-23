@@ -13,7 +13,7 @@ import { getstory } from "../../../api/storyAPI";
 import toast from "react-hot-toast";
 import useSendEmail from "../../../hooks/useSendEmail";
 import { Tooltip } from "react-tooltip";
-import useThemeToggle from "../../theme-toggle/ThemeToggle.js"
+import useThemeToggle from "../../../hooks/ThemeToggle.js"
 
 
 const WpNavBar = ({ socket, setMode, setState }) => {
