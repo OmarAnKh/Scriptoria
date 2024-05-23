@@ -14,12 +14,15 @@ const SearchResultsPage = () => {
     const [books, setBooks] = useState([])
     const [users, setUsers] = useState([])
     const [responsive, setResponsive] = useState({})
+    const [searchFlag, setSearchFlag] = useState(false)
     const navigate = useNavigate()
 
     useEffect(() => {
+        setSearchFlag(false);
         const fetchData = async () => {
             try {
                 const res = await findStory(criteria)
+                setSearchFlag(true)
                 if (res.status === true) {
                     setBooks(res.stories)
                     setUsers(res.users)
@@ -106,7 +109,7 @@ const SearchResultsPage = () => {
                                 ))}
                             </Carousel>
                             :
-                            <><SearchResultsPlaceholder type="user-card" /></>}
+                            <>{!searchFlag ? <SearchResultsPlaceholder type="user-card" /> : <></>}</>}
                     </div>
                 </div>
             </div>
