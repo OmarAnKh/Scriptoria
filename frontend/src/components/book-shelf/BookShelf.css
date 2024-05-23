@@ -46,10 +46,19 @@
     right: 10px;
 }
 
+.book-shelf {
+    margin: 2em;
+}
 
 @media screen and (max-width: 767px) {
     .carousel-container {
         margin: 0 50px;
         width: 280px;
+    }
+}
+
+@media screen and (max-width: 476px) {
+    .book-shelf {
+        margin: 0em;
     }
 }

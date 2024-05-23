@@ -1,12 +1,23 @@
 @media screen and (min-width: 768px) {
     .shelf-img {
-        max-width: 660px; 
-    }
-}
-  
-  @media screen and (max-width: 767px) {
-    .shelf-img {
-        max-width: 400px; 
+        max-width: 660px;
     }
 }
 
+@media screen and (max-width: 767px) {
+    .shelf-img {
+        max-width: 500px;
+    }
+}
+
+@media screen and (max-width: 476px) {
+    .shelf-img {
+        max-width: 350px;
+    }
+}
+
+@media screen and (max-width: 350px) {
+    .shelf-img {
+        max-width: 250px;
+    }
+}
