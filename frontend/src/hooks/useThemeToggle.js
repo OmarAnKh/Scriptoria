@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import lightLogo from './../../img/scriptoria-logo-white.png'
-import darkLogo from './../../img/scriptoria-logo-black.png'
+import lightLogo from '../img/scriptoria-logo-white.png'
+import darkLogo from '../img/scriptoria-logo-black.png'
 
 const useThemeToggle = () => {
     const [isDarkTheme, setIsDarkTheme] = useState(false);
