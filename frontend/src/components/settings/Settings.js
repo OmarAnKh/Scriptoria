@@ -307,7 +307,7 @@ const Settings = () => {
                                     <SettingsInfo className="tab-pane fade show active  settings-info-body " id="v-pills-userInfo" role="tabpanel" ariaLabelledby="v-pills-userInfo-tab" tabIndex={0} >
                                         <CardSettingsInfo cardBodyClassName="d-flex align-items-end">
                                             <div className="d-flex align-items-start">
-                                                <AddProfile imgURL={imgURL} setImgURL={setImgURL}/> 
+                                                <AddProfile imgURL={imgURL} setImgURL={setImgURL} />
                                                 <div className="ms-3 my-3">
                                                     <h5>{displayName}</h5>
                                                     <p className='user-name-text'>@{userName}</p>
@@ -344,17 +344,16 @@ const Settings = () => {
 
                                     <SettingsInfo className="tab-pane fade settings-info-body" id="v-pills-privacy" role="tabpanel" aria-labelledby="v-pills-privacy-tab" tabIndex={0}>
                                         {t("Settings.privacy")}
-
                                         <CardSettingsInfo cardBodyClassName="d-flex align-items-end">
-                                            <div className="d-flex align-items-start" style={{ paddingLeft: '1em' }}>
-                                                <AddProfile imgURL={imgURL} setImgURL={setImgURL}/> 
+                                            <div className="container d-sm-flex align-items-end">
+                                                <AddProfile imgURL={imgURL} setImgURL={setImgURL} />
                                                 <div className="ms-3 my-3 px-3">
                                                     <h5>{displayName}</h5>
                                                     <p className='user-name-text'>@{userName}</p>
                                                 </div>
-                                            </div>
-                                            <div className="ms-auto">
-                                                <DeleteButton />
+                                                <div className="ms-auto">
+                                                    <DeleteButton />
+                                                </div>
                                             </div>
                                         </CardSettingsInfo>
                                     </SettingsInfo>
