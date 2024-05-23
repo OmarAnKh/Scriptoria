@@ -59,7 +59,7 @@ function App() {
         s.disconnect();
       };
     }
-  }, [auth,updateChatsFlag])
+  }, [auth, updateChatsFlag])
 
   useEffect(() => {
     chats?.map((chat) => {
@@ -72,16 +72,16 @@ function App() {
   }, [chats])
 
   useEffect(() => {
-    if (!socket) return 
-    
-    socket?.on('update',()=>{
+    if (!socket) return
+
+    socket?.on('update', () => {
       setUpdateChatsFlag(!updateChatsFlag)
     })
 
     return () => {
-        socket?.off('update')
+      socket?.off('update')
     }
-}, [socket])
+  }, [socket])
 
   useEffect(() => {
     if (auth?.userName) {
@@ -94,10 +94,10 @@ function App() {
               </div>
               <div className='d-flex flex-column'>
                 <div className='notification-name mb-0 pb-0'>
-                    {message?.owner?.userName} {message.roomName === '' ? '' : `to '${message.roomName}'`}
+                  {message?.owner?.userName} {message.roomName === '' ? '' : `to '${message.roomName}'`}
                 </div>
                 <div className='text-break mt-0 pt-0 notification-message'>
-                    {message.text.length > 30 ? (`${message.text.substring(0, 30)}...`) : (message.text)}
+                  {message.text.length > 30 ? (`${message.text.substring(0, 30)}...`) : (message.text)}
                 </div>
 
               </div>
