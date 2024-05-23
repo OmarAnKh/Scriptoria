@@ -12,6 +12,7 @@ import useConvertPath from '../../hooks/useConvertPath';
 import UploadImg from '../settings/UploadImg';
 import { useTranslation } from 'react-i18next';
 import './SignUpInfo.css'
+import useThemeToggle from "../../hooks/useThemeToggle.js"
 
 const JoyButton = (props) => {
     return (
@@ -30,6 +31,7 @@ const SignUpInfo = () => {
     const { t } = useTranslation();
     const [registrationMode, setRegistrationMode] = useState(false);
     const { convertPath } = useConvertPath()
+    const toggleTheme = useThemeToggle();
 
     const location = useLocation();
     const navigate = useNavigate();
