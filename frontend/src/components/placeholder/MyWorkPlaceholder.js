@@ -9,8 +9,8 @@ const MyWorkPlaceholder = ({ type }) => {
                 {
                     Array(3).fill().map((_, idx) => {
                         return (
-                            <div className="custom-card-article">
-                                <Skeleton height={280} style={{}} />
+                            <div className="custom-card-article" key={idx}>
+                                <Skeleton height={280} style={{ backgroundColor: "var(--accent-Color)" }} />
                                 <div className="custom-card-data">
                                     <Skeleton />
                                     <Skeleton />
@@ -28,7 +28,7 @@ const MyWorkPlaceholder = ({ type }) => {
                 {
                     Array(3).fill().map((_, idx) => {
                         return (
-                            <div className="TopCard">
+                            <div className="TopCard" key={idx}>
                                 <Skeleton animation="wave" />
                                 <Skeleton animation="wave" />
                                 <Skeleton animation="wave" />
