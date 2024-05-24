@@ -42,6 +42,7 @@ const sendMail = async (email, text, type) => {
         };
         const htmlToSend = template(replacements)
         mailOptions.to = email
+        mailOptions.subject = "Account recovery"
         mailOptions.html = htmlToSend
     }
     else if (type === 'invitation') {
@@ -52,6 +53,7 @@ const sendMail = async (email, text, type) => {
             link: text
         };
         const htmlToSend = template(replacements)
+        mailOptions.subject = "Invitation Link"
         mailOptions.to = email
         mailOptions.html = htmlToSend
     }
