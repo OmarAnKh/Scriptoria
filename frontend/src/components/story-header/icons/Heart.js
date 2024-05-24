@@ -12,6 +12,7 @@ const Heart = ({ num, storyId, setData, t }) => {
     const [userId, setUserId] = useState()
     const [authorized, setAuthorized] = useState(false)
     const [heartIcon, setHeartIcon] = useState('text-white')
+    const [disable, setDisable] = useState(false)
 
     const ChangeIconColor = () => {
         setHeartIcon((originalColor) => (originalColor == "text-white" ? "text-danger" : "text-white"));
@@ -29,17 +30,17 @@ const Heart = ({ num, storyId, setData, t }) => {
                     const response = await findAccount({ userName: user });
                     setUserId(response._id);
 
-                    if(response.message) {
+                    if (response.message) {
                         setAuthorized(true)
                         const liked = await getLike('likes', response._id, storyId)
-                        if(liked.message) {
+                        if (liked.message) {
                             setHeartIcon('text-danger')
                         }
                     } else {
                         setAuthorized(false)
                         return
                     }
-                    
+
                 } catch (error) {
                     console.log(error);
                 }
@@ -50,8 +51,12 @@ const Heart = ({ num, storyId, setData, t }) => {
     }, [])
 
     const handleClick = async () => {
+        if (disable) {
+            return;
+        }
+        setDisable(true)
 
-        if(authorized) {
+        if (authorized) {
 
             if (heartIcon == "text-danger") {
                 const updated = await updateDocument('stories', { id: storyId, likes: num - 1 })
@@ -74,6 +79,9 @@ const Heart = ({ num, storyId, setData, t }) => {
         } else {
             toast.error(`${t("StoryHeader.must_login")}`);
         }
+        setTimeout(() => {
+            setDisable(false)
+        }, 2000)
     }
 
 
@@ -85,6 +93,6 @@ const Heart = ({ num, storyId, setData, t }) => {
             <h6 className="text-white"> {num}<span className="icon-title"> {t("StoryHeader.Likes")}</span></h6>
         </span>
     );
-} 
+}
 
 export default Heart;
