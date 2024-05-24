@@ -60,7 +60,7 @@ const Comment = ({ storyId,
     };
 
     const res = await editComment(comment, token);
-    if (res.statusText === "OK") {
+    if (res.status === 200) {
       setCommentLikes(updatedLikes);
       setLike(!like);
     }
