@@ -10,7 +10,6 @@ const SAVE_INTERVAL_MS = 2000
 const TOOLBAR_OPTIONS = [
   ["bold", "italic", "underline"],
   [{ align: [] }],
-  ["image"],
   ["clean"],
 ]
 
