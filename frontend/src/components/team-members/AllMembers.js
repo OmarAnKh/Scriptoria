@@ -8,13 +8,15 @@ import areen from "./team-members-img/areen.jpg"
 import lama from "./team-members-img/lama.jpg"
 import mohammad from "./team-members-img/mohammad.jpg"
 import ahmad from "./team-members-img/ahmad.jpg"
+import { useTranslation } from 'react-i18next';
 const MemberPage = () => {
+    const { t } = useTranslation();
     return (
         <>
             <Navbar />
             <div className="backgroundcolo">
                 <div className="container text-center">
-                    <h1 className="mt-5">Our leadership team</h1>
+                    <h1 className="mt-5">{t("TeamMembers.Leadership")}</h1>
                     <div className="row justify-content-center mt-5">
                         <MemberCard
                             imageSrc={omar}
@@ -35,7 +37,7 @@ const MemberPage = () => {
                             discordId="1071373404797681674"
                         />
                     </div>
-                    <h1 className="mt-5">Designers &amp; Developers</h1>
+                    <h1 className="mt-5">{t("TeamMembers.Developers")}</h1>
                     <div className="row justify-content-center mt-5">
                         <MemberCard
                             imageSrc={ahmad}

@@ -291,5 +291,9 @@
         "choose-one-person" : "选择一个人！",
         "start-chating" : "开始聊天",
         "write-a-message": "写消息"
+    },
+    "TeamMembers": {
+        "Leadership": "我们的领导团队",
+        "Developers": "设计师和开发人员"
     }
 }
