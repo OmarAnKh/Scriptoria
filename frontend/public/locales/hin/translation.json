@@ -291,5 +291,9 @@
         "choose-one-person" : "एक व्यक्ति चुनें!",
         "start-chating" : "चैटिंग शुरू करें",
         "write-a-message": "संदेश लिखें"
+    },
+    "TeamMembers": {
+        "Leadership": "हमारी नेतृत्व टीम",
+        "Developers": "डिज़ाइनर और डेवलपर"
     }
 }
