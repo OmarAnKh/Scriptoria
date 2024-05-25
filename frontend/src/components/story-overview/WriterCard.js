@@ -7,7 +7,7 @@ import useAccount from '../../hooks/useAccount';
 import { useTranslation } from 'react-i18next';
 import { Buffer } from 'buffer';
 
-const WriterCard = ({ handleArrowLeftClick, user , backgroundColor}) => {
+const WriterCard = ({ handleArrowLeftClick, user, backgroundColor }) => {
 
     const { t } = useTranslation();
 
@@ -81,11 +81,11 @@ const WriterCard = ({ handleArrowLeftClick, user , backgroundColor}) => {
                         <div className="row textf">
                             <div className="col-4 text-muted mt-2">
                                 <p className="titleFW">{t("StoryOverview.following")}</p>
-                                <h6 className="numberFW">{followingData}</h6>
+                                <h6 className="numberFW">{followersData}</h6>
                             </div>
                             <div className="col-4 text-muted mt-2">
                                 <p className="titleFW">{t("StoryOverview.followers")}</p>
-                                <h6 className="numberFW">{followersData}</h6>
+                                <h6 className="numberFW">{followingData}</h6>
                             </div>
                             <div className="col-4 text-muted mt-2">
                                 <p className="titleFW">{t("StoryOverview.works")}</p>
@@ -114,7 +114,7 @@ const WriterCard = ({ handleArrowLeftClick, user , backgroundColor}) => {
                                 {isFollowingAccount ? `${t("StoryOverview.unfollow")}` : `${t("StoryOverview.follow")}`} <i className="bi bi-person-add"></i>
                             </button>
                         </>}
-                        <button className="btn btn-social btnfollowandviewprofile" onClick={() => handleViewProfile(user.userName)} style={{  backgroundColor: backgroundColor }}>{t("StoryOverview.view_profile")}</button>
+                        <button className="btn btn-social btnfollowandviewprofile" onClick={() => handleViewProfile(user.userName)} style={{ backgroundColor: backgroundColor }}>{t("StoryOverview.view_profile")}</button>
                     </div>
                 </div>
             </div>
