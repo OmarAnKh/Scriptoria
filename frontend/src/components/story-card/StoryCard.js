@@ -34,10 +34,10 @@ const StoryCard = ({ story, t }) => {
         fetchWriters();
         fetchRatings();
 
-    }, []);
+    }, [story]);
 
 
-    return(
+    return (
         <div className={`card mb-1`} style={{ width: '95%', height: '100%', margin: '0 10px', minHeight: '200px', backgroundColor: story?.backgroundColor }}>
             <div className="row no-gutters">
                 <div className="col-md-4">
@@ -61,7 +61,7 @@ const StoryCard = ({ story, t }) => {
                             ))}
                         </h6>
                         <div className="d-flex">
-                            <StarRating rating={ratings} /> 
+                            <StarRating rating={ratings} />
                             <div className='voters text-white'>{votes} {t("CarouselCards.votes")}</div>
                         </div>
                         <p className="card-text description-story text-white">{story?.description}</p>
