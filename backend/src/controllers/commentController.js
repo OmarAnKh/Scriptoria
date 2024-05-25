@@ -42,7 +42,7 @@ const updateCommentById = async (req, res) => {
     try {
         const comment = await Comment.findById(req.params.id);
         if (!comment) {
-            return res.status(404).send({ error: 'Reading list not found' });
+            return res.status(404).send({});
         }
         comment.text = req.body.text
         comment.likes = req.body.likes
