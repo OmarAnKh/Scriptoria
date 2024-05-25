@@ -122,7 +122,7 @@ const ProfileInfo = (props) => {
                 setFollowerCount(followerCount);
                 const folloingCount = await getfollowingCount(_id)
                 setFollowingCount(folloingCount)
-                const accountWorks = await getAccountWork(_id, true)
+                const accountWorks = await getAccountWork(_id, false)
                 if (accountWorks.state) {
                     setGetAccountWorks(accountWorks?.stories?.length)
                 }
@@ -318,8 +318,8 @@ const ProfileInfo = (props) => {
                         <div>
                             <div className="buttons1">
                                 <InfoButton text={t("ProfileInfo.following")} value={followerCount?.followerCount} />
-                                <InfoButton text={t("ProfileInfo.works")} value={getAccountWorks} />
                                 <InfoButton text={t("ProfileInfo.followers")} value={followingCount?.followingsNumber} />
+                                <InfoButton text={t("ProfileInfo.works")} value={getAccountWorks} />
                             </div>
                         </div>
                     </div>
