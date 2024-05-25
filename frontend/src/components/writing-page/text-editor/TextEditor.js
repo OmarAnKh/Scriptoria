@@ -88,10 +88,10 @@ export default function TextEditor({ socket, state }) {
       <br></br>
       <br></br>
       <section className="container text-center wpi mt-5 mb-3">
-      <h1 className="mb-0">
-        Welcome to <span className="Scriptoria fs-1">Scriptoria</span>
-      </h1>
-    </section>
+        <h1 className="mb-0">
+          Welcome to <span className="Scriptoria fs-1">Scriptoria</span>
+        </h1>
+      </section>
       <div className='TextEditorSize container justify-content-center align-items-center bg-light p-0 rounded-3 border-none' style={{ position: 'relative' }} id="hello">
         {state ? <div style={{
           position: 'absolute',
