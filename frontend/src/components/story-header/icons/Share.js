@@ -1,20 +1,25 @@
 import toast from "react-hot-toast"
 const Share = ({ t }) => {
     const shareHandler = async () => {
-        try {
-            if (navigator.share) {
+        if (navigator.share) {
+            try {
                 await navigator.share({
                     title: document.title,
                     url: window.location.href
-                })
-            } else {
-                await navigator.clipboard.writeText(window.location.href)
-                toast.success("Link copied to clipboard!")
+                });
+            } catch (error) {
+                toast.error("Couldn't share the link.");
             }
-        } catch (error) {
-            toast.error("Couldn't share the link.")
+        } else {
+            try {
+                await navigator.clipboard.writeText(window.location.href);
+                toast.success("Link copied to clipboard!");
+            } catch (error) {
+                toast.error("Couldn't copy the link.");
+            }
         }
-    }
+    };
+
     return (
         <span className="mx-5">
             <span className={`px-2 rounded heading ms-auto d-flex flex-column align-items-center`} onClick={shareHandler}>
