@@ -1,4 +1,3 @@
-
 const useSlide = () => {
     const formatText = (object) => {
         let formattedArray = [];
@@ -52,24 +51,20 @@ const useSlide = () => {
         const substrings = [];
         let start = 0;
         while (start < str.length) {
-            let end = start + size;
-            if (end >= str.length) {
-                substrings.push(str.slice(start));
-                break;
-            }
-            while (str[end] !== ' ' && end > start) {
-                end--;
-            }
+            let end = Math.min(start + size, str.length); // Ensure we don't go beyond string length
+            if (end < str.length) { // Only try to split at word boundary if not at the end
+                while (end > start && str[end] !== ' ') {
+                    end--;
+                }
 
-            if (end === start) {
-                substrings.push(str.slice(start, start + size));
-                start += size;
-            } else {
-                substrings.push(str.slice(start, end));
-                start = end + 1;
+                // If no space found, force split at the character limit
+                if (end === start) {
+                    end = start + size;
+                }
             }
+            substrings.push(str.slice(start, end));
+            start = end + (end < str.length ? 1 : 0); // Move start to the next word or the end
         }
-
         return substrings;
     }
 
@@ -110,11 +105,21 @@ const useSlide = () => {
         tempArray.push(tempstring)
         return tempArray
     }
-    const getSlides = (texts, characters) => {
+
+    const getSlides = (texts) => {
+        const MAX_SLIDE_LENGTH = 1200; // Define the maximum slide length here
         const res = formatText(texts)
         const withoutNewlines = removeNewLines(res)
         const splitArrays = splitBigArrays(withoutNewlines, 100)
-        const slides = sumUparrays(splitArrays, characters)
+        let slides = sumUparrays(splitArrays, MAX_SLIDE_LENGTH)
+
+        // Final Constraint: Ensure each slide is <= MAX_SLIDE_LENGTH characters
+        slides = slides.map(slide => {
+            if (slide.length > MAX_SLIDE_LENGTH) {
+                return splitString(slide, MAX_SLIDE_LENGTH); // Resplit if necessary
+            }
+            return slide;
+        }).flat(); // Flatten the array in case of splitting
         return slides
     }
     return getSlides
