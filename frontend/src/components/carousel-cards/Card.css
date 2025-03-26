@@ -59,21 +59,21 @@
 }
 
 .CarouselCards {
-    width: 750px;
+    width: 780px;
+    max-width: fit-content;
     max-height: 100%;
     height: 250px;
 }
 
 @media (max-width: 1500px) {
     .CarouselCards {
-        width: 350px;
+        width: 600px;
         max-height: 100%;
         height: 250px;
-
     }
 
     .CarouselCards-body {
-        width: 100px;
+        width: 250px;
         margin-left: 3em;
     }
 
@@ -85,43 +85,158 @@
     .read-btn {
         width: 150px;
         height: 40px;
-        font-size: small ;
+        font-size: small;
         padding-left: 1em !important;
         padding-right: 1em !important;
     }
 }
 
-@media (max-width: 1200px) {
+@media (min-width: 1000px) and (max-width: 1200px) {
     .CarouselCards {
-        width: 100%;
-        background: none !important;
+        width: 500px;
+        height: 280px;
+        background: your-background-color !important;
+        margin: 0 15px; /* Space between cards */
     }
 
     .CarouselCards-body {
-        display: none;
+        width: 220px;
+        margin-left: 2em;
+        padding: 0.5em;
     }
 
     .cover-img {
-        max-width: 100%;
-        max-height: 100%;
+        width: 400px;
+        height: 180px;
+        object-fit: cover;
     }
 }
 
-@media (max-width: 900px) {
+
+@media (min-width: 740px) and (max-width: 1000px) {
     .CarouselCards {
-        background: none !important;
-        border-style: none;
+        width: 400px; /* Slightly reduced from 420px */
+        min-height: 300px; /* Added minimum height */
+        margin: 0 15px;
+        padding: 15px;
+        display: flex;
+        flex-direction: column;
+        gap: 15px; /* Space between image and content */
+        background: your-background-color !important; /* Restore if needed */
     }
 
     .cover-img {
-        max-width: 100%;
-        max-height: 100%;
-        min-height: 200px;
-        width: 150px;
+        width: 100%; /* Full width of container */
+        height: 170px; /* Increased from 150px */
+        object-fit: cover;
+        margin: 0; /* Reset margins */
+    }
+
+    .CarouselCards-body {
+        width: 100%; /* Full width */
+        margin-left: 0; /* Remove left margin */
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 8px; /* Space between text elements */
+        font-size: 0.9em; /* Slightly larger than before */
+    }
+
+    /* Title adjustments */
+    .CarouselCards-body h3 {
+        font-size: 1.3em;
+        margin: 0;
+    }
+
+    /* Text paragraph adjustments */
+    .CarouselCards-body p {
+        margin: 0;
+        line-height: 1.4;
+    }
+
+    .read-btn {
+        width: 140px; /* Wider than iPad version */
+        padding: 8px 12px !important;
+        margin-top: 10px;
+        align-self: flex-start; /* Better than full-width */
+    }
+}
+
+@media (max-width: 770px) and (min-width: 464px) {
+
+    @media (max-height: 720px) {
+        .CarouselCards {
+            min-height: 280px !important;
+            margin-bottom: 20px !important;
+        }
+    }
+    
+    .CarouselCards {
+        width: 320px;
+        min-height: 350px; /* Ensures enough space */
+        background: none !important;
+        margin: 10px auto;
+        display: flex;
+        flex-direction: column;
+        gap: 12px; /* Adds space between image and content */
+        padding: 12px;
+        position: relative; /* For absolute positioning if needed */
+    }
+
+    .cover-img {
+        width: 100%;
+        height: 180px; /* Increased height */
+        object-fit: cover;
+        border-radius: 8px; /* Optional: for better visuals */
+        margin: 0; /* Reset any default margins */
+    }
+
+    .CarouselCards-body {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        padding: 0;
+        gap: 8px; /* Space between text elements */
+    }
+
+    /* If you have specific title/text elements */
+    .CarouselCards-body h3 {
+        font-size: 1.2em;
+        margin: 0 0 4px 0; /* Removes default margins */
+    }
+
+    .CarouselCards-body p {
+        margin: 0;
+        line-height: 1.4;
+        font-size: 0.9em;
+    }
+
+    .read-btn {
+        width: 100%;
+        margin-top: 12px; /* Extra space above button */
+        padding: 8px 0 !important;
+    }
+}
+
+@media (max-width: 460px) {
+    .CarouselCards {
+        background: none !important;
+        border-style: none;
+        width: 90%;
+        margin: 0 auto;
+    }
+
+    .cover-img {
+        width: 100%;
         height: 150px;
+        object-fit: cover;
     }
 
     .CarouselCards-body {
         display: none;
     }
+}
+
+.CarouselCards * {
+    box-sizing: border-box; 
 }
