@@ -1,11 +1,71 @@
 :root {
-  --primary-color: #75B3C2;
+  --color: #75B3C2;
   --text-color: rgb(0, 0, 0);
   --border-color: rgb(176 190 197);
   --shadow-color: rgba(0, 0, 0, 0.05);
   --box-shadow: 20px 20px 30px rgba(0, 0, 0, 0.05);
   --gray-text: rgba(75, 85, 99, 1);
   --error-color: rgb(225, 25, 25);
+}
+
+.darkmodefor{
+  background-color: var(--primary-Color);
+  color: var(--text-Color);
+}
+
+.darkmodefor input,
+.darkmodefor select,
+.darkmodefor textarea,
+.darkmodefor .character-box span,
+.darkmodefor .character-box1 span,
+.darkmodefor .color-picker-btn span ,
+.darkmodefor .custom-select-Language:valid,
+.darkmodefor .custom-select-Language:focus,
+.darkmodefor .dropdown-toggle:focus,
+.darkmodefor .dropdown-toggle:active
+{
+  color: var(--text-Color) !important;
+}
+
+.darkmodefor .placeholder-option {
+  color: var(--border-color) !important;
+}
+
+.darkmodefor::placeholder {
+  color: var(--text-Color);
+  opacity: 0.7;
+}
+
+.darkmodefor option:not(.placeholder-option) {
+  color: var(--text-Color);
+  background-color: var(--accent-Color);
+}
+
+.darkmodefor select:invalid {
+  color: rgb(122, 121, 121)  !important;
+}
+
+.dropdown-toggle {
+  color: rgb(122, 121, 121) !important;
+
+}
+
+.dropdown-toggle:active,
+.dropdown-toggle:focus {
+  color: #000 !important;
+}
+
+.darkmodefor .dropdown-toggle {
+  color: var(--text-Color) ; 
+}
+
+.darkmodefor option {
+  background-color: var(--accent-Color);
+  color: var(--text-Color);
+}
+
+.darkmodefor button {
+  color: var(--text-Color);
 }
 
 .input-container, 
@@ -38,7 +98,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 0.5rem 0.75rem;
-  background-color: var(--primary-color);
+  background-color: var(--color);
   color: var(--text-color);
   font-size: 0.875rem;
   font-weight: 600;
@@ -128,17 +188,14 @@
   color: var(--text-color);
 }
 
-.input-container1 button,
-.color-picker-btn {
-  color: rgba(69, 90, 100, 0.6);
-}
-
 .input-container input:focus,
 .custom-textarea:focus,
 .custom-select-Language:focus,
 .input-container1 button:focus {
-  border: 1px solid var(--primary-color);
+  border: 1px solid var(--color);
+  color: var(--text-color);
 }
+
 .custom-textarea {
   min-height: 100px;
   max-height: 300px;
@@ -176,7 +233,7 @@
   bottom: 4px;
   z-index: 10;
   border-radius: 4px;
-  background-color: var(--primary-color);
+  background-color: var(--color);
   color: var(--gray-text);
   text-align: center;
   font-size: 12px;
@@ -202,11 +259,12 @@
   pointer-events: none;
   background-color: gray;
   opacity: 0.5;
+  color: rgb(66, 66, 66);
 }
 
 .form-check-input:checked {
-  background-color: var(--primary-color) !important;
-  border-color: var(--primary-color) !important;
+  background-color: var(--color) ;
+  border-color: var(--color) ;
 }
 
 .number-input::-webkit-inner-spin-button,
@@ -229,7 +287,7 @@
   left: 0;
   z-index: 1000;
   margin-top: 0.5rem;
-  background-color: #fff;
+  background-color: var(--accent-Color);
   border: 1px solid rgba(0, 0, 0, 0.15);
   border-radius: 0.25rem;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -238,11 +296,12 @@
 .category-item {
   flex: 1 1 calc(33.33% - 10px);
   cursor: pointer;
+  background-color: var(--primary-Color) !important ;
 }
 
 .selected-category {
-  background-color: var(--primary-color);
-  color: var(--text-color);
+  background-color: var(--color) !important;
+  color: var(--text-color) !important;
 }
 
 .character-box1 button:hover {
@@ -254,8 +313,8 @@
 }
 
 .dropdown-menu1 div.selected {
-  background-color: var(--primary-color) !important;
-  color: var(--text-color) !important;
+  background-color: var(--color);
+  color: var(--text-color);
 }
 
 .dropdown-menu1 .grid-container {
@@ -274,7 +333,7 @@
   width: 120px;
   height: 50px;
   border-radius: 50px;
-  background-image: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-color) 100%);
+  background-image: linear-gradient(135deg, var(--color) 0%, var(--color) 100%);
   box-shadow: 0 20px 30px -6px rgba(0, 0, 0, 0.5);
   outline: none;
   cursor: pointer;
@@ -282,6 +341,7 @@
   font-size: 20px;
   color: var(--text-color);
   position: relative;
+  margin: 10px;
 }
 
 .btnStartAndCancel:hover {
@@ -339,6 +399,10 @@
 .color-picker-btn span:first-of-type {
   font-size: 1rem;
   font-weight: 500;
+}
+
+.form-check-label {
+  font-size: 13px;
 }
 
 @media (max-width: 768px) {
@@ -403,4 +467,7 @@
     padding: 8px 12px !important; 
   }
   
+  .btnStartAndCancel {
+    margin: 10px; 
+  }
 }

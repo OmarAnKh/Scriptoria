@@ -200,7 +200,7 @@ const StoryDetails = () => {
         <div className="row">
           <div className="col-md-8 mx-auto">
           <div 
-            className="card p-4 mb-4" 
+            className="card p-4 mb-4 darkmodefor" 
             style={{ backgroundColor: "var(--primary-Color)" }}
           >
             <div className="story-details-header text-center mb-4">
@@ -213,14 +213,14 @@ const StoryDetails = () => {
               </h2>
             </div>
 
-            <div className="row g-4">
+            <div className="row g-4 ">
               <div className="col-md-6">
                 <div
-                  className="card p-3"
+                  className="card p-3 darkmodefor"
                   style={{ backgroundColor: "var(--accent-Color)" }}
                 >
                   <h4>Story Information</h4>
-                  <h7 className="mt-1">Story Name</h7>
+                  <h6 className="mt-1">Story Name</h6>
                   <div className="input-container mt-2">
                     <input
                       type="text"
@@ -234,11 +234,11 @@ const StoryDetails = () => {
                     <p className="story-details-error">{storyTitleError}</p>
                   )}
 
-                  <h7 className="mt-3">Description</h7>
+                  <h6 className="mt-3">Description</h6>
                   <div className="textarea-container mt-2">
                     <textarea
                       className="custom-textarea"
-                      rows={7}
+                      rows={8}
                       defaultValue={description}
                       onChange={(event) => setDescription(event.target.value)}
                       placeholder="Enter story description"
@@ -250,7 +250,7 @@ const StoryDetails = () => {
                   </div>
                   <p className="story-details-error">{descriptionError}</p>
 
-                  <h7 className="mt-3">Target Audience</h7>
+                  <h6 className="mt-3">Target Audience</h6>
                   <div className="d-flex gap-3 mt-2">
                     {targetAudiences.map((option) => (
                       <div key={option} className="form-check">
@@ -280,11 +280,11 @@ const StoryDetails = () => {
 
               <div className="col-md-6">
                 <div
-                  className="card p-3"
+                  className="card p-3 darkmodefor"
                   style={{ backgroundColor: "var(--accent-Color)" }}
                 >
                   <h5>Add Cover</h5>
-                  <h7>Upload Section</h7>
+                  <h6>Upload Section</h6>
                   <label
                     className="custum-file-upload mt-2"
                     htmlFor="file-upload"
@@ -346,7 +346,7 @@ const StoryDetails = () => {
                     </p>
                   )}
 
-                  <h7 className="mt-3">Background</h7>
+                  <h6 className="mt-3">Background</h6>
                   <div className="d-flex align-items-center gap-2 mt-2">
                     <div className="color-picker-wrapper">
                       <button
@@ -386,17 +386,17 @@ const StoryDetails = () => {
 
               <div className="col-md-6">
                 <div
-                  className="card p-3"
+                  className="card p-3 darkmodefor"
                   style={{ backgroundColor: "var(--accent-Color)" }}
                 >
                   <h4>More Information</h4>
                   <div className="d-flex align-items-center gap-3">
                     <div className="flex-grow-1">
-                      <h7 className="mt-1">Language</h7>
+                      <h6 className="mt-1">Language</h6>
                       <div className="input-container mt-2">
                         <select
                           className="custom-select-Language"
-                          defaultValue=""
+                          value={language} 
                           onChange={(event) => setLanguage(event.target.value)}
                           required
                         >
@@ -408,7 +408,7 @@ const StoryDetails = () => {
                             Select Language
                           </option>
                           {languages.map((lang) => (
-                            <option key={lang} value={lang}>
+                            <option key={lang} value={lang} className="darkmodefor" >
                               {lang}
                             </option>
                           ))}
@@ -420,7 +420,7 @@ const StoryDetails = () => {
                     </div>
 
                     <div className="flex-grow-1">
-                      <h7 className="mt-1">Number of Slides</h7>
+                      <h6 className="mt-1">Number of Slides</h6>
                       <div className="input-container mt-2">
                         <input
                           type="number"
@@ -437,8 +437,8 @@ const StoryDetails = () => {
                     </div>
                   </div>
 
-                  <h7 className="mt-1">Characters</h7>
-                  <div className="input-container mt-2">
+                  <h6 className="mt-2">Characters</h6>
+                  <div className="input-container mt-1">
                     <input
                       type="text"
                       value={mainCharactersHelper}
@@ -476,12 +476,12 @@ const StoryDetails = () => {
               </div>
 
               <div className="col-md-6">
-                <div className="card p-3 category-card">
+                <div className="card p-3 category-card darkmodefor">
                   <h4>Category</h4>
-                  <h9>Story Category</h9>
+                  <h6>Story Category</h6>
                   <div className="input-container1 mt-2 position-relative">
                     <button
-                      className="dropdown-toggle w-100 text-start"
+                      className="dropdown-toggle w-100 text-start "
                       type="button"
                       onClick={() => setShowCategoryPicker(!showCategoryPicker)}
                     >
@@ -508,11 +508,11 @@ const StoryDetails = () => {
                     )}
                   </div>
                   {categoryError && (
-                    <p className="story-details-error">{categoryError}</p>
+                    <p className="story-details-error ">{categoryError}</p>
                   )}
                   <div className="d-flex flex-wrap gap-2 mt-2">
                     {category.map((cat) => (
-                      <div key={cat} className="character-box1">
+                      <div key={cat} className="character-box1 ">
                         <span>{cat}</span>
                         <button
                           onClick={() =>
@@ -529,9 +529,9 @@ const StoryDetails = () => {
             </div>
 
             <div className="row justify-content-end ">
-              <div className="col-auto  ">
+              <div className="col-auto ">
                 <button
-                  className="btnStartAndCancel mx-2"
+                  className="btnStartAndCancel "
                   onClick={handalStartWriting}
                 >
                   Start
