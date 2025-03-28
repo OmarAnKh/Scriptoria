@@ -70,7 +70,6 @@ const useSlide = () => {
 
     const splitBigArrays = (object, characters) => {
         let tempArray = []
-        let tempstring = ''
         let tempsubstring = ''
         for (let i = 0; i < object.length; i++) {
             if (object[i].includes('<b>') || object[i].includes('<u>') || object[i].includes('<i>')) {
@@ -107,7 +106,7 @@ const useSlide = () => {
     }
 
     const getSlides = (texts) => {
-        const MAX_SLIDE_LENGTH = 1200; // Define the maximum slide length here
+        const MAX_SLIDE_LENGTH = 1560; // Define the maximum slide length here
         const res = formatText(texts)
         const withoutNewlines = removeNewLines(res)
         const splitArrays = splitBigArrays(withoutNewlines, 100)

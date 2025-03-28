@@ -3,17 +3,16 @@ import { useParams } from 'react-router-dom';
 import HTMLFlipBook from 'react-pageflip';
 import './FlipBook.css';
 import BookPage from './Page.js';
-import Sound from './../../../audio/PageTurn.mp3';
-import Icons from "../../story-header/icons/Icons.js"
-import { getstory } from "../../../api/storyAPI.js"
-import Navbar from "../../navbar/Navbar";
-import useSlide from "../../../hooks/useSlide.js"
+import Sound from './../../audio/PageTurn.mp3';
+import Icons from "../story-header/icons/Icons.js";
+import { getstory } from "../../api/storyAPI.js";
+import Navbar from "../navbar/Navbar.js";
+import useSlide from "../../hooks/useSlide.js";
 import { Tooltip } from 'react-tooltip';
 import { LoaderIcon } from 'react-hot-toast';
-import { ElevenLabsClient, play } from "elevenlabs";
 
 // ElevenLabs API Key
-const ELEVENLABS_API_KEY = "sk_71975f7f72567d7ce5f9510408621fc8aa5c106b3709e296";
+const ELEVENLABS_API_KEY = process.env.REACT_APP_ELEVENLABS_API_KEY;
 
 function FlipBook() {
     const [displayButton, setDisplayButton] = useState(false);
@@ -31,7 +30,8 @@ function FlipBook() {
     const [selectedVoice, setSelectedVoice] = useState(null); // Selected ElevenLabs voice ID
     const [loading, setLoading] = useState(true);
     const [currentPage, setCurrentPage] = useState(0); // Track current page
-    const CHARACTERS_PER_SLIDE = 1000;
+    const [pageHeights, setPageHeights] = useState([]);
+    const [audioInstance, setAudioInstance] = useState(null); // Store audio instance
 
     // Fetch story data
     useEffect(() => {
@@ -39,7 +39,7 @@ function FlipBook() {
             try {
                 const story = await getstory(id);
                 setStoryData(story.story);
-                setSlide(getSlides(story?.story?.slide?.ops, CHARACTERS_PER_SLIDE));
+                setSlide(getSlides(story?.story?.slide?.ops));
                 setTitle(story?.story?.title);
                 setColor(story?.story?.backgroundColor);
             } catch (error) {
@@ -55,7 +55,7 @@ function FlipBook() {
     useEffect(() => {
         const handleResize = () => {
             setIsMobile(window.innerWidth < 650);
-            const newWidth = window.innerWidth * 0.8;
+            const newWidth = window.innerWidth * 0.9;
             const maxWidth = 1200;
             setBookWidth(newWidth > maxWidth ? maxWidth : newWidth);
         };
@@ -91,13 +91,32 @@ function FlipBook() {
             const audioElements = document.querySelectorAll('audio');
             audioElements.forEach(audio => audio.pause()); // Pause all audio elements
         };
-
         window.addEventListener('beforeunload', handleBeforeUnload);
-
         return () => {
             window.removeEventListener('beforeunload', handleBeforeUnload);
         };
     }, []);
+
+    // Calculate page heights dynamically
+    useEffect(() => {
+        const heights = slide.map((text) => measureTextHeight(text));
+        setPageHeights(heights);
+    }, [slide, isMobile, bookWidth]);
+
+    // Measure text height dynamically
+    const measureTextHeight = (text) => {
+        const tempDiv = document.createElement('div');
+        tempDiv.style.position = 'absolute';
+        tempDiv.style.visibility = 'hidden';
+        tempDiv.style.whiteSpace = 'pre-wrap';
+        tempDiv.style.fontSize = '16px'; // Default font size
+        tempDiv.style.width = `${isMobile ? bookWidth : bookWidth / 2}px`;
+        tempDiv.innerText = text;
+        document.body.appendChild(tempDiv);
+        const height = tempDiv.offsetHeight;
+        document.body.removeChild(tempDiv);
+        return height;
+    };
 
     // Handle page turn
     const handlePageTurn = () => {
@@ -115,7 +134,7 @@ function FlipBook() {
         flipBookRef.current?.pageFlip()?.flipNext();
         setTimeout(() => {
             setDisplayButton(false);
-        }, 1000);
+        }, 100);
     };
 
     // Previous button click handler
@@ -124,7 +143,7 @@ function FlipBook() {
         flipBookRef.current?.pageFlip()?.flipPrev();
         setTimeout(() => {
             setDisplayButton(false);
-        }, 1000);
+        }, 100);
     };
 
     // Get total pages
@@ -138,66 +157,55 @@ function FlipBook() {
     };
 
     // Speak text using ElevenLabs
-    const [audioInstance, setAudioInstance] = useState(null); // Store audio instance
-
-const speakText = async () => {
-    if (isSpeaking) {
-        // If already speaking, stop audio
-        if (audioInstance) {
-            audioInstance.pause();
-            audioInstance.currentTime = 0;
-        }
-        setIsSpeaking(false);
-        return;
-    }
-
-    const currentPageIndex = getpageindex();
-    const textToSpeak = slide[currentPageIndex]?.trim();
-
-    if (!textToSpeak) {
-        console.error("No text to speak.");
-        return;
-    }
-
-    setIsSpeaking(true); // Start loading
-    try {
-        const response = await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${selectedVoice}`, {
-            method: "POST",
-            headers: {
-                "xi-api-key": ELEVENLABS_API_KEY,
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                text: textToSpeak,
-                model_id: "eleven_multilingual_v2",
-                voice_settings: {
-                    stability: 0.5,
-                    similarity_boost: 0.8
-                }
-            })
-        });
-
-        if (!response.ok) throw new Error("Failed to generate speech");
-
-        const audioBlob = await response.blob();
-        const audioUrl = URL.createObjectURL(audioBlob);
-        const newAudio = new Audio(audioUrl);
-
-        // Store the audio instance
-        setAudioInstance(newAudio);
-
-        newAudio.play();
-        newAudio.onended = () => {
+    const speakText = async () => {
+        if (isSpeaking) {
+            // If already speaking, stop audio
+            if (audioInstance) {
+                audioInstance.pause();
+                audioInstance.currentTime = 0;
+            }
             setIsSpeaking(false);
-            setAudioInstance(null);
-        };
-    } catch (error) {
-        console.error("Error generating speech:", error);
-        setIsSpeaking(false);
-    }
-};
-
-    
+            return;
+        }
+        const currentPageIndex = getpageindex();
+        const textToSpeak = slide[currentPageIndex]?.trim();
+        if (!textToSpeak) {
+            console.error("No text to speak.");
+            return;
+        }
+        setIsSpeaking(true); // Start loading
+        try {
+            const response = await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${selectedVoice}`, {
+                method: "POST",
+                headers: {
+                    "xi-api-key": ELEVENLABS_API_KEY,
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    text: textToSpeak,
+                    model_id: "eleven_multilingual_v2",
+                    voice_settings: {
+                        stability: 0.5,
+                        similarity_boost: 0.8
+                    }
+                })
+            });
+            if (!response.ok) throw new Error("Failed to generate speech");
+            const audioBlob = await response.blob();
+            const audioUrl = URL.createObjectURL(audioBlob);
+            const newAudio = new Audio(audioUrl);
+            // Store the audio instance
+            setAudioInstance(newAudio);
+            newAudio.play();
+            newAudio.onended = () => {
+                setIsSpeaking(false);
+                setAudioInstance(null);
+            };
+        } catch (error) {
+            console.error("Error generating speech:", error);
+            setIsSpeaking(false);
+        }
+    };
 
     // Pagination text
     const getPaginationText = () => {
@@ -208,12 +216,11 @@ const speakText = async () => {
         if (totalPages === 0) {
             return "1 - 2";
         }
-        const currentPageIndex = getpageindex();
         if (isMobile) {
-            return `${currentPageIndex + 1} | ${totalPages}`;
+            return `${currentPage + 1} | ${totalPages}`;
         } else {
-            const page1 = currentPageIndex + 1;
-            const page2 = currentPageIndex + 2 <= totalPages ? currentPageIndex + 2 : totalPages;
+            const page1 = currentPage + 1;
+            const page2 = currentPage + 2 <= totalPages ? currentPage + 2 : totalPages;
             return `${page1} - ${page2} | ${totalPages}`;
         }
     };
@@ -231,31 +238,34 @@ const speakText = async () => {
                     <>
                         <div className="text-center">
                             <h1 className='display-5 text-center m-3 text-light Scriptoria'> {title} </h1>
-                            <div className="mb-2 text-light gap-1 d-flex align-items-center justify-content-center">
-                                <button
-                                    type="button"
-                                    className={`btn rounded-pill btn-${isSpeaking ? 'success' : 'light'} btn-md`}
-                                    onClick={speakText}
-                                >
-                                    {isSpeaking ? <i className="bi bi-stop-circle-fill"></i> : <i className="bi bi-volume-up-fill text-dark"></i>}
-                                </button>
-                                <select
-                                    value={selectedVoice}
-                                    onChange={(e) => setSelectedVoice(e.target.value)}
-                                    style={{ padding: '5px', borderRadius: '5px' }}
-                                >
-                                    {voices.map((voice) => (
-                                        <option key={voice.voice_id} value={voice.voice_id}>
-                                            {voice.name}
-                                        </option>
-                                    ))}
-                                </select>
-                            </div>
+                            {
+                                voices ? <div className="mb-2 text-light gap-1 d-flex align-items-center justify-content-center">
+                                    <button
+                                        type="button"
+                                        className={`btn rounded-pill btn-${isSpeaking ? 'success' : 'light'} btn-md`}
+                                        onClick={speakText}
+                                    >
+                                        {isSpeaking ? <i className="bi bi-stop-circle-fill"></i> : <i className="bi bi-volume-up-fill text-dark"></i>}
+                                    </button>
+                                    <select
+                                        value={selectedVoice}
+                                        onChange={(e) => setSelectedVoice(e.target.value)}
+                                        style={{ padding: '5px', borderRadius: '5px' }}
+                                    >
+                                        {voices?.map((voice) => (
+                                            <option key={voice.voice_id} value={voice.voice_id}>
+                                                {voice.name}
+                                            </option>
+                                        ))}
+                                    </select>
+                                </div>
+                                    : ""
+                            }
                         </div>
                         <div className="d-flex justify-content-center" style={{ maxWidth: '1200px', width: '100%', overflow: 'hidden' }}>
                             <HTMLFlipBook
                                 width={isMobile ? bookWidth : bookWidth / 2}
-                                height={600}
+                                height={Math.max(...pageHeights, 600)} // Use the maximum height of all pages
                                 size="stretch"
                                 minWidth={250}
                                 flippingTime={1000}
@@ -267,7 +277,7 @@ const speakText = async () => {
                                 {slide && slide.map((text, index) => (
                                     <BookPage key={index}>
                                         <div className="page-text" key={index}>
-                                            {text}
+                                            {text}{console.log(text.length)}
                                             <div className="page-number" style={{ position: 'absolute', bottom: '5px', right: '10px', fontSize: '10px', color: '#aaa' }}>
                                                 {index + 1}
                                             </div>
