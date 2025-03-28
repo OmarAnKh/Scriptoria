@@ -1,72 +1,93 @@
-import { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from 'react';
+import 'react-quill/dist/quill.snow.css';
 import Quill from "quill";
 import "quill/dist/quill.snow.css";
-import { io } from "socket.io-client";
-import { useParams } from "react-router-dom";
+import toast from "react-hot-toast";
 
-
-
-const SAVE_INTERVAL_MS = 2000
+const MAX_CHARS = 1560;
 const TOOLBAR_OPTIONS = [
   ["bold", "italic", "underline"],
   [{ align: [] }],
   ["clean"],
 ]
 
-export default function TextEditor({ socket, state }) {
-  const { id: documentId } = useParams()
+const TextEditor = ({ socket, slide, index, setSlides, documentId }) => {
   const [quill, setQuill] = useState()
-  useEffect(() => { }, [state])
-
-
-  useEffect(() => {
-    if (socket == null || quill == null) return
-
-    socket.once("load-document", document => {
-      quill.setContents(document)
-      quill.enable()
-    })
-
-    socket.emit("get-document", documentId)
-  }, [socket, quill, documentId])
+  const [charCount, setCharCount] = useState(0);
 
   useEffect(() => {
-    if (socket == null || quill == null) return
-
-    const interval = setInterval(() => {
-      socket.emit("save-document", quill.getContents())
-    }, SAVE_INTERVAL_MS)
-
-    return () => {
-      clearInterval(interval)
+    if (quill && slide?.text) {
+      const initialText = quill.getText().trim();
+      setCharCount(initialText.length);
     }
-  }, [socket, quill])
+  }, [quill, slide]);
 
   useEffect(() => {
-    if (socket == null || quill == null) return
-
-    const handler = delta => {
-      quill.updateContents(delta)
-    }
-    socket.on("receive-changes", handler)
-
-    return () => {
-      socket.off("receive-changes", handler)
-    }
-  }, [socket, quill])
+    if (socket == null) return;
+    socket.emit("join-slide-room", `${documentId}/${slide?._id}`)
+  }, [])
 
   useEffect(() => {
-    if (socket == null || quill == null) return
+    if (quill && slide?.text) {
+      const initialText = quill.getText().trim();
+      setCharCount(initialText.length);
+    }
+  }, [quill, slide]);
+
+  useEffect(() => {
+    if (socket == null || quill == null) return;
 
     const handler = (delta, oldDelta, source) => {
-      if (source !== "user") return
-      socket.emit("send-changes", delta)
-    }
-    quill.on("text-change", handler)
+      if (source !== "user") return;
 
-    return () => {
-      quill.off("text-change", handler)
-    }
+      const currentText = quill.getText().trim();
+      const currentLength = currentText.length;
+
+      if (currentLength > MAX_CHARS) {
+        const overage = currentLength - MAX_CHARS;
+
+        const selection = quill.getSelection();
+
+        quill.deleteText(MAX_CHARS, MAX_CHARS + overage);
+
+        if (selection) {
+          setTimeout(() => quill.setSelection(selection), 0);
+        }
+
+        toast(`Maximum ${MAX_CHARS} characters allowed!`);
+        return;
+      }
+
+      setCharCount(currentLength);
+      const html = quill.root.innerHTML;
+
+      setSlides(prev => {
+        let temp = [...prev];
+        temp[index].text = html;
+        return temp;
+      });
+
+      socket.emit("send-changes", {
+        text: html,
+        roomId: `${documentId}/${slide?._id}`,
+        index
+      });
+    };
+
+    quill.on("text-change", handler);
+    return () => quill.off("text-change", handler);
+  }, [socket, quill, index, documentId, slide?._id, setSlides]);
+  useEffect(() => {
+    socket.on("receive-changes", ({ text, roomId }) => {
+      setSlides(prev => {
+        let temp = [...prev];
+        temp[index].text = text;
+        return temp;
+      })
+      if (roomId !== `${documentId}/${slide?._id}`) return
+      quill?.clipboard?.dangerouslyPasteHTML(text);
+    })
+
   }, [socket, quill])
 
   const wrapperRef = useCallback(wrapper => {
@@ -79,33 +100,30 @@ export default function TextEditor({ socket, state }) {
       theme: "snow",
       modules: { toolbar: TOOLBAR_OPTIONS },
     })
-    q.disable()
-    q.setText("Loading...")
+    // q.disable()
+    q.clipboard.dangerouslyPasteHTML(0, slide?.text);
     setQuill(q)
   }, [])
+
   return (
-    <div className='mb-5'>
-      <br></br>
-      <br></br>
-      <section className="container text-center wpi mt-5 mb-3">
-        <h1 className="mb-0">
-          Welcome to <span className="Scriptoria fs-1">Scriptoria</span>
-        </h1>
-      </section>
-      <div className='TextEditorSize container justify-content-center align-items-center bg-light p-0 rounded-3 border-none' style={{ position: 'relative' }} id="hello">
-        {state ? <div style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          zIndex: 1000,
-          backgroundColor: 'rgba(255, 255, 255, 0.5)',
-          cursor: 'not-allowed',
-        }}></div> : <></>}
-        <div ref={wrapperRef} className=""></div>
+    <div className="mb-4">
+      <h1 className="display-5 fw-bold mb-4">Text Editor</h1>
+
+      <div className="bg-white rounded shadow p-4">
+        <div
+          ref={wrapperRef}
+          className="bg-white rounded shadow p-3"
+          style={{
+            height: '500px',
+            border: '1px solid #dee2e6',
+            display: 'flex',
+            flexDirection: 'column'
+          }}
+        >
+        </div>
       </div>
-      <br></br>
     </div>
-  )
-}
+  );
+};
+
+export default TextEditor;

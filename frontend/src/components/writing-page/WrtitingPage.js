@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import "./WritingPage.css";
 import WpNavBar from "./nav-bar/WpNavBar";
-import TextEditor from "./text-editor/TextEditor";
+// import TextEditor from "./text-editor/TextEditor";
 import { io } from "socket.io-client";
 import useAuth from "../../hooks/useAuth";
+import SlidesPage from "./text-editor/SlidesPage";
 
 
 const WritingPage = () => {
@@ -50,14 +51,22 @@ const WritingPage = () => {
 
   return (
     <>
-    <WpNavBar socket={socket} data={data} setMode={setMode} setData={setData} setState={setState} />
-    <div className="WP"   style={{
-      backgroundColor: focus ? "#25252585" : "#ECECEC",
-      height,
-      transition: "all 0.3s ease-in",
-    }}>     
-        <TextEditor socket={socket} data={data} setData={setData} state={state} />    
-    </div>
+      <WpNavBar socket={socket} data={data} setMode={setMode} setData={setData} setState={setState} />
+      <div className="WP" style={{
+        backgroundColor: focus ? "#25252585" : "#ECECEC",
+        height,
+        transition: "all 0.3s ease-in",
+      }}>
+
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+
+        <SlidesPage socket={socket} />
+      </div>
     </>
 
   );

@@ -43,9 +43,8 @@ const storySchema = new mongoose.Schema({
     MPAFilmRatings: {
         type: String,
         required: true
-    }, slide: {
-        type: Object,
-    }
+    },
+    slides: [{ text: { type: String } }]
 });
 
 const Story = mongoose.model('Story', storySchema);
