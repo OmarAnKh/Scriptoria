@@ -32,6 +32,7 @@ function FlipBook() {
     const [currentPage, setCurrentPage] = useState(0); // Track current page
     const [pageHeights, setPageHeights] = useState([]);
     const [audioInstance, setAudioInstance] = useState(null); // Store audio instance
+    const [errorMessage, setErrorMessage] = useState(null);
 
     // Fetch story data
     useEffect(() => {
@@ -151,15 +152,9 @@ function FlipBook() {
         return flipBookRef.current?.pageFlip()?.getPageCount() || 0;
     };
 
-    // Get current page index
-    const getpageindex = () => {
-        return flipBookRef.current?.pageFlip()?.getCurrentPageIndex() || 0;
-    };
-
     // Speak text using ElevenLabs
     const speakText = async () => {
         if (isSpeaking) {
-            // If already speaking, stop audio
             if (audioInstance) {
                 audioInstance.pause();
                 audioInstance.currentTime = 0;
@@ -167,13 +162,10 @@ function FlipBook() {
             setIsSpeaking(false);
             return;
         }
-        const currentPageIndex = getpageindex();
-        const textToSpeak = slide[currentPageIndex]?.trim();
-        if (!textToSpeak) {
-            console.error("No text to speak.");
-            return;
-        }
-        setIsSpeaking(true); // Start loading
+        const textToSpeak = slide[currentPage]?.trim();
+        if (!textToSpeak) return;
+        setIsSpeaking(true);
+        setErrorMessage(null);
         try {
             const response = await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${selectedVoice}`, {
                 method: "POST",
@@ -181,20 +173,12 @@ function FlipBook() {
                     "xi-api-key": ELEVENLABS_API_KEY,
                     "Content-Type": "application/json"
                 },
-                body: JSON.stringify({
-                    text: textToSpeak,
-                    model_id: "eleven_multilingual_v2",
-                    voice_settings: {
-                        stability: 0.5,
-                        similarity_boost: 0.8
-                    }
-                })
+                body: JSON.stringify({ text: textToSpeak, model_id: "eleven_multilingual_v2" })
             });
             if (!response.ok) throw new Error("Failed to generate speech");
             const audioBlob = await response.blob();
             const audioUrl = URL.createObjectURL(audioBlob);
             const newAudio = new Audio(audioUrl);
-            // Store the audio instance
             setAudioInstance(newAudio);
             newAudio.play();
             newAudio.onended = () => {
@@ -202,10 +186,13 @@ function FlipBook() {
                 setAudioInstance(null);
             };
         } catch (error) {
-            console.error("Error generating speech:", error);
+            setErrorMessage("Unable to generate audio at the moment.");
+            setTimeout(() => setErrorMessage(null), 10000);
             setIsSpeaking(false);
+            console.error("Error generating speech:", error);
         }
     };
+
 
     // Pagination text
     const getPaginationText = () => {
@@ -237,9 +224,10 @@ function FlipBook() {
                 ) : (
                     <>
                         <div className="text-center">
-                            <h1 className='display-5 text-center m-3 text-light Scriptoria'> {title} </h1>
+                            <h1 className='display-5 text-center mt-3 mb-4 text-light Scriptoria'> {title} </h1>
                             {
-                                voices ? <div className="mb-2 text-light gap-1 d-flex align-items-center justify-content-center">
+                                voices ? !errorMessage ? 
+                                <div className="mb-2 text-light gap-1 d-flex align-items-center justify-content-center">
                                     <button
                                         type="button"
                                         className={`btn rounded-pill btn-${isSpeaking ? 'success' : 'light'} btn-md`}
@@ -259,7 +247,8 @@ function FlipBook() {
                                         ))}
                                     </select>
                                 </div>
-                                    : ""
+                                    : <p className="text-light">{errorMessage}</p> 
+                                : null 
                             }
                         </div>
                         <div className="d-flex justify-content-center" style={{ maxWidth: '1200px', width: '100%', overflow: 'hidden' }}>
@@ -277,7 +266,7 @@ function FlipBook() {
                                 {slide && slide.map((text, index) => (
                                     <BookPage key={index}>
                                         <div className="page-text" key={index}>
-                                            {text}{console.log(text.length)}
+                                            {text}
                                             <div className="page-number" style={{ position: 'absolute', bottom: '5px', right: '10px', fontSize: '10px', color: '#aaa' }}>
                                                 {index + 1}
                                             </div>
