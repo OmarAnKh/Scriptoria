@@ -1,5 +1,3 @@
-
-
 const findAccount = async (findCriteria) => {
     try {
         const response = await fetch(`${process.env.REACT_APP_HOSTURL}/user/find`, {
@@ -12,6 +10,7 @@ const findAccount = async (findCriteria) => {
 
         })
         if (response.ok) {
+
             return response.json();
         }
     } catch (error) {

@@ -11,9 +11,11 @@ const MyCard = (props) => {
     const handleDeleteStory = async () => {
         try {
             const res = await deleteStory(props.storyId)
-            console.log(res)
+            if (res.success) {
+                props.setStories((prevStories) => prevStories.filter(story => story.id !== props.storyId));
+            }
         } catch (error) {
-
+            console.error("Error deleting story:", error);
         }
     }
     useEffect(() => {

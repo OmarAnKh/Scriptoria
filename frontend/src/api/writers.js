@@ -40,8 +40,47 @@ const getStories = async (findCriteria, flag) => {
         return error;
     }
 }
+
+
+const getInvitation = async (invitationId) => {
+    try {
+        const response = await fetch(`${process.env.REACT_APP_HOSTURL}/invitation/${invitationId}`, {
+            method: "GET",
+            credentials: "include",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        })
+        return response.json();
+    } catch (error) {
+        return error;
+    }
+}
+
+const invitationResponse = async (invitationId, invitationStatus) => {
+    try {
+        const response = await fetch(`${process.env.REACT_APP_HOSTURL}/invitationResponse`, {
+            method: "POST",
+            credentials: "include",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                invitationId,
+                invitationStatus
+            })
+        });
+
+        return response.json();
+    } catch (error) {
+        return error;
+    }
+};
+
 export {
     getWriters,
     getStories,
-    findWriters
+    findWriters,
+    getInvitation,
+    invitationResponse
 }

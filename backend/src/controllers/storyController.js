@@ -17,7 +17,8 @@ const createStory = async (req, res) => {
         const writers = new Writers({
             AccountId: req.user._id,
             StoryId: story._id,
-            rule: "owner"
+            rule: "owner",
+            invitationStatus: 'accepted'
         });
         await writers.save();
         res.status(201).send({ story, writers });

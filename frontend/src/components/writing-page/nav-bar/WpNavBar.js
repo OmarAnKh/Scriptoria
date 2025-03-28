@@ -32,6 +32,7 @@ const WpNavBar = ({ socket, setMode, setState }) => {
   const [signedInUser, setSignedInUser] = useState({})
   const [publishStatus, setPublishStatus] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [storyData, setStoryData] = useState({});
   useThemeToggle()
 
 
@@ -43,12 +44,13 @@ const WpNavBar = ({ socket, setMode, setState }) => {
         navigate('/NoAccessPage')
         return
       }
+      setStoryData(res.story);
     }
     const fetchUsers = async () => {
       const res = await getWriters(id)
       setUsers(res.users)
       const userExists = res.users?.some(writer => {
-        if (writer.AccountId === auth?.userInfo._id) {
+        if (writer.AccountId === auth?.userInfo._id && writer.invitationStatus === 'accepted') {
           setSignedInUser(writer)
           if (writer.rule === "viewer") {
             setState(true)
@@ -114,16 +116,16 @@ const WpNavBar = ({ socket, setMode, setState }) => {
     const writerDocument = {
       AccountId: res._id,
       StoryId: id,
-      rule: "viewer"
+      rule: "viewer",
+      senderId: auth?.userInfo._id
     };
-    sendMail(res.user.email, window.location.href, "invitation")
     try {
       const writing = await saveDocument('Writer', writerDocument);
       if (writing.status === 400) {
         setUserExistError("block");
         return
       }
-
+      sendMail(res.user.email, { invitationId: writing.writer._id }, "invitation")
       const randomNumber = Math.floor(Math.random() * 100);
       setAddUserState(randomNumber);
       document.getElementById('invitaionId').value = ""
@@ -189,7 +191,7 @@ const WpNavBar = ({ socket, setMode, setState }) => {
 
   }, [socket])
 
-  const handelPublich = async () => {
+  const handelPublish = async () => {
     const userExists = users?.some(writer => {
       if (writer.AccountId === auth?.userInfo._id) {
         setSignedInUser(writer)
@@ -245,7 +247,7 @@ const WpNavBar = ({ socket, setMode, setState }) => {
                   <button className="btn nav-btn rounded-5 mx-2 my-1" onClick={handleMode}>focus mode</button>
                 </li>
                 <li className="nav-item">
-                  <button type="button" className="btn rounded-5 nav-btn mx-2 my-1" onClick={handelPublich} data-tooltip-id="my-tooltip" data-tooltip-content="change publish status" data-tooltip-place='bottom'>
+                  <button type="button" className="btn rounded-5 nav-btn mx-2 my-1" onClick={handelPublish} data-tooltip-id="my-tooltip" data-tooltip-content="change publish status" data-tooltip-place='bottom'>
                     {publishStatus ? "published" : "private"}
                   </button>
                 </li>
@@ -256,11 +258,12 @@ const WpNavBar = ({ socket, setMode, setState }) => {
       </div>
       <div className="modal fade" id="Invitation-modal" tabIndex={-1} aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div className="modal-dialog modal-dialog-centered">
-          <div className="modal-content" style={{ display: "inline" }}>
-            Do You Want To Invite Someone to Write With You?
-            <div className="justify-content-end mx-0" style={{ display: "inline" }}>
-              <button type="button" className="btn-close m-2" data-bs-dismiss="modal" aria-label="Close" >
-              </button>
+          <div className="modal-content " style={{ display: "inline" }}>
+            <div style={{ marginLeft: "2%" }}>Do You Want To Invite Someone to Write With You?
+              <div className="justify-content-end mx-0" style={{ display: "inline" }}>
+                <button type="button" className="btn-close m-2" data-bs-dismiss="modal" aria-label="Close" >
+                </button>
+              </div>
             </div>
             <div className="modal-body container fs-1">
               <div className="row-cols-auto justify-content-center">

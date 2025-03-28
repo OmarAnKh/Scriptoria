@@ -50,7 +50,7 @@ const sendMail = async (email, text, type) => {
         const source = fs.readFileSync(templatePath, 'utf-8').toString()
         const template = handlebars.compile(source)
         const replacements = {
-            link: text
+            link: `http://localhost:3000/invitation/${text.invitationId}`
         };
         const htmlToSend = template(replacements)
         mailOptions.subject = "Invitation Link"

@@ -1,6 +1,42 @@
 import Writers from "../models/writers.js";
 import Story from "../models/story.js"
 
+const getInvitation = async (req, res) => {
+    const invitationId = req.params.invitationId
+    try {
+        const invitation = await Writers.findById(invitationId)
+        return res.status(200).send({ state: true, invitation });
+    } catch (error) {
+        res.status(500).send({ state: false, error: "Server error" })
+    }
+}
+
+const invitationResponse = async (req, res) => {
+    const { invitationId, invitationStatus } = req.body;
+
+    const validStatuses = ["pending", "accepted", "rejected"];
+    if (!validStatuses.includes(invitationStatus)) {
+        return res.status(400).send({ state: false, error: "Invalid invitation status" });
+    }
+
+    try {
+        const invitation = await Writers.findByIdAndUpdate(
+            invitationId,
+            { invitationStatus },
+            { new: true }
+        );
+
+        if (!invitation) {
+            return res.status(404).send({ state: false, error: "Invitation not found" });
+        }
+
+        res.status(200).send({ state: true, message: "Invitation status updated", invitation });
+    } catch (error) {
+        res.status(500).send({ state: false, error: "Server error" });
+    }
+};
+
+
 const getWritersByStoryId = async (req, res) => {
     const storyId = req.params.id
     try {
@@ -24,8 +60,10 @@ const getWritersByStoryId = async (req, res) => {
                 AccountId: writer.AccountId._id,
                 rule: writer.rule,
                 StoryId: storyId,
-                _id: writer._id
+                _id: writer._id,
+                invitationStatus: writer.invitationStatus
             }
+
         })
         return res.status(200).send({ state: true, users });
     } catch (error) {
@@ -100,10 +138,14 @@ const deleteWriter = async (req, res) => {
     }
 }
 
+
+
 export default {
     getWritersByStoryId,
     getStoriesByWriterId,
     createWriter,
     updateWriter,
     deleteWriter,
+    getInvitation,
+    invitationResponse
 }

@@ -85,13 +85,19 @@ const getAccountByUserName = async (req, res) => {
 
 const getAccount = async (req, res) => {
     try {
+        if (Object.keys(req.body).length === 0) {
+            return res.status(400).send({ error: "Request body is empty" });
+        }
+
         const user = await Account.findOne(req.body);
         if (!user) {
-            return res.send({ message: false });
+            return res.status(404).send({ message: "User not found" });
         }
-        res.send({ message: true, _id: user._id, user });
+
+        res.status(200).send({ message: true, _id: user._id, user });
     } catch (error) {
-        res.status(500).send({ error: "Server error" })
+        console.error("Error fetching account:", error);
+        res.status(500).send({ error: "Server error" });
     }
 }
 
