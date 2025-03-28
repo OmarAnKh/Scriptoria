@@ -7,6 +7,7 @@ const Message = ({ owner, text, time }) => {
   const isOwner = owner._id === auth?.userInfo?._id
 
   return (
+
     <div className='row m-1'>
       {isOwner ? <></> : <div className='text-secondary text-start'>{owner.userName}</div>}
       <div className={`d-flex flex-row justify-content-${isOwner ? 'end' : 'start'}`}>

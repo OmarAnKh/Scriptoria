@@ -296,5 +296,9 @@
         "choose-one-person" : "choose one person !",
         "start-chating" : "start chating",
         "write-a-message" : "write a message"
+    },
+    "TeamMembers":{
+        "Leadership": "Our leadership team",
+        "Developers": "Designers & Developers"
     }
 }
