@@ -1,0 +1,111 @@
+.demoPage {
+    max-width: 600px; /* Adjusted to match .page-text width */
+    margin: auto;
+    width: 100%;
+    height: auto;
+    background-color: #e6e2e2;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 5px 15px 0px 15px;
+}
+
+.demoPage h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.demoPage div {
+    font-size: 16px;
+    margin-bottom: 15px;
+    color: #666;
+}
+
+.HTMLFlipBook {
+    max-width: 600px; /* Same width as .demoPage */
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.page-number {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    font-size: 0.8em;
+    color: #555;
+}
+
+.bookmark-button {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 10;
+}
+
+/* Base styles for the flip book */
+.page-text {
+    /* padding: 0px 20px 10px 20px ; */
+    /* padding: 20px; */
+    position: relative;
+    height: 100%;
+    font-family: 'Times New Roman', Times, serif;
+    line-height: 1.6;
+    text-align: justify;
+    overflow-y: auto;
+    color: #333;
+}
+
+/* Ensure text is readable at all screen sizes */
+@media (min-width: 1200px) {
+    .page-text {
+        font-size: 17px;
+        padding: 30px;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1199px) {
+    .page-text {
+        font-size: 16px;
+        padding: 25px;
+    }
+}
+
+@media (max-width: 767px) {
+    .page-text {
+        font-size: 15px;
+        padding: 20px;
+    }
+}
+
+/* Scrollbar styling for overflow content */
+.page-text::-webkit-scrollbar {
+    width: 6px;
+}
+
+.page-text::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.page-text::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 3px;
+}
+
+.page-text::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/* Page number positioning */
+.page-number {
+    position: absolute;
+    bottom: 10px;
+    right: 15px;
+    font-size: 12px;
+    color: #666;
+    padding: 5px;
+    background-color: rgba(255, 255, 255, 0);
+    border-radius: 3px;
+}
