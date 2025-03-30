@@ -50,25 +50,17 @@ const WritingPage = () => {
 
 
   return (
-    <>
+    <div className="flex">
       <WpNavBar socket={socket} data={data} setMode={setMode} setData={setData} setState={setState} />
       <div className="WP" style={{
         backgroundColor: focus ? "#25252585" : "#ECECEC",
         height,
         transition: "all 0.3s ease-in",
+        paddingTop: '6rem'
       }}>
-
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-
         <SlidesPage socket={socket} />
       </div>
-    </>
-
+    </div>
   );
 };
 

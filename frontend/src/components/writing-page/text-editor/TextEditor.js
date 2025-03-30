@@ -16,13 +16,6 @@ const TextEditor = ({ socket, slide, index, setSlides, documentId }) => {
   const [charCount, setCharCount] = useState(0);
 
   useEffect(() => {
-    if (quill && slide?.text) {
-      const initialText = quill.getText().trim();
-      setCharCount(initialText.length);
-    }
-  }, [quill, slide]);
-
-  useEffect(() => {
     if (socket == null) return;
     socket.emit("join-slide-room", `${documentId}/${slide?._id}`)
   }, [])
@@ -81,8 +74,11 @@ const TextEditor = ({ socket, slide, index, setSlides, documentId }) => {
     socket.on("receive-changes", ({ text, roomId }) => {
       setSlides(prev => {
         let temp = [...prev];
-        temp[index].text = text;
-        return temp;
+        if (temp[index]) {
+          temp[index].text = text;
+          return temp;
+        }
+        return prev;
       })
       if (roomId !== `${documentId}/${slide?._id}`) return
       quill?.clipboard?.dangerouslyPasteHTML(text);
@@ -107,12 +103,9 @@ const TextEditor = ({ socket, slide, index, setSlides, documentId }) => {
 
   return (
     <div className="mb-4">
-      <h1 className="display-5 fw-bold mb-4">Text Editor</h1>
-
-      <div className="bg-white rounded shadow p-4">
+      <div>
         <div
           ref={wrapperRef}
-          className="bg-white rounded shadow p-3"
           style={{
             height: '500px',
             border: '1px solid #dee2e6',

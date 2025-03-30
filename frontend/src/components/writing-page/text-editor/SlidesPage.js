@@ -9,13 +9,11 @@ const MAX_CHARS = 1560;
 
 const SlidesPage = ({ socket }) => {
     const [slides, setSlides] = useState([]);
-    const [showDeleteConfirm, setShowDeleteConfirm] = useState(null);
-    const [activeUsers, setActiveUsers] = useState({});
     const containerRef = useRef(null);
-    const textareaRefs = useRef({});
     const { id: documentId } = useParams();
     const { addSlide, deleteSlide } = useSlide(documentId);
     const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
+    const [deleteFlag, setDeleteFlag] = useState(false);
 
     // Center the current slide
     const centerSlide = (index) => {
@@ -62,7 +60,7 @@ const SlidesPage = ({ socket }) => {
 
         socket.on("get-add-slide", (slide) => {
             setSlides(prev => [...prev, slide]);
-            setCurrentSlideIndex(prev => prev + 1);
+            // setCurrentSlideIndex(slides.length + 1);
             toast("New slide was added");
         });
     }, [socket, documentId]);
@@ -72,7 +70,9 @@ const SlidesPage = ({ socket }) => {
 
         socket.on("get-slide-after-delete", (slide) => {
             setSlides(prev => [...slide]);
+            setDeleteFlag(!deleteFlag)
             setCurrentSlideIndex(prev => Math.min(prev, slide.length - 1));
+            toast("The slide was deleted");
         });
     }, [socket, documentId]);
 
@@ -80,6 +80,7 @@ const SlidesPage = ({ socket }) => {
         const lastSlide = slides[slides.length - 1];
         if (!lastSlide || lastSlide.text.trim().length > 0) {
             const newSlide = await addSlide();
+            // setCurrentSlideIndex(slides.length + 1);
             socket.emit("add-slide", newSlide);
             return;
         }
@@ -98,91 +99,104 @@ const SlidesPage = ({ socket }) => {
     }, [slides, currentSlideIndex]);
 
     return (
-        <div className="mb-4">
-            <div className="position-relative">
-                <button
-                    onClick={() => goToSlide(currentSlideIndex - 1)}
-                    disabled={currentSlideIndex === 0}
-                    className="btn btn-light position-absolute start-0 top-50 translate-middle-y rounded-circle z-3 bg-white bg-opacity-75"
-                    style={{ padding: '0.5rem' }}
-                >
-                    <ChevronLeft size={24} />
-                </button>
+        <div >
+            <div className="container">
+                <div className="position-relative">
+                    <button
+                        onClick={() => goToSlide(currentSlideIndex - 1)}
+                        disabled={currentSlideIndex === 0}
+                        className="btn btn-light position-absolute start-0 top-50 translate-middle-y z-3 rounded-circle shadow-sm border"
+                        style={{ width: '45px', height: '45px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                    >
+                        <ChevronLeft size={20} />
+                    </button>
 
-                <div
-                    ref={containerRef}
-                    className="d-flex overflow-auto pb-4 px-5 hide-scrollbar"
-                    style={{
-                        scrollSnapType: 'x mandatory',
-                        scrollbarWidth: 'none',
-                        msOverflowStyle: 'none',
-                    }}
-                >
-                    {slides.map((slide, index) => (
-                        <div
-                            key={index}
-                            className={`flex-shrink-0 mx-2 ${index % 2 === 0 ? 'book-page-left' : 'book-page-right'}`}
-                            style={{
-                                width: '800px',
-                                scrollSnapAlign: 'center',
-                                transition: 'transform 0.3s ease',
-                                transform: index === currentSlideIndex ? 'scale(1.02)' : 'scale(1)'
-                            }}
-                        >
-                            <div className="position-relative bg-white rounded shadow p-4" style={{ minHeight: '600px' }}>
-                                <div className="position-absolute top-0 end-0 p-3 d-flex align-items-center">
-                                    <span className="text-muted small me-3">
-                                        Page {index + 1} • {slide?.text.replace(/<[^>]*>/g, '').length}/{MAX_CHARS}
-                                    </span>
-                                    <button
-                                        onClick={handleAddSlide}
-                                        className="btn btn-link p-0"
-                                    >
-                                        <PlusCircle size={20} />
-                                    </button>
-                                    <button
-                                        onClick={() => handleDeleteSlide(index)}
-                                        className="btn btn-link text-danger p-0"
-                                    >
-                                        <Trash2 size={20} />
-                                    </button>
-                                </div>
-
-                                <div className="mt-4">
-                                    {activeUsers[slide?._id]?.length > 0 && (
-                                        <div className="d-flex flex-wrap gap-2 mb-3">
-                                            {activeUsers[slide?._id].map((user, i) => (
-                                                <div
-                                                    key={i}
-                                                    className="px-3 py-1 rounded-pill small"
-                                                    style={{ backgroundColor: user.color + '20', color: user.color }}
-                                                >
-                                                    {user.name} is editing...
-                                                </div>
-                                            ))}
+                    <div
+                        ref={containerRef}
+                        className="d-flex overflow-auto"
+                        style={{
+                            scrollSnapType: 'x mandatory',
+                            scrollbarWidth: 'none',
+                            msOverflowStyle: 'none'
+                        }}
+                    >
+                        {slides.map((slide, index) => (
+                            <div
+                                key={index}
+                                className="flex-shrink-0 mx-2"
+                                style={{
+                                    width: '100%',
+                                    scrollSnapAlign: 'center',
+                                    transition: 'transform 0.3s ease',
+                                    transform: index === currentSlideIndex ? 'scale(1.02)' : 'scale(1)'
+                                }}
+                            >
+                                <div
+                                    className={`rounded  p-4 ${index === currentSlideIndex ? 'shadow-lg' : 'shadow'}`}
+                                    style={{ minHeight: '600px' }}
+                                >
+                                    <div className="d-flex justify-content-between align-items-center mb-4">
+                                        <div className="text-muted fst-italic">
+                                            Page {index + 1} of {slides.length}
                                         </div>
-                                    )}
-                                    <TextEditor
-                                        socket={socket}
-                                        slide={slide}
-                                        index={index}
-                                        setSlides={setSlides}
-                                        documentId={documentId}
-                                    />
+
+                                        <div className="d-flex align-items-center">
+                                            <small className="text-muted me-3">
+                                                {slides[index]?.text.replace(/<[^>]*>/g, '').length}/{MAX_CHARS} characters
+                                            </small>
+                                            <button
+                                                onClick={handleAddSlide}
+                                                className="btn btn-sm btn-outline-secondary border-0 mx-1"
+                                                title="Add new page"
+                                            >
+                                                <PlusCircle size={18} />
+                                            </button>
+                                            <button
+                                                onClick={() => handleDeleteSlide(index)}
+                                                className="btn btn-sm btn-outline-danger border-0 mx-1"
+                                                title="Delete this page"
+                                                disabled={slides.length <= 1}
+                                            >
+                                                <Trash2 size={18} />
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div className="mt-4 bg-white">
+                                        <TextEditor
+                                            key={`${slide._id}-${deleteFlag}`}
+                                            socket={socket}
+                                            slide={slide}
+                                            index={index}
+                                            setSlides={setSlides}
+                                            documentId={documentId}
+                                        />
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    ))}
+                        ))}
+                    </div>
+                    <button
+                        onClick={() => goToSlide(currentSlideIndex + 1)}
+                        disabled={currentSlideIndex === slides.length - 1}
+                        className="btn btn-light position-absolute end-0 top-50 translate-middle-y z-3 rounded-circle shadow-sm border"
+                        style={{ width: '45px', height: '45px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                    >
+                        <ChevronRight size={20} />
+                    </button>
                 </div>
 
-                <button
-                    onClick={() => goToSlide(currentSlideIndex + 1)}
-                    disabled={currentSlideIndex === slides.length - 1}
-                    className="btn btn-light position-absolute end-0 top-50 translate-middle-y z-3 rounded-circle bg-white bg-opacity-75"
-                    style={{ padding: '0.5rem' }}
-                >
-                    <ChevronRight size={24} />
-                </button>
+                <div className="d-flex justify-content-center mt-4 pb-3">
+                    {slides.map((_, index) => (
+                        <button
+                            key={index}
+                            onClick={() => goToSlide(index)}
+                            className={`btn btn-sm mx-1 rounded-circle ${index === currentSlideIndex ? 'btn-primary' : 'btn-outline-secondary'}`}
+                            style={{ width: '30px', height: '30px', padding: 0 }}
+                        >
+                            {index + 1}
+                        </button>
+                    ))}
+                </div>
             </div>
         </div>
     );
