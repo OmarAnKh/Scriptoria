@@ -213,7 +213,6 @@ const WpNavBar = ({ socket, setMode, setState }) => {
 
   return (
     <>
-
       <div className="nav-container fixed-top w-100 mx-0 row justify-content-center">
         <nav className="navbar navbar-expand-md  WpNavBar  rounded-5 py- my-2 w-75" id="WpNavBar">
           <div className="container-fluid d-flex justify-content-between">

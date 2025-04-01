@@ -78,13 +78,14 @@ const SlidesPage = ({ socket }) => {
 
     const handleAddSlide = async () => {
         const lastSlide = slides[slides.length - 1];
-        if (!lastSlide || lastSlide.text.trim().length > 0) {
+        if (!lastSlide || lastSlide.text.replace(/<[^>]*>/g, '').trim().length > 0) {
             const newSlide = await addSlide();
             // setCurrentSlideIndex(slides.length + 1);
             socket.emit("add-slide", newSlide);
             return;
         }
         toast("The last slide must have a content");
+        return;
     };
 
     const handleDeleteSlide = async (index) => {
@@ -99,7 +100,7 @@ const SlidesPage = ({ socket }) => {
     }, [slides, currentSlideIndex]);
 
     return (
-        <div >
+        <div>
             <div className="container">
                 <div className="position-relative">
                     <button
@@ -144,13 +145,13 @@ const SlidesPage = ({ socket }) => {
                                             <small className="text-muted me-3">
                                                 {slides[index]?.text.replace(/<[^>]*>/g, '').length}/{MAX_CHARS} characters
                                             </small>
-                                            <button
+                                            {index === slides.length - 1 && slide?.text.replace(/<[^>]*>/g, '').trim().length > 0 && <button
                                                 onClick={handleAddSlide}
                                                 className="btn btn-sm btn-outline-secondary border-0 mx-1"
                                                 title="Add new page"
                                             >
                                                 <PlusCircle size={18} />
-                                            </button>
+                                            </button>}
                                             <button
                                                 onClick={() => handleDeleteSlide(index)}
                                                 className="btn btn-sm btn-outline-danger border-0 mx-1"

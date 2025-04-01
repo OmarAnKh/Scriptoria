@@ -50,15 +50,15 @@ const WritingPage = () => {
 
 
   return (
-    <div className="flex">
+    <div className="flex flex-col min-h-screen">
       <WpNavBar socket={socket} data={data} setMode={setMode} setData={setData} setState={setState} />
-      <div className="WP" style={{
+      <div className="WP flex-1" style={{
         backgroundColor: focus ? "#25252585" : "#ECECEC",
-        height,
         transition: "all 0.3s ease-in",
-        paddingTop: '6rem'
       }}>
-        <SlidesPage socket={socket} />
+        <div className="main-content" style={{ paddingTop: '6rem' }}>
+          <SlidesPage socket={socket} />
+        </div>
       </div>
     </div>
   );

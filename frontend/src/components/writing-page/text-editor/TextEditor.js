@@ -102,20 +102,17 @@ const TextEditor = ({ socket, slide, index, setSlides, documentId }) => {
   }, [])
 
   return (
-    <div className="mb-4">
-      <div>
-        <div
-          ref={wrapperRef}
-          style={{
-            height: '500px',
-            border: '1px solid #dee2e6',
-            display: 'flex',
-            flexDirection: 'column'
-          }}
-        >
-        </div>
+      <div
+        ref={wrapperRef}
+        style={{
+          height: '500px',
+          flexGrow: 1,
+          border: '1px solid #dee2e6',
+          display: 'flex',
+          flexDirection: 'column',
+        }}
+      >
       </div>
-    </div>
   );
 };
 
