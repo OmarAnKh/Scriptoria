@@ -152,7 +152,77 @@ function FlipBook() {
         return flipBookRef.current?.pageFlip()?.getPageCount() || 0;
     };
 
-    // Speak text using ElevenLabs
+    // Get current page index
+    const getpageindex = () => {
+        return flipBookRef.current?.pageFlip()?.getCurrentPageIndex() || 0;
+    };
+
+    // const speakText = async () => {
+    //     if (isSpeaking) {
+    //         // If already speaking, stop audio
+    //         if (audioInstance) {
+    //             audioInstance.pause();
+    //             audioInstance.currentTime = 0;
+    //         }
+    //         setIsSpeaking(false);
+    //         return;
+    //     }
+    
+    //     const currentPageIndex = getpageindex();
+    //     const textToSpeak = slide[currentPageIndex]?.trim();
+    
+    //     if (!textToSpeak) {
+    //         console.error("No text to speak on the current page.");
+    //         setIsSpeaking(false);
+    //         return;
+    //     }
+    
+    //     setIsSpeaking(true); // Start loading
+    
+    //     try {
+    //         const response = await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${selectedVoice}`, {
+    //             method: "POST",
+    //             headers: {
+    //                 "xi-api-key": ELEVENLABS_API_KEY,
+    //                 "Content-Type": "application/json"
+    //             },
+    //             body: JSON.stringify({
+    //                 text: textToSpeak,
+    //                 model_id: "eleven_multilingual_v2",
+    //                 voice_settings: {
+    //                     stability: 0.5,
+    //                     similarity_boost: 0.8
+    //                 }
+    //             })
+    //         });
+    
+    //         if (!response.ok) {
+    //             const errorData = await response.json();
+    //             throw new Error(`API Error: ${response.status} - ${JSON.stringify(errorData)}`);
+    //         }
+    
+    //         const audioBlob = await response.blob();
+    //         const audioUrl = URL.createObjectURL(audioBlob);
+    //         console.log("Generated Audio URL:", audioUrl);
+    
+    //         const newAudio = new Audio(audioUrl);
+    //         setAudioInstance(newAudio);
+    
+    //         newAudio.play().catch((playError) => {
+    //             console.error("Error playing audio:", playError);
+    //             setIsSpeaking(false);
+    //         });
+    
+    //         newAudio.onended = () => {
+    //             setIsSpeaking(false);
+    //             setAudioInstance(null);
+    //         };
+    //     } catch (error) {
+    //         console.error("Error generating speech:", error);
+    //         setIsSpeaking(false);
+    //     }
+    // };
+
     const speakText = async () => {
         if (isSpeaking) {
             if (audioInstance) {
@@ -162,10 +232,18 @@ function FlipBook() {
             setIsSpeaking(false);
             return;
         }
-        const textToSpeak = slide[currentPage]?.trim();
-        if (!textToSpeak) return;
+    
+        const currentPageIndex = getpageindex();
+        const textToSpeak = slide[currentPageIndex]?.trim();
+    
+        if (!textToSpeak) {
+            setErrorMessage("No text available for speech on this page.");
+            return;
+        }
+    
         setIsSpeaking(true);
         setErrorMessage(null);
+    
         try {
             const response = await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${selectedVoice}`, {
                 method: "POST",
@@ -173,26 +251,53 @@ function FlipBook() {
                     "xi-api-key": ELEVENLABS_API_KEY,
                     "Content-Type": "application/json"
                 },
-                body: JSON.stringify({ text: textToSpeak, model_id: "eleven_multilingual_v2" })
+                body: JSON.stringify({
+                    text: textToSpeak,
+                    model_id: "eleven_multilingual_v2",
+                    voice_settings: {
+                        stability: 0.5,
+                        similarity_boost: 0.8
+                    }
+                })
             });
-            if (!response.ok) throw new Error("Failed to generate speech");
+    
+            if (!response.ok) {
+                const errorData = await response.json();
+                let errorMsg = "Error generating speech.";
+                if (response.status === 429) {
+                    errorMsg = "Quota exceeded. Please try again later.";
+                } else if (errorData.message) {
+                    errorMsg = `Error: ${errorData.message}`;
+                }
+    
+                setErrorMessage(errorMsg);
+                setTimeout(() => setErrorMessage(null), 10000); // Hide after 10 seconds
+                throw new Error(`API Error: ${response.status} - ${JSON.stringify(errorData)}`);
+            }
+    
             const audioBlob = await response.blob();
             const audioUrl = URL.createObjectURL(audioBlob);
             const newAudio = new Audio(audioUrl);
             setAudioInstance(newAudio);
-            newAudio.play();
+    
+            newAudio.play().catch((playError) => {
+                console.error("Error playing audio:", playError);
+                setErrorMessage("Error playing audio.");
+                setTimeout(() => setErrorMessage(null), 10000);
+                setIsSpeaking(false);
+            });
+    
             newAudio.onended = () => {
                 setIsSpeaking(false);
                 setAudioInstance(null);
             };
         } catch (error) {
-            setErrorMessage("Unable to generate audio at the moment.");
+            console.error("Error generating speech:", error);
+            setErrorMessage("Error playing audio")
             setTimeout(() => setErrorMessage(null), 10000);
             setIsSpeaking(false);
-            console.error("Error generating speech:", error);
         }
     };
-
 
     // Pagination text
     const getPaginationText = () => {
@@ -226,8 +331,9 @@ function FlipBook() {
                         <div className="text-center">
                             <h1 className='display-5 text-center mt-3 mb-4 text-light Scriptoria'> {title} </h1>
                             {
-                                voices ? !errorMessage ? 
-                                <div className="mb-2 text-light gap-1 d-flex align-items-center justify-content-center">
+                                voices ?  //there's error ? //no error // no voices 
+ 
+                                    errorMessage? <p className="error-message text-light p-2 bg-danger">{errorMessage}</p> :                                <div className="mb-2 text-light gap-1 d-flex align-items-center justify-content-center">
                                     <button
                                         type="button"
                                         className={`btn rounded-pill btn-${isSpeaking ? 'success' : 'light'} btn-md`}
@@ -247,7 +353,6 @@ function FlipBook() {
                                         ))}
                                     </select>
                                 </div>
-                                    : <p className="text-light">{errorMessage}</p> 
                                 : null 
                             }
                         </div>

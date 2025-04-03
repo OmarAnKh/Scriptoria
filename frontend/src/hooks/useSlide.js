@@ -1,5 +1,6 @@
 const useSlide = () => {
     const formatText = (object) => {
+        console.log(object)
         let formattedArray = [];
         for (let key in object) {
             if (typeof object[key] === 'string') {
@@ -104,23 +105,39 @@ const useSlide = () => {
         tempArray.push(tempstring)
         return tempArray
     }
-
     const getSlides = (texts) => {
-        const MAX_SLIDE_LENGTH = 1560; // Define the maximum slide length here
-        const res = formatText(texts)
-        const withoutNewlines = removeNewLines(res)
-        const splitArrays = splitBigArrays(withoutNewlines, 100)
-        let slides = sumUparrays(splitArrays, MAX_SLIDE_LENGTH)
-
-        // Final Constraint: Ensure each slide is <= MAX_SLIDE_LENGTH characters
+        const MAX_SLIDE_LENGTH = 1560;
+        const res = formatText(texts);
+        const withoutNewlines = removeNewLines(res);
+        const splitArrays = splitBigArrays(withoutNewlines, 100);
+        let slides = sumUparrays(splitArrays, MAX_SLIDE_LENGTH);
+    
         slides = slides.map(slide => {
             if (slide.length > MAX_SLIDE_LENGTH) {
-                return splitString(slide, MAX_SLIDE_LENGTH); // Resplit if necessary
+                return splitString(slide, MAX_SLIDE_LENGTH);
             }
             return slide;
-        }).flat(); // Flatten the array in case of splitting
-        return slides
-    }
+        }).flat();
+    
+        // Handle single long words that exceed MAX_SLIDE_LENGTH
+        slides = slides.flatMap(slide => {
+            const words = slide.trim().split(/\s+/);
+            if (words.length === 1 && slide.length > MAX_SLIDE_LENGTH) {
+                let chunks = [];
+                let word = slide;
+                while (word.length > MAX_SLIDE_LENGTH) {
+                    chunks.push(word.slice(0, MAX_SLIDE_LENGTH) + "...");
+                    word = "..." + word.slice(MAX_SLIDE_LENGTH);
+                }
+                chunks.push(word); // Add the remaining part
+                return chunks;
+            }
+            return slide;
+        });
+    
+        return slides;
+    };
+    
     return getSlides
 }
 export default useSlide;
