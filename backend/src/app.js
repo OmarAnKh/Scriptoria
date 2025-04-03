@@ -51,7 +51,7 @@ app.use(writersRouter)
 app.use(roomRouter)
 app.use(repliesRouter)
 
-server.listen(port, () => {
+server.listen(port, '0.0.0.0' , () => {
     console.log('run on port ' + port)
 });
 
