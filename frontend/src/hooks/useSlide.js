@@ -1,6 +1,5 @@
 const useSlide = () => {
     const formatText = (object) => {
-        console.log(object)
         let formattedArray = [];
         for (let key in object) {
             if (typeof object[key] === 'string') {
@@ -20,14 +19,14 @@ const useSlide = () => {
                 tempString += object[key];
                 if (object.attributes) {
                     const { bold, italic, underline } = object.attributes;
-                    if (bold) {
-                        tempString += '</b>';
+                    if (underline) {
+                        tempString += '</u>';
                     }
                     if (italic) {
                         tempString += '</i>';
                     }
-                    if (underline) {
-                        tempString += '</u>';
+                    if (bold) {
+                        tempString += '</b>';
                     }
                 }
 
@@ -52,19 +51,15 @@ const useSlide = () => {
         const substrings = [];
         let start = 0;
         while (start < str.length) {
-            let end = Math.min(start + size, str.length); // Ensure we don't go beyond string length
-            if (end < str.length) { // Only try to split at word boundary if not at the end
-                while (end > start && str[end] !== ' ') {
+            let end = Math.min(start + size, str.length);
+            // Ensure we don't split in the middle of a word or HTML tag
+            if (end < str.length && str[end] !== ' ' && !str.slice(start, end).includes('<b>') && !str.slice(start, end).includes('<i>') && !str.slice(start, end).includes('<u>')) {
+                while (end > start && str[end] !== ' ' && !str.slice(start, end).includes('<b>') && !str.slice(start, end).includes('<i>') && !str.slice(start, end).includes('<u>')) {
                     end--;
-                }
-
-                // If no space found, force split at the character limit
-                if (end === start) {
-                    end = start + size;
                 }
             }
             substrings.push(str.slice(start, end));
-            start = end + (end < str.length ? 1 : 0); // Move start to the next word or the end
+            start = end + (end < str.length ? 1 : 0);
         }
         return substrings;
     }
@@ -99,12 +94,12 @@ const useSlide = () => {
                 size = characters
                 tempstring += object[i];
                 size -= object[i].length
-
             }
         }
         tempArray.push(tempstring)
         return tempArray
     }
+
     const getSlides = (texts) => {
         const MAX_SLIDE_LENGTH = 1560;
         const res = formatText(texts);
@@ -140,4 +135,5 @@ const useSlide = () => {
     
     return getSlides
 }
+
 export default useSlide;

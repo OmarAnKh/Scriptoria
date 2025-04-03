@@ -356,6 +356,7 @@ function FlipBook() {
                                 : null 
                             }
                         </div>
+                        {/* Book */}
                         <div className="d-flex justify-content-center" style={{ maxWidth: '1200px', width: '100%', overflow: 'hidden' }}>
                             <HTMLFlipBook
                                 width={isMobile ? bookWidth : bookWidth / 2}
@@ -369,17 +370,16 @@ function FlipBook() {
                                 pagesPerSheet={isMobile ? 1 : 2}
                             >
                                 {slide && slide.map((text, index) => (
-                                    <BookPage key={index}>
-                                        <div className="page-text" key={index}>
-                                            {text}
-                                            <div className="page-number" style={{ position: 'absolute', bottom: '5px', right: '10px', fontSize: '10px', color: '#aaa' }}>
-                                                {index + 1}
-                                            </div>
-                                        </div>
-                                    </BookPage>
+                                <BookPage key={index}>
+                                    <div className="page-text" key={index} dangerouslySetInnerHTML={{ __html: text }} />
+                                    <div className="page-number" style={{ position: 'absolute', bottom: '5px', right: '10px', fontSize: '10px', color: '#aaa' }}>
+                                    {index + 1}
+                                    </div>
+                                </BookPage>
                                 ))}
                             </HTMLFlipBook>
                         </div>
+                        {/* pagination controls */}
                         <div className="pagination-controls text-center mt-4 mb-3 d-flex align-items-center justify-content-between" style={{ width: '80%', maxWidth: '600px' }}>
                             <button
                                 type="button"
