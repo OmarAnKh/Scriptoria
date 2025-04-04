@@ -57,7 +57,9 @@ const Card = ({ data }) => {
                 </div>
                 <div className="col-md-8 my-3">
                     <div className={`CarouselCards-body ${data.textColor}`}>
-                        <h4 className="CarouselCards-title">{data.title}</h4>
+                        <Link to={`/story/${data._id}`} className="text-decoration-none">
+                            <h4 className="CarouselCards-title">{data.title}</h4>
+                        </Link>
                         <h6 className="author-name">
                             {writers.map((writer, idx) => (
                                 <span key={idx}>
