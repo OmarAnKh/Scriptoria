@@ -69,7 +69,7 @@ const StoryCards = ({ selectedTab }) => {
                     }
                 </>}
             {
-                visiblestory < currentStory.length && (
+                visiblestory < currentStory?.length && (
                     <div className="text-center">
                         <button type="button" className="btn loadMoreCards-btn" onClick={loadMoreCards} style={{ marginBottom: "3%", marginTop: "3%" }}> {t("StoryCard.show_more")} </button>
                     </div>

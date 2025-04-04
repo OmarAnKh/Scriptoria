@@ -13,12 +13,13 @@ const findDocument = async (id) => {
     return document;
 }
 
-const applyChangesAndBroadcast = async (socket, documentId, delta) => {
+const applyChangesAndBroadcast = async (socket, documentId, text, roomId, index) => {
     try {
         const document = await Story.findById(documentId);
-        document.slide += delta;
+        document.slides[index].text = text;
         await document.save();
-        socket.broadcast.to(documentId).emit("receive-changes", delta);
+        console.log(roomId)
+        socket.broadcast.to(roomId).emit("receive-changes", text);
     } catch (error) {
         console.log(error);
     }

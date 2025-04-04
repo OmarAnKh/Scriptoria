@@ -12,6 +12,7 @@ const createStory = async (req, res) => {
     try {
         const buffer = await converImgToBuffer(req.body.coverPhoto);
         const story = new Story(req.body);
+        story.slides = [{ text: "" }];
         story.coverPhoto = buffer;
         await story.save();
         const writers = new Writers({
@@ -208,6 +209,53 @@ const deleteStory = async (req, res) => {
 
 }
 
+const addSlide = async (req, res) => {
+    try {
+        const story = await Story.findById(req.params.id);
+        if (!story) {
+            return res.status(404).send();
+        }
+        story.slides.push({ text: "" });
+        await story.save();
+        res.status(200).send(story.slides[story.slides.length - 1]);
+    } catch (error) {
+        res.status(500).send();
+    }
+}
+
+const deleteSlide = async (req, res) => {
+    try {
+        const { id, index } = req.params;
+        const parsedIndex = parseInt(index);
+
+        if (isNaN(parsedIndex) || parsedIndex < 0) {
+            return res.status(400).json({ error: "Invalid slide index" });
+        }
+
+        const story = await Story.findById(id);
+        if (!story) {
+            return res.status(404).json({ error: "Story not found" });
+        }
+
+        if (parsedIndex >= story.slides.length) {
+            return res.status(400).json({ error: "Slide index out of range" });
+        }
+
+        story.slides.splice(parsedIndex, 1);
+
+        const updatedStory = await story.save();
+
+        res.status(200).json(updatedStory.slides);
+
+    } catch (error) {
+        console.error("Error deleting slide:", error);
+        res.status(500).json({
+            error: "Server error while deleting slide",
+            details: process.env.NODE_ENV === 'development' ? error.message : undefined
+        });
+    }
+}
+
 export default {
     createStory,
     getAccountWorks,
@@ -217,5 +265,7 @@ export default {
     getAllStoryInfo,
     updateStory,
     getStoryByGenre,
-    deleteStory
+    deleteStory,
+    addSlide,
+    deleteSlide
 }
