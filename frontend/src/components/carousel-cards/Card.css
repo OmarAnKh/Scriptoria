@@ -114,9 +114,9 @@
 }
 
 
-@media (min-width: 740px) and (max-width: 1000px) {
+@media (min-width: 770px) and (max-width: 1000px) {
     .CarouselCards {
-        width: 400px; /* Slightly reduced from 420px */
+        width: 400px; 
         min-height: 300px; /* Added minimum height */
         margin: 0 15px;
         padding: 15px;
@@ -139,7 +139,7 @@
         padding: 0;
         display: flex;
         flex-direction: column;
-        gap: 12px; /* Space between text elements */
+        gap: 10px; /* Space between text elements */
         font-size: 0.9em; /* Slightly larger than before */
     }
 
@@ -164,26 +164,25 @@
 }
 
 @media (max-width: 770px) and (min-width: 464px) {
-
-    @media (max-height: 720px) {
-        .CarouselCards {
-            min-height: 320px !important; /* Increased from 280px */
-            margin-bottom: 20px !important;
-        }
-    }
-    
     .CarouselCards {
-        width: 320px;
-        min-height: auto; 
-        height: auto; /* Added to allow natural height */
-        background: none !important;
+        width: 300px;
+        min-height: auto;
+        height: auto;
         margin: 10px auto;
+        padding: 12px;
         display: flex;
         flex-direction: column;
         gap: 12px;
-        padding: 12px;
+        box-sizing: border-box; /* Critical for correct width */
         position: relative;
-        overflow: visible; /* Ensure content isn't clipped */
+        overflow: visible;
+    }
+
+    /* Reset child margins/padding */
+    .CarouselCards * {
+        margin: 0;
+        padding: 0;
+        box-sizing: inherit;
     }
 
     .cover-img {
@@ -191,25 +190,22 @@
         height: 180px;
         object-fit: cover;
         border-radius: 8px;
-        margin: 0;
     }
 
     .CarouselCards-body {
         display: flex;
         flex-direction: column;
         width: 100%;
-        padding: 0;
         gap: 8px;
-        flex: 1; /* Allows body to grow as needed */
+        flex: 1;
     }
 
     .CarouselCards-body h3 {
         font-size: 1.2em;
-        margin: 0 0 4px 0;
+        margin-bottom: 4px !important; /* Override any global styles */
     }
 
     .CarouselCards-body p {
-        margin: 0;
         line-height: 1.4;
         font-size: 0.9em;
     }
@@ -218,6 +214,20 @@
         width: 100%;
         margin-top: 12px;
         padding: 8px 0 !important;
+    }
+
+    /* Nested media queries */
+    @media (max-height: 720px) {
+        .CarouselCards {
+            min-height: 320px !important;
+            margin-bottom: 20px !important;
+        }
+    }
+
+    @media (max-width: 550px) {
+        .CarouselCards {
+            width: 250px !important;
+        }
     }
 }
 
