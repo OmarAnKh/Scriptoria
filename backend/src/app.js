@@ -137,7 +137,7 @@ io.on("connection", (socket) => {
                 const document = await Story.findById(documentId);
                 document.slides[index].text = text;
                 await document.save();
-                socket.broadcast.to(roomId).emit("receive-changes", { text, roomId });
+                socket.broadcast.to(roomId).emit("receive-changes", { text, roomId, idx: index });
             } catch (error) {
                 console.log(error);
             }

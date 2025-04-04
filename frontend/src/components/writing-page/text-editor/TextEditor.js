@@ -71,11 +71,12 @@ const TextEditor = ({ socket, slide, index, setSlides, documentId }) => {
     return () => quill.off("text-change", handler);
   }, [socket, quill, index, documentId, slide?._id, setSlides]);
   useEffect(() => {
-    socket.on("receive-changes", ({ text, roomId }) => {
+    socket.on("receive-changes", ({ text, roomId, idx }) => {
+      if (idx !== index) return
       setSlides(prev => {
         let temp = [...prev];
-        if (temp[index]) {
-          temp[index].text = text;
+        if (temp[idx]) {
+          temp[idx].text = text;
           return temp;
         }
         return prev;
@@ -102,17 +103,17 @@ const TextEditor = ({ socket, slide, index, setSlides, documentId }) => {
   }, [])
 
   return (
-      <div
-        ref={wrapperRef}
-        style={{
-          height: '500px',
-          flexGrow: 1,
-          border: '1px solid #dee2e6',
-          display: 'flex',
-          flexDirection: 'column',
-        }}
-      >
-      </div>
+    <div
+      ref={wrapperRef}
+      style={{
+        height: '500px',
+        flexGrow: 1,
+        border: '1px solid #dee2e6',
+        display: 'flex',
+        flexDirection: 'column',
+      }}
+    >
+    </div>
   );
 };
 

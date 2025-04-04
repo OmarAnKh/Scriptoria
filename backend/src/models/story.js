@@ -44,7 +44,7 @@ const storySchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    slides: [{ text: { type: String } }]
+    slides: [{ text: { type: String }}]
 });
 
 const Story = mongoose.model('Story', storySchema);

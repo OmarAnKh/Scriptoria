@@ -7,7 +7,7 @@ import toast from "react-hot-toast";
 
 const MAX_CHARS = 1560;
 
-const SlidesPage = ({ socket }) => {
+const SlidesPage = ({ socket, focus }) => {
     const [slides, setSlides] = useState([]);
     const containerRef = useRef(null);
     const { id: documentId } = useParams();
@@ -99,6 +99,10 @@ const SlidesPage = ({ socket }) => {
         }
     }, [slides, currentSlideIndex]);
 
+    useEffect(() => {
+        // console.log(slides)
+    }, [slides])
+
     return (
         <div>
             <div className="container">
@@ -138,12 +142,14 @@ const SlidesPage = ({ socket }) => {
                                 >
                                     <div className="d-flex justify-content-between align-items-center mb-4">
                                         <div className="text-muted fst-italic">
-                                            Page {index + 1} of {slides.length}
+                                            <p className={`${focus ? "text-light" : ""} m-0`}>Page {index + 1} of {slides.length}</p>
                                         </div>
 
                                         <div className="d-flex align-items-center">
                                             <small className="text-muted me-3">
-                                                {slides[index]?.text.replace(/<[^>]*>/g, '').length}/{MAX_CHARS} characters
+                                                <p className={`${focus ? "text-light" : ""} m-0`}>
+                                                    {slides[index]?.text.replace(/<[^>]*>/g, '').length}/{MAX_CHARS} characters
+                                                </p>
                                             </small>
                                             {index === slides.length - 1 && slide?.text.replace(/<[^>]*>/g, '').trim().length > 0 && <button
                                                 onClick={handleAddSlide}
@@ -187,16 +193,61 @@ const SlidesPage = ({ socket }) => {
                 </div>
 
                 <div className="d-flex justify-content-center mt-4 pb-3">
-                    {slides.map((_, index) => (
-                        <button
-                            key={index}
-                            onClick={() => goToSlide(index)}
-                            className={`btn btn-sm mx-1 rounded-circle ${index === currentSlideIndex ? 'btn-primary' : 'btn-outline-secondary'}`}
-                            style={{ width: '30px', height: '30px', padding: 0 }}
-                        >
-                            {index + 1}
-                        </button>
-                    ))}
+                    <button
+                        onClick={() => goToSlide(0)}
+                        className="btn btn-sm mx-1"
+                    >
+                        <p className={`${focus ? "text-light" : ""} m-0`}>« Start</p>
+                    </button>
+                    {slides.length > 0 && (() => {
+                        const buttons = [];
+                        const totalSlides = slides.length;
+                        const maxVisible = 5;
+
+                        if (totalSlides <= maxVisible) {
+                            for (let i = 0; i < totalSlides; i++) {
+                                buttons.push(
+                                    <button
+                                        key={i}
+                                        onClick={() => goToSlide(i)}
+                                        className={`btn btn-sm mx-1 rounded-circle ${i === currentSlideIndex ? 'btn-primary' : 'btn-outline-secondary'}`}
+                                        style={{ width: '30px', height: '30px', padding: 0 }}
+                                    >
+                                        {i + 1}
+                                    </button>
+                                );
+                            }
+                        } else {
+                            let start = Math.max(0, currentSlideIndex - 2);
+                            let end = start + maxVisible;
+
+                            if (end > totalSlides) {
+                                end = totalSlides;
+                                start = end - maxVisible;
+                            }
+
+                            for (let i = start; i < end; i++) {
+                                buttons.push(
+                                    <button
+                                        key={i}
+                                        onClick={() => goToSlide(i)}
+                                        className={`btn btn-sm mx-1 rounded-circle ${i === currentSlideIndex ? 'btn-primary' : 'btn-outline-secondary'}`}
+                                        style={{ width: '30px', height: '30px', padding: 0 }}
+                                    >
+                                        {i + 1}
+                                    </button>
+                                );
+                            }
+                        }
+
+                        return buttons;
+                    })()}
+                    <button
+                        onClick={() => goToSlide(slides.length - 1)}
+                        className="btn btn-sm mx-1"
+                    >
+                        <p className={`${focus ? "text-light" : ""} m-0`}>End »</p>
+                    </button>
                 </div>
             </div>
         </div>
