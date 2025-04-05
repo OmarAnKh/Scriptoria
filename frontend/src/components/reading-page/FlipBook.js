@@ -173,102 +173,6 @@ function FlipBook() {
         return flipBookRef.current?.pageFlip()?.getCurrentPageIndex() || 0;
     };
 
-    // const speakText = async () => {
-    //     if (isSpeaking && audioInstance) {
-    //         // Case: Stop audio if it's already playing
-    //         audioInstance.pause();
-    //         setAudioPausedTime(audioInstance.currentTime); // Save the paused time
-    //         setShowContinueButton(true); // Show the "continue" button
-    //         setIsSpeaking(false); // Reset speaking state
-    //         return;
-    //     }
-
-    //     if (!audioInstance) {
-    //         const currentPageIndex = getpageindex();
-    //         const textToSpeak = slide[currentPageIndex]?.trim();
-    //         if (!textToSpeak) {
-    //             setErrorMessage("No text available for speech on this page.");
-    //             return;
-    //         }
-    //         setIsSpeaking(false); // Reset speaking state before loading
-    //         setAudioLoading(true); // Show loader
-    //         setErrorMessage(null);
-
-    //         try {
-    //             const response = await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${selectedVoice}`, {
-    //                 method: "POST",
-    //                 headers: {
-    //                     "xi-api-key": ELEVENLABS_API_KEY,
-    //                     "Content-Type": "application/json"
-    //                 },
-    //                 body: JSON.stringify({
-    //                     text: textToSpeak,
-    //                     model_id: "eleven_multilingual_v2",
-    //                     voice_settings: {
-    //                         stability: 0.5,
-    //                         similarity_boost: 0.8
-    //                     }
-    //                 })
-    //             });
-
-    //             if (!response.ok) {
-    //                 const errorData = await response.json();
-    //                 let errorMsg = "Error generating speech.";
-    //                 if (response.status === 429) {
-    //                     errorMsg = "Quota exceeded. Please try again later.";
-    //                 } else if (errorData.message) {
-    //                     errorMsg = `Error: ${errorData.message}`;
-    //                 }
-    //                 setErrorMessage(errorMsg);
-    //                 setTimeout(() => setErrorMessage(null), 10000); // Hide after 10 seconds
-    //                 throw new Error(`API Error: ${response.status} - ${JSON.stringify(errorData)}`);
-    //             }
-
-    //             const audioBlob = await response.blob();
-    //             const audioUrl = URL.createObjectURL(audioBlob);
-    //             const newAudio = new Audio(audioUrl);
-    //             setAudioInstance(newAudio);
-    //             newAudio.currentTime = audioPausedTime; // Resume from paused time
-    //             newAudio.play().then(() => {
-    //                 setIsSpeaking(true); // Set speaking state to true when audio starts playing
-    //                 setAudioLoading(false); // Hide loader
-    //             }).catch((playError) => {
-    //                 console.error("Error playing audio:", playError);
-    //                 setErrorMessage("Error playing audio.");
-    //                 setTimeout(() => setErrorMessage(null), 10000);
-    //                 setIsSpeaking(false);
-    //                 setAudioLoading(false); // Hide loader
-    //             });
-
-    //             newAudio.onended = () => {
-    //                 setIsSpeaking(false); // Reset speaking state when audio ends
-    //                 setAudioInstance(null); // Clear the audio instance
-    //                 setAudioLoading(false); // Ensure loader is hidden
-    //                 setAudioPausedTime(0); // Reset paused time
-    //                 setShowContinueButton(false); // Hide "continue" button
-    //             };
-    //         } catch (error) {
-    //             console.error("Error generating speech:", error);
-    //             setErrorMessage("Error playing audio");
-    //             setTimeout(() => setErrorMessage(null), 10000);
-    //             setIsSpeaking(false);
-    //             setAudioLoading(false); // Hide loader in case of an error
-    //         }
-    //     } else {
-    //         // Case: Continue playing from where it was paused
-    //         audioInstance.currentTime = audioPausedTime;
-    //         audioInstance.play().then(() => {
-    //             setIsSpeaking(true);
-    //             setShowContinueButton(false); // Hide "continue" button
-    //         }).catch((playError) => {
-    //             console.error("Error resuming audio:", playError);
-    //             setErrorMessage("Error resuming audio.");
-    //             setTimeout(() => setErrorMessage(null), 10000);
-    //             setIsSpeaking(false);
-    //         });
-    //     }
-    // };
-
     const speakText = async (mode = "play") => {
         if (isSpeaking && audioInstance) {
             // Case: Stop audio if it's already playing
@@ -414,11 +318,11 @@ function FlipBook() {
                                             {showContinueButton && (
                                                 <button
                                                     type="button"
-                                                    className="btn btn-warning btn-md ms-2"
+                                                    className="btn btn-warning rounded-pill btn-md"
                                                     onClick={() => speakText("continue")}
                                                     disabled={audioLoading}
                                                 >
-                                                    <i className="bi bi-play-fill"></i>
+                                                    <i className="bi bi-play-fill "></i>
                                                 </button>
                                             )}
                                             <select
