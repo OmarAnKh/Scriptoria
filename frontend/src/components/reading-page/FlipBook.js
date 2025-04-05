@@ -10,7 +10,6 @@ import Navbar from "../navbar/Navbar.js";
 import useSlide from "../../hooks/useSlide.js";
 import { Tooltip } from 'react-tooltip';
 import { LoaderIcon } from 'react-hot-toast';
-
 // ElevenLabs API Key
 const ELEVENLABS_API_KEY = process.env.REACT_APP_ELEVENLABS_API_KEY;
 
@@ -35,6 +34,8 @@ function FlipBook() {
     const [audioInstance, setAudioInstance] = useState(null); // Store audio instance
     const [errorMessage, setErrorMessage] = useState(null);
     const [audioLoading, setAudioLoading] = useState(false); // Loader for audio generation
+    const [audioPausedTime, setAudioPausedTime] = useState(0); // Track audio pause time
+    const [showContinueButton, setShowContinueButton] = useState(false); // Show continue button
 
     // Fetch story data
     useEffect(() => {
@@ -172,145 +173,168 @@ function FlipBook() {
         return flipBookRef.current?.pageFlip()?.getCurrentPageIndex() || 0;
     };
 
-    // Speak text function with loader
     // const speakText = async () => {
     //     if (isSpeaking && audioInstance) {
-    //         // Case: Stop audio if it's playing
+    //         // Case: Stop audio if it's already playing
     //         audioInstance.pause();
-    //         audioInstance.currentTime = 0;
-    //         setIsSpeaking(false);
-    //         setAudioInstance(null); // Clear the audio instance
+    //         setAudioPausedTime(audioInstance.currentTime); // Save the paused time
+    //         setShowContinueButton(true); // Show the "continue" button
+    //         setIsSpeaking(false); // Reset speaking state
     //         return;
     //     }
 
-    //     const currentPageIndex = getpageindex();
-    //     const textToSpeak = slide[currentPageIndex]?.trim();
-    //     if (!textToSpeak) {
-    //         setErrorMessage("No text available for speech on this page.");
-    //         return;
-    //     }
-
-    //     setIsSpeaking(true); // Start speaking state
-    //     setAudioLoading(true); // Show loader
-    //     setErrorMessage(null);
-
-    //     try {
-    //         const response = await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${selectedVoice}`, {
-    //             method: "POST",
-    //             headers: {
-    //                 "xi-api-key": ELEVENLABS_API_KEY,
-    //                 "Content-Type": "application/json"
-    //             },
-    //             body: JSON.stringify({
-    //                 text: textToSpeak,
-    //                 model_id: "eleven_multilingual_v2",
-    //                 voice_settings: {
-    //                     stability: 0.5,
-    //                     similarity_boost: 0.8
-    //                 }
-    //             })
-    //         });
-
-    //         if (!response.ok) {
-    //             const errorData = await response.json();
-    //             let errorMsg = "Error generating speech.";
-    //             if (response.status === 429) {
-    //                 errorMsg = "Quota exceeded. Please try again later.";
-    //             } else if (errorData.message) {
-    //                 errorMsg = `Error: ${errorData.message}`;
-    //             }
-    //             setErrorMessage(errorMsg);
-    //             setTimeout(() => setErrorMessage(null), 10000); // Hide after 10 seconds
-    //             throw new Error(`API Error: ${response.status} - ${JSON.stringify(errorData)}`);
+    //     if (!audioInstance) {
+    //         const currentPageIndex = getpageindex();
+    //         const textToSpeak = slide[currentPageIndex]?.trim();
+    //         if (!textToSpeak) {
+    //             setErrorMessage("No text available for speech on this page.");
+    //             return;
     //         }
+    //         setIsSpeaking(false); // Reset speaking state before loading
+    //         setAudioLoading(true); // Show loader
+    //         setErrorMessage(null);
 
-    //         const audioBlob = await response.blob();
-    //         const audioUrl = URL.createObjectURL(audioBlob);
-    //         const newAudio = new Audio(audioUrl);
-    //         setAudioInstance(newAudio);
+    //         try {
+    //             const response = await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${selectedVoice}`, {
+    //                 method: "POST",
+    //                 headers: {
+    //                     "xi-api-key": ELEVENLABS_API_KEY,
+    //                     "Content-Type": "application/json"
+    //                 },
+    //                 body: JSON.stringify({
+    //                     text: textToSpeak,
+    //                     model_id: "eleven_multilingual_v2",
+    //                     voice_settings: {
+    //                         stability: 0.5,
+    //                         similarity_boost: 0.8
+    //                     }
+    //                 })
+    //             });
 
-    //         newAudio.play().catch((playError) => {
-    //             console.error("Error playing audio:", playError);
-    //             setErrorMessage("Error playing audio.");
+    //             if (!response.ok) {
+    //                 const errorData = await response.json();
+    //                 let errorMsg = "Error generating speech.";
+    //                 if (response.status === 429) {
+    //                     errorMsg = "Quota exceeded. Please try again later.";
+    //                 } else if (errorData.message) {
+    //                     errorMsg = `Error: ${errorData.message}`;
+    //                 }
+    //                 setErrorMessage(errorMsg);
+    //                 setTimeout(() => setErrorMessage(null), 10000); // Hide after 10 seconds
+    //                 throw new Error(`API Error: ${response.status} - ${JSON.stringify(errorData)}`);
+    //             }
+
+    //             const audioBlob = await response.blob();
+    //             const audioUrl = URL.createObjectURL(audioBlob);
+    //             const newAudio = new Audio(audioUrl);
+    //             setAudioInstance(newAudio);
+    //             newAudio.currentTime = audioPausedTime; // Resume from paused time
+    //             newAudio.play().then(() => {
+    //                 setIsSpeaking(true); // Set speaking state to true when audio starts playing
+    //                 setAudioLoading(false); // Hide loader
+    //             }).catch((playError) => {
+    //                 console.error("Error playing audio:", playError);
+    //                 setErrorMessage("Error playing audio.");
+    //                 setTimeout(() => setErrorMessage(null), 10000);
+    //                 setIsSpeaking(false);
+    //                 setAudioLoading(false); // Hide loader
+    //             });
+
+    //             newAudio.onended = () => {
+    //                 setIsSpeaking(false); // Reset speaking state when audio ends
+    //                 setAudioInstance(null); // Clear the audio instance
+    //                 setAudioLoading(false); // Ensure loader is hidden
+    //                 setAudioPausedTime(0); // Reset paused time
+    //                 setShowContinueButton(false); // Hide "continue" button
+    //             };
+    //         } catch (error) {
+    //             console.error("Error generating speech:", error);
+    //             setErrorMessage("Error playing audio");
     //             setTimeout(() => setErrorMessage(null), 10000);
     //             setIsSpeaking(false);
-    //             setAudioLoading(false); // Hide loader
-    //         });
-
-    //         newAudio.onended = () => {
+    //             setAudioLoading(false); // Hide loader in case of an error
+    //         }
+    //     } else {
+    //         // Case: Continue playing from where it was paused
+    //         audioInstance.currentTime = audioPausedTime;
+    //         audioInstance.play().then(() => {
+    //             setIsSpeaking(true);
+    //             setShowContinueButton(false); // Hide "continue" button
+    //         }).catch((playError) => {
+    //             console.error("Error resuming audio:", playError);
+    //             setErrorMessage("Error resuming audio.");
+    //             setTimeout(() => setErrorMessage(null), 10000);
     //             setIsSpeaking(false);
-    //             setAudioInstance(null); // Clear the audio instance when playback ends
-    //             setAudioLoading(false); // Ensure loader is hidden
-    //         };
-
-    //         setAudioLoading(false); // Hide loader once audio starts playing
-    //     } catch (error) {
-    //         console.error("Error generating speech:", error);
-    //         setErrorMessage("Error playing audio");
-    //         setTimeout(() => setErrorMessage(null), 10000);
-    //         setIsSpeaking(false);
-    //         setAudioLoading(false); // Hide loader in case of an error
+    //         });
     //     }
     // };
 
-    const speakText = async () => {
+    const speakText = async (mode = "play") => {
         if (isSpeaking && audioInstance) {
             // Case: Stop audio if it's already playing
             audioInstance.pause();
-            audioInstance.currentTime = 0;
+            setAudioPausedTime(audioInstance.currentTime); // Save the paused time
+            setShowContinueButton(true); // Show the "continue" button
             setIsSpeaking(false); // Reset speaking state
-            setAudioInstance(null); // Clear the audio instance
             return;
         }
-    
         const currentPageIndex = getpageindex();
         const textToSpeak = slide[currentPageIndex]?.trim();
         if (!textToSpeak) {
             setErrorMessage("No text available for speech on this page.");
             return;
         }
-    
         setIsSpeaking(false); // Reset speaking state before loading
         setAudioLoading(true); // Show loader
+        setShowContinueButton(false)
         setErrorMessage(null);
-    
         try {
-            const response = await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${selectedVoice}`, {
-                method: "POST",
-                headers: {
-                    "xi-api-key": ELEVENLABS_API_KEY,
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    text: textToSpeak,
-                    model_id: "eleven_multilingual_v2",
-                    voice_settings: {
-                        stability: 0.5,
-                        similarity_boost: 0.8
+            let audioBlob;
+            // Check if the audio needs to be generated
+            if (!audioInstance || mode === "play") {
+                const response = await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${selectedVoice}`, {
+                    method: "POST",
+                    headers: {
+                        "xi-api-key": ELEVENLABS_API_KEY,
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        text: textToSpeak,
+                        model_id: "eleven_multilingual_v2",
+                        voice_settings: {
+                            stability: 0.5,
+                            similarity_boost: 0.8
+                        }
+                    })
+                });
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    let errorMsg = "Error generating speech.";
+                    if (response.status === 429) {
+                        errorMsg = "Quota exceeded. Please try again later.";
+                    } else if (errorData.message) {
+                        errorMsg = `Error: ${errorData.message}`;
                     }
-                })
-            });
-    
-            if (!response.ok) {
-                const errorData = await response.json();
-                let errorMsg = "Error generating speech.";
-                if (response.status === 429) {
-                    errorMsg = "Quota exceeded. Please try again later.";
-                } else if (errorData.message) {
-                    errorMsg = `Error: ${errorData.message}`;
+                    setErrorMessage(errorMsg);
+                    setTimeout(() => setErrorMessage(null), 10000); // Hide after 10 seconds
+                    throw new Error(`API Error: ${response.status} - ${JSON.stringify(errorData)}`);
                 }
-                setErrorMessage(errorMsg);
-                setTimeout(() => setErrorMessage(null), 10000); // Hide after 10 seconds
-                throw new Error(`API Error: ${response.status} - ${JSON.stringify(errorData)}`);
+                audioBlob = await response.blob();
             }
-    
-            const audioBlob = await response.blob();
-            const audioUrl = URL.createObjectURL(audioBlob);
-            const newAudio = new Audio(audioUrl);
-            setAudioInstance(newAudio);
-    
+            // Create or reuse the audio instance
+            const audioUrl = audioBlob ? URL.createObjectURL(audioBlob) : audioInstance.src;
+            const newAudio = audioBlob ? new Audio(audioUrl) : audioInstance;
+            // Set playback position based on mode
+            if (mode === "play") {
+                newAudio.currentTime = 0; // Start from the beginning
+                setAudioPausedTime(0); // Reset paused time
+            } else if (mode === "continue") {
+                newAudio.currentTime = audioPausedTime; // Resume from paused time
+            }
+            // Play the audio
             newAudio.play().then(() => {
                 setIsSpeaking(true); // Set speaking state to true when audio starts playing
+                setShowContinueButton(false); // Hide the "continue" button when audio starts playing
                 setAudioLoading(false); // Hide loader
             }).catch((playError) => {
                 console.error("Error playing audio:", playError);
@@ -319,12 +343,16 @@ function FlipBook() {
                 setIsSpeaking(false);
                 setAudioLoading(false); // Hide loader
             });
-    
+            // Handle audio end event
             newAudio.onended = () => {
                 setIsSpeaking(false); // Reset speaking state when audio ends
                 setAudioInstance(null); // Clear the audio instance
                 setAudioLoading(false); // Ensure loader is hidden
+                setAudioPausedTime(0); // Reset paused time
+                setShowContinueButton(false); // Hide "continue" button
             };
+            // Update the audio instance
+            setAudioInstance(newAudio);
         } catch (error) {
             console.error("Error generating speech:", error);
             setErrorMessage("Error playing audio");
@@ -372,7 +400,7 @@ function FlipBook() {
                                             <button
                                                 type="button"
                                                 className={`btn rounded-pill btn-${isSpeaking ? 'danger' : 'light'} btn-md`}
-                                                onClick={speakText}
+                                                onClick={() => {speakText("play")}}
                                                 disabled={audioLoading} // Disable button while loading
                                             >
                                                 {audioLoading ? (
@@ -383,6 +411,16 @@ function FlipBook() {
                                                     <i className="bi bi-volume-up-fill text-dark"></i> 
                                                 )}
                                             </button>
+                                            {showContinueButton && (
+                                                <button
+                                                    type="button"
+                                                    className="btn btn-warning btn-md ms-2"
+                                                    onClick={() => speakText("continue")}
+                                                    disabled={audioLoading}
+                                                >
+                                                    <i className="bi bi-play-fill"></i>
+                                                </button>
+                                            )}
                                             <select
                                                 value={selectedVoice}
                                                 onChange={(e) => setSelectedVoice(e.target.value)}
