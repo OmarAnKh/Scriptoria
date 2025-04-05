@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import HTMLFlipBook from 'react-pageflip';
 import './FlipBook.css';
 import BookPage from './Page.js';
@@ -18,6 +18,7 @@ function FlipBook() {
     const [displayButton, setDisplayButton] = useState(false);
     const flipBookRef = useRef(null);
     const { id } = useParams();
+    const location = useLocation(); // Detect route changes
     const [storyData, setStoryData] = useState({});
     const [bookWidth, setBookWidth] = useState(window.innerWidth * 0.8);
     const [title, setTitle] = useState([]);
@@ -33,6 +34,7 @@ function FlipBook() {
     const [pageHeights, setPageHeights] = useState([]);
     const [audioInstance, setAudioInstance] = useState(null); // Store audio instance
     const [errorMessage, setErrorMessage] = useState(null);
+    const [audioLoading, setAudioLoading] = useState(false); // Loader for audio generation
 
     // Fetch story data
     useEffect(() => {
@@ -85,18 +87,31 @@ function FlipBook() {
         fetchVoices();
     }, []);
 
-    // Stop audio playback on page reload/refresh
+    // Stop audio playback on page reload/refresh or navigation
     useEffect(() => {
         const handleBeforeUnload = () => {
+            if (audioInstance) {
+                audioInstance.pause();
+                audioInstance.currentTime = 0;
+            }
             setIsSpeaking(false); // Stop speaking state
-            const audioElements = document.querySelectorAll('audio');
-            audioElements.forEach(audio => audio.pause()); // Pause all audio elements
+        };
+        const handleRouteChange = () => {
+            if (audioInstance) {
+                audioInstance.pause();
+                audioInstance.currentTime = 0;
+            }
+            setIsSpeaking(false);
         };
         window.addEventListener('beforeunload', handleBeforeUnload);
+        const unlisten = () => {
+            handleRouteChange();
+        };
         return () => {
             window.removeEventListener('beforeunload', handleBeforeUnload);
+            unlisten(); // Cleanup listener
         };
-    }, []);
+    }, [audioInstance, location]); // Add `location` as a dependency
 
     // Calculate page heights dynamically
     useEffect(() => {
@@ -157,28 +172,28 @@ function FlipBook() {
         return flipBookRef.current?.pageFlip()?.getCurrentPageIndex() || 0;
     };
 
+    // Speak text function with loader
     // const speakText = async () => {
-    //     if (isSpeaking) {
-    //         // If already speaking, stop audio
-    //         if (audioInstance) {
-    //             audioInstance.pause();
-    //             audioInstance.currentTime = 0;
-    //         }
+    //     if (isSpeaking && audioInstance) {
+    //         // Case: Stop audio if it's playing
+    //         audioInstance.pause();
+    //         audioInstance.currentTime = 0;
     //         setIsSpeaking(false);
+    //         setAudioInstance(null); // Clear the audio instance
     //         return;
     //     }
-    
+
     //     const currentPageIndex = getpageindex();
     //     const textToSpeak = slide[currentPageIndex]?.trim();
-    
     //     if (!textToSpeak) {
-    //         console.error("No text to speak on the current page.");
-    //         setIsSpeaking(false);
+    //         setErrorMessage("No text available for speech on this page.");
     //         return;
     //     }
-    
-    //     setIsSpeaking(true); // Start loading
-    
+
+    //     setIsSpeaking(true); // Start speaking state
+    //     setAudioLoading(true); // Show loader
+    //     setErrorMessage(null);
+
     //     try {
     //         const response = await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${selectedVoice}`, {
     //             method: "POST",
@@ -195,53 +210,68 @@ function FlipBook() {
     //                 }
     //             })
     //         });
-    
+
     //         if (!response.ok) {
     //             const errorData = await response.json();
+    //             let errorMsg = "Error generating speech.";
+    //             if (response.status === 429) {
+    //                 errorMsg = "Quota exceeded. Please try again later.";
+    //             } else if (errorData.message) {
+    //                 errorMsg = `Error: ${errorData.message}`;
+    //             }
+    //             setErrorMessage(errorMsg);
+    //             setTimeout(() => setErrorMessage(null), 10000); // Hide after 10 seconds
     //             throw new Error(`API Error: ${response.status} - ${JSON.stringify(errorData)}`);
     //         }
-    
+
     //         const audioBlob = await response.blob();
     //         const audioUrl = URL.createObjectURL(audioBlob);
-    //         console.log("Generated Audio URL:", audioUrl);
-    
     //         const newAudio = new Audio(audioUrl);
     //         setAudioInstance(newAudio);
-    
+
     //         newAudio.play().catch((playError) => {
     //             console.error("Error playing audio:", playError);
+    //             setErrorMessage("Error playing audio.");
+    //             setTimeout(() => setErrorMessage(null), 10000);
     //             setIsSpeaking(false);
+    //             setAudioLoading(false); // Hide loader
     //         });
-    
+
     //         newAudio.onended = () => {
     //             setIsSpeaking(false);
-    //             setAudioInstance(null);
+    //             setAudioInstance(null); // Clear the audio instance when playback ends
+    //             setAudioLoading(false); // Ensure loader is hidden
     //         };
+
+    //         setAudioLoading(false); // Hide loader once audio starts playing
     //     } catch (error) {
     //         console.error("Error generating speech:", error);
+    //         setErrorMessage("Error playing audio");
+    //         setTimeout(() => setErrorMessage(null), 10000);
     //         setIsSpeaking(false);
+    //         setAudioLoading(false); // Hide loader in case of an error
     //     }
     // };
 
     const speakText = async () => {
-        if (isSpeaking) {
-            if (audioInstance) {
-                audioInstance.pause();
-                audioInstance.currentTime = 0;
-            }
-            setIsSpeaking(false);
+        if (isSpeaking && audioInstance) {
+            // Case: Stop audio if it's already playing
+            audioInstance.pause();
+            audioInstance.currentTime = 0;
+            setIsSpeaking(false); // Reset speaking state
+            setAudioInstance(null); // Clear the audio instance
             return;
         }
     
         const currentPageIndex = getpageindex();
         const textToSpeak = slide[currentPageIndex]?.trim();
-    
         if (!textToSpeak) {
             setErrorMessage("No text available for speech on this page.");
             return;
         }
     
-        setIsSpeaking(true);
+        setIsSpeaking(false); // Reset speaking state before loading
+        setAudioLoading(true); // Show loader
         setErrorMessage(null);
     
         try {
@@ -269,7 +299,6 @@ function FlipBook() {
                 } else if (errorData.message) {
                     errorMsg = `Error: ${errorData.message}`;
                 }
-    
                 setErrorMessage(errorMsg);
                 setTimeout(() => setErrorMessage(null), 10000); // Hide after 10 seconds
                 throw new Error(`API Error: ${response.status} - ${JSON.stringify(errorData)}`);
@@ -280,22 +309,28 @@ function FlipBook() {
             const newAudio = new Audio(audioUrl);
             setAudioInstance(newAudio);
     
-            newAudio.play().catch((playError) => {
+            newAudio.play().then(() => {
+                setIsSpeaking(true); // Set speaking state to true when audio starts playing
+                setAudioLoading(false); // Hide loader
+            }).catch((playError) => {
                 console.error("Error playing audio:", playError);
                 setErrorMessage("Error playing audio.");
                 setTimeout(() => setErrorMessage(null), 10000);
                 setIsSpeaking(false);
+                setAudioLoading(false); // Hide loader
             });
     
             newAudio.onended = () => {
-                setIsSpeaking(false);
-                setAudioInstance(null);
+                setIsSpeaking(false); // Reset speaking state when audio ends
+                setAudioInstance(null); // Clear the audio instance
+                setAudioLoading(false); // Ensure loader is hidden
             };
         } catch (error) {
             console.error("Error generating speech:", error);
-            setErrorMessage("Error playing audio")
+            setErrorMessage("Error playing audio");
             setTimeout(() => setErrorMessage(null), 10000);
             setIsSpeaking(false);
+            setAudioLoading(false); // Hide loader in case of an error
         }
     };
 
@@ -331,29 +366,36 @@ function FlipBook() {
                         <div className="text-center">
                             <h1 className='display-5 text-center mt-3 mb-4 text-light Scriptoria'> {title} </h1>
                             {
-                                voices ?  //there's error ? //no error // no voices 
- 
-                                    errorMessage? <p className="error-message text-light p-2 bg-danger">{errorMessage}</p> :                                <div className="mb-2 text-light gap-1 d-flex align-items-center justify-content-center">
-                                    <button
-                                        type="button"
-                                        className={`btn rounded-pill btn-${isSpeaking ? 'success' : 'light'} btn-md`}
-                                        onClick={speakText}
-                                    >
-                                        {isSpeaking ? <i className="bi bi-stop-circle-fill"></i> : <i className="bi bi-volume-up-fill text-dark"></i>}
-                                    </button>
-                                    <select
-                                        value={selectedVoice}
-                                        onChange={(e) => setSelectedVoice(e.target.value)}
-                                        style={{ padding: '5px', borderRadius: '5px' }}
-                                    >
-                                        {voices?.map((voice) => (
-                                            <option key={voice.voice_id} value={voice.voice_id}>
-                                                {voice.name}
-                                            </option>
-                                        ))}
-                                    </select>
-                                </div>
-                                : null 
+                                voices ?
+                                    errorMessage ? <p className="error-message text-light p-2 bg-danger">{errorMessage}</p> :
+                                        <div className="mb-2 text-light gap-1 d-flex align-items-center justify-content-center">
+                                            <button
+                                                type="button"
+                                                className={`btn rounded-pill btn-${isSpeaking ? 'danger' : 'light'} btn-md`}
+                                                onClick={speakText}
+                                                disabled={audioLoading} // Disable button while loading
+                                            >
+                                                {audioLoading ? (
+                                                    <LoaderIcon className="my-1" />
+                                                ) : isSpeaking ? (
+                                                    <i className="bi bi-stop-circle-fill"></i> 
+                                                ) : (
+                                                    <i className="bi bi-volume-up-fill text-dark"></i> 
+                                                )}
+                                            </button>
+                                            <select
+                                                value={selectedVoice}
+                                                onChange={(e) => setSelectedVoice(e.target.value)}
+                                                style={{ padding: '5px', borderRadius: '5px' }}
+                                            >
+                                                {voices?.map((voice) => (
+                                                    <option key={voice.voice_id} value={voice.voice_id}>
+                                                        {voice.name}
+                                                    </option>
+                                                ))}
+                                            </select>
+                                        </div>
+                                    : null
                             }
                         </div>
                         {/* Book */}
@@ -370,12 +412,12 @@ function FlipBook() {
                                 pagesPerSheet={isMobile ? 1 : 2}
                             >
                                 {slide && slide.map((text, index) => (
-                                <BookPage key={index}>
-                                    <div className="page-text" key={index} dangerouslySetInnerHTML={{ __html: text }} />
-                                    <div className="page-number" style={{ position: 'absolute', bottom: '5px', right: '10px', fontSize: '10px', color: '#aaa' }}>
-                                    {index + 1}
-                                    </div>
-                                </BookPage>
+                                    <BookPage key={index}>
+                                        <div className="page-text" key={index} dangerouslySetInnerHTML={{ __html: text }} />
+                                        <div className="page-number" style={{ position: 'absolute', bottom: '5px', right: '10px', fontSize: '10px', color: '#aaa' }}>
+                                            {index + 1}
+                                        </div>
+                                    </BookPage>
                                 ))}
                             </HTMLFlipBook>
                         </div>
