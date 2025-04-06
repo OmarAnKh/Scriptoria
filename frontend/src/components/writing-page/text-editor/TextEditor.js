@@ -97,7 +97,6 @@ const TextEditor = ({ socket, slide, index, setSlides, documentId }) => {
       theme: "snow",
       modules: { toolbar: TOOLBAR_OPTIONS },
     })
-    // q.disable()
     q.clipboard.dangerouslyPasteHTML(0, slide?.text);
     setQuill(q)
   }, [])
@@ -108,6 +107,7 @@ const TextEditor = ({ socket, slide, index, setSlides, documentId }) => {
       style={{
         height: '500px',
         flexGrow: 1,
+        overflowY: 'auto',
         border: '1px solid #dee2e6',
         display: 'flex',
         flexDirection: 'column',

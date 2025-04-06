@@ -128,13 +128,19 @@ io.on("connection", (socket) => {
 
     socket.on("get-document", async documentId => {
         const document = await findDocument(documentId);
+        if (!document) {
+            return socket.emit("load-document", null);
+        }
+
         socket.join(documentId);
         socket.emit("load-document", document.slides);
 
         socket.on("send-changes", async ({ text, roomId, index }) => {
-            // await applyChangesAndBroadcast(socket, documentId, text, roomId, index);
             try {
                 const document = await Story.findById(documentId);
+                if (!document) {
+                    return;
+                }
                 document.slides[index].text = text;
                 await document.save();
                 socket.broadcast.to(roomId).emit("receive-changes", { text, roomId, idx: index });
@@ -146,6 +152,9 @@ io.on("connection", (socket) => {
         socket.on("save-document", async ({ text, index }) => {
             try {
                 const document = await Story.findById(documentId);
+                if (!document) {
+                    return;
+                }
                 document.slides[index].text = text;
                 await document.save();
             } catch (error) {

@@ -1,14 +1,11 @@
 import Story from '../models/story.js'
 
-const defaultValue = "";
-
 const findDocument = async (id) => {
     if (id == null) return;
 
     let document = await Story.findById(id);
     if (!document) {
-        document.slide = defaultValue;
-        await document.save();
+        return null;
     }
     return document;
 }

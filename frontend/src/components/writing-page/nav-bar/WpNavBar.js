@@ -38,11 +38,11 @@ const WpNavBar = ({ socket, setMode, setState }) => {
   useEffect(() => {
     const ExistStory = async () => {
       const res = await getstory(id)
-      setPublishStatus(res?.story.publishStatus);
       if (res?.status) {
         navigate('/NoAccessPage')
         return
       }
+      setPublishStatus(res?.story.publishStatus);
     }
     const fetchUsers = async () => {
       const res = await getWriters(id)
