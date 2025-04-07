@@ -1,4 +1,3 @@
-
 const useSlide = () => {
     const formatText = (object) => {
         let formattedArray = [];
@@ -20,14 +19,14 @@ const useSlide = () => {
                 tempString += object[key];
                 if (object.attributes) {
                     const { bold, italic, underline } = object.attributes;
-                    if (bold) {
-                        tempString += '</b>';
+                    if (underline) {
+                        tempString += '</u>';
                     }
                     if (italic) {
                         tempString += '</i>';
                     }
-                    if (underline) {
-                        tempString += '</u>';
+                    if (bold) {
+                        tempString += '</b>';
                     }
                 }
 
@@ -52,30 +51,21 @@ const useSlide = () => {
         const substrings = [];
         let start = 0;
         while (start < str.length) {
-            let end = start + size;
-            if (end >= str.length) {
-                substrings.push(str.slice(start));
-                break;
+            let end = Math.min(start + size, str.length);
+            // Ensure we don't split in the middle of a word or HTML tag
+            if (end < str.length && str[end] !== ' ' && !str.slice(start, end).includes('<b>') && !str.slice(start, end).includes('<i>') && !str.slice(start, end).includes('<u>')) {
+                while (end > start && str[end] !== ' ' && !str.slice(start, end).includes('<b>') && !str.slice(start, end).includes('<i>') && !str.slice(start, end).includes('<u>')) {
+                    end--;
+                }
             }
-            while (str[end] !== ' ' && end > start) {
-                end--;
-            }
-
-            if (end === start) {
-                substrings.push(str.slice(start, start + size));
-                start += size;
-            } else {
-                substrings.push(str.slice(start, end));
-                start = end + 1;
-            }
+            substrings.push(str.slice(start, end));
+            start = end + (end < str.length ? 1 : 0);
         }
-
         return substrings;
     }
 
     const splitBigArrays = (object, characters) => {
         let tempArray = []
-        let tempstring = ''
         let tempsubstring = ''
         for (let i = 0; i < object.length; i++) {
             if (object[i].includes('<b>') || object[i].includes('<u>') || object[i].includes('<i>')) {
@@ -104,19 +94,46 @@ const useSlide = () => {
                 size = characters
                 tempstring += object[i];
                 size -= object[i].length
-
             }
         }
         tempArray.push(tempstring)
         return tempArray
     }
-    const getSlides = (texts, characters) => {
-        const res = formatText(texts)
-        const withoutNewlines = removeNewLines(res)
-        const splitArrays = splitBigArrays(withoutNewlines, 100)
-        const slides = sumUparrays(splitArrays, characters)
-        return slides
-    }
+
+    const getSlides = (texts) => {
+        const MAX_SLIDE_LENGTH = 1560;
+        const res = formatText(texts);
+        const withoutNewlines = removeNewLines(res);
+        const splitArrays = splitBigArrays(withoutNewlines, 100);
+        let slides = sumUparrays(splitArrays, MAX_SLIDE_LENGTH);
+    
+        slides = slides.map(slide => {
+            if (slide.length > MAX_SLIDE_LENGTH) {
+                return splitString(slide, MAX_SLIDE_LENGTH);
+            }
+            return slide;
+        }).flat();
+    
+        // Handle single long words that exceed MAX_SLIDE_LENGTH
+        slides = slides.flatMap(slide => {
+            const words = slide.trim().split(/\s+/);
+            if (words.length === 1 && slide.length > MAX_SLIDE_LENGTH) {
+                let chunks = [];
+                let word = slide;
+                while (word.length > MAX_SLIDE_LENGTH) {
+                    chunks.push(word.slice(0, MAX_SLIDE_LENGTH) + "...");
+                    word = "..." + word.slice(MAX_SLIDE_LENGTH);
+                }
+                chunks.push(word); // Add the remaining part
+                return chunks;
+            }
+            return slide;
+        });
+    
+        return slides;
+    };
+    
     return getSlides
 }
+
 export default useSlide;

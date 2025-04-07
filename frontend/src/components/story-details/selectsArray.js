@@ -1,5 +1,4 @@
 const categorys = [
-    "Select categorys",
     "Action",
     "Adventure",
     "ChickLit",
@@ -24,7 +23,6 @@ const categorys = [
 ]
 
 const languages = [
-    "Select language",
     "English",
     "Français",
     "Italiano",
@@ -83,7 +81,6 @@ const languages = [
 ]
 
 const targetAudiences = [
-    "Select target audiences",
     "Young Adult (13-18 years of age)",
     "New Adult (18-25 years of age)",
     "Adult (25+ years of age)"

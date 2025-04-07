@@ -58,7 +58,7 @@ const WritingPage = () => {
         transition: "all 0.3s ease-in",
       }}>
         <div className="main-content" style={{ paddingTop: '6rem' }}>
-          <p className="text-center m-1">Each slide is like a page in the flipbook</p>
+          <p className={`text-center m-1 ${focus ? "text-light" : ""}`}>Each slide is like a page in the flipbook</p>
           <SlidesPage socket={socket} focus={focus} />
         </div>
       </div>
