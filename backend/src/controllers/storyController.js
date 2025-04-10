@@ -7,6 +7,7 @@ import Rating from "../models/rating.js";
 import { converImgToBuffer } from "../utils/image.js";
 import ReadingList from "../models/readingList.js";
 import Reply from "../models/replies.js";
+import mongoose from "mongoose";
 
 const createStory = async (req, res) => {
     try {
@@ -40,6 +41,9 @@ const getAccountWorks = async (req, res) => {
 
 const getStoryById = async (req, res) => {
     try {
+        if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+            return res.status(400).send('Invalid ID format');
+        }
         const stories = await Story.findById(req.params.id);
         res.status(200).send(stories);
     } catch (error) {

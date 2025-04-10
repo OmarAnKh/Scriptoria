@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { UserCircle2, AlertTriangle, Check, X } from 'lucide-react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { getInvitation, invitationResponse } from '../../api/writers';
+import { acceptInvitation, getInvitationByID, rejectInvitation } from '../../api/invitations.js';
 import useAuth from '../../hooks/useAuth';
 import useAccount from '../../hooks/useAccount';
 import { getstory } from '../../api/storyAPI';
 
-const AcceptInvitation = () => {
+const Invitation = () => {
     const { auth } = useAuth();
     const { getAccountById } = useAccount();
     const { invitationId } = useParams();
@@ -23,26 +23,24 @@ const AcceptInvitation = () => {
         const fetchData = async () => {
             try {
                 setIsLoading(true);
-                const invitationData = await getInvitation(invitationId);
+                const invitationData = await getInvitationByID(invitationId);
                 setInvitationData(invitationData);
 
-                setIsValidRecipient(auth?.userInfo?._id === invitationData?.invitation?.AccountId);
+                setIsValidRecipient(auth?.userInfo?._id === invitationData?.invitation?.receiver);
 
-                if (invitationData?.invitation?.senderId) {
-                    const senderData = await getAccountById(invitationData.invitation.senderId);
+                if (invitationData?.invitation?.sender) {
+                    const senderData = await getAccountById(invitationData.invitation.sender);
                     setInvitationSenderData(senderData);
                 }
 
-                if (invitationData?.invitation?.StoryId) {
-                    const storyData = await getstory(invitationData.invitation.StoryId);
+                if (invitationData?.invitation?.story) {
+                    const storyData = await getstory(invitationData.invitation.story);
                     setStoryData(storyData);
                 }
 
-                // Set initial status if already responded
-                if (invitationData?.invitation?.invitationStatus === 'accepted' ||
-                    invitationData?.invitation?.invitationStatus === 'rejected') {
+                if (invitationData?.invitation?.status !== 'pending') {
                     setActionTaken(true);
-                    setResponseStatus(invitationData.invitation.invitationStatus);
+                    setResponseStatus(invitationData.invitation.status);
                 }
             } catch (error) {
                 console.log(error);
@@ -54,35 +52,68 @@ const AcceptInvitation = () => {
         fetchData();
     }, [auth?.userInfo?._id, invitationId]);
 
-    const handleInvitationResponse = async (status) => {
+    const acceptInvitationHandler = async () => {
         try {
-            // Immediately set action taken and response status
             setActionTaken(true);
-            setResponseStatus(status);
+            setResponseStatus('accepted');
 
-            const response = await invitationResponse(invitationId, status);
-            if (response.state) {
+            const acceptInvitationResponse = await acceptInvitation(invitationId,
+                {
+                    AccountId: auth?.userInfo?._id,
+                    StoryId: invitationData?.invitation?.story,
+                    rule: "viewer"
+                });
+
+            if (acceptInvitationResponse.state) {
                 setInvitationData((prev) => ({
                     ...prev,
                     invitation: {
                         ...prev.invitation,
-                        invitationStatus: status,
+                        status: "accepted",
                     },
                 }));
-
-                // Redirect after 2 seconds if accepted
-                if (status === 'accepted') {
-                    setTimeout(() => {
-                        navigate(`/WritingPage/${invitationData?.invitation?.StoryId}`);
-                    }, 2000);
-                }
+                setTimeout(() => {
+                    navigate(`/WritingPage/${invitationData?.invitation?.story}`);
+                }, 2000);
             } else {
-                alert(response.message || 'Something went wrong!');
+                setActionTaken(false);
+                setResponseStatus('');
+                alert('Failed to accept invitation. Please try again.');
             }
         } catch (error) {
+            setActionTaken(false);
+            setResponseStatus('');
             console.error('Error handling invitation:', error);
+            alert('An error occurred. Please try again.');
         }
-    };
+    }
+
+    const rejectInvitationHandler = async () => {
+        try {
+            setActionTaken(true);
+            setResponseStatus('rejected');
+
+            const rejectInvitationResponse = await rejectInvitation(invitationId);
+            if (rejectInvitationResponse.state) {
+                setInvitationData((prev) => ({
+                    ...prev,
+                    invitation: {
+                        ...prev.invitation,
+                        status: "rejected",
+                    },
+                }));
+            } else {
+                setActionTaken(false);
+                setResponseStatus('');
+                alert('Failed to reject invitation. Please try again.');
+            }
+        } catch (error) {
+            setActionTaken(false);
+            setResponseStatus('');
+            console.error('Error handling invitation:', error);
+            alert('An error occurred. Please try again.');
+        }
+    }
 
     if (isLoading) {
         return (
@@ -138,7 +169,6 @@ const AcceptInvitation = () => {
                         <span className="text-success fw-medium">Accept the invite</span>
                         <span className="text-muted"> to become a collaborator on the story</span>
                         <h3 className="fw-medium mt-1 mb-0">{storyData.story?.title}</h3>
-                        <p className="text-muted small mt-2">Role: {invitationData?.invitation?.rule}</p>
                     </div>
 
                     {/* Always show action result or buttons */}
@@ -160,7 +190,7 @@ const AcceptInvitation = () => {
                                 {/* Accept Button */}
                                 <button
                                     className="btn btn-success w-100 mb-2"
-                                    onClick={() => handleInvitationResponse('accepted')}
+                                    onClick={acceptInvitationHandler}
                                 >
                                     ACCEPT INVITE
                                 </button>
@@ -168,7 +198,7 @@ const AcceptInvitation = () => {
                                 {/* Reject Button */}
                                 <button
                                     className="btn btn-danger w-100"
-                                    onClick={() => handleInvitationResponse('rejected')}
+                                    onClick={rejectInvitationHandler}
                                 >
                                     REJECT INVITE
                                 </button>
@@ -181,4 +211,4 @@ const AcceptInvitation = () => {
     );
 };
 
-export default AcceptInvitation;
+export default Invitation;

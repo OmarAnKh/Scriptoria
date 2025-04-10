@@ -42,9 +42,8 @@ const MyWorks = () => {
         const fetchStories = async () => {
             try {
                 const storiesObject = await writerStory("MyWorks", id, publishStatus);
-                const acceptedStories = storiesObject.filter(story => story.invitationStatus === 'accepted');
                 setWriters(storiesObject);
-                const temp = await getStories(acceptedStories, owner);
+                const temp = await getStories(storiesObject, owner);
                 setStories(temp);
 
             } catch (error) {

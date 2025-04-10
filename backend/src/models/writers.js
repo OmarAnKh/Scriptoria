@@ -15,15 +15,6 @@ const writersSchema = new mongoose.Schema({
     rule: {
         type: String,
         required: true
-    },
-    invitationStatus: {
-        type: String,
-        default: "pending",
-        enum: ["pending", "accepted", "rejected"]
-        
-    },
-    senderId: {
-        type: Schema.Types.ObjectId
     }
 });
 
