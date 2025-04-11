@@ -146,11 +146,11 @@ const SlidesPage = ({ socket, focus }) => {
 
                 <div
                     ref={containerRef}
-                    className="d-flex overflow-auto"
+                    className="d-flex overflow-hidden"
                     style={{
                         scrollSnapType: 'x mandatory',
                         scrollbarWidth: 'none',
-                        msOverflowStyle: 'none'
+                        msOverflowStyle: 'none',
                     }}
                 >
                     {slides.map((slide, index) => (
