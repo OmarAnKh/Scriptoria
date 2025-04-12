@@ -13,6 +13,7 @@ const WritingPage = () => {
   const [state, setState] = useState(false)
   const [socket, setSocket] = useState()
   const [flag, setFlag] = useState(false)
+  const [height, setHeight] = useState(window.innerHeight)
   const { auth } = useAuth()
 
   useEffect(() => {
@@ -37,16 +38,21 @@ const WritingPage = () => {
     setFocus(!focus);
   };
 
+  useEffect(() => {
+    const body = document.body;
+    const html = document.documentElement;
+    const height = Math.max(
+      body.scrollHeight,
+      body.offsetHeight,
+      html.clientHeight,
+      html.scrollHeight,
+      html.offsetHeight
+    );
+    setHeight(height)
+  })
 
-  const body = document.body;
-  const html = document.documentElement;
-  const height = Math.max(
-    body.scrollHeight,
-    body.offsetHeight,
-    html.clientHeight,
-    html.scrollHeight,
-    html.offsetHeight
-  );
+
+
 
 
   return (

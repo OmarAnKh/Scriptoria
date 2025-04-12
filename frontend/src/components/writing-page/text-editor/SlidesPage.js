@@ -146,7 +146,7 @@ const SlidesPage = ({ socket, focus }) => {
 
                 <div
                     ref={containerRef}
-                    className="d-flex overflow-hidden"
+                    className="d-flex overflow-x-hidden flex-nowrap"
                     style={{
                         scrollSnapType: 'x mandatory',
                         scrollbarWidth: 'none',
