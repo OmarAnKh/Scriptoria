@@ -1,6 +1,5 @@
 import Invitation from "../models/invitation.js";
 import Writers from "../models/writers.js";
-import mongoose from "mongoose";
 
 const createInvitation = async (req, res) => {
     const { sender, receiver, story } = req.body;
@@ -11,11 +10,9 @@ const createInvitation = async (req, res) => {
             receiver,
             story
         });
-
         if (existingInvitation) {
             return res.status(400).json({ message: "Invitation already exists" });
         }
-
         const invitation = new Invitation(req.body);
         await invitation.save();
         res.status(201).send(invitation);

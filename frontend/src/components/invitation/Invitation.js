@@ -132,7 +132,7 @@ const Invitation = () => {
                     <div className="card-body p-4">
                         <AlertTriangle size={48} className="text-warning mb-3" />
                         <h2 className="h4 mb-3">Invalid Invitation</h2>
-                        <p className="text-muted">This invitation was not sent to your account. Please check the invitation link or sign in with the correct account.</p>
+                        <p className="text-muted">Something went wrong. Please try again or contact support.</p>
                     </div>
                 </div>
             </div>
