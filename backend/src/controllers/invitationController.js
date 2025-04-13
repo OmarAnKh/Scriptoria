@@ -6,7 +6,6 @@ const createInvitation = async (req, res) => {
 
     try {
         const existingInvitation = await Invitation.findOne({
-            sender,
             receiver,
             story
         });

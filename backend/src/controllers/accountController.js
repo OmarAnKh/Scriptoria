@@ -311,12 +311,12 @@ const getAccountFrirnds = async (req, res) => {
 const getListOfAccountsInformationByAnArrayOfIds = async (req, res) => {
     try {
 
-        const invitations = req.body.users;
+        const invitations = req.body.getInvitationsResponse.users;
+        const storyId= req.body.storyId;
 
         if (!Array.isArray(invitations) || invitations.length === 0) {
             return res.status(400).send({ state: false, error: "No users provided" });
         }
-
         const receiverIds = invitations.map(invite => new mongoose.Types.ObjectId(invite.receiver));
 
         const areValidIds = receiverIds.every(id => mongoose.Types.ObjectId.isValid(id));
@@ -326,7 +326,8 @@ const getListOfAccountsInformationByAnArrayOfIds = async (req, res) => {
         const results = await Invitation.aggregate([
             {
                 $match: {
-                    receiver: { $in: receiverIds }
+                    receiver: { $in: receiverIds },
+                    story : new mongoose.Types.ObjectId(storyId)
                 }
             },
             {
@@ -349,7 +350,6 @@ const getListOfAccountsInformationByAnArrayOfIds = async (req, res) => {
                 }
             }
         ]);
-
 
         const usersWithStatus = results.map(user => ({
             ...user.accountDetails,
