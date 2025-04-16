@@ -50,14 +50,14 @@ const WritingPage = () => {
 
   return (
     <>
-    <WpNavBar socket={socket} data={data} setMode={setMode} setData={setData} setState={setState} />
-    <div className="WP"   style={{
-      backgroundColor: focus ? "#25252585" : "#ECECEC",
-      height,
-      transition: "all 0.3s ease-in",
-    }}>     
-        <TextEditor socket={socket} data={data} setData={setData} state={state} />    
-    </div>
+      <WpNavBar socket={socket} data={data} setMode={setMode} setData={setData} setState={setState} />
+      <div className="WP" style={{
+        backgroundColor: focus ? "#25252585" : "#ECECEC",
+        height,
+        transition: "all 0.3s ease-in",
+      }}>
+        <TextEditor socket={socket} data={data} setData={setData} state={state} />
+      </div>
     </>
 
   );

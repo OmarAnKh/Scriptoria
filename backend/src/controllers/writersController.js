@@ -1,6 +1,7 @@
 import Writers from "../models/writers.js";
 import Story from "../models/story.js"
 
+
 const getWritersByStoryId = async (req, res) => {
     const storyId = req.params.id
     try {
@@ -24,8 +25,10 @@ const getWritersByStoryId = async (req, res) => {
                 AccountId: writer.AccountId._id,
                 rule: writer.rule,
                 StoryId: storyId,
-                _id: writer._id
+                _id: writer._id,
+                invitationStatus: writer.invitationStatus
             }
+
         })
         return res.status(200).send({ state: true, users });
     } catch (error) {
@@ -100,10 +103,23 @@ const deleteWriter = async (req, res) => {
     }
 }
 
+const getStoryWritersUsingStoryId = async (req, res) => {
+    try {
+        const writers = await Writers.find({ StoryId: req.params.storyId })
+        if (!writers) {
+            return res.status(404).send({ state: false })
+        }
+                return res.status(200).send({ message: true, writers })
+    } catch (error) {
+        return res.status(500).send({ message: false })
+    }
+}
+
 export default {
     getWritersByStoryId,
     getStoriesByWriterId,
     createWriter,
     updateWriter,
     deleteWriter,
+    getStoryWritersUsingStoryId
 }

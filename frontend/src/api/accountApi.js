@@ -1,5 +1,3 @@
-
-
 const findAccount = async (findCriteria) => {
     try {
         const response = await fetch(`${process.env.REACT_APP_HOSTURL}/user/find`, {
@@ -12,6 +10,7 @@ const findAccount = async (findCriteria) => {
 
         })
         if (response.ok) {
+
             return response.json();
         }
     } catch (error) {
@@ -138,6 +137,23 @@ const getFriends = async (userId) => {
         console.log(error)
     }
 }
+
+const getListOfAccountsInformationByAnArrayOfIds = async (invitations) => {
+    try {
+        const response = await fetch(`${process.env.REACT_APP_HOSTURL}/getListOfAccountsInformationByAnArrayOfIds`, {
+            method: "POST",
+            credentials: "include",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(invitations)
+        })
+        return response.json();
+    } catch (error) {
+        console.log(error,10)
+    }
+}
+
 export {
     editPassword,
     findAccount,
@@ -145,6 +161,7 @@ export {
     confirmPassword,
     logoutAll,
     deleteAccount,
-    getFriends
+    getFriends,
+    getListOfAccountsInformationByAnArrayOfIds
 }
 

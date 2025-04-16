@@ -40,8 +40,26 @@ const getStories = async (findCriteria, flag) => {
         return error;
     }
 }
+
+
+const getStoryWritersUsingStoryId = async (storyId) => {
+    try {
+        const response = await fetch(`${process.env.REACT_APP_HOSTURL}/getStoryWritersUsingStoryId/${storyId}`, {
+            method: "GET",
+            credentials: "include",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        })
+        return response.json();
+    } catch (error) {
+        return error;
+    }
+}
+
 export {
     getWriters,
     getStories,
-    findWriters
+    findWriters,
+    getStoryWritersUsingStoryId
 }

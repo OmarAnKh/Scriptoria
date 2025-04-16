@@ -31,4 +31,6 @@ router.delete("/account/delete", authentication, accountController.deleteAccount
 
 router.get('/getFriends/:userId', accountController.getAccountFrirnds);
 
+router.post('/getListOfAccountsInformationByAnArrayOfIds', accountController.getListOfAccountsInformationByAnArrayOfIds)
+
 export default router

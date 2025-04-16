@@ -7,6 +7,7 @@ import Rating from "../models/rating.js";
 import { converImgToBuffer } from "../utils/image.js";
 import ReadingList from "../models/readingList.js";
 import Reply from "../models/replies.js";
+import mongoose from "mongoose";
 
 const createStory = async (req, res) => {
     try {
@@ -17,7 +18,8 @@ const createStory = async (req, res) => {
         const writers = new Writers({
             AccountId: req.user._id,
             StoryId: story._id,
-            rule: "owner"
+            rule: "owner",
+            invitationStatus: 'accepted'
         });
         await writers.save();
         res.status(201).send({ story, writers });
@@ -39,6 +41,9 @@ const getAccountWorks = async (req, res) => {
 
 const getStoryById = async (req, res) => {
     try {
+        if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+            return res.status(400).send('Invalid ID format');
+        }
         const stories = await Story.findById(req.params.id);
         res.status(200).send(stories);
     } catch (error) {

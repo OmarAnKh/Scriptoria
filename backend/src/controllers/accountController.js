@@ -12,6 +12,8 @@ import Story from "../models/story.js";
 import Writers from "../models/writers.js";
 import Room from "../models/room.js";
 import Reply from "../models/replies.js"
+import mongoose from "mongoose";
+import Invitation from "../models/invitation.js";
 
 const createAccount = async (req, res) => {
     if (req?.body?.profilePicture) {
@@ -85,13 +87,19 @@ const getAccountByUserName = async (req, res) => {
 
 const getAccount = async (req, res) => {
     try {
+        if (Object.keys(req.body).length === 0) {
+            return res.status(400).send({ error: "Request body is empty" });
+        }
+
         const user = await Account.findOne(req.body);
         if (!user) {
-            return res.send({ message: false });
+            return res.status(404).send({ message: "User not found" });
         }
-        res.send({ message: true, _id: user._id, user });
+
+        res.status(200).send({ message: true, _id: user._id, user });
     } catch (error) {
-        res.status(500).send({ error: "Server error" })
+        console.error("Error fetching account:", error);
+        res.status(500).send({ error: "Server error" });
     }
 }
 
@@ -300,6 +308,61 @@ const getAccountFrirnds = async (req, res) => {
     }
 }
 
+const getListOfAccountsInformationByAnArrayOfIds = async (req, res) => {
+    try {
+
+        const invitations = req.body.getInvitationsResponse.users;
+        const storyId= req.body.storyId;
+
+        if (!Array.isArray(invitations) || invitations.length === 0) {
+            return res.status(400).send({ state: false, error: "No users provided" });
+        }
+        const receiverIds = invitations.map(invite => new mongoose.Types.ObjectId(invite.receiver));
+
+        const areValidIds = receiverIds.every(id => mongoose.Types.ObjectId.isValid(id));
+        if (!areValidIds) {
+            return res.status(400).send({ state: false, error: "One or more invalid receiver IDs" });
+        }
+        const results = await Invitation.aggregate([
+            {
+                $match: {
+                    receiver: { $in: receiverIds },
+                    story : new mongoose.Types.ObjectId(storyId)
+                }
+            },
+            {
+                $lookup: {
+                    from: "accounts",
+                    localField: "receiver",
+                    foreignField: "_id",
+                    as: "accountDetails"
+                }
+            },
+            {
+                $unwind: "$accountDetails"
+            },
+            {
+                $project: {
+                    "accountDetails.displayName": 1,
+                    "accountDetails.userName": 1,
+                    status: 1,
+                    "accountDetails._id": 1
+                }
+            }
+        ]);
+
+        const usersWithStatus = results.map(user => ({
+            ...user.accountDetails,
+            status: user.status
+        }));
+
+        res.status(200).send({ state: true, users: usersWithStatus });
+    } catch (error) {
+        res.status(500).send({ state: false, error: "Server error" });
+    }
+};
+
+
 export default {
     createAccount,
     signInAccount,
@@ -314,5 +377,6 @@ export default {
     logoutAccount,
     updateAccount,
     deleteAccount,
-    getAccountFrirnds
+    getAccountFrirnds,
+    getListOfAccountsInformationByAnArrayOfIds
 };
