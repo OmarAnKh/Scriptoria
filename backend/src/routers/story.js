@@ -6,6 +6,10 @@ const router = new express.Router();
 
 router.post("/story", authentication, storyController.createStory);
 
+router.post("/story/addSlide/:id", storyController.addSlide);
+
+router.delete("/story/delete/:id/:index", storyController.deleteSlide);
+
 router.get("/MyWorks/:id", storyController.getAccountWorks);
 
 router.get("/story/:id", storyController.getStoryById);

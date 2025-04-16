@@ -130,16 +130,51 @@ io.on("connection", (socket) => {
 
     socket.on("get-document", async documentId => {
         const document = await findDocument(documentId);
+        if (!document) {
+            return socket.emit("load-document", null);
+        }
+
         socket.join(documentId);
-        socket.emit("load-document", document.slide);
+        socket.emit("load-document", document.slides);
 
-        socket.on("send-changes", async delta => {
-            applyChangesAndBroadcast(socket, documentId, delta);
+        socket.on("send-changes", async ({ text, roomId, index }) => {
+            try {
+                const document = await Story.findById(documentId);
+                if (!document) {
+                    return;
+                }
+                document.slides[index].text = text;
+                await document.save();
+                socket.broadcast.to(roomId).emit("receive-changes", { text, roomId, idx: index });
+            } catch (error) {
+                console.log(error);
+            }
         });
 
-        socket.on("save-document", async data => {
-            await Story.findByIdAndUpdate(documentId, { slide: data });
+        socket.on("save-document", async ({ text, index }) => {
+            try {
+                const document = await Story.findById(documentId);
+                if (!document) {
+                    return;
+                }
+                document.slides[index].text = text;
+                await document.save();
+            } catch (error) {
+                console.log(error);
+            }
         });
+
+        socket.on("add-slide", (slide) => {
+            io.to(documentId).emit("get-add-slide", slide)
+        })
+
+        socket.on("delete-slide", (slide) => {
+            io.to(documentId).emit("get-slide-after-delete", slide)
+        })
+
+        socket.on("join-slide-room", roomId => {
+            socket.join(roomId);
+        })
     });
 
     socket.on("remove-user", (userId) => {

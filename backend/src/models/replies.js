@@ -4,26 +4,27 @@ const replySchema = new Schema({
     storyId: {
         type: Schema.Types.ObjectId,
         ref: 'Story',
-        required : true
+        required: true
     },
     originId: {
         type: Schema.Types.ObjectId,
         ref: 'Comment',
-        required : true
+        required: true
     },
-    replier : {
+    replier: {
         type: Schema.Types.ObjectId,
         ref: 'Account',
-        required : true
+        required: true
     },
-    repliedTo : {
+    repliedTo: {
         type: Schema.Types.ObjectId,
         ref: 'Account'
     },
-    text: { type: String,
-        required : true
-     },
-    likes : [{
+    text: {
+        type: String,
+        required: true
+    },
+    likes: [{
         type: Schema.Types.ObjectId,
         ref: 'Account'
     }]
