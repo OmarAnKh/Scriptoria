@@ -21,10 +21,6 @@ const storySchema = new mongoose.Schema({
         type: Boolean,
         default: 0 // 0 = private, 1 = public
     },
-    price: {
-        type: Number,
-        default: 0
-    },
     likes: {
         type: Number,
         default: 0

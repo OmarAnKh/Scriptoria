@@ -9,7 +9,9 @@ const writersSchema = new mongoose.Schema({
         type: Schema.Types.ObjectId,
         ref: 'Story'
     },
-    publishDate: { type: Date },
+    publishDate: {
+        type: Date
+    },
     rule: {
         type: String,
         required: true

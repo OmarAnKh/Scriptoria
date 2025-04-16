@@ -35,6 +35,7 @@ import { toast } from 'react-hot-toast'
 import { useState, useEffect } from 'react';
 import { getRooms } from './api/roomsApi.js';
 import AvatarPage from './components/avatars/AvatarPage.js';
+import Invitation from './components/invitation/Invitation.js';
 
 
 
@@ -157,6 +158,7 @@ function App() {
               <Route path='StoryDetails' element={<StoryDetails />} />
               <Route path='StoryDetails/:id' element={<StoryDetails />} />
               <Route path='settings/:id' element={<Settings />} />
+              <Route path='/Invitation/:invitationId' element={<Invitation/>}/>
             </Route>
           </Route>
 

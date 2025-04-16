@@ -16,5 +16,7 @@ router.patch("/rule/update", authentication, writersController.updateWriter);
 
 router.delete('/writer/delete', authentication, writersController.deleteWriter);
 
+router.get('/getStoryWritersUsingStoryId/:storyId', writersController.getStoryWritersUsingStoryId)
+
 export default router;
 

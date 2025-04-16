@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import "./MyWorks.css";
 import MyCard from "./my-works-card/MyCard";
-import { writerStory } from '../../api/storyAPI.js';
+import { story, writerStory } from '../../api/storyAPI.js';
 import { Buffer } from 'buffer';
 import { findAccount } from '../../api/accountApi.js'
 import TopCard from './my-works-card/TopCard.js';
@@ -37,6 +37,7 @@ const MyWorks = () => {
     const [publishStatus, setPublishStatus] = useState(false)
     const owner = auth?.userInfo?._id === id
     const { t } = useTranslation();
+
     useEffect(() => {
         const fetchStories = async () => {
             try {
@@ -50,7 +51,7 @@ const MyWorks = () => {
             }
         };
         fetchStories();
-    }, [id]);
+    }, [id, publishStatus, owner]);
 
     useEffect(() => {
         const fetchUser = async () => {
@@ -63,10 +64,11 @@ const MyWorks = () => {
             }
         };
         fetchUser();
-    }, []);
+    }, [id]);
 
-    stories.sort((a, b) => b.likes - a.likes);
-    const top5 = stories.slice(0, 5);
+    const sortedStories = [...stories].sort((a, b) => b.likes - a.likes);
+    const top5 = sortedStories.slice(0, 5);
+
     return (
         <><NavBar />
             <div className='custom-card-contain mt-5'>
@@ -83,6 +85,7 @@ const MyWorks = () => {
                                         key={index}
                                         storyId={story?.story?._id}
                                         userId={id}
+                                        setStories={setStories}
                                     />
                                 </React.Fragment>
                             )

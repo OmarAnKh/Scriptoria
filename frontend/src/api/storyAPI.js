@@ -159,6 +159,22 @@ const addSlideApi = async (storyId) => {
     }
 }
 
+const getStoryByItsID = async (storyId) => {
+    try {
+        const response = await fetch(`${process.env.REACT_APP_HOSTURL}/story/${storyId}`, {
+            method: "GET",
+            credentials: "include",
+            headers: {
+                "Content-Type": "application/json",
+            }
+        })
+
+        return response.json()
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 export {
     story,
     writerStory,
@@ -168,5 +184,7 @@ export {
     getstory,
     getGenrestory,
     deleteStory,
-    addSlideApi
+    addSlideApi,
+    getStoryByItsID
+
 }
