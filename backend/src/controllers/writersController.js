@@ -93,7 +93,9 @@ const updateWriter = async (req, res) => {
 
 const deleteWriter = async (req, res) => {
     try {
+        console.log(req.body)
         const user = await Writers.findOneAndDelete({ AccountId: req.body.AccountId, StoryId: req.body.StoryId })
+        console.log(10)
         if (!user) {
             return res.status(400).send({ message: false })
         }
@@ -109,7 +111,7 @@ const getStoryWritersUsingStoryId = async (req, res) => {
         if (!writers) {
             return res.status(404).send({ state: false })
         }
-                return res.status(200).send({ message: true, writers })
+        return res.status(200).send({ message: true, writers })
     } catch (error) {
         return res.status(500).send({ message: false })
     }
