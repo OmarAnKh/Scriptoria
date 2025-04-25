@@ -1,34 +1,23 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { useParams, useNavigate, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import HTMLFlipBook from 'react-pageflip';
 import './FlipBook.css';
 import BookPage from './Page.js';
 import Sound from './../../audio/PageTurn.mp3';
-import Icons from "../story-header/icons/Icons.js";
-import { getstory } from "../../api/storyAPI.js";
-import Navbar from "../navbar/Navbar.js";
-import useSlide from "../../hooks/useSlide.js";
 import { Tooltip } from 'react-tooltip';
 import { LoaderIcon } from 'react-hot-toast';
 // ElevenLabs API Key
 const ELEVENLABS_API_KEY = process.env.REACT_APP_ELEVENLABS_API_KEY;
 
-function FlipBook() {
+function FlipBook({title, slide, color}) {
     const [displayButton, setDisplayButton] = useState(false);
     const flipBookRef = useRef(null);
-    const { id } = useParams();
     const location = useLocation(); // Detect route changes
-    const [storyData, setStoryData] = useState({});
     const [bookWidth, setBookWidth] = useState(window.innerWidth * 0.8);
-    const [title, setTitle] = useState([]);
-    const [slide, setSlide] = useState([]);
-    const [color, setColor] = useState(null);
-    const getSlides = useSlide();
     const [isMobile, setIsMobile] = useState(window.innerWidth < 650);
     const [isSpeaking, setIsSpeaking] = useState(false);
     const [voices, setVoices] = useState([]); // List of ElevenLabs voices
     const [selectedVoice, setSelectedVoice] = useState(null); // Selected ElevenLabs voice ID
-    const [loading, setLoading] = useState(true);
     const [currentPage, setCurrentPage] = useState(0); // Track current page
     const [pageHeights, setPageHeights] = useState([]);
     const [audioInstance, setAudioInstance] = useState(null); // Store audio instance
@@ -36,24 +25,6 @@ function FlipBook() {
     const [audioLoading, setAudioLoading] = useState(false); // Loader for audio generation
     const [audioPausedTime, setAudioPausedTime] = useState(0); // Track audio pause time
     const [showContinueButton, setShowContinueButton] = useState(false); // Show continue button
-
-    // Fetch story data
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const story = await getstory(id);
-                setStoryData(story.story);
-                setSlide(getSlides(story?.story?.slide?.ops));
-                setTitle(story?.story?.title);
-                setColor(story?.story?.backgroundColor);
-            } catch (error) {
-                console.error("Error fetching story:", error);
-            } finally {
-                setLoading(false);
-            }
-        };
-        fetchData();
-    }, [id]);
 
     // Handle window resizing
     useEffect(() => {
@@ -269,9 +240,6 @@ function FlipBook() {
     // Pagination text
     const getPaginationText = () => {
         const totalPages = totalpages();
-        if (loading) {
-            return "Loading...";
-        }
         if (totalPages === 0) {
             return "1 - 2";
         }
@@ -286,15 +254,6 @@ function FlipBook() {
 
     return (
         <>
-            <Navbar />
-            <div className="container-fluid d-flex flex-column align-items-center justify-content-center" style={{ background: `linear-gradient(to bottom, ${color}, rgba(255,0,0,0))`, overflow: 'hidden' }}>
-                {loading ? (
-                    <div className="text-center">
-                        <LoaderIcon />
-                        <p className='text-light'>Loading...</p>
-                    </div>
-                ) : (
-                    <>
                         <div className="text-center">
                             <h1 className='display-5 text-center mt-3 mb-4 text-light Scriptoria'> {title} </h1>
                             {
@@ -391,12 +350,7 @@ function FlipBook() {
                             <Tooltip id="my-tooltip" />
                         </div>
                     </>
-                )}
-                <div className='rounded-5 mb-4' style={{ backgroundColor: storyData?.backgroundColor }}>
-                    <Icons data={storyData} id={id} setData={setStoryData} />
-                </div>
-            </div>
-        </>
+
     );
 }
 
