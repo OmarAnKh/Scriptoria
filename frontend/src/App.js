@@ -36,6 +36,7 @@ import { useState, useEffect } from 'react';
 import { getRooms } from './api/roomsApi.js';
 import AvatarPage from './components/avatars/AvatarPage.js';
 import Invitation from './components/invitation/Invitation.js';
+import WritePost from './components/PostModal/WritePost.js';
 
 
 
@@ -148,7 +149,7 @@ function App() {
             <Route path='story/:id' element={<StoryPage />} />
             <Route path='MyWorks/:id' element={<MyWorks />} />
             <Route path='ReadingPage/:id' element={<ReadingPage />} />
-
+            <Route path='WritePost' element={<WritePost />} />
 
             {/* refresh pages && protected routers */}
             <Route element={<RequireAuth />}>
@@ -158,7 +159,7 @@ function App() {
               <Route path='StoryDetails' element={<StoryDetails />} />
               <Route path='StoryDetails/:id' element={<StoryDetails />} />
               <Route path='settings/:id' element={<Settings />} />
-              <Route path='/Invitation/:invitationId' element={<Invitation/>}/>
+              <Route path='/Invitation/:invitationId' element={<Invitation />} />
             </Route>
           </Route>
 

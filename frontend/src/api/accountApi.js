@@ -150,7 +150,7 @@ const getListOfAccountsInformationByAnArrayOfIds = async (invitations) => {
         })
         return response.json();
     } catch (error) {
-        console.log(error,10)
+        console.log(error)
     }
 }
 
