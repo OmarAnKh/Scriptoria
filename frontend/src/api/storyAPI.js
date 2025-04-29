@@ -140,6 +140,25 @@ const deleteStory = async (storyId) => {
     }
 }
 
+const addSlideApi = async (storyId) => {
+    try {
+        console.log(storyId)
+        const response = await fetch(`${process.env.REACT_APP_HOSTURL}/story/addSlide/${storyId}`, {
+            method: "POST",
+            credentials: "include",
+            headers: {
+                "Content-Type": "application/json",
+            }
+        })
+        if (response.ok) {
+            return response.json()
+        }
+        return response
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 const getStoryByItsID = async (storyId) => {
     try {
         const response = await fetch(`${process.env.REACT_APP_HOSTURL}/story/${storyId}`, {
@@ -149,12 +168,13 @@ const getStoryByItsID = async (storyId) => {
                 "Content-Type": "application/json",
             }
         })
-        
+
         return response.json()
     } catch (error) {
         console.log(error)
     }
 }
+
 export {
     story,
     writerStory,
@@ -164,5 +184,7 @@ export {
     getstory,
     getGenrestory,
     deleteStory,
+    addSlideApi,
     getStoryByItsID
+
 }

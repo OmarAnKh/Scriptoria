@@ -132,8 +132,8 @@ const BookShelf = (props) => {
               containerClass="custom-carousel"
               itemClass="custom-slide"
               infinite={true}
-              swipeable={false}
-              draggable={false}
+              swipeable={true}
+              draggable={true}
               showDots={false}
               ssr={true}
               autoPlay={false}
