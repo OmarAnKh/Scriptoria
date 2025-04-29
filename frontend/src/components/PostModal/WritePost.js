@@ -21,25 +21,15 @@ const WritePost = () => {
                                                 className="avatar rounded-circle"
                                                 src={`data:image/png;base64,${auth?.userInfo?.profilePicture}`}
                                                 alt={auth?.userInfo?.displayName}
-                                                style={{ width: '40px', height: '40px' }} // Small size for profile picture
+                                                style={{ width: '60px', height: '60px' }} // Small size for profile picture
                                             />
                                             <button
                                                 onClick={() => setIsModalOpen(true)}
-                                                className="btn btn-light rounded-pill flex-grow-1 text-start"
+                                                className="btn btn-light rounded-pill flex-grow-1 text-start p-3"
                                             >
                                                 What's on your mind, {auth?.userInfo?.displayName}?
                                             </button>
                                         </div>
-
-                                        <hr className="my-3" />
-
-                                        <button
-                                            onClick={() => setIsModalOpen(true)}
-                                            className="btn btn-light w-100 d-flex align-items-center justify-content-center gap-2"
-                                        >
-                                            <PlusCircle className="text-primary" size={20} />
-                                            <span>Create Post</span>
-                                        </button>
                                     </div>
                                 </div>
                             </div>
