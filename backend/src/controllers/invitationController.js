@@ -2,7 +2,7 @@ import Invitation from "../models/invitation.js";
 import Writers from "../models/writers.js";
 
 const createInvitation = async (req, res) => {
-    const { sender, receiver, story } = req.body;
+    const { receiver, story } = req.body;
 
     try {
         const existingInvitation = await Invitation.findOne({
@@ -68,7 +68,7 @@ const addWriterIfNotExists = async (writerData) => {
     if (existingWriter) {
         throw new Error("User already exists");
     }
-
+    console.log(100)
     const writer = new Writers(writerData);
     await writer.save();
     return writer;

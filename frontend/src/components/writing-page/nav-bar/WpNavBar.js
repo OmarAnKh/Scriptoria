@@ -218,6 +218,41 @@ const WpNavBar = ({ socket, setMode, setState }) => {
   };
 
   const removeAcceptedUserHandler = async (userId) => {
+    console.log(10)
+    if (removeCooldowns[userId] > 0) {
+      toast.error(`Please wait ${removeCooldowns[userId]} seconds before removing this user`);
+      return;
+    }
+    console.log(20)
+
+    const targetUser = users.find(user => user._id === userId);
+    if (targetUser?.rule === 'owner') {
+      toast.error("Cannot remove the owner");
+      return;
+    }
+
+    socket.emit("remove-user", userId);
+
+    try {
+      const document = {
+        AccountId: userId,
+        StoryId: id,
+      };
+      console.log(document)
+      console.log(await deleteDocument('writer', document))
+      await deleteInvitationByReceiverIdAndStoryId(userId, id);
+      setRemoveState(Math.random());
+      startCooldown('remove', userId);
+      toast("You have removed the user successfully", {
+        icon: '🙋‍♂️',
+      });
+    } catch (error) {
+      console.error('Error removing user:', error);
+    }
+  };
+
+  const removePendingUserHandler = async (userId) => {
+    console.log(10)
     if (removeCooldowns[userId] > 0) {
       toast.error(`Please wait ${removeCooldowns[userId]} seconds before removing this user`);
       return;
@@ -236,33 +271,8 @@ const WpNavBar = ({ socket, setMode, setState }) => {
         AccountId: userId,
         StoryId: id,
       };
-      await deleteDocument('writer', document);
-      await deleteInvitationByReceiverIdAndStoryId(userId, id);
-      setRemoveState(Math.random());
-      startCooldown('remove', userId);
-      toast("You have removed the user successfully", {
-        icon: '🙋‍♂️',
-      });
-    } catch (error) {
-      console.error('Error removing user:', error);
-    }
-  };
-
-  const removePendingUserHandler = async (userId) => {
-    if (removeCooldowns[userId] > 0) {
-      toast.error(`Please wait ${removeCooldowns[userId]} seconds before removing this user`);
-      return;
-    }
-
-    const targetUser = users.find(user => user._id === userId);
-    if (targetUser?.rule === 'owner') {
-      toast.error("Cannot remove the owner");
-      return;
-    }
-
-    socket.emit("remove-user", userId);
-
-    try {
+      await deleteDocument('writer', document)
+      await deleteDocument('writer', document)
       await deleteInvitationByReceiverIdAndStoryId(userId, id);
       setRemoveState(Math.random());
       startCooldown('remove', userId);

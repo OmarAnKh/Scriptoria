@@ -25,7 +25,7 @@ import AllListsPage from './components/all-lists-page/AllListsPage.js'
 import ListPage from './components/list-page/ListPage.js'
 import NoAccessPage from './components/no-access-pages/NoAccessPage.js';
 import StoryPage from './components/story-page/StoryPage.js';
-import ReadingPage from './components/reading-page/flip-book/FlipBook.js'
+import ReadingPage from './components/reading-page/ReadingPage.js'
 import Registration from './components/sign-in/Registration.js';
 import SignUpInfo from './components/sign-up-info/SignUpInfo.js';
 import Chat from './components/chat-app/Chat.js';
