@@ -14,6 +14,7 @@ import writersRouter from "./routers/writers.js"
 import roomRouter from "./routers/room.js"
 import repliesRouter from "./routers/replies.js"
 import invitationRouter from "./routers/invitation.js"
+import postRouter from "./routers/post.js"
 import cors from "cors"
 import cookieParser from "cookie-parser"
 
@@ -52,6 +53,7 @@ app.use(writersRouter)
 app.use(roomRouter)
 app.use(repliesRouter)
 app.use(invitationRouter)
+app.use(postRouter)
 
 server.listen(port, '0.0.0.0', () => {
     console.log('run on port ' + port)
